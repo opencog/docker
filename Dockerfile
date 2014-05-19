@@ -2,6 +2,7 @@
 # docker build -t $USER/ros-hydro .
 # xhost +
 # docker run -v /tmp/.X11-unix/X0:/tmp/.X11-unix/X0 -i -t $USER/ros-hydro /bin/bash
+# xhost + is stupid and dangerous, so please run 'xhost -' after launching apps 
 # docker export $USER/ros-hydro | gzip -c > /media/lenovo_mandeep/ros-hydro.tgz
 # docker import $USER/ros-hydro < /media/lenovo_mandeep/ros-hydro.tgz
 # echo 'DOCKER_OPTS="-H tcp://0.0.0.0:4243 -H unix:///var/run/docker.sock"' \
