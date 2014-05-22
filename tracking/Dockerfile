@@ -1,7 +1,7 @@
-# docker build -t $USER/ros-hydro-deps .
+# docker build -t $USER/ros-hydro-tracking .
 # xhost +
-# docker run -v /tmp/.X11-unix/X0:/tmp/.X11-unix/X0 -i -t $USER/ros-hydro-deps /bin/bash
-# docker run -t -i --rm --privileged -v /tmp/.X11-unix/X0:/tmp/.X11-unix/X0 -v /home/mandeep/sharedFolder:/tmp/shared -v /dev/video0:/dev/video0 mandeep/ros-hydro-deps /bin/bash
+# docker run -v /tmp/.X11-unix/X0:/tmp/.X11-unix/X0 -i -t $USER/ros-hydro-tracking /bin/bash
+# docker run -t -i --rm --privileged -v /tmp/.X11-unix/X0:/tmp/.X11-unix/X0 -v /home/mandeep/sharedFolder:/tmp/shared -v /dev/video0:/dev/video0 mandeep/ros-hydro-tracking /bin/bash
 
 FROM opencog/ros-hydro-deps
 MAINTAINER Mandeep Singh Bhatia "mandeep.singh.bhatia@gmail.com"
