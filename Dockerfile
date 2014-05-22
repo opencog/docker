@@ -12,18 +12,19 @@
 FROM ubuntu:12.04
 MAINTAINER Mandeep Singh Bhatia "mandeep.singh.bhatia@gmail.com"
 
-RUN echo "deb http://packages.ros.org/ros/ubuntu precise main" > /etc/apt/sources.list.d/ros-latest.list && \
-	apt-get -y update && \
-    apt-get -y install python-software-properties wget byobu
-RUN wget http://packages.ros.org/ros.key -O - | apt-key add - && \
-    apt-get -y update 
+RUN apt-get -y update
+RUN apt-get -y install python-software-properties wget screen
+RUN wget http://packages.ros.org/ros.key -O - | sudo apt-key add -
+RUN echo "deb http://packages.ros.org/ros/ubuntu precise main" > /etc/apt/sources.list.d/ros-latest.list
+RUN apt-get -y update
 RUN apt-get -y install ros-hydro-ros-base ros-hydro-rqt-common-plugins
 RUN apt-get -y install ros-hydro-robot ros-hydro-viz
 RUN apt-get -y install ros-hydro-mobile ros-hydro-perception ros-hydro-simulators
+# camorama for camera and device node testing
 RUN apt-get -y install camorama
 
 RUN rosdep init
 RUN rosdep update
 RUN echo "source /opt/ros/hydro/setup.bash" >> ~/.bashrc
-ENV DISPLAY "0:0"
+ENV DISPLAY 0:0
 CMD /bin/bash
