@@ -20,8 +20,6 @@ RUN apt-get -y update
 RUN apt-get -y install ros-hydro-ros-base ros-hydro-rqt-common-plugins
 RUN apt-get -y install ros-hydro-robot ros-hydro-viz
 RUN apt-get -y install ros-hydro-mobile ros-hydro-perception ros-hydro-simulators
-# camorama for camera and device node testing
-RUN apt-get -y install camorama
 
 RUN rosdep init
 RUN rosdep update
