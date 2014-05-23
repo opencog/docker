@@ -6,7 +6,7 @@
 FROM opencog/ros-hydro-deps
 MAINTAINER Mandeep Singh Bhatia "mandeep.singh.bhatia@gmail.com"
 
-RUN	apt-get -y update
+RUN apt-get -y update
 RUN apt-get -y install camorama geany
 
 CMD /bin/bash
