@@ -1,9 +1,9 @@
-# docker build -t $USER/ros-hydro-dev .
+# docker build -t $USER/ros-indigo-dev .
 # xhost +
-# docker run -v /tmp/.X11-unix/X0:/tmp/.X11-unix/X0 -i -t $USER/ros-hydro-dev /bin/bash
-# docker run -t -i --rm --privileged -v /tmp/.X11-unix/X0:/tmp/.X11-unix/X0 -v /home/mandeep/sharedFolder:/tmp/shared -v /dev/video0:/dev/video0 mandeep/ros-hydro-dev /bin/bash
+# docker run -v /tmp/.X11-unix/X0:/tmp/.X11-unix/X0 -i -t $USER/ros-indigo-dev /bin/bash
+# docker run -t -i --rm --privileged -v /tmp/.X11-unix/X0:/tmp/.X11-unix/X0 -v /home/mandeep/sharedFolder:/tmp/shared -v /dev/video0:/dev/video0 mandeep/ros-indigo-dev /bin/bash
 
-FROM opencog/ros-hydro-deps
+FROM opencog/ros-indigo-deps
 MAINTAINER Mandeep Singh Bhatia "mandeep.singh.bhatia@gmail.com"
 
 RUN apt-get -y update
