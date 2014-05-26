@@ -9,6 +9,7 @@ MAINTAINER Mandeep Singh Bhatia "mandeep.singh.bhatia@gmail.com"
 RUN apt-get -y update
 RUN apt-get -y install camorama geany
 RUN apt-get -y install cmake-curses-gui git mercurial subversion
-RUN apt-get -y install ros-hydro-camera-umd
+RUN apt-get -y install ros-hydro-gscam
+RUN apt-get -y install less meld vim-gnome
 
 CMD /bin/bash
