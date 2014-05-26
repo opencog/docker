@@ -14,7 +14,7 @@ MAINTAINER Mandeep Singh Bhatia "mandeep.singh.bhatia@gmail.com"
 
 RUN apt-get -y update
 RUN apt-get -y install python-software-properties wget screen
-RUN wget http://packages.ros.org/ros.key -O - | sudo apt-key add -
+RUN wget http://packages.ros.org/ros.key -O - | apt-key add -
 RUN echo "deb http://packages.ros.org/ros/ubuntu precise main" > /etc/apt/sources.list.d/ros-latest.list
 RUN apt-get -y update
 RUN apt-get -y install ros-hydro-ros-base ros-hydro-rqt-common-plugins
