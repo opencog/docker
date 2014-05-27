@@ -9,13 +9,20 @@ MAINTAINER Mandeep Singh Bhatia "mandeep.singh.bhatia@gmail.com"
 
 RUN apt-get -y update
 RUN apt-get -y install g++ python libusb-1.0-0-dev freeglut3-dev openjdk-7-jdk
+RUN apt-get -y install unzip
 
 ADD https://github.com/OpenNI/OpenNI/archive/master.zip /OpenNI.zip
 RUN unzip /OpenNI.zip
 
-WORKDIR /OpenNI-master/Platform/Linux/CreateRedist
-RUN RedistMaker
+#RedistMaker needs doxygen or it fails. dum dumb dumb dumb.
+#WORKDIR /OpenNI-master/Platform/Linux/CreateRedist
+#RUN ./RedistMaker
 
-WORKDIR /OpenNI-master/Platform/Linux/Redist
-RUN install.sh
+#WORKDIR /OpenNI-master/Platform/Linux/Redist
+#RUN ./install.sh
+
+WORKDIR /OpenNI-master/Platform/Linux/Build
+RUN make
+RUN make install
+
 CMD /bin/bash
