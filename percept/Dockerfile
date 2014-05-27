@@ -13,8 +13,6 @@ MAINTAINER David Hart "dhart@opencog.org"
 ADD https://github.com/hansonrobotics/perception_synthesizer/archive/master.zip /perception_synthesizer.zip
 RUN unzip /perception_synthesizer.zip
 
-WORKDIR /perception_synthesizer-master
-RUN mkdir build 
 WORKDIR /perception_synthesizer-master/build
 RUN cmake ..
 RUN make
