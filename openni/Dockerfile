@@ -6,6 +6,7 @@
 
 FROM opencog/ros-hydro-dev
 MAINTAINER Mandeep Singh Bhatia "mandeep.singh.bhatia@gmail.com"
+MAINTAINER David Hart "dhart@opencog.org"
 
 RUN apt-get -y update
 RUN apt-get -y install g++ python libusb-1.0-0-dev freeglut3-dev openjdk-7-jdk
