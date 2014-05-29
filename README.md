@@ -3,5 +3,7 @@ opencog-ros
 
     ├─ros-hydro-deps
       ├─ros-hydro-dev
-        ├─ros-hydro-tracking
+        ├─ros-hydro-tracking (depreciated)
+        ├─ros-hydro-openni
+          ├─ros-hydro-percept
 
