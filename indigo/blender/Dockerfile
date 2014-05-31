@@ -1,7 +1,6 @@
 # docker build -t $USER/ros-indigo-blender .
 # xhost +
-# docker run --rm --privileged -i -v /tmp/.X11-unix/X0:/tmp/.X11-unix/X0 -v /dev/dri:/dev/dri -v /dev/shm:/dev/shm -e DISPLAY=:0.0 -t dhart/ros-indigo-blender /usr/bin/blender
-# docker run --rm --privileged -i -v /tmp/.X11-unix/X0:/tmp/.X11-unix/X0 -v /dev/dri:/dev/dri -v /dev/shm:/dev/shm -e DISPLAY=:0.0 -t opencog/ros-indigo-blender 
+# docker run --rm --privileged -i -v /dev/ttyACM0:/dev/ttyACM0 -v /tmp/.X11-unix/X0:/tmp/.X11-unix/X0 -v /dev/dri:/dev/dri -v /dev/shm:/dev/shm -e DISPLAY=:0.0 -t opencog/ros-indigo-blender 
 
 FROM opencog/ros-indigo-dev
 MAINTAINER Mandeep Singh Bhatia "mandeep.singh.bhatia@gmail.com"
