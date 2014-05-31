@@ -44,7 +44,8 @@ RUN git clone https://github.com/yantrabuddhi/ros_faceshift
 
 WORKDIR /catkin_ws
 RUN bash -l -c "/usr/bin/python3 /opt/ros/indigo/bin/catkin_make"
-RUN cp /catkin_ws/devel/setup.bash /etc/profile.d/catkin.sh
+#RUN cp /catkin_ws/devel/setup.bash /etc/profile.d/catkin.sh
 
 WORKDIR /catkin_ws/src/robo_blender/src
 CMD /bin/bash -l -c "cd /catkin_ws/src/robo_blender/src && source /opt/ros/indigo/setup.sh && source /catkin_ws/devel/setup.bash && roscore & (sleep 2 && source /catkin_ws/devel/setup.bash && blender robo.blend) && /bin/bash"
+#CMD /bin/bash -l -c "source /.bashrc && cd /catkin_ws/src/robo_blender/src && tmux new-session -s ros-indigo-blender -d roscore && tmux attach-session -t ros-indigo-blender 'sleep 2 && blender robo.blend' && tmux attach-session -t ros-indigo-blender /bin/bash && tmux attach"
