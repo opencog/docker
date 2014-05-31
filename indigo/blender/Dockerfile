@@ -20,6 +20,7 @@ RUN /usr/bin/python3 /opt/ros/indigo/bin/catkin_init_workspace
 
 RUN git clone https://github.com/hansonrobotics/robo_blender
 RUN git clone https://github.com/yantrabuddhi/ros_pololu_servo
+RUN git clone https://github.com/yantrabuddhi/ros_nmpt_saliency
 
 WORKDIR /catkin_ws
 RUN bash -l -c "/usr/bin/python3 /opt/ros/indigo/bin/catkin_make"
