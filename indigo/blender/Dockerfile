@@ -1,7 +1,7 @@
 # docker build -t $USER/ros-indigo-blender .
 # xhost +
 # docker run --rm --privileged -i -v /tmp/.X11-unix/X0:/tmp/.X11-unix/X0 -v /dev/dri:/dev/dri -v /dev/shm:/dev/shm -e DISPLAY=:0.0 -t dhart/ros-indigo-blender /usr/bin/blender
-# docker run --rm --privileged -i -v /tmp/.X11-unix/X0:/tmp/.X11-unix/X0 -v /dev/dri:/dev/dri -v /dev/shm:/dev/shm -e DISPLAY=:0.0 -t dhart/ros-indigo-blender /bin/bash -l -c "/opt/ros/indigo/bin/roscore & (sleep 2 ; blender robo.blend)"
+# docker run --rm --privileged -i -v /tmp/.X11-unix/X0:/tmp/.X11-unix/X0 -v /dev/dri:/dev/dri -v /dev/shm:/dev/shm -e DISPLAY=:0.0 -t opencog/ros-indigo-blender 
 
 FROM opencog/ros-indigo-dev
 MAINTAINER Mandeep Singh Bhatia "mandeep.singh.bhatia@gmail.com"
@@ -29,4 +29,4 @@ RUN bash -l -c "/usr/bin/python3 /opt/ros/indigo/bin/catkin_make"
 RUN cp /catkin_ws/devel/setup.bash /etc/profile.d/catkin.sh
 
 WORKDIR /catkin_ws/src/robo_blender/src
-CMD "roscore & (sleep 2 ; blender robo.blend)"
+CMD /bin/bash -l -c "cd /catkin_ws/src/robo_blender/src && source /opt/ros/indigo/setup.sh && source /catkin_ws/devel/setup.bash && roscore & (sleep 2 && source /catkin_ws/devel/setup.bash && blender robo.blend) && /bin/bash"
