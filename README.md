@@ -1,6 +1,12 @@
 opencog-ros
 ===========
 
+Dockerfiles for Robot Operating System (ROS), integrated with Blender, Pololu,
+Nick's Machine Perception Saliency, and other add-ons, in preparation for
+integrating with OpenCog.
+
+Docker image structure:
+
     ├─ros-hydro-deps
       ├─ros-hydro-dev
         ├─ros-hydro-openni
@@ -9,4 +15,3 @@ opencog-ros
     ├─ros-indigo-deps
       ├─ros-indigo-dev
         ├─ros-indigo-blender
-

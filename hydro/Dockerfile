@@ -1,11 +1,11 @@
-# docker build -t $USER/ros-hydro-deps .
+# docker build -t opencog/ros-hydro-deps .
 # xhost +
-# docker run -v /tmp/.X11-unix/X0:/tmp/.X11-unix/X0 -i -t $USER/ros-hydro-deps /bin/bash
+# docker run -v /tmp/.X11-unix/X0:/tmp/.X11-unix/X0 -i -t opencog/ros-hydro-deps /bin/bash
 # docker run -t -i --rm --privileged -v /tmp/.X11-unix/X0:/tmp/.X11-unix/X0 -v /home/mandeep/sharedFolder:/tmp/shared -v /dev/video0:/dev/video0 mandeep/ros-hydro-deps /bin/bash
 # xhost + is stupid and dangerous, so please run 'xhost -' after launching apps 
 # camorama -d /dev/video0
-# docker export $USER/ros-hydro | gzip -c > /media/lenovo_mandeep/ros-hydro-deps.tgz
-# docker import $USER/ros-hydro < /media/lenovo_mandeep/ros-hydro.tgz
+# docker export opencog/ros-hydro | gzip -c > /media/lenovo_mandeep/ros-hydro-deps.tgz
+# docker import opencog/ros-hydro < /media/lenovo_mandeep/ros-hydro.tgz
 # echo 'DOCKER_OPTS="-H tcp://0.0.0.0:4243 -H unix:///var/run/docker.sock"' \
 # | sudo tee -a /etc/default/docker 
 

@@ -1,6 +1,6 @@
-# docker build -t $USER/ros-hydro-openni .
+# docker build -t opencog/ros-hydro-openni .
 # xhost +
-# docker run -v /tmp/.X11-unix/X0:/tmp/.X11-unix/X0 -i -t $USER/ros-hydro-openni /bin/bash
+# docker run -v /tmp/.X11-unix/X0:/tmp/.X11-unix/X0 -i -t opencog/ros-hydro-openni /bin/bash
 # docker run -t -i --rm --privileged -v /tmp/.X11-unix/X0:/tmp/.X11-unix/X0 -v /home/mandeep/sharedFolder:/tmp/shared -v /dev/video0:/dev/video0 mandeep/ros-hydro-openni /bin/bash
 # from https://github.com/OpenNI/OpenNI
 
