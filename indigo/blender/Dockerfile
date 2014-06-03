@@ -1,6 +1,7 @@
 # docker build -t opencog/ros-indigo-blender .
 # xhost +
 # docker run --rm --privileged -i -v /dev/ttyACM0:/dev/ttyACM0 -v /tmp/.X11-unix/X0:/tmp/.X11-unix/X0 -v /dev/dri:/dev/dri -v /dev/shm:/dev/shm -e DISPLAY=:0.0 -p 33433:33433/udp -t opencog/ros-indigo-blender 
+# Note: port 33433=faceshift, /dev/ttyACM0=pololu, /dev/dri=gpu, /dev/shm=gpu
 # to test: click Run Script button in Blender window.
 # to interact on the cli, exit Blender then:
 # killall roscore
