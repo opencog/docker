@@ -14,4 +14,5 @@ Docker image structure:
 
     ├─ros-indigo-deps
       ├─ros-indigo-dev
+        ├─ros-indigo-opencog
         ├─ros-indigo-blender
