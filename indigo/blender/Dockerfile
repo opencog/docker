@@ -18,7 +18,17 @@
 #
 # To Do:
 # tmux new-session -d bash
+# tmux bind-key R respawn-window
+# tmux set -g set-remain-on-exit on
+# tmux split-window -d -v -p 25 -t 0 bash
+# tmux split-window -d -v -p 25 -t 0 bash
+# tmux split-window -d -v -p 25 -t 0 bash
 # tmux attach
+# actual tmux commands to replace bash:
+# roscore
+# sleep 2 && blender robo.blend
+# see blender.txt on laptop...
+# see blender.txt on laptop...
 
 FROM opencog/ros-indigo-dev
 MAINTAINER Mandeep Singh Bhatia "mandeep.singh.bhatia@gmail.com"
