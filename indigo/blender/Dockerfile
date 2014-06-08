@@ -52,11 +52,25 @@ RUN git clone https://github.com/hansonrobotics/robo_blender
 RUN git clone https://github.com/yantrabuddhi/ros_pololu_servo
 RUN git clone https://github.com/yantrabuddhi/ros_nmpt_saliency
 RUN git clone https://github.com/yantrabuddhi/ros_faceshift
+RUN git clone https://github.com/yantrabuddhi/simple_face_tracker
 
 WORKDIR /catkin_ws
 RUN bash -l -c "/usr/bin/python3 /opt/ros/indigo/bin/catkin_make"
 #RUN cp /catkin_ws/devel/setup.bash /etc/profile.d/catkin.sh
 
 WORKDIR /catkin_ws/src/robo_blender/src
-CMD /bin/bash -l -c "cd /catkin_ws/src/robo_blender/src && source /opt/ros/indigo/setup.sh && source /catkin_ws/devel/setup.bash && roscore & (sleep 2 && source /catkin_ws/devel/setup.bash && blender robo.blend) && /bin/bash"
-#CMD /bin/bash -l -c "source /.bashrc && cd /catkin_ws/src/robo_blender/src && tmux new-session -s ros-indigo-blender -d roscore && tmux attach-session -t ros-indigo-blender 'sleep 2 && blender robo.blend' && tmux attach-session -t ros-indigo-blender /bin/bash && tmux attach"
+
+ENV STARTSCRIPT "\
+echo evaluating startup script... &&\
+source /catkin_ws/devel/setup.bash &&\
+tmux new-session -d roscore &&\
+tmux bind-key R respawn-window &&\
+tmux set -g set-remain-on-exit on &&\
+tmux split-window -d -v -p 25 -t 0 'sleep 2 && blender robo.blend' &&\
+tmux split-window -d -v -p 25 -t 0 'rosrun ros_pololu_servo ros_pololu_servo_node' &&\
+tmux split-window -d -v -p 25 -t 0 'rosrun ros_faceshift ros_faceshift_node.py' &&\
+tmux attach"
+# tmux split-window -d -v -p 25 -t 0 bash
+# tmux split-window -d -v -p 25 -t 0 bash
+
+CMD /bin/bash -l -c "eval $STARTSCRIPT"
