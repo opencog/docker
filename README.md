@@ -66,3 +66,24 @@ To run the demos, docker must be installed.  Instructions can be found
 here: https://docs.docker.com/installation/ubuntulinux/ .
 The *Giving non-root access* section on the page above explains how to
 avoid having to use `sudo` all the time.
+
+### Notes
+Dockerfiles are static. Some developers use macro expansion via GNU make 
+or other tools to make dockerfiles dynamic. For OpenCog's purposes, using
+dockerfile inclusion should be sufficient. The Dockerfile at the git root
+is self-contained and intended for simply running a cogserver in the most
+common configuration, while the dockerfiles here are designed to be built 
+in an additive way, all depending on the container tagged opencog-deps in
+the same directory as this README.
+
+OpenCog Docker image structure:
+
+    ├─opencog-deps
+      ├─opencog-build (in directory manualbuild; for a dev environment)
+      ├─opencog-buildslave
+      ├─opencog-distcc
+      ├─opencog-embodiment
+
+Using bind mounts is a hacky solution to passing the opencog source tree
+to each docker build. Run bindmounts.sh before running 'docker build' and
+bindumount.sh to clean up afterward.
