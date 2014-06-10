@@ -39,13 +39,17 @@ WORKDIR /catkin_ws/src/robo_blender/src
 ENV STARTSCRIPT "\
 echo evaluating startup script... &&\
 source /catkin_ws/devel/setup.bash &&\
-tmux new-session -d roscore &&\
-tmux bind-key R respawn-window &&\
+tmux new-session -d 'echo -e \"\e[1;34mroscore\e[0m\" ; roscore' &&\
 tmux set -g set-remain-on-exit on &&\
-tmux split-window -d -v -p 25 -t 0 'sleep 2 && rosrun ros_pololu_servo ros_pololu_servo_node' &&\
-tmux split-window -d -v -p 25 -t 0 'sleep 4 && rosrun ros_faceshift ros_faceshift_node.py' &&\
-tmux split-window -d -v -p 25 -t 0 'sleep 6 && blender robo.blend' &&\
-tmux split-window -d -v -p 25 -t 0 'sleep 6 && bash -l -i' &&\
+tmux set-option -g set-remain-on-exit on &&\
+tmux bind-key R respawn-window &&\
+tmux split-window -d -v -p 25 'echo -e \"\e[1;34mros_pololu_servo\e[0m\" ;\
+  rosrun ros_pololu_servo ros_pololu_servo_node' &&\
+tmux split-window -d -v -p 25 'echo -e \"\e[1;34mblender robo.blend\e[0m\" ;\
+  sleep 4 && blender robo.blend' &&\
+tmux split-window -d -v -p 25 'echo -e \"\e[1;34mbash shell\e[0m\" ;\
+  bash -l -i' &&\
+tmux select-layout even-vertical &&\
 tmux attach \
 "
 
