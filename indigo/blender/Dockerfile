@@ -17,7 +17,7 @@ RUN apt-get -y install blender
 RUN apt-get -y install python3-yaml python3-pip
 RUN pip3 install rospkg catkin_pkg
 
-RUN echo source /catkin_ws/devel/setup.bash >> /.bashrc && \
+RUN echo source /catkin_ws/devel/setup.bash >> /.bash_profile && \
     echo -e "\e[1;34m[$SELF_NAME] catkin devel setup\.bash sourced\e[0m"
 
 WORKDIR /catkin_ws/src
@@ -30,6 +30,7 @@ RUN git clone https://github.com/yantrabuddhi/ros_pololu_servo
 RUN git clone https://github.com/yantrabuddhi/ros_nmpt_saliency
 RUN git clone https://github.com/yantrabuddhi/ros_faceshift
 RUN git clone https://github.com/yantrabuddhi/simple_face_tracker
+RUN git clone https://github.com/OctoMap/octomap
 
 WORKDIR /catkin_ws
 RUN bash -l -c "/usr/bin/python3 /opt/ros/indigo/bin/catkin_make"
