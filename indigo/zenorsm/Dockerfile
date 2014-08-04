@@ -1,9 +1,7 @@
-# docker build -t opencog/ros-indigo-blender .
+# docker build -t opencog/ros-indigo-zenorsm .
 # xhost +
-# docker run --rm --privileged -i -v /dev/ttyACM0:/dev/ttyACM0 -v /tmp/.X11-unix/X0:/tmp/.X11-unix/X0 -v /dev/dri:/dev/dri -v /dev/shm:/dev/shm -e DISPLAY=:0.0 -p 33433:33433/udp -t opencog/ros-indigo-blender 
+# docker run --rm --privileged -i -v /dev/ttyACM0:/dev/ttyACM0 -v /tmp/.X11-unix/X0:/tmp/.X11-unix/X0 -v /dev/dri:/dev/dri -v /dev/shm:/dev/shm -e DISPLAY=:0.0 -p 33433:33433/udp -t opencog/ros-indigo-zenorsm 
 # Note: port 33433=faceshift, /dev/ttyACM0=pololu, /dev/dri=gpu, /dev/shm=gpu
-### Blender: click Run Script
-### Blender: right-click & drag target (blue cube)
 # ToDo: add MORSE robot simulator
 #       replace faceshift with OpenCV FaceRecognizer, etc.
 
@@ -31,11 +29,25 @@ RUN git clone https://github.com/yantrabuddhi/ros_nmpt_saliency
 RUN git clone https://github.com/yantrabuddhi/ros_faceshift
 RUN git clone https://github.com/yantrabuddhi/simple_face_tracker
 RUN git clone https://github.com/OctoMap/octomap
+RUN git clone https://github.com/Alex-van-der-Peet/ITFOpenEar
+RUN git clone https://github.com/Alex-van-der-Peet/ITFTalk
+RUN git clone https://github.com/Alex-van-der-Peet/ITFListen
 
 WORKDIR /catkin_ws
 RUN bash -l -c "/usr/bin/python3 /opt/ros/indigo/bin/catkin_make"
 
 WORKDIR /catkin_ws/src/robo_blender/src
+
+WORKDIR ~
+RUN git clone https://github.com/Alex-van-der-Peet/ros_open_ear
+WORKDIR ~/ros_open_ear
+RUN apt-get -y install autoconf libtool g++
+# Double run below is on purpose
+RUN autogen.sh
+RUN autogen.sh
+make
+make install
+
 
 ENV STARTSCRIPT "\
 echo evaluating startup script... &&\
