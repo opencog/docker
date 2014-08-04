@@ -18,19 +18,26 @@ RUN pip3 install rospkg catkin_pkg
 RUN echo source /catkin_ws/devel/setup.bash >> /.bash_profile && \
     echo -e "\e[1;34m[$SELF_NAME] catkin devel setup\.bash sourced\e[0m"
 
-RUN git clone https://github.com/Alex-van-der-Peet/ros_open_ear
-WORKDIR ros_open_ear
+# Install openEAR prerequisites
 RUN apt-get -y install autoconf libtool g++ libportaudio2
 
-WORKDIR ros_open_ear/thirdparty
-RUN tar -xvf portaudio.tgz
+# Download ROS-enabled version of openEAR
+WORKDIR /
+# Line below is needed otherwise it keeps saying ros_open_ear exists
+# and is not empty
+RUN rm -rf /ros_open_ear
+RUN git clone https://github.com/Alex-van-der-Peet/ros_open_ear
 
-WORKDIR ros_open_ear/thirdparty/portaudio
+# Unpack, make and install portaudio (openEAR prerequisite)
+WORKDIR /ros_open_ear/thirdparty
+RUN tar -xvf portaudio.tgz
+WORKDIR /ros_open_ear/thirdparty/portaudio
 RUN ./configure
 RUN make
 RUN make install
 
-WORKDIR ros_open_ear
+# Configure, build and install the modified version of openEAR
+WORKDIR /ros_open_ear
 # Double run below is on purpose
 RUN ./autogen.sh
 RUN ./autogen.sh
