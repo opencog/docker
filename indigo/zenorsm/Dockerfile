@@ -28,7 +28,7 @@ RUN git clone https://github.com/yantrabuddhi/ros_pololu_servo
 RUN git clone https://github.com/yantrabuddhi/ros_nmpt_saliency
 RUN git clone https://github.com/yantrabuddhi/ros_faceshift
 RUN git clone https://github.com/yantrabuddhi/simple_face_tracker
-RUN git clone https://github.com/OctoMap/octomap
+#RUN git clone https://github.com/OctoMap/octomap
 RUN git clone https://github.com/Alex-van-der-Peet/ITFOpenEar
 RUN git clone https://github.com/Alex-van-der-Peet/ITFTalk
 RUN git clone https://github.com/Alex-van-der-Peet/ITFListen
