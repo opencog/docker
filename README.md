@@ -16,3 +16,7 @@ Docker image structure:
       ├─ros-indigo-dev
         ├─ros-indigo-opencog
         ├─ros-indigo-blender
+
+Images available at https://index.docker.io/u/opencog 
+
+Pull using, e.g., 'docker pull ros-indigo-opencog'
