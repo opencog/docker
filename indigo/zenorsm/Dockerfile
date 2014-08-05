@@ -39,9 +39,12 @@ RUN make install
 # Configure, build and install the modified version of openEAR
 WORKDIR /ros_open_ear
 # Double run below is on purpose
+ENV C_INCLUDE_PATH /opt/ros/indigo/include/ros:/opt/ros/indigo/include
 RUN ./autogen.sh
 RUN ./autogen.sh
 RUN ./configure
+RUN apt-get install libc6-dev build-essential
+RUN echo "C_INCLUDEPATH=$C_INCLUDE_PATH"
 RUN make
 RUN make install
 
