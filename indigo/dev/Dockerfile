@@ -7,6 +7,20 @@ FROM opencog/ros-indigo-deps
 MAINTAINER Mandeep Singh Bhatia "mandeep.singh.bhatia@gmail.com"
 MAINTAINER David Hart "dhart@opencog.org"
 
+# Fake a fuse install; openjdk pulls this in 
+# https://github.com/dotcloud/docker/issues/514
+# https://gist.github.com/henrik-muehe/6155333
+RUN mkdir -p /tmp/fuse-hack && cd /tmp/fuse-hack && \
+    apt-get install libfuse2 && \
+    apt-get download fuse && \
+    dpkg-deb -x fuse_* . && \
+    dpkg-deb -e fuse_* && \
+    rm fuse_*.deb && \
+    echo -en '#!/bin/bash\nexit 0\n' > DEBIAN/postinst && \
+    dpkg-deb -b . /fuse.deb && \
+    dpkg -i /fuse.deb && \
+    rm -rf /tmp/fuse-hack
+
 RUN apt-get -y update
 RUN apt-get -y install camorama geany
 RUN apt-get -y install cmake-curses-gui git mercurial subversion
