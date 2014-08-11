@@ -21,32 +21,38 @@ RUN echo source /catkin_ws/devel/setup.bash >> /.bash_profile && \
 # Install openEAR prerequisites
 RUN apt-get -y install autoconf libtool g++ libportaudio2
 
+# Install ITFTalk prerequisites
+RUN apt-get -y install mplayer python3-pycurl libcurl3
+
+# Install ITFListen prerequisites
+RUN apt-get -y install sox
+
 # Download ROS-enabled version of openEAR
-WORKDIR /
+# WORKDIR /
 # Line below is needed otherwise it keeps saying ros_open_ear exists
 # and is not empty
-RUN rm -rf /ros_open_ear
-RUN git clone https://github.com/Alex-van-der-Peet/ros_open_ear
+# RUN rm -rf /ros_open_ear
+# RUN git clone https://github.com/Alex-van-der-Peet/ros_open_ear
 
 # Unpack, make and install portaudio (openEAR prerequisite)
-WORKDIR /ros_open_ear/thirdparty
-RUN tar -xvf portaudio.tgz
-WORKDIR /ros_open_ear/thirdparty/portaudio
-RUN ./configure
-RUN make
-RUN make install
+# WORKDIR /ros_open_ear/thirdparty
+# RUN tar -xvf portaudio.tgz
+# WORKDIR /ros_open_ear/thirdparty/portaudio
+# RUN ./configure
+# RUN make
+# RUN make install
 
 # Configure, build and install the modified version of openEAR
-WORKDIR /ros_open_ear
+# WORKDIR /ros_open_ear
 # Double run below is on purpose
-ENV C_INCLUDE_PATH /opt/ros/indigo/include/ros:/opt/ros/indigo/include
-RUN ./autogen.sh
-RUN ./autogen.sh
-RUN ./configure
-RUN apt-get install libc6-dev build-essential
-RUN echo "C_INCLUDEPATH=$C_INCLUDE_PATH"
-RUN make
-RUN make install
+# ENV C_INCLUDE_PATH /opt/ros/indigo/include/ros:/opt/ros/indigo/include
+# RUN ./autogen.sh
+# RUN ./autogen.sh
+# RUN ./configure
+# RUN apt-get install libc6-dev build-essential
+# RUN echo "C_INCLUDEPATH=$C_INCLUDE_PATH"
+# RUN make
+# RUN make install
 
 WORKDIR /catkin_ws/src
 RUN cp /opt/ros/indigo/setup.sh /etc/profile.d/ros_indigo.sh
@@ -55,11 +61,14 @@ RUN /usr/bin/python3 /opt/ros/indigo/bin/catkin_init_workspace
 
 RUN git clone https://github.com/hansonrobotics/robo_blender
 RUN git clone https://github.com/yantrabuddhi/ros_pololu_servo
-RUN git clone https://github.com/yantrabuddhi/ros_nmpt_saliency
+# RUN git clone https://github.com/yantrabuddhi/ros_nmpt_saliency
+# Mandeep's saliency tracker above doesn't work, so I'm using the one I made
+# which is stored in Jamie's repo - Alex
+RUN git clone https://github.com/jdddog/ros_nmpt_saliency
 RUN git clone https://github.com/yantrabuddhi/ros_faceshift
 RUN git clone https://github.com/yantrabuddhi/simple_face_tracker
 #RUN git clone https://github.com/OctoMap/octomap
-RUN git clone https://github.com/Alex-van-der-Peet/ITFOpenEar
+#RUN git clone https://github.com/Alex-van-der-Peet/ITFOpenEar
 RUN git clone https://github.com/Alex-van-der-Peet/ITFTalk
 RUN git clone https://github.com/Alex-van-der-Peet/ITFListen
 
