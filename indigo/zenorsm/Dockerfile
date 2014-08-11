@@ -18,14 +18,18 @@ RUN pip3 install rospkg catkin_pkg
 RUN echo source /catkin_ws/devel/setup.bash >> /.bash_profile && \
     echo -e "\e[1;34m[$SELF_NAME] catkin devel setup\.bash sourced\e[0m"
 
+# Install ITFTalk and prerequisites
+WORKDIR /catkin_ws/src
+RUN apt-get -y install mplayer python-pycurl libcurl3
+RUN git clone https://github.com/Alex-van-der-Peet/ITFTalk
+
+# Install ITFListen and prerequisites
+WORKDIR /catkin_ws/src
+RUN apt-get -y install sox python-simplejson
+RUN git clone https://github.com/Alex-van-der-Peet/ITFListen
+
 # Install openEAR prerequisites
 RUN apt-get -y install autoconf libtool g++ libportaudio2
-
-# Install ITFTalk prerequisites
-RUN apt-get -y install mplayer python3-pycurl libcurl3
-
-# Install ITFListen prerequisites
-RUN apt-get -y install sox
 
 # Download ROS-enabled version of openEAR
 # WORKDIR /
@@ -69,8 +73,6 @@ RUN git clone https://github.com/yantrabuddhi/ros_faceshift
 RUN git clone https://github.com/yantrabuddhi/simple_face_tracker
 #RUN git clone https://github.com/OctoMap/octomap
 #RUN git clone https://github.com/Alex-van-der-Peet/ITFOpenEar
-RUN git clone https://github.com/Alex-van-der-Peet/ITFTalk
-RUN git clone https://github.com/Alex-van-der-Peet/ITFListen
 
 WORKDIR /catkin_ws
 RUN bash -l -c "/usr/bin/python3 /opt/ros/indigo/bin/catkin_make"
@@ -90,6 +92,10 @@ tmux split-window -d -v -p 25 'echo -e \"\e[1;34mblender robo.blend\e[0m\" ;\
   sleep 4 && blender robo.blend' &&\
 tmux split-window -d -v -p 25 'echo -e \"\e[1;34mbash shell\e[0m\" ;\
   bash -l -i' &&\
+tmux split-window -d -v -p 25 'echo -e \"\e[1;34mros_itf_talk\e[0m\" ;\
+  rosrun itf_talk itf_talk.py' &&\
+tmux split-window -d -v -p 25 'echo -e \"\e[1;34mros_itf_listen\e[0m\" ;\
+  rosrun itf_listen itf_listen.py' &&\
 tmux select-layout even-vertical &&\
 tmux attach \
 "
