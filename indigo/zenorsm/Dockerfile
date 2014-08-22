@@ -28,6 +28,15 @@ WORKDIR /catkin_ws/src
 RUN apt-get -y install sox python-simplejson
 RUN git clone https://github.com/Alex-van-der-Peet/ITFListen
 
+# Install ITFParrot to test ITFListen -> ITFTalk
+WORKDIR /catkin_ws/src
+RUN git clone https://github.com/Alex-van-der-Peet/ITFParrot
+
+# I figured it'd be undesirable to auto-start the aprrot, so
+# to Run ITFParrot, go to /catkin_ws and then run:
+# source devel/setup.bash
+# rosrun itf_parrot itf_parrot.py
+
 # Install openEAR prerequisites
 RUN apt-get -y install autoconf libtool g++ libportaudio2
 
