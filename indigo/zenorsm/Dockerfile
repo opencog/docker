@@ -21,6 +21,8 @@ RUN echo source /catkin_ws/devel/setup.bash >> /.bash_profile && \
 # Install ITFTalk and prerequisites
 WORKDIR /catkin_ws/src
 RUN apt-get -y install mplayer python-pycurl libcurl3
+RUN apt-get install libavbin-dev libavbin0
+
 RUN git clone https://github.com/Alex-van-der-Peet/ITFTalk
 
 # Install ITFListen and prerequisites
