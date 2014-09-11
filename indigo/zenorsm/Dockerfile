@@ -21,16 +21,18 @@ RUN echo source /catkin_ws/devel/setup.bash >> /.bash_profile && \
 # Install ITFTalk and prerequisites
 WORKDIR /catkin_ws/src
 RUN apt-get -y install mplayer python-pycurl libcurl3
-RUN git clone https://github.com/Alex-van-der-Peet/ITFTalk
+RUN apt-get install libavbin-dev libavbin0
+
+RUN git clone https://github.com/geni-lab/ITFTalk
 
 # Install ITFListen and prerequisites
 WORKDIR /catkin_ws/src
 RUN apt-get -y install sox python-simplejson
-RUN git clone https://github.com/Alex-van-der-Peet/ITFListen
+RUN git clone https://github.com/geni-lab/ITFListen
 
 # Install ITFParrot to test ITFListen -> ITFTalk
 WORKDIR /catkin_ws/src
-RUN git clone https://github.com/Alex-van-der-Peet/ITFParrot
+RUN git clone https://github.com/geni-lab/ITFParrot
 
 # I figured it'd be undesirable to auto-start the aprrot, so
 # to Run ITFParrot, go to /catkin_ws and then run:
