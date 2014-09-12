@@ -124,6 +124,8 @@ WORKDIR /catkin_ws
 
 WORKDIR /catkin_ws
 
+RUN apt-get -y install ros-hydro-cv-camera
+
 ENV STARTSCRIPT "\
 echo evaluating startup script... &&\
 source /catkin_ws/devel/setup.bash &&\
