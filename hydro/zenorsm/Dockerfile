@@ -61,7 +61,7 @@ RUN apt-get -y install autoconf libtool g++ libportaudio2
 # Configure, build and install the modified version of openEAR
 # WORKDIR /ros_open_ear
 # Double run below is on purpose
-# ENV C_INCLUDE_PATH /opt/ros/hydro/include/ros:/opt/ros/hydro/include
+#### ENV C_INCLUDE_PATH /opt/ros/hydro/include/ros:/opt/ros/hydro/include
 # RUN ./autogen.sh
 # RUN ./autogen.sh
 # RUN ./configure
