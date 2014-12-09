@@ -32,6 +32,10 @@ RUN apt-get -y install ros-indigo-ros-base
 RUN apt-get -y install ros-indigo-rqt-common-plugins
 RUN apt-get -y install ros-indigo-robot ros-indigo-viz
 #
+# Most robot bringup will require git-cloning the working repos.
+# Need byobu+tmux for ROS terminal control.
+RUN apt-get -y install git byobu
+#
 # Why do we think we need these?
 # RUN apt-get -y install ros-indigo-bfl ros-indigo-gmapping ros-indigo-laser-pipeline 
 # RUN apt-get -y install ros-indigo-perception-pcl

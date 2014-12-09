@@ -24,6 +24,6 @@ RUN mkdir -p /tmp/fuse-hack && cd /tmp/fuse-hack && \
 RUN apt-get -y update
 RUN apt-get -y install camorama geany
 RUN apt-get -y install cmake-curses-gui git mercurial subversion
-RUN apt-get -y install less meld vim-gnome git tmux
+RUN apt-get -y install less meld vim-gnome
 
 CMD /bin/bash
