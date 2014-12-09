@@ -6,7 +6,7 @@ The container holds only the base packages needed for running blender
 and ROS together; no actual ROS nodes are started, no blender animations
 are run.
 
-* Testing
+## Testing
 To verify that blender works, try this:
 ```
 # Allow the docker container to access the local display
