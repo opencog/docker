@@ -9,8 +9,21 @@ are run.
 * Testing
 To verify that blender works, try this:
 ```
+# Allow the docker container to access the local display
+xhost +
+
+# Run the docker containaer
 docker run --rm --privileged -i -v /tmp/.X11-unix/X0:/tmp/.X11-unix/X0 \
   -v /dev/dri:/dev/dri -v /dev/shm:/dev/shm -e DISPLAY=:0.0 \
   -t opencog/ros-indigo-blender 
+
+# Within the docker container, run blender
+blender
+
+# Exit the docker container
+exit
+
+# Disable excessively permissive X11 connection permissions
+xhost -
 ```
 

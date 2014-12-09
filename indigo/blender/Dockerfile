@@ -23,6 +23,11 @@ MAINTAINER Linas Vepstas "linasvepstas@gmail.com"
 RUN apt-get -y update
 RUN apt-get -y install blender
 
+# Install x11-utils to get xdpyinfo, for X11 display debugging
+# mesa-utils provides glxinfo, handy for understanding the 3D support.
+RUN apt-get -y install x11-utils
+RUN apt-get -y install mesa-utils
+
 RUN apt-get -y install python3-yaml python3-pip
 RUN pip3 install rospkg catkin_pkg
 
