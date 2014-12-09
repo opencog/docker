@@ -14,8 +14,9 @@ Docker image structure:
 
     ├─ros-indigo-deps
       ├─ros-indigo-dev
-        ├─ros-indigo-opencog
         ├─ros-indigo-blender
+        ├─ros-indigo-einstein
+        ├─ros-indigo-opencog
         ├─ros-indigo-zenorsm
 
 Images available at https://index.docker.io/u/opencog 

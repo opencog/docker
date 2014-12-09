@@ -1,5 +1,5 @@
-ros-indigo-blender
-==================
+ros-indigo-einstein
+===================
 
 An integrated development container for teleoperating Hanson Robotics' small 
 Einstein head. This container was demo'd at ROS Kong 2014 by David Hanson.
