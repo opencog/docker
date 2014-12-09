@@ -12,9 +12,9 @@ Docker image structure:
         ├─ros-hydro-openni
           ├─ros-hydro-percept
 
-    ├─ros-indigo-deps
+    ├─ros-indigo-base
+      ├─ros-indigo-blender
       ├─ros-indigo-dev
-        ├─ros-indigo-blender
         ├─ros-indigo-einstein
         ├─ros-indigo-opencog
         ├─ros-indigo-zenorsm
