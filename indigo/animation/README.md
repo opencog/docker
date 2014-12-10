@@ -11,9 +11,13 @@ the 'demo-hints.txt' file in this directory for the demo instructions.
 
 Run this image by saying:
 ```
+xhost +
 sudo docker run --rm --privileged -i \
    -v /tmp/.X11-unix/X0:/tmp/.X11-unix/X0 \
    -v /dev/dri:/dev/dri -v /dev/shm:/dev/shm \
    -e DISPLAY=:0.0 -t opencog/ros-indigo-animation
+
+# When done:
+xhost -
 ```
 
