@@ -1,9 +1,14 @@
 #!/bin/bash
+#
+# ROS + blender launch script for the Hanson Robotics animation demo
+# This shell script is automatically started within the docker container.
+# It needs to run in the catkin_ws directory where the various ROS nodes
+# and bleender models were installed. It assumes that catkin_make was
+# already run.
 
 source devel/setup.sh
 echo "Starting... this will take 15-20 seconds..."
 byobu new-session -d -n 'roscore' 'roscore; $SHELL'
-# byobu new-window -n 'blender' 'cd /catkin_ws/src/robo_blender/src && blender robo.blend --enable-autoexec --python  startup.py; $SHELL'
 sleep 2;
 byobu new-window -n 'blender' 'cd /catkin_ws/src/robo_blender/src && blender dmitry-mesh.anim_test.blend --enable-autoexec --python startup.py; $SHELL'
 sleep 6;

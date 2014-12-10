@@ -44,6 +44,6 @@ different robots to be brought up and demoed.
 
 ### Installation
 To run the demos, docker must be installed.  Instructions can be found
-here: https://docs.docker.com/installation/ubuntulinux/ 
+here: https://docs.docker.com/installation/ubuntulinux/ .
 The *Giving non-root access* section on the page above explains how to
 avoid having to use `sudo` all the time.
