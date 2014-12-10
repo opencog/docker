@@ -1,0 +1,22 @@
+# To use this head, try doing these things:
+#
+# Obtain the list of supported animations. The result should show:
+# actions: ['angry-1', 'sad-1', 'happy-1', 'surprised-1']
+rostopic echo -n 1 /animations_list
+
+# Perform one of the supported animations
+rostopic pub --once /cmd_animations std_msgs/String play:sad-1
+
+# Verify that tracking output is sent to the PAU motors
+rostopic echo /dmitry/cmd_eyes_pau
+
+# Pause the animation
+rostopic pub --once /cmd_animations std_msgs/String pause
+
+# Restart the animation
+rostopic pub --once /cmd_animations std_msgs/String play
+
+# Halt the animation
+rostopic pub --once /cmd_animations std_msgs/String stop
+
+# View this help text again, say 'cat /catkin_ws/demo-hints.txt'

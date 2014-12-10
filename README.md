@@ -13,6 +13,7 @@ Docker image structure:
 
     ├─ros-indigo-base
       ├─ros-indigo-blender
+        ├─ros-indigo-animation
       ├─ros-indigo-dev
         ├─ros-indigo-einstein
         ├─ros-indigo-opencog
@@ -36,3 +37,5 @@ different robots to be brought up and demoed.
 * ros-indigo-dev provides additional development packages, allowing
    developers to build and test inside of docker containers.
 
+* ros-indigo-blender provides a basic demo of using ros with blender
+   to control facial expression animations.
