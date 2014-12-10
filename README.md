@@ -37,5 +37,13 @@ different robots to be brought up and demoed.
 * ros-indigo-dev provides additional development packages, allowing
    developers to build and test inside of docker containers.
 
-* ros-indigo-blender provides a basic demo of using ros with blender
-   to control facial expression animations.
+* ros-indigo-animation provides a basic demo of using ros with blender
+   to control facial expression animations.  See the README in the
+   indigo/animation directory for more details.
+
+
+### Installation
+To run the demos, docker must be installed.  Instructions can be found
+here: https://docs.docker.com/installation/ubuntulinux/ 
+The *Giving non-root access* section on the page above explains how to
+avoid having to use `sudo` all the time.
