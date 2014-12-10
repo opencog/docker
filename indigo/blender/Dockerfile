@@ -31,7 +31,8 @@ RUN apt-get -y install mesa-utils
 RUN apt-get -y install python3-yaml python3-pip
 RUN pip3 install rospkg catkin_pkg
 
-RUN echo source /catkin_ws/devel/setup.bash >> /.bash_profile && \
+# The user is root; so ~/.bash_profile is /root/.bash_profile
+RUN echo source /catkin_ws/devel/setup.bash >> ~/.bash_profile && \
     echo -e "\e[1;34m[$SELF_NAME] catkin devel setup\.bash sourced\e[0m"
 
 WORKDIR /catkin_ws/src
