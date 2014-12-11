@@ -6,6 +6,11 @@ The container holds only the base packages needed for running blender
 and ROS together; no actual ROS nodes are started, no blender animations
 are run.
 
+## Building
+
+The build the docker container, say this:
+`docker build -t opencog/ros-indigo-blender .`
+
 ## Testing
 To verify that blender works, try this:
 ```

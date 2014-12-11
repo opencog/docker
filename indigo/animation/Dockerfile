@@ -1,9 +1,9 @@
 #
-# Container for the current dmitry head.
+# Container for the Hanson Robotics Arthur head.
 # Uses several soon-to-be-outdated ROS nodes.
 #
 # To build:
-# sudo docker build -t hansonrobotics/dmitry .
+# sudo docker build -t opencog/ros-indigo-animation .
 #
 # opencog/ros-indigo-blender provides ROS+blender+catkin
 FROM opencog/ros-indigo-blender
@@ -23,9 +23,9 @@ RUN git clone https://github.com/hansonrobotics/pau2motors
 WORKDIR /catkin_ws
 RUN . /opt/ros/indigo/setup.sh; /opt/ros/indigo/bin/catkin_make
 
-ADD ./dmitry.sh /catkin_ws/dmitry.sh
+ADD ./arthur.sh /catkin_ws/arthur.sh
 ADD ./demo-hints.txt /catkin_ws/demo-hints.txt
-RUN chmod ugo+x ./dmitry.sh
-CMD ./dmitry.sh
+RUN chmod ugo+x ./arthur.sh
+CMD ./arthur.sh
 
 # CMD /bin/bash

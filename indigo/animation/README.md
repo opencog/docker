@@ -3,7 +3,7 @@ Facial Expression Animation Demo
 ================================
 
 Demo of controlling basic facial animations with the Hanson Robotics
-Dmitry blender head.  Running this container will start the Dmitry head
+Arthur blender head.  Running this container will start the Arthur head
 in animation mode, and then print a short menu of suggested animations
 to try out.  Facial expressions include 'happy', 'sad', 'surprised' and
 'angry'. The animations are started and stopped using ROS messages. See

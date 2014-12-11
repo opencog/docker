@@ -9,7 +9,9 @@
 # docker build -t opencog/ros-indigo-blender .
 #
 # To run:
-# docker run --rm --privileged -i -v /tmp/.X11-unix/X0:/tmp/.X11-unix/X0 -v /dev/dri:/dev/dri -v /dev/shm:/dev/shm -e DISPLAY=:0.0 -t opencog/ros-indigo-blender 
+# docker run --rm --privileged -i -v /tmp/.X11-unix/X0:/tmp/.X11-unix/X0 \
+#    -v /dev/dri:/dev/dri -v /dev/shm:/dev/shm -e DISPLAY=:0.0 \
+#    -t opencog/ros-indigo-blender
 #
 # The above should be sufficient to get blender running with full
 # 3D hardware acceleration on the local host (dri==direct rendering interface)
@@ -25,9 +27,10 @@ RUN apt-get -y install blender
 
 # Install x11-utils to get xdpyinfo, for X11 display debugging
 # mesa-utils provides glxinfo, handy for understanding the 3D support.
+ENV DISPLAY :0.0
 RUN apt-get -y install x11-utils
 RUN apt-get -y install mesa-utils
-
+# Blender needs python3
 RUN apt-get -y install python3-yaml python3-pip
 RUN pip3 install rospkg catkin_pkg
 
@@ -40,3 +43,4 @@ RUN cp /opt/ros/indigo/setup.sh /etc/profile.d/ros_indigo.sh
 ENV PYTHONPATH /opt/ros/indigo/lib/python2.7/dist-packages
 RUN /usr/bin/python3 /opt/ros/indigo/bin/catkin_init_workspace
 
+CMD /bin/bash
