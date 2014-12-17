@@ -35,9 +35,6 @@ RUN python setup.py install
 # Install catkin packages
 WORKDIR /catkin_ws/src
 RUN git clone https://github.com/hansonrobotics/ros_pololu_servo.git
-RUN git clone https://github.com/hansonrobotics/robo_blender.git
-RUN git clone https://github.com/hansonrobotics/pau2motors.git
-RUN git clone https://github.com/hansonrobotics/basic_head_api.git
 RUN git clone https://github.com/hansonrobotics/ros_motors_webui.git
 RUN git clone https://github.com/hansonrobotics/robots_config.git
 RUN git clone https://github.com/hansonrobotics/chatbot.git
