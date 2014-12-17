@@ -9,7 +9,10 @@ to try out.  Facial expressions include 'happy', 'sad', 'surprised' and
 'angry'. The animations are started and stopped using ROS messages. See
 the 'demo-hints.txt' file in this directory for the demo instructions.
 
-Run this image by saying:
+The demo can be started by saying `./run.sh`  and can be halted by saying
+`./stop.sh`. 
+
+Alternately, you can run this image by saying:
 ```
 xhost +
 sudo docker run --rm --privileged -i \
