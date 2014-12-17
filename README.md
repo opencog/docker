@@ -14,6 +14,7 @@ Docker image structure:
     ├─ros-indigo-base
       ├─ros-indigo-blender
         ├─ros-indigo-animation
+          ├─ros-arthur-dev
       ├─ros-indigo-dev
         ├─ros-indigo-einstein
         ├─ros-indigo-opencog
@@ -27,19 +28,26 @@ Pull using, e.g., `docker pull ros-indigo-opencog`
 The base and blender images should be general enough to allow various
 different robots to be brought up and demoed.
 
-* ros-indigo-base provides a base set of ROS packages, nothing more.
+* `ros-indigo-base` provides a base set of ROS packages, nothing more.
    The packages are sufficient for performing ROS demos, but no actual
    development.
 
-* ros-indigo-blender adds blender to the base, thus allowing ROS nodes
+* `ros-indigo-blender` adds blender to the base, thus allowing ROS nodes
    to control blender animations.
 
-* ros-indigo-dev provides additional development packages, allowing
-   developers to build and test inside of docker containers.
+* `ros-indigo-animation` provides a demo of the Hanson Robotics Arthur
+   blender rig inside of a ROS node. ROS messages are used to control
+   facial expression animations.  See the README in the indigo/animation
+   directory for more details.
 
-* ros-indigo-animation provides a basic demo of using ros with blender
-   to control facial expression animations.  See the README in the
-   indigo/animation directory for more details.
+* `ros-arthur-dev` provides the full Hanson Robotics Arthur head
+   development environment. This includes vision and sound processing,
+   motor controls, scripted behaviors, and a web user interface.
+   See the README in indigo/arthur-dev for more details.
+
+* `ros-indigo-dev` provides additional development packages, allowing
+   developers to build and test inside of docker containers. XXX
+   this needs to be cleaned up and replaced by one of the above!?
 
 
 ### Installation

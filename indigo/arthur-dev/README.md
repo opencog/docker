@@ -17,7 +17,7 @@ By default, the `/dev/video0` device is used as a webcam for face
 tracking.  It can be changed in `run.sh` file.
 
 The container can be started by saying `./run.sh`  and can be halted by
-saying `./stop.sh`. 
+saying `./stop.sh`.
 
 Alternately, you can run this image by saying:
 ```
@@ -32,5 +32,3 @@ sudo docker run --rm --privileged -i \
 # When done:
 xhost -
 ```
-
-
