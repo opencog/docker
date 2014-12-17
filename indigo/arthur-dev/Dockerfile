@@ -60,7 +60,7 @@ EXPOSE 80
 EXPOSE 33433
 
 # The launch script
-ADD ./arthur-dev.sh /catkin_ws/arthur-dev.sh
+ADD /scripts/arthur-dev.sh /catkin_ws/arthur-dev.sh
 RUN chmod ugo+x ./arthur.sh
 
 ENTRYPOINT bash -l -c "cd /catkin_ws/; ./arthur-dev.sh; bash"

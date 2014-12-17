@@ -32,8 +32,8 @@ RUN find . -maxdepth 1 -mindepth 1 -type d \
 WORKDIR /catkin_ws
 RUN . /opt/ros/indigo/setup.sh; /opt/ros/indigo/bin/catkin_make
 
-ADD ./arthur.sh /catkin_ws/arthur.sh
-ADD ./demo-hints.txt /catkin_ws/demo-hints.txt
+ADD /scripts/arthur.sh /catkin_ws/arthur.sh
+ADD /scripts/demo-hints.txt /catkin_ws/demo-hints.txt
 RUN chmod ugo+x ./arthur.sh
 CMD ./arthur.sh
 
