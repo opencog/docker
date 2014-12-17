@@ -1,6 +1,6 @@
 #!/bin/bash
-#
-# arthur.sh
+# 
+# arthur-dev.sh
 #
 # ROS + blender launch script for the Hanson Robotics animation demo
 # This shell script is automatically started within the docker container.

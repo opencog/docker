@@ -1,6 +1,7 @@
 #
-# Container for the Hanson Robotics Arthur head.
-# Uses several soon-to-be-outdated ROS nodes.
+# Container for the Hanson Robotics Arthur head (demo version)
+# This provides just enough infrastructure to run the Arthur rig
+# in an animation mode.
 #
 # To build:
 # sudo docker build -t opencog/ros-indigo-animation .

@@ -1,5 +1,15 @@
-FROM hansonrobotics/dev
+#
+# Container for the Hanson Robotics Arthur head (full version)
+# This provides the complete running package for the demo head,
+# including UVC webcam vision input, pi_vision to discover faces,
+# behavior controled by owyl trees, and the full motor control output.
+#
+# To build:
+# sudo docker build -t opencog/ros-arthur-dev .
+#
+FROM opencog/ros-indigo-animation
 MAINTAINER Vytas Krisciunas "vytas@hansonrobotics.com"
+MAINTAINER Linas Vepstas "linasvepstas@gmail.com"
 
 # Install required packages
 RUN apt-get -y update
@@ -29,20 +39,17 @@ RUN git clone https://github.com/hansonrobotics/robo_blender.git
 RUN git clone https://github.com/hansonrobotics/pau2motors.git
 RUN git clone https://github.com/hansonrobotics/basic_head_api.git
 RUN git clone https://github.com/hansonrobotics/ros_motors_webui.git
-RUN git clone https://github.com/hansonrobotics/docker-scripts.git
 RUN git clone https://github.com/hansonrobotics/robots_config.git
 RUN git clone https://github.com/hansonrobotics/chatbot.git
 RUN git clone https://github.com/hansonrobotics/eva_behavior.git
 RUN git clone https://github.com/hansonrobotics/ros_faceshift.git
 
-# Copy animations file
-COPY animations.blend /catkin_ws/src/robo_blender/src/
-
 # Change line below to rebuild. Will use cache up to this line
 ENV LAST_SOFTWARE_UPDATE 2014-12-08
 
 # Git pull for all packages
-RUN cd /catkin_ws/src/ && find . -maxdepth 1 -mindepth 1 -type d -execdir git --git-dir=$PWD/{}/.git --work-tree=$PWD/{} pull \;
+RUN find . -maxdepth 1 -mindepth 1 -type d \
+  -execdir git --git-dir=$PWD/{}/.git --work-tree=$PWD/{} pull \;
 
 # CMake
 WORKDIR /catkin_ws

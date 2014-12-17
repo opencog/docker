@@ -1,3 +1,4 @@
+#! /bin/bash
 #
 # build-all.sh
 #
@@ -10,5 +11,8 @@ docker build -t opencog/ros-indigo-blender .
 
 cd ../animation
 docker build -t opencog/ros-indigo-animation .
+
+cd ../arthur-dev
+docker build -t opencog/ros-arthur-dev .
 
 cd ..
