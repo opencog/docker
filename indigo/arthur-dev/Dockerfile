@@ -7,7 +7,7 @@
 # To build:
 # sudo docker build -t opencog/ros-arthur-dev .
 #
-FROM opencog/ros-indigo-animation
+FROM opencog/ros-indigo-blender
 MAINTAINER Vytas Krisciunas "vytas@hansonrobotics.com"
 MAINTAINER Linas Vepstas "linasvepstas@gmail.com"
 
@@ -34,6 +34,14 @@ RUN python setup.py install
 
 # Install catkin packages
 WORKDIR /catkin_ws/src
+
+# The basic_head_api repo contains the messages
+RUN git clone https://github.com/hansonrobotics/basic_head_api
+# The robo_blender contains the head and animation scripts
+RUN git clone https://github.com/hansonrobotics/robo_blender
+# The pau2motors is where required PAU messages are defined
+RUN git clone https://github.com/hansonrobotics/pau2motors
+
 RUN git clone https://github.com/hansonrobotics/ros_pololu_servo.git
 RUN git clone https://github.com/hansonrobotics/ros_motors_webui.git
 RUN git clone https://github.com/hansonrobotics/robots_config.git
@@ -61,7 +69,7 @@ EXPOSE 33433
 
 # The launch script
 ADD /scripts/arthur-dev.sh /catkin_ws/arthur-dev.sh
-RUN chmod ugo+x ./arthur.sh
+RUN chmod ugo+x ./arthur-dev.sh
 
 ENTRYPOINT bash -l -c "cd /catkin_ws/; ./arthur-dev.sh; bash"
 

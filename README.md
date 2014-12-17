@@ -14,7 +14,7 @@ Docker image structure:
     ├─ros-indigo-base
       ├─ros-indigo-blender
         ├─ros-indigo-animation
-          ├─ros-arthur-dev
+        ├─ros-arthur-dev
       ├─ros-indigo-dev
         ├─ros-indigo-einstein
         ├─ros-indigo-opencog
