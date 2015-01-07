@@ -24,13 +24,13 @@ RUN apt-get -y install ros-indigo-ros-base
 # Most robot bringup will require git-cloning the working repos.
 # Need byobu+tmux for ROS terminal control.
 RUN apt-get -y install git tmux byobu
-#
-# Why do we think we need these?
-# RUN apt-get -y install ros-indigo-rqt-common-plugins
-# RUN apt-get -y install ros-indigo-robot ros-indigo-viz
-# RUN apt-get -y install ros-indigo-bfl ros-indigo-gmapping ros-indigo-laser-pipeline
-# RUN apt-get -y install ros-indigo-perception-pcl
-# RUN apt-get -y install ros-indigo-perception ros-indigo-simulators
+
+# Environment Variables
+## Set Locale -- Catkin crashes on Krisčiunas, Mickevičius without this.
+RUN locale-gen en_US.UTF-8
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US:en
+ENV LC_ALL en_US.UTF-8
 
 RUN rosdep init
 RUN rosdep update
