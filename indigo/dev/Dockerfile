@@ -26,4 +26,11 @@ RUN apt-get -y install camorama geany
 RUN apt-get -y install cmake-curses-gui git mercurial subversion
 RUN apt-get -y install less meld vim-gnome
 
+# Environment Variables
+## Set Locale -- Catkin crashes on Krisčiunas, Mickevičius without this.
+RUN locale-gen en_US.UTF-8
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US:en
+ENV LC_ALL en_US.UTF-8
+
 CMD /bin/bash
