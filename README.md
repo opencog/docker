@@ -1,8 +1,11 @@
-opencog-ros
-===========
+# OpenCog's Docker library
+This repository is used for setting different docker containers for the various
+components/dependencies/tools/repositories/configurations associated with the
+OpenCog project. The dockerfiles here are designed to be built in an additive way.
 
+## 1. Dockerfiles for Robot Operating System (ROS)
 Dockerfiles for demoing and working with various different robot heads
-and bodies, mostly those from Hanson Robotics.  Several of the heads are
+and bodies, mostly those from Hanson Robotics. Several of the heads are
 modeled with blender, and so can be usefully worked with and controlled
 even without a physical robot.
 
@@ -19,7 +22,7 @@ This includes the Robot Operating System (ROS), Blender, Pololu motor
 drivers, a variety of ROS webcam and face-tracking/saliency nodes,
 OpenCog, and other add-ons.
 
-Docker image structure:
+### Docker image structure:
 
     ├─ros-hydro-deps
       ├─ros-hydro-dev
@@ -36,11 +39,11 @@ Docker image structure:
         ├─ros-indigo-einstein
         ├─ros-indigo-zenorsm
 
-Some (outdated!?) images available at `https://index.docker.io/u/opencog`
+Images available at https://registry.hub.docker.com/repos/opencog/
 
 Pull using, e.g., `docker pull ros-indigo-opencog`
 
-## Organizational Notes
+### Organizational Notes:
 The base and blender images should be general enough to allow various
 different robots to be brought up and demoed.
 
@@ -61,22 +64,11 @@ different robots to be brought up and demoed.
    this needs to be cleaned up and replaced by one of the above!?
 
 
-### Installation
-To run the demos, docker must be installed.  Instructions can be found
-here: https://docs.docker.com/installation/ubuntulinux/ .
-The *Giving non-root access* section on the page above explains how to
-avoid having to use `sudo` all the time.
+## 2. Dockerfiles for OpenCog
+The dockerfiles here are designed to be built opencog-deps in the same directory
+as this README.
 
-### Notes
-Dockerfiles are static. Some developers use macro expansion via GNU make 
-or other tools to make dockerfiles dynamic. For OpenCog's purposes, using
-dockerfile inclusion should be sufficient. The Dockerfile at the git root
-is self-contained and intended for simply running a cogserver in the most
-common configuration, while the dockerfiles here are designed to be built 
-in an additive way, all depending on the container tagged opencog-deps in
-the same directory as this README.
-
-OpenCog Docker image structure:
+### Docker image structure:
 
     ├─opencog-deps
       ├─opencog-dev:cli (for a dev environment)
@@ -86,6 +78,15 @@ OpenCog Docker image structure:
       ├─opencog-embodiment
       ├─cogserver
 
+### Organizational Notes:
 Using bind mounts (some containers currently use them) is a hacky solution
 to passing the opencog source tree to each docker build. Run bindmounts.sh
-before running 'docker build' and bindumount.sh to clean up afterward.
+before running 'docker build' and bindumount.sh to clean up afterward. (This 
+will not be necessary, as the builds will be made by cloning from the respective
+repositories. The scripts are to be moved or removed)
+
+## 3. Installation
+To run the demos and other containers, docker must be installed. Instructions 
+can be found [here](https://docs.docker.com/installation/ubuntulinux/ .)
+The [Giving non-root access](https://docs.docker.com/installation/ubuntulinux/#giving-non-root-access) section on the page explains how to avoid having to use `sudo` all 
+the time.
