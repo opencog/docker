@@ -14,8 +14,8 @@ cd ..
 
 cd arthur-animation
 docker build -t opencog/arthur-animation .
+cd ..
 
-cd ../arthur-dev
-docker build -t opencog/arthur-dev .
-
+cd arthur-dev
+./build.sh
 cd ..
