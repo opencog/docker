@@ -10,13 +10,13 @@ all robots, and nothing more.
 
 * `blender` contains a docker image for ROS and blender.
 
-* `animation` contains a demo for the Hanson Robotics Arthur head,
+* `arthur-animation` contains a demo for the Hanson Robotics Arthur head,
    showing how ROS messages can be used to control facial animations.
    That is, the blender rig is encapsulated in a ROS node; the rig
    reacts to ROS messages.
 
 * `arthur-dev` contains the full end-to-end development environment
-   for the Hanson Robotics Arthur head.  This includes a half-fozen
+   for the Hanson Robotics Arthur head.  This includes a half-dozen
    ROS nodes for camera and vision processing, scripted behavior trees,
    motor controllers, and a web-based user interface.
 
