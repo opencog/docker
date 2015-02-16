@@ -29,7 +29,7 @@ WORKDIR /catkin_ws/src
 RUN git clone https://github.com/hansonrobotics/pi_vision.git
 RUN git clone https://github.com/hansonrobotics/eva_behavior.git
 RUN git clone https://github.com/hansonrobotics/blender_api_msgs.git
-RUN git clone https://github.com:hansonrobotics/blender_api.git
+RUN git clone https://github.com/hansonrobotics/blender_api.git
 RUN git clone https://github.com/hansonrobotics/pau2motors.git
 
 # RUN git clone https://github.com/hansonrobotics/ros_pololu_servo.git
@@ -39,7 +39,7 @@ RUN git clone https://github.com/hansonrobotics/pau2motors.git
 # # RUN git clone https://github.com/hansonrobotics/ros_faceshift.git
 
 # Change line below on rebuild. Will use cache up to this line
-ENV LAST_SOFTWARE_UPDATE 2015-01-07
+ENV LAST_SOFTWARE_UPDATE 2015-02-16
 
 # Git pull for all packages
 RUN cd /catkin_ws/src/ && find . -maxdepth 1 -mindepth 1 -type d \
