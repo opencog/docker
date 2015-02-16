@@ -56,9 +56,9 @@ RUN echo source /catkin_ws/devel/setup.bash >> ~/.bashrc
 RUN mkdir /catkin_ws/src/docker-scripts
 COPY /scripts/eva.sh /catkin_ws/eva.sh
 
-#Ports exposed
+# Ports exposed
 EXPOSE 9090
 EXPOSE 80
 EXPOSE 33433
 
-ENTRYPOINT bash -l -c "./src/eva.sh; bash"
+ENTRYPOINT bash -l -c "./eva.sh; bash"

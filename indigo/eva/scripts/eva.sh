@@ -19,7 +19,7 @@ sleep 4;
 tmux new-window -n 'cam' 'roslaunch ros2opencv usb_cam.launch; $SHELL'
 tmux new-window -n 'pi' 'roslaunch pi_face_tracker face_tracker_usb_cam.launch; $SHELL'
 tmux new-window -n 'bhave' 'rosrun eva_behavior main.py; $SHELL'
-tmux new-window -n 'eva' 'cd /catkin_ws/src/blender_api && blender -y Eva269.blend -P autostart.py; $SHELL'
+tmux new-window -n 'eva' 'cd /catkin_ws/src/blender_api && blender -y Eva.blend -P autostart.py; $SHELL'
 
 # Spare-usage shell
 tmux new-window -n 'bash' 'sleep 4; rostopic  pub --once /behavior_switch std_msgs/String btree_on; $SHELL'

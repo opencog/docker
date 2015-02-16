@@ -11,3 +11,4 @@ docker run --name="opencog-eva" --privileged  \
    -v /tmp/.X11-unix/X0:/tmp/.X11-unix/X0 -v /dev/dri:/dev/dri \
    -v /dev/shm:/dev/shm -it opencog/eva
 xhost -
+clear
