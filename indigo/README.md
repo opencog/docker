@@ -1,5 +1,9 @@
 ros-indigo-base
 ===============
+Docker files for Hanson Robotics expressive heads. Currently, the most
+sophisticated container here is for the Eva head, which uses a UVC
+webcam with scripted behavior trees to drive a blender model of Eva,
+a female head that can express a variety of emotional gestures.
 
 ## Heiracrhcy and dependents
 
@@ -17,13 +21,14 @@ ros-indigo-base
 ## Miscellaneous packages
 
 * `dev`, derived from `base`, contains a docker image for a ROS indigo
-   development environment. (???) (unused ???)
+   development environment.
 
-* `einstein` the Handson Robotics Einstein head
+* `einstein` container for the Hanson Robotics' small Einstein head.
+  This container was demo'd at ROS Kong 2014 by David Hanson.
 
-* `tracking` .. ??
+* `zenorsm` ... Zeno ?? with Einstein head ??
 
-* ` zenorsm` ... ??
+* `opencog` ... ros with opencog ... unused at this time ...
 
 ## Unmaintained images
 The arthur-animation and arthur-dev packages are deprecated. They
@@ -42,12 +47,13 @@ and integrated in an easy-to-use fashion.
    motor controllers, and a web-based user interface.
 
 ## Bulding
-Use `build-all.sh` to build all the docker images. Use with caution!
+Most subdirectories contain a `build.sh` script for building the
+particular docker image.
+
+Use `build-all.sh` to build the Eva docker image and its's dependents.
+This may take an hour or more.
 
 ## Running
-The ros-indigo-base container can be run by saying
-`docker run --rm --name="indigo-base" -i -t opencog/ros-indigo-base`
+Most subdirectories contain a pair of scripts: `run.sh` and `stop.sh`.
+These will run and stop the containers defined in that directory.
 
-Unlike the blender variants, the base does not require an X11 connection.
-See the `blender`, `animation` and `arthur-dev` directories for
-increasingly complex examples.

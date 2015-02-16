@@ -12,10 +12,6 @@ cd blender
 ./build.sh
 cd ..
 
-cd arthur-animation
-docker build -t opencog/arthur-animation .
-cd ..
-
-cd arthur-dev
+cd eva
 ./build.sh
 cd ..
