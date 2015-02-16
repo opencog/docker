@@ -1,14 +1,13 @@
 ros-indigo-base
 ===============
 
-The docker image defined here contains only basic ROS nodes shared by
-all robots, and nothing more.
+## Heiracrhcy and dependents
 
-## Dependents
+* `base` contains a docker image defining only the basic ROS indigo 
+  nodes shared by all robots, and nothing more.
 
-* `dev` contains a docker image for a ROS development environment.
-
-* `blender` contains a docker image for ROS and blender.
+* `blender` contains a docker image for ROS and blender. Depends on
+   base, above.
 
 * `arthur-animation` contains a demo for the Hanson Robotics Arthur head,
    showing how ROS messages can be used to control facial animations.
@@ -19,6 +18,9 @@ all robots, and nothing more.
    for the Hanson Robotics Arthur head.  This includes a half-dozen
    ROS nodes for camera and vision processing, scripted behavior trees,
    motor controllers, and a web-based user interface.
+
+* `dev`, derived from `base`, contains a docker image for a ROS indigo
+   development environment. (???) (unused ???)
 
 ## Bulding
 Use `build-all.sh` to build all the docker images. Use with caution!
