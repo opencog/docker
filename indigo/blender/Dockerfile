@@ -20,7 +20,7 @@
 FROM opencog/ros-indigo-base
 MAINTAINER Mandeep Singh Bhatia "mandeep.singh.bhatia@gmail.com"
 MAINTAINER David Hart "dhart@opencog.org"
-MAINTAINER Linas Vepstas "linasvepstas@gmail.com"
+MAINTAINER Linas Vepštas "linasvepstas@gmail.com"
 
 ENV LAST_OS_UPDATE 2015-02-16
 RUN apt-get -y update
@@ -36,13 +36,18 @@ RUN apt-get -y install mesa-utils
 RUN apt-get -y install python3-yaml python3-pip
 RUN pip3 install rospkg catkin_pkg
 
-# The user is root; so ~/.bash_profile is /root/.bash_profile
-RUN echo source /catkin_ws/devel/setup.bash >> ~/.bash_profile && \
-    echo -e "\e[1;34m[$SELF_NAME] catkin devel setup\.bash sourced\e[0m"
-
 WORKDIR /catkin_ws/src
 RUN cp /opt/ros/indigo/setup.sh /etc/profile.d/ros_indigo.sh
 ENV PYTHONPATH /opt/ros/indigo/lib/python2.7/dist-packages
 RUN /usr/bin/python3 /opt/ros/indigo/bin/catkin_init_workspace
+
+# There is nothing to make, but we need to run catkin to get the
+# setup.bash file, below.
+WORKDIR /catkin_ws
+RUN bash -l -c "/opt/ros/indigo/bin/catkin_make"
+
+# The user is root; so ~/.bash_profile is /root/.bash_profile
+RUN echo source /catkin_ws/devel/setup.bash >> ~/.bash_profile && \
+    echo -e "\e[1;34m[$SELF_NAME] catkin devel setup\.bash sourced\e[0m"
 
 CMD /bin/bash

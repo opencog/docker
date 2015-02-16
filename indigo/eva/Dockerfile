@@ -8,7 +8,7 @@
 # sudo docker build -t opencog/eva .
 #
 FROM opencog/ros-indigo-blender
-MAINTAINER Linas Vepstas "linasvepstas@gmail.com"
+MAINTAINER Linas Vepštas "linasvepstas@gmail.com"
 
 # Install required packages
 ENV LAST_OS_UPDATE 2015-02-16
@@ -48,8 +48,10 @@ RUN cd /catkin_ws/src/ && find . -maxdepth 1 -mindepth 1 -type d \
 	-execdir git --git-dir=$PWD/{}/.git --work-tree=$PWD/{} pull \;
 
 # CMake
+RUN bash -c "/usr/bin/pip3 install ./blender_api_msgs/"
+
 WORKDIR /catkin_ws
-RUN bash -l -c "/usr/bin/python3 /opt/ros/indigo/bin/catkin_make"
+RUN bash -l -c "/opt/ros/indigo/bin/catkin_make"
 
 RUN echo source /catkin_ws/devel/setup.bash >> ~/.bashrc
 
