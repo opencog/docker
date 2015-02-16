@@ -1,9 +1,8 @@
 #! /bin/bash
 #
-echo -n 'Stopping leftover container.. '
-docker stop -t 1 opencog-eva
-echo -n 'Removing.. '
-docker rm opencog-eva
+# Run the docker container. Stop any previously running copies.
+#
+./stop.sh
 xhost +
 docker run --name="opencog-eva" --privileged  \
    -e DISPLAY=:0.0 \

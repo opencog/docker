@@ -11,7 +11,9 @@ FROM opencog/ros-indigo-blender
 MAINTAINER Linas Vepstas "linasvepstas@gmail.com"
 
 # Install required packages
+ENV LAST_OS_UPDATE 2015-02-16
 RUN apt-get -y update
+RUN apt-get -y upgrade
 RUN apt-get -y install ros-indigo-tf ros-indigo-driver-common
 RUN apt-get -y install ros-indigo-cv-bridge ros-indigo-image-transport
 RUN apt-get -y install ros-indigo-openni-camera ros-indigo-mjpeg-server
