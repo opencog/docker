@@ -4,15 +4,14 @@
 #
 # Handy dandy snippet to build all the various images.
 #
-docker build -t opencog/ros-indigo-base .
+cd base
+./build.sh
+cd ..
 
 cd blender
-docker build -t opencog/ros-indigo-blender .
+./build.sh
+cd ..
 
-cd ../animation
-docker build -t opencog/ros-indigo-animation .
-
-cd ../arthur-dev
-docker build -t opencog/ros-arthur-dev .
-
+cd eva
+./build.sh
 cd ..

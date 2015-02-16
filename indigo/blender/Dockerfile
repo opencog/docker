@@ -3,7 +3,7 @@
 # No ROS nodes are started.
 #
 # The primary difficulty here is that Blender wants Python3
-# while ROS wants Python2, and so there are conflicts.
+# while ROS wants Python2, and so there are install conflicts.
 #
 # To build:
 # docker build -t opencog/ros-indigo-blender .
@@ -22,7 +22,9 @@ MAINTAINER Mandeep Singh Bhatia "mandeep.singh.bhatia@gmail.com"
 MAINTAINER David Hart "dhart@opencog.org"
 MAINTAINER Linas Vepstas "linasvepstas@gmail.com"
 
+ENV LAST_OS_UPDATE 2015-02-16
 RUN apt-get -y update
+RUN apt-get -y upgrade
 RUN apt-get -y install blender
 
 # Install x11-utils to get xdpyinfo, for X11 display debugging

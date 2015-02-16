@@ -13,7 +13,9 @@ MAINTAINER Mandeep Singh Bhatia "mandeep.singh.bhatia@gmail.com"
 MAINTAINER David Hart "dhart@opencog.org"
 MAINTAINER Linas Vepstas "linasvepstas@gmail.com"
 
+ENV LAST_OS_UPDATE 2015-02-16
 RUN apt-get -y update
+RUN apt-get -y upgrade
 #
 RUN apt-get -y install wget
 RUN wget http://packages.ros.org/ros.key -O - | sudo apt-key add -

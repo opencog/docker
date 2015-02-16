@@ -2,7 +2,7 @@
 # xhost +
 # docker run --rm --privileged -i -v /tmp/.X11-unix/X0:/tmp/.X11-unix/X0 -e DISPLAY=:0.0 -t opencog/ros-indigo-opencog 
 
-FROM opencog/ros-indigo-dev
+FROM opencog/ros-indigo-blender
 MAINTAINER Mandeep Singh Bhatia "mandeep.singh.bhatia@gmail.com"
 MAINTAINER David Hart "dhart@opencog.org"
 
