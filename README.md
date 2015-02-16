@@ -1,8 +1,23 @@
 opencog-ros
 ===========
 
-Dockerfiles for Robot Operating System (ROS), integrated with Blender, Pololu,
-Nick's Machine Perception Saliency, OpenCog, and other add-ons.
+Dockerfiles for demoing and working with various different robot heads
+and bodies, mostly those from Hanson Robotics.  Many of the heads are
+modeled with blender, and so can be usefully worked with and controlled
+even without a physical robot.
+
+Currently, the most sophisticated demo here is that of Eva, a female
+head created by Hanson Robotics.  She can track human faces visible to
+her (via webcam), interact by displaying a variety of emotions and
+facial gestures, and perform lip sync for speech.  The Eva blender file
+allows all this without the need of a physical robot head to be
+available.
+
+Docker is used primarily because there are a large number of software
+dependencies that must be installed in order to make this all work.
+This includes the Robot Operating System (ROS), Blender, Pololu motor
+drivers, a variety of ROS webcam and face-tracking/saliency nodes,
+OpenCog, and other add-ons.
 
 Docker image structure:
 
@@ -13,14 +28,15 @@ Docker image structure:
 
     ├─ros-indigo-base
       ├─ros-indigo-blender
-        ├─ros-indigo-animation
+        ├─eva
+        ├─ros-arthur-animation
         ├─ros-arthur-dev
+        ├─ros-indigo-opencog
       ├─ros-indigo-dev
         ├─ros-indigo-einstein
-        ├─ros-indigo-opencog
         ├─ros-indigo-zenorsm
 
-Images available at `https://index.docker.io/u/opencog`
+Some (outdated!?) images available at `https://index.docker.io/u/opencog`
 
 Pull using, e.g., `docker pull ros-indigo-opencog`
 
@@ -35,15 +51,10 @@ different robots to be brought up and demoed.
 * `ros-indigo-blender` adds blender to the base, thus allowing ROS nodes
    to control blender animations.
 
-* `ros-indigo-animation` provides a demo of the Hanson Robotics Arthur
-   blender rig inside of a ROS node. ROS messages are used to control
-   facial expression animations.  See the README in the indigo/animation
-   directory for more details.
-
-* `ros-arthur-dev` provides the full Hanson Robotics Arthur head
-   development environment. This includes vision and sound processing,
-   motor controls, scripted behaviors, and a web user interface.
-   See the README in indigo/arthur-dev for more details.
+* `eva` provides the full Hanson Robotics Eva head demonstration. This
+   includes vision and sound processing, motor controls, scripted
+   behaviors, and a web user interface.  See the README in `indigo/eva`
+   for more details.
 
 * `ros-indigo-dev` provides additional development packages, allowing
    developers to build and test inside of docker containers. XXX
