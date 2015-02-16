@@ -5,9 +5,9 @@ sophisticated container here is for the Eva head, which uses a UVC
 webcam with scripted behavior trees to drive a blender model of Eva,
 a female head that can express a variety of emotional gestures.
 
-## Heiracrhcy and dependents
+## Hierarchy and dependents
 
-* `base` contains a docker image defining only the basic ROS indigo 
+* `base` contains a docker image defining only the basic ROS indigo
   nodes shared by all robots, and nothing more.
 
 * `blender` contains a docker image for ROS and blender. Depends on
@@ -24,11 +24,9 @@ a female head that can express a variety of emotional gestures.
    development environment.
 
 * `einstein` container for the Hanson Robotics' small Einstein head.
-  This container was demo'd at ROS Kong 2014 by David Hanson.
+  This container was demoed at ROS Kong 2014 by David Hanson.
 
 * `zenorsm` ... Zeno ?? with Einstein head ??
-
-* `opencog` ... ros with opencog ... unused at this time ...
 
 ## Unmaintained images
 The arthur-animation and arthur-dev packages are deprecated. They
@@ -46,14 +44,13 @@ and integrated in an easy-to-use fashion.
    ROS nodes for camera and vision processing, scripted behavior trees,
    motor controllers, and a web-based user interface.
 
-## Bulding
+## Building
 Most subdirectories contain a `build.sh` script for building the
 particular docker image.
 
-Use `build-all.sh` to build the Eva docker image and its's dependents.
+Use `build-all.sh` to build the Eva docker image and it's dependents.
 This may take an hour or more.
 
 ## Running
 Most subdirectories contain a pair of scripts: `run.sh` and `stop.sh`.
 These will run and stop the containers defined in that directory.
-
