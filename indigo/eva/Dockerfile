@@ -29,6 +29,7 @@ RUN python setup.py install
 WORKDIR /catkin_ws/src
 
 RUN git clone https://github.com/hansonrobotics/pi_vision.git
+RUN git clone https://github.com/hansonrobotics/perception.git
 RUN git clone https://github.com/hansonrobotics/eva_behavior.git
 RUN git clone https://github.com/hansonrobotics/blender_api_msgs.git
 RUN git clone https://github.com/hansonrobotics/blender_api.git
@@ -47,7 +48,7 @@ ENV LAST_SOFTWARE_UPDATE 2015-02-16
 RUN cd /catkin_ws/src/ && find . -maxdepth 1 -mindepth 1 -type d \
 	-execdir git --git-dir=$PWD/{}/.git --work-tree=$PWD/{} pull \;
 
-# CMake
+# the blender API has not been fully catkinized yet.
 RUN bash -c "/usr/bin/pip3 install ./blender_api_msgs/"
 
 WORKDIR /catkin_ws
