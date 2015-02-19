@@ -42,13 +42,13 @@ RUN git clone https://github.com/hansonrobotics/pau2motors.git
 # # RUN git clone https://github.com/hansonrobotics/ros_faceshift.git
 
 # Change line below on rebuild. Will use cache up to this line
-ENV LAST_SOFTWARE_UPDATE 2015-02-16
+ENV LAST_SOFTWARE_UPDATE 2015-02-19
 
 # Git pull for all packages
 RUN cd /catkin_ws/src/ && find . -maxdepth 1 -mindepth 1 -type d \
 	-execdir git --git-dir=$PWD/{}/.git --work-tree=$PWD/{} pull \;
 
-# the blender API has not been fully catkinized yet.
+# The blender API has not been fully catkinized yet.
 RUN bash -c "/usr/bin/pip3 install ./blender_api_msgs/"
 
 WORKDIR /catkin_ws

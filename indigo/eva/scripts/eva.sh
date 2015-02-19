@@ -16,7 +16,9 @@ byobu new-session -d -n 'roscore' 'roscore; $SHELL'
 sleep 4;
 
 # Single Video (body) camera and face tracker
-tmux new-window -n 'trk' 'roslaunch perception tacker-single-cam.launch; $SHELL'
+tmux new-window -n 'trk' 'roslaunch perception tracker-single-cam.launch; $SHELL'
+# Publish the geometry messages
+tmux new-window -n 'geo' 'roslaunch perception geometry.launch gui:=false; $SHELL'
 tmux new-window -n 'bhave' 'rosrun eva_behavior main.py; $SHELL'
 tmux new-window -n 'eva' 'cd /catkin_ws/src/blender_api && blender -y Eva.blend -P autostart.py; $SHELL'
 
