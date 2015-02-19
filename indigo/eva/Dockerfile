@@ -35,7 +35,7 @@ RUN git clone https://github.com/hansonrobotics/blender_api_msgs.git
 RUN git clone https://github.com/hansonrobotics/blender_api.git
 RUN git clone https://github.com/hansonrobotics/pau2motors.git
 
-# RUN git clone https://github.com/hansonrobotics/ros_pololu_servo.git
+RUN git clone https://github.com/hansonrobotics/ros_pololu_servo.git
 # RUN git clone https://github.com/hansonrobotics/ros_motors_webui.git
 # # RUN git clone https://github.com/hansonrobotics/robots_config.git
 # # RUN git clone https://github.com/hansonrobotics/chatbot.git
