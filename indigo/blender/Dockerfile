@@ -25,11 +25,12 @@ MAINTAINER Linas Vepštas "linasvepstas@gmail.com"
 ENV LAST_OS_UPDATE 2015-02-16
 RUN apt-get -y update
 RUN apt-get -y upgrade
+
+# Blender with dependencies
 RUN apt-get -y install blender
 
 # Install x11-utils to get xdpyinfo, for X11 display debugging
 # mesa-utils provides glxinfo, handy for understanding the 3D support.
-ENV DISPLAY :0.0
 RUN apt-get -y install x11-utils
 RUN apt-get -y install mesa-utils
 # Blender needs python3
@@ -41,13 +42,15 @@ RUN cp /opt/ros/indigo/setup.sh /etc/profile.d/ros_indigo.sh
 ENV PYTHONPATH /opt/ros/indigo/lib/python2.7/dist-packages
 RUN /usr/bin/python3 /opt/ros/indigo/bin/catkin_init_workspace
 
-# There is nothing to make, but we need to run catkin to get the
-# setup.bash file, below.
+# Must run catkin at least once, even if there is nothing to build;
+# it creates the needed directory structure and the needed setup.sh.
 WORKDIR /catkin_ws
 RUN bash -l -c "/opt/ros/indigo/bin/catkin_make"
 
+# Empty ROS Enviroment Setup
 # The user is root; so ~/.bash_profile is /root/.bash_profile
 RUN echo source /catkin_ws/devel/setup.bash >> ~/.bash_profile && \
     echo -e "\e[1;34m[$SELF_NAME] catkin devel setup\.bash sourced\e[0m"
 
+ENV DISPLAY :0.0
 CMD /bin/bash
