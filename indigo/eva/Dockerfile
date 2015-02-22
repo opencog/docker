@@ -62,7 +62,6 @@ RUN bash -l -c "/opt/ros/indigo/bin/catkin_make"
 
 RUN echo source /catkin_ws/devel/setup.bash >> ~/.bashrc
 
-RUN mkdir /catkin_ws/src/docker-scripts
 COPY /scripts/eva.sh /catkin_ws/eva.sh
 
 # Ports exposed
