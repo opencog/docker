@@ -18,6 +18,10 @@ RUN apt-get -y install ros-indigo-tf ros-indigo-driver-common
 RUN apt-get -y install ros-indigo-cv-bridge ros-indigo-image-transport
 RUN apt-get -y install ros-indigo-openni-camera ros-indigo-mjpeg-server
 RUN apt-get -y install ros-indigo-usb-cam
+# The below are needed by perception node
+RUN apt-get -y install ros-indigo-dynamixel-msgs
+RUN apt-get -y install ros-indigo-robot-state-publisher
+RUN apt-get -y install ros-indigo-joint-state-publisher
 
 # Owyl setup
 WORKDIR /opt/
@@ -29,25 +33,28 @@ RUN python setup.py install
 WORKDIR /catkin_ws/src
 
 RUN git clone https://github.com/hansonrobotics/pi_vision.git
+RUN git clone https://github.com/hansonrobotics/perception.git
 RUN git clone https://github.com/hansonrobotics/eva_behavior.git
 RUN git clone https://github.com/hansonrobotics/blender_api_msgs.git
 RUN git clone https://github.com/hansonrobotics/blender_api.git
 RUN git clone https://github.com/hansonrobotics/pau2motors.git
 
-# RUN git clone https://github.com/hansonrobotics/ros_pololu_servo.git
+# RUN git clone https://github.com/geni-lab/ros_pololu_servo.git
+RUN git clone https://github.com/hansonrobotics/ros_pololu_servo.git
+
 # RUN git clone https://github.com/hansonrobotics/ros_motors_webui.git
 # # RUN git clone https://github.com/hansonrobotics/robots_config.git
 # # RUN git clone https://github.com/hansonrobotics/chatbot.git
 # # RUN git clone https://github.com/hansonrobotics/ros_faceshift.git
 
 # Change line below on rebuild. Will use cache up to this line
-ENV LAST_SOFTWARE_UPDATE 2015-02-16
+ENV LAST_SOFTWARE_UPDATE 2015-02-19
 
 # Git pull for all packages
 RUN cd /catkin_ws/src/ && find . -maxdepth 1 -mindepth 1 -type d \
 	-execdir git --git-dir=$PWD/{}/.git --work-tree=$PWD/{} pull \;
 
-# CMake
+# The blender API has not been fully catkinized yet.
 RUN bash -c "/usr/bin/pip3 install ./blender_api_msgs/"
 
 WORKDIR /catkin_ws
