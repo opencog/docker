@@ -18,8 +18,10 @@ RUN apt-get -y install ros-indigo-tf ros-indigo-driver-common
 RUN apt-get -y install ros-indigo-cv-bridge ros-indigo-image-transport
 RUN apt-get -y install ros-indigo-openni-camera ros-indigo-mjpeg-server
 RUN apt-get -y install ros-indigo-usb-cam
-# Needed by perception node
+# The below are needed by perception node
 RUN apt-get -y install ros-indigo-dynamixel-msgs
+RUN apt-get -y install ros-indigo-robot-state-publisher
+RUN apt-get -y install ros-indigo-joint-state-publisher
 
 # Owyl setup
 WORKDIR /opt/
@@ -37,7 +39,9 @@ RUN git clone https://github.com/hansonrobotics/blender_api_msgs.git
 RUN git clone https://github.com/hansonrobotics/blender_api.git
 RUN git clone https://github.com/hansonrobotics/pau2motors.git
 
+# RUN git clone https://github.com/geni-lab/ros_pololu_servo.git
 RUN git clone https://github.com/hansonrobotics/ros_pololu_servo.git
+
 # RUN git clone https://github.com/hansonrobotics/ros_motors_webui.git
 # # RUN git clone https://github.com/hansonrobotics/robots_config.git
 # # RUN git clone https://github.com/hansonrobotics/chatbot.git
