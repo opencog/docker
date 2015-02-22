@@ -11,7 +11,7 @@
 FROM ubuntu:14.04
 MAINTAINER Mandeep Singh Bhatia "mandeep.singh.bhatia@gmail.com"
 MAINTAINER David Hart "dhart@opencog.org"
-MAINTAINER Linas Vepstas "linasvepstas@gmail.com"
+MAINTAINER Linas Vepštas "linasvepstas@gmail.com"
 
 ENV LAST_OS_UPDATE 2015-02-16
 RUN apt-get -y update
