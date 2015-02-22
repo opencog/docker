@@ -18,6 +18,8 @@ RUN apt-get -y install ros-indigo-tf ros-indigo-driver-common
 RUN apt-get -y install ros-indigo-cv-bridge ros-indigo-image-transport
 RUN apt-get -y install ros-indigo-openni-camera ros-indigo-mjpeg-server
 RUN apt-get -y install ros-indigo-usb-cam
+# Needed by perception node
+RUN apt-get -y install ros-indigo-dynamixel-msgs
 
 # Owyl setup
 WORKDIR /opt/
