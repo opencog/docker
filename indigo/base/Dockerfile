@@ -13,6 +13,10 @@ MAINTAINER Mandeep Singh Bhatia "mandeep.singh.bhatia@gmail.com"
 MAINTAINER David Hart "dhart@opencog.org"
 MAINTAINER Linas Vepštas "linasvepstas@gmail.com"
 
+# Avoid triggering apt-get dialogs (which may lead to errors). See:
+# http://stackoverflow.com/questions/25019183/docker-java7-install-fail
+ENV DEBIAN_FRONTEND noninteractive
+
 ENV LAST_OS_UPDATE 2015-02-16
 RUN apt-get -y update
 RUN apt-get -y upgrade
@@ -22,6 +26,7 @@ RUN wget http://packages.ros.org/ros.key -O - | sudo apt-key add -
 RUN echo "deb http://packages.ros.org/ros/ubuntu trusty main" > /etc/apt/sources.list.d/ros-latest.list
 RUN apt-get -y update
 RUN apt-get -y install ros-indigo-ros-base
+RUN apt-get -y install ros-indigo-rosbridge-server
 #
 # Most robot bringup will require git-cloning the working repos.
 # Need byobu+tmux for ROS terminal control.
