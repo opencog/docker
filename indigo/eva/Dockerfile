@@ -55,7 +55,7 @@ RUN cd /catkin_ws/src/ && find . -maxdepth 1 -mindepth 1 -type d \
 	-execdir git --git-dir=$PWD/{}/.git --work-tree=$PWD/{} pull \;
 
 # The blender API has not been fully catkinized yet.
-RUN bash -c "/usr/bin/pip3 install ./blender_api_msgs/"
+RUN pip3 install ./blender_api_msgs/
 
 WORKDIR /catkin_ws
 RUN bash -l -c "/opt/ros/indigo/bin/catkin_make"
