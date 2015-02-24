@@ -59,6 +59,9 @@ EXPOSE 16315 16312
 ## Default postgresql port
 EXPOSE 5432
 
+## Default RelEx & RelEx2Logic port
+EXPOSE 4444
+
 # Docker defaults
 # CMD bash for maintenance only
 # ENTRYPOINT should be an application like distcc or buildbot or cogserver
