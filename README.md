@@ -2,7 +2,7 @@ opencog-ros
 ===========
 
 Dockerfiles for demoing and working with various different robot heads
-and bodies, mostly those from Hanson Robotics.  Many of the heads are
+and bodies, mostly those from Hanson Robotics.  Several of the heads are
 modeled with blender, and so can be usefully worked with and controlled
 even without a physical robot.
 
