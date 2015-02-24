@@ -57,7 +57,12 @@ RUN cd /catkin_ws/src/ && find . -maxdepth 1 -mindepth 1 -type d \
 # The blender API has not been fully catkinized yet.
 RUN pip3 install ./blender_api_msgs/
 
+# Some versions of ros_pololu_server will fail during build; the
+# work-around for this is to build twice (This because the missing
+# files are autogened, and the pololu Cmakefiles fail to list them as
+# dependencies.)
 WORKDIR /catkin_ws
+RUN bash -l -c "/opt/ros/indigo/bin/catkin_make" || true
 RUN bash -l -c "/opt/ros/indigo/bin/catkin_make"
 
 RUN echo source /catkin_ws/devel/setup.bash >> ~/.bashrc
