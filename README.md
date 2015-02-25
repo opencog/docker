@@ -1,8 +1,11 @@
-opencog-ros
-===========
+# OpenCog's Docker library
+This repository is used for setting different docker containers for the various
+components/dependencies/tools/repositories/configurations associated with the
+OpenCog project. The dockerfiles here are designed to be built in an additive way.
 
+## 1. Dockerfiles for Robot Operating System (ROS)
 Dockerfiles for demoing and working with various different robot heads
-and bodies, mostly those from Hanson Robotics.  Several of the heads are
+and bodies, mostly those from Hanson Robotics. Several of the heads are
 modeled with blender, and so can be usefully worked with and controlled
 even without a physical robot.
 
@@ -19,7 +22,7 @@ This includes the Robot Operating System (ROS), Blender, Pololu motor
 drivers, a variety of ROS webcam and face-tracking/saliency nodes,
 OpenCog, and other add-ons.
 
-Docker image structure:
+### Docker image structure:
 
     ├─ros-hydro-deps
       ├─ros-hydro-dev
@@ -36,11 +39,11 @@ Docker image structure:
         ├─ros-indigo-einstein
         ├─ros-indigo-zenorsm
 
-Some (outdated!?) images available at `https://index.docker.io/u/opencog`
+Images available at https://registry.hub.docker.com/repos/opencog/
 
 Pull using, e.g., `docker pull ros-indigo-opencog`
 
-## Organizational Notes
+### Organizational Notes:
 The base and blender images should be general enough to allow various
 different robots to be brought up and demoed.
 
@@ -61,8 +64,63 @@ different robots to be brought up and demoed.
    this needs to be cleaned up and replaced by one of the above!?
 
 
-### Installation
-To run the demos, docker must be installed.  Instructions can be found
-here: https://docs.docker.com/installation/ubuntulinux/ .
-The *Giving non-root access* section on the page above explains how to
-avoid having to use `sudo` all the time.
+## 2. Dockerfiles for OpenCog
+The dockerfiles here are designed to be built opencog-deps in the same directory
+as this README.
+
+### Docker image structure:
+
+    ├─opencog/opencog-deps:utopic
+    ├─opencog/opencog-deps:latest
+      ├─opencog/opencog-dev:cli (for a dev environment)
+      ├─opencog/opencog-dev:ide
+      ├─opencog/opencog-buildslave
+      ├─opencog/opencog-distcc
+      ├─opencog/cogserver
+      ├─opencog/embodiment
+
+    ├─opencog/moses
+
+    ├─opencog/relex
+
+### Organizational Notes:
+
+* `opencog/opencog-deps:utopic`: ubuntu 14.10 based image with all OpenCog's
+   dependencies installed.
+
+* `opencog/opencog-deps:latest`: ubuntu 14.04 based image with all OpenCog's
+   dependencies installed. This forms the base of other main repositories. It
+   likely will be updated to the latest LTS as it is released.
+
+* `opencog/opencog-dev:cli`: Mainly for running/developing through a shared
+   filesystem between host and container. Has some command line tools installed
+
+* `opencog/opencog-dev:ide`: Still in development. To be used for developing using
+   ides.
+
+* `opencog/opencog-buildslave`: Is used for buildbot found [here] (buildbot.opencog.org:8010)
+   Needs some cleanup along with `opencog/opencog-distcc` `opencog/embodiment`
+
+* `opencog/cogserver`: Self-contained opencog cogserver. Has a shallow clone of
+   the OpenCog repo, which is built. On starting a container the default is to 
+   start the cogserver.
+
+* `opencog/moses`: It is based on the offical r-base image and has moses installed.
+   The R binding to moses is not yet included but the binding can be found [here](https://github.com/mjsduncan/Rmoses)
+
+* `opencog/relex`: It is a self-contianed image for running relex and linkg-grammar
+   servers. For the time being it is also the development image so, you have to 
+   use shared filesystem for development or clone your repo inside the container
+   or use a separte data-volume.
+
+
+## 3. Usage
+To run the demos and other containers, docker must be installed. Instructions 
+can be found [here](https://docs.docker.com/installation/)
+The [Giving non-root access](https://docs.docker.com/installation/ubuntulinux/#giving-non-root-access) section on the page explains how to avoid having to use `sudo` all 
+the time.
+
+The docker-build.sh file in opencog directory is used for building some of the
+base images.After running the script successfully other images could be built.
+The script is not expanded to orchesterate containers because fig is planned to
+be used.
