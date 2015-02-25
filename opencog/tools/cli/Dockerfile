@@ -24,8 +24,9 @@ RUN apt-get install \
                     pv \
                     bc \
                     gdb \
-                    python-dgb \
-                    tmux
+                    python2.7-dbg\
+                    tmux \
+                    rlwrap \
     --assume-yes
 
 USER opencog
