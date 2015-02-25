@@ -1,4 +1,7 @@
-# docker build --no-cache -t opencog/cogserver .
+# Step to take
+# 1. docker build --no-cache -t opencog/cogserver .
+# 2. docker run -p 17001:17001 -it opencog/cogserver
+# 3. rlwrap telnet localhost 17001
 
 FROM opencog/opencog-deps
 

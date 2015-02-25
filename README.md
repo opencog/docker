@@ -70,23 +70,57 @@ as this README.
 
 ### Docker image structure:
 
-    ├─opencog-deps
-      ├─opencog-dev:cli (for a dev environment)
-      ├─opencog-dev:ide
-      ├─opencog-buildslave
-      ├─opencog-distcc
-      ├─opencog-embodiment
-      ├─cogserver
+    ├─opencog/opencog-deps:utopic
+    ├─opencog/opencog-deps:latest
+      ├─opencog/opencog-dev:cli (for a dev environment)
+      ├─opencog/opencog-dev:ide
+      ├─opencog/opencog-buildslave
+      ├─opencog/opencog-distcc
+      ├─opencog/cogserver
+      ├─opencog/embodiment
+
+    ├─opencog/moses
+
+    ├─opencog/relex
 
 ### Organizational Notes:
-Using bind mounts (some containers currently use them) is a hacky solution
-to passing the opencog source tree to each docker build. Run bindmounts.sh
-before running 'docker build' and bindumount.sh to clean up afterward. (This 
-will not be necessary, as the builds will be made by cloning from the respective
-repositories. The scripts are to be moved or removed)
 
-## 3. Installation
+* `opencog/opencog-deps:utopic`: ubuntu 14.10 based image with all OpenCog's
+   dependencies installed.
+
+* `opencog/opencog-deps:latest`: ubuntu 14.04 based image with all OpenCog's
+   dependencies installed. This forms the base of other main repositories. It
+   likely will be updated to the latest LTS as it is released.
+
+* `opencog/opencog-dev:cli`: Mainly for running/developing through a shared
+   filesystem between host and container. Has some command line tools installed
+
+* `opencog/opencog-dev:ide`: Still in development. To be used for developing using
+   ides.
+
+* `opencog/opencog-buildslave`: Is used for buildbot found [here] (buildbot.opencog.org:8010)
+   Needs some cleanup along with `opencog/opencog-distcc` `opencog/embodiment`
+
+* `opencog/cogserver`: Self-contained opencog cogserver. Has a shallow clone of
+   the OpenCog repo, which is built. On starting a container the default is to 
+   start the cogserver.
+
+* `opencog/moses`: It is based on the offical r-base image and has moses installed.
+   The R binding to moses is not yet included but the binding can be found [here](https://github.com/mjsduncan/Rmoses)
+
+* `opencog/relex`: It is a self-contianed image for running relex and linkg-grammar
+   servers. For the time being it is also the development image so, you have to 
+   use shared filesystem for development or clone your repo inside the container
+   or use a separte data-volume.
+
+
+## 3. Usage
 To run the demos and other containers, docker must be installed. Instructions 
-can be found [here](https://docs.docker.com/installation/ubuntulinux/ .)
+can be found [here](https://docs.docker.com/installation/)
 The [Giving non-root access](https://docs.docker.com/installation/ubuntulinux/#giving-non-root-access) section on the page explains how to avoid having to use `sudo` all 
 the time.
+
+The docker-build.sh file in opencog directory is used for building some of the
+base images.After running the script successfully other images could be built.
+The script is not expanded to orchesterate containers because fig is planned to
+be used.
