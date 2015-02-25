@@ -1,13 +1,12 @@
 # For creating images with all the dependencies for development installed.
-# Steps:
-# 1. ~/opencog/docker/bindmounts.sh
-# No need to run the above it is at your own discreation
-# 2. docker build -t $USER/opencog-deps .
+#
+# docker build --no-cache -t opencog/opencog-deps .
 
-FROM ubuntu:trusty
+FROM ubuntu:14.04
 MAINTAINER David Hart "dhart@opencog.org"
 
 RUN apt-get update 
+RUN apt-get -y upgrade
 RUN apt-get -y install software-properties-common python-pip wget
 
 # Install repositories and dependencies
@@ -24,7 +23,7 @@ RUN pip install -U -r /tmp/requirements.txt
 RUN wget -r --no-parent -nH --cut-dirs=2 http://www.abisource.com/downloads/link-grammar/current/
 RUN tar -zxf current/link-grammar-5*.tar.gz
 RUN rm -r current
-RUN (cd link-grammar-5.*/; mkdir build; cd build; ../configure; make -j6; make install; ldconfig)
+RUN (cd link-grammar-5.*/; mkdir build; cd build; ../configure; make -j$(nproc); make install; ldconfig)
 
 # Basic Tools
 RUN apt-get -y install git telnet netcat-openbsd

@@ -1,9 +1,9 @@
 # For creating images with non gui tools for development and dependencies installed
 # Steps:
-# 1. docker build -t $USER/opencog-dev:cli .
+# 1. docker build -t opencog/opencog-dev:cli .
 # 2. docker create --name opencog -p 17001:17001 -p 5000:5000
 #       -v ABSOLUTE/PATH/TO/OPENCOG/ROOT/DIRECTORY:/home/opencog
-#       -it $USER/opencog-dev:cli
+#       -it opencog/opencog-dev:cli
 # 3. docker start -i opencog
 # 4. mkdir build
 # 5. cmake ..

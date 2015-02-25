@@ -1,5 +1,5 @@
 # Step to take
-# 1. docker build -t opencog/moses .
+# 1. docker build --no-cache -t opencog/moses .
 # 2. docker run -v $PWD:/home/moses -it opencog/moses bash
 # 3. moses
 
@@ -35,7 +35,7 @@ WORKDIR /tmp/
 RUN git clone https://github.com/opencog/opencog.git
 RUN ./opencog/scripts/learning/moses/extract_moses/OC2MOSES.sh moses
 RUN mkdir moses/build ; cd moses/build ; cmake .. ; \
-    make -j12 ; make install ; ldconfig
+    make -j$(nproc) ; make install ; ldconfig
 
 # Create and switch user. The user is privileged, with no password required.
 # That is you can use sudo.
