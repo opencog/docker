@@ -23,6 +23,9 @@ RUN apt-get install \
                     vim \
                     pv \
                     bc \
+                    gdb \
+                    python-dgb \
+                    tmux
     --assume-yes
 
 USER opencog
