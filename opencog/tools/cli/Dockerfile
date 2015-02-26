@@ -30,4 +30,5 @@ RUN apt-get install \
     --assume-yes
 
 USER opencog
+COPY /scripts/.gdbinit ~/.gdbinit
 CMD /bin/bash
