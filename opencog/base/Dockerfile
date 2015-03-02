@@ -7,7 +7,7 @@ MAINTAINER David Hart "dhart@opencog.org"
 
 RUN apt-get update 
 RUN apt-get -y upgrade
-RUN apt-get -y install software-properties-common python-pip wget
+RUN apt-get -y install software-properties-common python-pip wget git rlwrap telnet netcat-openbsd
 
 # Install repositories and dependencies
 ADD https://raw.githubusercontent.com/opencog/opencog/master/scripts/ocpkg \
@@ -24,9 +24,6 @@ RUN wget -r --no-parent -nH --cut-dirs=2 http://www.abisource.com/downloads/link
 RUN tar -zxf current/link-grammar-5*.tar.gz
 RUN rm -r current
 RUN (cd link-grammar-5.*/; mkdir build; cd build; ../configure; make -j$(nproc); make install; ldconfig)
-
-# Basic Tools
-RUN apt-get -y install git telnet netcat-openbsd
 
 # Environment Variables
 ## Set Locale

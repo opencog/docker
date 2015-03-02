@@ -1,7 +1,15 @@
 The directories slave/precise and slave/utopic are kept for historic reasons.
 The buildbot @ http://buildbot.opencog.org:8010/ only uses slave/latest
 
-TODO:
+### Steps
+1. ./build-buildbot.sh # Builds all the images needed to setup build environment
+2. ./stop-buildbot.sh # Stop any buildbot containers and remove them if any.
+3. ./set-workspace.sh # If this is your first time then it configures space for
+   the buildbot to work in. These directories are shared with the running
+   containers.
+4. ./run-buildbot.sh
+
+### TODO:
 1. Add relex unit testing
 2. Add integration testing between opencog and relex
 3. Add integration testing between opencog and unity3d-opencog-game
