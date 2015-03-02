@@ -3,7 +3,7 @@
 # 1. docker build --no-cache -t opencog/buildbot .
 # 2. docker stop buildmaster
 # 3. docker rm buildmaster
-# 2. Make sure you mount the appropriate host directory for master to /home/buildbot/master
+# 4. Make sure you mount the appropriate host directory for master to /home/buildbot/master
 #    using docker's volumes and forward port 8010 on running the container.
 #    docker run -d --name buildmaster -v $RELEVANT_DIRECTORY_PATH:/home/buildbot/master\
     -p 8010:8010 -it opencog/buildbot

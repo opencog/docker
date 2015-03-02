@@ -1,41 +1,27 @@
-# For use with Docker https://www.docker.io/gettingstarted/
+# Mount the relevant host directory to /home/buildslave/slave
+# This is based on the default working environment for opencog
 #
-# docker build -t $USER/opencog-buildslave .
-# docker run -d -e BUILDSLAVE_NAME=$HOSTNAME -e BUILDSLAVE_PASSWD=foobar $USER/opencog-buildslave
+# Steps:
+# 1. docker build --no-cache -t opencog/buildslave:zera .
+# 2. docker stop zera
+# 3. docker rm zera
+# 4. docker run -d --name zera --link buildmaster:zera-master \
+#    -v $PWD:/home/buildslave/slave \
+#    -it opencog/buildslave:zera
 
 FROM opencog/opencog-deps
 MAINTAINER David Hart "dhart@opencog.org"
 
-RUN apt-get update --assume-yes && \
-    apt-get install python-pip \
-                    python-dev \
-		    locales \
-            --assume-yes
+RUN apt-get update
+RUN pip install buildbot-slave
 
-RUN localedef -c -i en_US -f UTF-8 en_US.UTF-8
-ENV LANG en_US.UTF-8
-ENV LANGUAGE en_US:en
-ENV LC_ALL en_US.UTF-8
+# Create and switch user. This was added for security
+# Disbaled temporarily for expediancy
+# RUN adduser --disabled-password --gecos "Continuese Integration" buildslave
+# USER buildslave
+WORKDIR /home/buildslave
 
-RUN pip install buildbot-slave==0.8.8
-
-RUN adduser --disabled-password -uid 1099 --gecos "Buildbot,,," --home /buildbot buildbot
-
-RUN su buildbot sh -c "buildslave create-slave --umask=022 /buildbot buildbot.opencog.org:9989 BUILDSLAVE_NAME BUILDSLAVE_PASSWD"
-
-ADD opencog /buildbot/opencog_master_trusty/build
-RUN chown -R buildbot:buildbot /buildbot
-WORKDIR /buildbot/opencog_master_trusty/build
-
-RUN git remote rm origin
-RUN git remote add origin git://github.com/opencog/opencog
-
-# set buildslave admin and host info
-RUN echo "David Hart <dhart@opencog.org>" > /buildbot/info/admin && \
-    grep "model name" /proc/cpuinfo | head -1 | cut -d ":" -f 2 | tr -d " " > /buildbot/info/host && \
-    grep DISTRIB_DESCRIPTION /etc/lsb-release | cut -d "=" -f 2 | tr -d "\"" >> /buildbot/info/host
-
-CMD su buildbot sh -c "\
-sed -i s:BUILDSLAVE_NAME:$BUILDSLAVE_NAME:g /buildbot/buildbot.tac && \
-sed -i s:BUILDSLAVE_PASSWD:$BUILDSLAVE_PASSWD:g /buildbot/buildbot.tac && \
-BUILDSLAVE_PASSWD=xxxxxx /usr/local/bin/buildslave start --nodaemon /buildbot"
+# Defaults
+# This assumes the  $RELEVANT_DIRECTORY_PATH has the necessary files created on
+# running `buildslave create-slave slave zera-master zera XXXXXX`
+CMD buildslave start  --nodaemon slave
