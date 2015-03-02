@@ -1,9 +1,12 @@
-# Notes:
-# - Tag the image built as opencog/buildbot
-# -Make sure you mount the appropriate host directory for master to /home/buildbot/master
-#  using docker's volumes and forward port 8010 on running the container.
-#  docker run --rm --name master -v $RELEVANT_DIRECTORY_PATH:/home/buildbot/master\
-#  -p 8010:8010 -it opencog/buildbot
+# Steps:
+#
+# 1. docker build --no-cache -t opencog/buildbot .
+# 2. docker stop buildmaster
+# 3. docker rm buildmaster
+# 4. Make sure you mount the appropriate host directory for master to /home/buildbot/master
+#    using docker's volumes and forward port 8010 on running the container.
+#    docker run -d --name buildmaster -v $RELEVANT_DIRECTORY_PATH:/home/buildbot/master\
+    -p 8010:8010 -it opencog/buildbot
 
 FROM ubuntu:14.04
 
@@ -21,4 +24,6 @@ WORKDIR /home/buildbot
 
 # Defaults
 EXPOSE 9989
-CMD buildbot start master
+# This assumes the  $RELEVANT_DIRECTORY_PATH has the necessary files created on
+# running `buildbot create-master master`
+CMD buildbot start  --nodaemon master
