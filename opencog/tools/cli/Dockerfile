@@ -13,8 +13,7 @@
 FROM opencog/opencog-deps
 MAINTAINER David Hart "dhart@opencog.org"
 
-ADD odbc.ini /scripts/odbc.ini
-ADD configure-database.sh /scripts/configure-database.sh
+ADD scripts /scripts
 
 RUN apt-get install \
                     byobu \
@@ -28,7 +27,7 @@ RUN apt-get install \
                     python2.7-dbg\
                     tmux \
                     rlwrap \
-                    man
+                    man \
     --assume-yes
 
 USER opencog
