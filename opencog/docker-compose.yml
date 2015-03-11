@@ -9,8 +9,6 @@
 # On exiting postgres will still be running in the background. So when performing
 # step 3 above it will autolink to it.
 
-
-
 dev:
     image: opencog/opencog-dev:cli
     ports: # syntax is host:container
