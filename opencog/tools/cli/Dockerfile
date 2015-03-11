@@ -13,7 +13,8 @@
 FROM opencog/opencog-deps
 MAINTAINER David Hart "dhart@opencog.org"
 
-RUN apt-get update --assume-yes
+ADD odbc.ini /scripts/odbc.ini
+ADD configure-database.sh /scripts/configure-database.sh
 
 RUN apt-get install \
                     byobu \
