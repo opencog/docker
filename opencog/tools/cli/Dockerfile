@@ -27,6 +27,7 @@ RUN apt-get install \
                     python2.7-dbg\
                     tmux \
                     rlwrap \
+                    man
     --assume-yes
 
 USER opencog
