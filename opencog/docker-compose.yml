@@ -1,0 +1,27 @@
+# This file assumes that all the relevant images are pre-built locally or pulled
+# from https://registry.hub.docker.com/repos/opencog/ and the opencog related
+# environment variable are preset.
+#
+# Usage:
+# 1. sudo pip install -U docker-compose # only the first time
+# 2. export OPENCOG_SOURCE_DIR=export OPENCOG_SOURCE_DIR=$HOME/path/to/opencog/
+# 3. docker-compose run dev
+# On exiting postgres will still be running in the background. So when performing
+# step 3 above it will autolink to it.
+
+dev:
+    image: opencog/opencog-dev:cli
+    ports: # syntax is host:container
+        - "5000:5000"
+        - "17001:17001"
+        - "18001:18001"
+    volumes:
+        - $OPENCOG_SOURCE_DIR:/home/opencog
+    links:
+        - postgres:db
+
+postgres:
+    image: postgres:latest
+    volumes:
+        - $PWD/data/:/var/lib/postgresql/data  # for persisting data across sessions
+

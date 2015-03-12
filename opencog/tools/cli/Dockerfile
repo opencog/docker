@@ -13,7 +13,7 @@
 FROM opencog/opencog-deps
 MAINTAINER David Hart "dhart@opencog.org"
 
-RUN apt-get update --assume-yes
+ADD scripts /scripts
 
 RUN apt-get install \
                     byobu \
@@ -27,6 +27,7 @@ RUN apt-get install \
                     python2.7-dbg\
                     tmux \
                     rlwrap \
+                    man \
     --assume-yes
 
 USER opencog
