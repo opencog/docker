@@ -37,7 +37,7 @@ RUN apt-get -y update
 RUN apt-get -y upgrade
 
 RUN apt-get -y install screen telnet netcat-openbsd byobu
-RUN apt-get -y install wget vim unzip
+RUN apt-get -y install wget vim unzip git
 
 # GCC and basic build tools
 RUN apt-get -y install gcc g++ make
