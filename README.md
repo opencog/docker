@@ -115,12 +115,13 @@ as this README.
 
 
 ## 3. Usage
-To run the demos and other containers, docker must be installed. Instructions 
-can be found [here](https://docs.docker.com/installation/)
-The [Giving non-root access](https://docs.docker.com/installation/ubuntulinux/#giving-non-root-access) section on the page explains how to avoid having to use `sudo` all 
-the time.
+* To run the demos and other containers, docker must be installed. Instructions 
+  can be found [here](https://docs.docker.com/installation/). The [Giving non-root access](https://docs.docker.com/installation/ubuntulinux/#giving-non-root-access)
+  section on the page explains how to avoid having to use `sudo` all the time.
 
-The docker-build.sh file in opencog directory is used for building some of the
-base images.After running the script successfully other images could be built.
-The script is not expanded to orchesterate containers because fig is planned to
-be used.
+* The docker-build.sh file in opencog directory is used for building some of the
+  base images.After running the script successfully other images could be built.
+  
+* To use docker-compose follow the instruction in docker-compose.yml in the
+  opencog directory.
+

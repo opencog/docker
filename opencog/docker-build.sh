@@ -6,17 +6,20 @@
 # 2. If your user is not a member of the docker group you can add it by running
 #    sudo adduser $USER docker . On restart you would be able to run docker and
 #    this script without root privilege.
-# 3. This works for docker version >= 1.5.0 
+# 3. This works for docker version >= 1.5.0
+# 4. If run without any flag it will not rebuild all the images unless the base
+#    ubuntu image is updated.
+# 5. If run with the flag --no-cache it will rebuild the whole image irrespective
+#    of whether the base ubuntu image was updated or not.
 #
 # TODO: Add different options for different usage. For e.g., some person may want
 #       to just use the moses image.
-#remote_origin basename -s .git $(git remote show origin | grep Fetch | cut -d: -f2-)
 
 # For opencog development
-docker build --no-cache -f base/Dockerfile -t opencog/opencog-deps base && \
-docker build --no-cache -f tools/cli/Dockerfile -t opencog/opencog-dev:cli tools/cli
+docker build $1 -f base/Dockerfile -t opencog/opencog-deps base && \
+docker build $1 -f tools/cli/Dockerfile -t opencog/opencog-dev:cli tools/cli
 
 # For relex development
-docker build --no-cache -f relex/Dockerfile -t opencog/relex relex
+docker build $1 -f relex/Dockerfile -t opencog/relex relex
 
 
