@@ -34,6 +34,8 @@ dev:
     links:
         - postgres:db
         - relex:relex
+    environment:
+        - PYTHONPATH=/home/opencog/build/opencog/cython:/home/opencog/opencog/python/:/home/opencog/opencog/nlp/
 
 postgres:
     image: postgres:latest
