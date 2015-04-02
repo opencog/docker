@@ -3,7 +3,7 @@
 # Usage:
 # 1. ./docker-build.sh
 # 2. sudo pip install -U docker-compose # only the first time
-# 3. Add these lines to .bashrc at $HOME
+# 3. Add these lines to .bashrc at $HOME of your PC
 #    * export OPENCOG_SOURCE_DIR=$HOME/path/to/opencog/
 #    * export RELEX_SOURCE_DIR=$HOME/path/to/relex/
 # 4. Options for developing opencog
@@ -29,13 +29,15 @@ dev:
         - "17001:17001"
         - "18001:18001"
         - "8080:8080"
+    working_dir: /opencog # This is the same as the volume mount point above
     volumes:
-        - $OPENCOG_SOURCE_DIR:/home/opencog
+        - $OPENCOG_SOURCE_DIR:/opencog
     links:
         - postgres:db
         - relex:relex
-    environment:
+    environment: # Set environment variables within the container
         - PYTHONPATH=/home/opencog/build/opencog/cython:/home/opencog/opencog/python/:/home/opencog/opencog/nlp/
+        - OPENCOG_SOURCE_DIR:/opencog
 
 postgres:
     image: postgres:latest
@@ -48,9 +50,9 @@ relex:
         - "4444:4444"
         - "9000:9000"
         - "3333:3333"
-    working_dir: /home/relex
+    working_dir: /relex
     volumes:
-        - $RELEX_SOURCE_DIR:/home/relex
+        - $RELEX_SOURCE_DIR:/relex
     command: /bin/sh -c "ant
                         && chmod u+x opencog-server.sh
                         && ./opencog-server.sh"
