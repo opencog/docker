@@ -2,7 +2,8 @@
 # Steps:
 # 1. docker build -t opencog/opencog-dev:cli .
 # 2. docker create --name opencog -p 17001:17001 -p 5000:5000
-#       -v ABSOLUTE/PATH/TO/OPENCOG/ROOT/DIRECTORY:/home/opencog
+#       -v ABSOLUTE/PATH/TO/OPENCOG/ROOT/DIRECTORY/On/Your/PC/:/opencog
+#       -w /opencog
 #       -it opencog/opencog-dev:cli
 # 3. docker start -i opencog
 # 4. mkdir build
@@ -12,8 +13,6 @@
 
 FROM opencog/opencog-deps
 MAINTAINER David Hart "dhart@opencog.org"
-
-ADD scripts /scripts
 
 RUN apt-get install \
                     byobu \
@@ -31,5 +30,10 @@ RUN apt-get install \
     --assume-yes
 
 USER opencog
-COPY /scripts/.gdbinit ~/.gdbinit
+
+# Setup the workspace
+## Dont't mount host volumes to opencog's home directory inside the container.
+COPY /scripts/ /home/opencog
+RUN sudo chown -R opencog:opencog * .*
+
 CMD /bin/bash
