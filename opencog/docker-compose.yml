@@ -36,8 +36,8 @@ dev:
         - postgres:db
         - relex:relex
     environment: # Set environment variables within the container
-        - PYTHONPATH=/home/opencog/build/opencog/cython:/home/opencog/opencog/python/:/home/opencog/opencog/nlp/
-        - OPENCOG_SOURCE_DIR:/opencog
+        - PYTHONPATH=/opencog/build/opencog/cython:/opencog/opencog/python/:/opencog/opencog/nlp/
+        - OPENCOG_SOURCE_DIR=/opencog
 
 postgres:
     image: postgres:latest
@@ -52,7 +52,7 @@ relex:
         - "3333:3333"
     working_dir: /relex
     volumes:
-        - $RELEX_SOURCE_DIR:/relex
+        - $RELEX_SOURCE_DIR=/relex
     command: /bin/sh -c "ant
                         && chmod u+x opencog-server.sh
                         && ./opencog-server.sh"
