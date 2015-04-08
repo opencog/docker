@@ -52,7 +52,7 @@ relex:
         - "3333:3333"
     working_dir: /relex
     volumes:
-        - $RELEX_SOURCE_DIR=/relex
+        - $RELEX_SOURCE_DIR:/relex
     command: /bin/sh -c "ant
                         && chmod u+x opencog-server.sh
                         && ./opencog-server.sh"
