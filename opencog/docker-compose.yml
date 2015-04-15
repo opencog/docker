@@ -32,6 +32,7 @@ dev:
     working_dir: /opencog # This is the same as the volume mount point above
     volumes:
         - $OPENCOG_SOURCE_DIR:/opencog
+        - $HOME/.gitconfig:/home/opencog/.gitconfig
     links:
         - postgres:db
         - relex:relex
@@ -53,6 +54,4 @@ relex:
     working_dir: /relex
     volumes:
         - $RELEX_SOURCE_DIR:/relex
-    command: /bin/sh -c "ant
-                        && chmod u+x opencog-server.sh
-                        && ./opencog-server.sh"
+    command: /bin/sh -c "ant clean && ant  && ./opencog-server.sh"
