@@ -1,26 +1,6 @@
 # Follow the instruction below for easy setup of environment
 #
-# Usage:
-# 1. ./docker-build.sh
-# 2. sudo pip install -U docker-compose # only the first time
-# 3. Add these lines to .bashrc at $HOME of your PC
-#    * export OPENCOG_SOURCE_DIR=$HOME/path/to/opencog/
-#    * export RELEX_SOURCE_DIR=$HOME/path/to/relex/
-# 4. Options for developing opencog
-#    * docker-compose run --service-ports dev   # to map container ports to host
-#    * docker-compose run dev   # if you don't want to map ports to hosts
-# 5. cat /etc/hosts   # take note of the ip address for relex, e.g. 172.17.0.69     relex
-# 6. Start opencog and telnet/netcat into the scheme shell
-# 7. Configure relex-server-host, e.g. (define relex-server-host "172.17.0.69")
-# 8. (nlp-parse "you know what this is.")
-#
-# Notes:
-# * On exiting opencog container, postgres & relex will still be running in the
-#   background. So when performing step 4 above it will autolink to them.
-# * If you just want to work on relex
-#    * docker-compose  run --service-ports relex   # to map container ports to host
-#    * docker-compose run relex   # if you don't want to map ports to hosts
-# * For more on docker-compose refert to https://docs.docker.com/compose/
+# Usage: Follow the steps in the README file in the directory containing this file
 
 dev:
     image: opencog/opencog-dev:cli
