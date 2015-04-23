@@ -17,9 +17,8 @@
 
 # For opencog development
 docker build $1 -f base/Dockerfile -t opencog/opencog-deps base && \
-docker build $1 -f tools/cli/Dockerfile -t opencog/opencog-dev:cli tools/cli
+docker build $1 -f tools/cli/Dockerfile -t opencog/opencog-dev:cli tools/cli && \
+docker build $1 -f cogserver -t opencog/cogserver cogserver
 
 # For relex development
 docker build $1 -f relex/Dockerfile -t opencog/relex relex
-
-

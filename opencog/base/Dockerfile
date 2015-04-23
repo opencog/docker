@@ -5,7 +5,7 @@
 FROM ubuntu:14.04
 MAINTAINER David Hart "dhart@opencog.org"
 
-RUN apt-get update 
+RUN apt-get update
 RUN apt-get -y upgrade
 RUN apt-get -y install software-properties-common python-pip wget git rlwrap telnet netcat-openbsd
 
@@ -14,7 +14,7 @@ ADD https://raw.githubusercontent.com/opencog/opencog/master/scripts/ocpkg \
     /tmp/install-dependencies-trusty
 ADD https://raw.githubusercontent.com/opencog/opencog/master/opencog/python/requirements.txt \
     /tmp/requirements.txt
-RUN chmod +x /tmp/install-dependencies-trusty && /tmp/install-dependencies-trusty 
+RUN chmod +x /tmp/install-dependencies-trusty && /tmp/install-dependencies-trusty
 RUN pip install -U -r /tmp/requirements.txt
 
 # Link Parser -- changes often
@@ -38,6 +38,12 @@ RUN adduser opencog sudo
 RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 USER opencog
 WORKDIR /home/opencog
+
+# Setup the workspace
+## Dont't mount host volumes to opencog's home directory inside the container,
+## if you do you want find the contents copied below
+COPY /scripts/ /home/opencog
+RUN sudo chown -R opencog:opencog * .* ; sudo chmod u+x configure-database.sh
 
 # Defaults
 ## cogserver shell ports

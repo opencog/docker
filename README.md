@@ -102,26 +102,25 @@ as this README.
    Needs some cleanup along with `opencog/opencog-distcc` `opencog/embodiment`
 
 * `opencog/cogserver`: Self-contained opencog cogserver. Has a shallow clone of
-   the OpenCog repo, which is built. On starting a container the default is to 
+   the OpenCog repo, which is built. On starting a container the default is to
    start the cogserver.
 
 * `opencog/moses`: It is based on the offical r-base image and has moses installed.
    The R binding to moses is not yet included but the binding can be found [here](https://github.com/mjsduncan/Rmoses)
 
 * `opencog/relex`: It is a self-contianed image for running relex and linkg-grammar
-   servers. For the time being it is also the development image so, you have to 
+   servers. For the time being it is also the development image so, you have to
    use shared filesystem for development or clone your repo inside the container
    or use a separte data-volume.
 
 
 ## 3. Usage
-* To run the demos and other containers, docker must be installed. Instructions 
+* To run the demos and other containers, docker must be installed. Instructions
   can be found [here](https://docs.docker.com/installation/). The [Giving non-root access](https://docs.docker.com/installation/ubuntulinux/#giving-non-root-access)
   section on the page explains how to avoid having to use `sudo` all the time.
 
 * The docker-build.sh file in opencog directory is used for building some of the
   base images.After running the script successfully other images could be built.
-  
-* To use docker-compose follow the instruction in docker-compose.yml in the
-  opencog directory.
 
+* To use docker-compose follow the instruction in the README file in the
+  opencog directory.
