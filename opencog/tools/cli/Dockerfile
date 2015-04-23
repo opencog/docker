@@ -31,9 +31,4 @@ RUN apt-get install \
 
 USER opencog
 
-# Setup the workspace
-## Dont't mount host volumes to opencog's home directory inside the container.
-COPY /scripts/ /home/opencog
-RUN sudo chown -R opencog:opencog * .* ; sudo chmod u+x configure-database.sh
-
 CMD /bin/bash
