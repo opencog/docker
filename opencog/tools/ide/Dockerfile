@@ -7,7 +7,7 @@
 #       -it opencog/opencog-dev:qtcreator
 # 3. docker start -i opencog
 # 4. qtcreator
-# Check http://wiki.opencog.org/w/Building_OpenCog#IDEs on how to use IDEs
+#  Check http://wiki.opencog.org/w/Using_QT_Creator on how to use qtcreator.
 
 FROM opencog/opencog-deps
 MAINTAINER Alex van der Peet "alex.van.der.peet@gmail.com"
@@ -19,21 +19,11 @@ RUN apt-get -y install \
                         git-gui \
                         meld \
                         qtcreator \
-                        valgrind
+                        valgrind \
+                        tmux
 
-#ENV STARTSCRIPT "\
-#echo evaluating startup script... ;\
-#cd $HOME;\
-#tmux new-session -d 'echo "kernel.yama.ptrace_scope=0" > #/etc/sysctl.d/10-ptrace.conf' ;\
-#tmux new-session -d '/usr/bin/gnome-panel&/bin/bash' ;\
-#tmux set -g set-remain-on-exit on ;\
-#tmux set-option -g set-remain-on-exit on ;\
-#tmux bind-key R respawn-window ;\
-#tmux split-window -d -v -p 25 '/bin/bash' ;\
-#tmux select-layout even-vertical ;\
-#tmux attach \
-#"
-
+# Workspace configuration
+COPY qtcreator-startup-script.sh /home/opencog/
+RUN chown opencog:opencog /home/opencog/qtcreator-startup-script.sh
 USER opencog
-
-CMD bash
+CMD /home/opencog/qtcreator-startup-script.sh
