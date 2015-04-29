@@ -15,7 +15,6 @@ FROM opencog/opencog-deps
 MAINTAINER David Hart "dhart@opencog.org"
 
 RUN apt-get install \
-                    byobu \
                     less \
                     curl \
                     mosh \

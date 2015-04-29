@@ -1,9 +1,14 @@
 # Follow the instruction below for easy setup of environment
 #
 # Usage: Follow the steps in the README file in the directory containing this file
+# 1. docker-compose -f opencog-ide.yml  build (run this when there is a dependency change)
+# 2. docker-compose -f opencog-ide.yml run --service-ports dev
+# 3. Check http://wiki.opencog.org/w/Using_QT_Creator on how to use qtcreator.
+
+# Note: You can use your mouse to switch between tmux windows/panes
 
 dev:
-    image: opencog/opencog-dev:cli
+    build: tools/ide
     ports: # syntax is host:container
         - "5000:5000"
         - "17001:17001"
@@ -13,27 +18,8 @@ dev:
     volumes:
         - $OPENCOG_SOURCE_DIR:/opencog
         - $HOME/.gitconfig:/home/opencog/.gitconfig
-    links:
-        - postgres:db
-        - relex:relex
+        - /tmp/.X11-unix/:/tmp/.X11-unix/:ro # For GUI
     environment: # Set environment variables within the container
         - PYTHONPATH=/opencog/build/opencog/cython:/opencog/opencog/python/:/opencog/opencog/nlp/
         - OPENCOG_SOURCE_DIR=/opencog
-        - PGHOST=db # This should be the same as the link's alias
-        - PGUSER=opencog_user # user created by configure-database.sh
-
-postgres:
-    image: postgres:latest
-    volumes: # for persisting data across sessions
-        - $PWD/data/:/var/lib/postgresql/data
-
-relex:
-    image: opencog/relex
-    ports:
-        - "4444:4444"
-        - "9000:9000"
-        - "3333:3333"
-    working_dir: /relex
-    volumes:
-        - $RELEX_SOURCE_DIR:/relex
-    command: /bin/sh -c "ant clean && ant  && ./opencog-server.sh"
+        - DISPLAY=:0 # For GUI assuming a single monitor setup. This should be set on run.
