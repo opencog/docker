@@ -9,7 +9,7 @@ dev:
         - "17001:17001"
         - "18001:18001"
         - "8080:8080"
-    working_dir: /opencog # This is the same as the volume mount point above
+    working_dir: /opencog # This is the same as the volume mount point below
     volumes:
         - $OPENCOG_SOURCE_DIR:/opencog
         - $HOME/.gitconfig:/home/opencog/.gitconfig
