@@ -5,17 +5,13 @@
 FROM ubuntu:14.04
 MAINTAINER David Hart "dhart@opencog.org"
 
-RUN apt-get update
-RUN apt-get -y upgrade
-RUN apt-get -y install software-properties-common python-pip wget git rlwrap telnet netcat-openbsd
+RUN apt-get update ; apt-get -y upgrade ; apt-get -y autoclean
+RUN apt-get -y install software-properties-common wget rlwrap telnet netcat-openbsd
 
 # Install repositories and dependencies
 ADD https://raw.githubusercontent.com/opencog/opencog/master/scripts/ocpkg \
     /tmp/install-dependencies-trusty
-ADD https://raw.githubusercontent.com/opencog/opencog/master/opencog/python/requirements.txt \
-    /tmp/requirements.txt
 RUN chmod +x /tmp/install-dependencies-trusty && /tmp/install-dependencies-trusty
-RUN pip install -U -r /tmp/requirements.txt
 
 # Link Parser -- changes often
 # Download the current released version of link-grammar.
