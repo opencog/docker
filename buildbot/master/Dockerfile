@@ -10,10 +10,8 @@
 
 FROM ubuntu:14.04
 
-RUN apt-get update
-RUN apt-get -y install git
-RUN apt-get -y install python-pip
-RUN apt-get -y install python-dev
+RUN apt-get update ; apt-get -y upgrade ; apt-get -y autoclean
+RUN apt-get -y install git python-pip python-dev
 RUN pip install buildbot
 
 # Create and switch user. The user is privileged with no password required
