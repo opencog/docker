@@ -1,0 +1,20 @@
+# Follow the instruction below for easy setup of environment
+#
+# Usage: Follow the steps in the README file in the directory containing this file
+
+buildmaster:
+    build: master
+    volumes:
+        - buildbot_workspace/master:/home/buildbot/master
+    ports:
+        - "8010:8010"
+    restart: on-failure
+
+# Use the zera service as template for invoking multiple buildslave containers.
+zera:
+    build: slave/latest
+    volumes:
+        - buildbot_workspace/slaves/zera:/home/buildslave/slave
+    links:
+        - buildmaster:zera-master
+    restart: on-failure
