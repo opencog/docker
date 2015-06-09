@@ -27,6 +27,7 @@ RUN echo "deb http://packages.ros.org/ros/ubuntu trusty main" > /etc/apt/sources
 RUN apt-get -y update
 RUN apt-get -y install ros-indigo-ros-base
 RUN apt-get -y install ros-indigo-rosbridge-server
+RUN apt-get -y install ros-indigo-angles
 #
 # Most robot bringup will require git-cloning the working repos.
 # Need byobu+tmux for ROS terminal control.
