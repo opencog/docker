@@ -17,7 +17,7 @@ MAINTAINER Linas Vepštas "linasvepstas@gmail.com"
 # http://stackoverflow.com/questions/25019183/docker-java7-install-fail
 ENV DEBIAN_FRONTEND noninteractive
 
-ENV LAST_OS_UPDATE 2015-02-16
+ENV LAST_OS_UPDATE 2015-06-09
 RUN apt-get -y update
 RUN apt-get -y upgrade
 #
@@ -27,7 +27,6 @@ RUN echo "deb http://packages.ros.org/ros/ubuntu trusty main" > /etc/apt/sources
 RUN apt-get -y update
 RUN apt-get -y install ros-indigo-ros-base
 RUN apt-get -y install ros-indigo-rosbridge-server
-RUN apt-get -y install ros-indigo-angles
 #
 # Most robot bringup will require git-cloning the working repos.
 # Need byobu+tmux for ROS terminal control.
