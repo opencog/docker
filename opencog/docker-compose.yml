@@ -12,6 +12,8 @@ dev:
     working_dir: /opencog # This is the same as the volume mount point below
     volumes:
         - $OPENCOG_SOURCE_DIR:/opencog
+        - $ATOMSPACE_SOURCE_DIR:/atomspace
+        - $COGUTIL_SOURCE_DIR:/cogutils
         - $HOME/.gitconfig:/home/opencog/.gitconfig
     links:
         - postgres:db

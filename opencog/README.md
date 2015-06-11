@@ -6,9 +6,14 @@ Mac/Windows details are coming soon.
 ## Initial setups
 1. ./docker-build.sh
 2. sudo pip install -U docker-compose # only the first time
-3. Add these lines to .bashrc at $HOME of your PC and restart terminal or run `source ~/.bashrc`
-    * export OPENCOG_SOURCE_DIR=$HOME/path/to/opencog/
-    * export RELEX_SOURCE_DIR=$HOME/path/to/relex/
+3. Add these lines to .bashrc at $HOME of your PC and restart terminal or run `source ~/.bashrc` . __ Note that you don't have to clone each repository or add
+all the paths__ , just those you need. For the rest docker-compose will create
+an empty directory.
+    * export OPENCOG_SOURCE_DIR=$HOME/path/to/opencog
+    * export RELEX_SOURCE_DIR=$HOME/path/to/relex
+    * export ATOMSPACE_SOURCE_DIR=$HOME/path/to/atomspace
+    * export COGUTIL_SOURCE_DIR=$HOME/path/to/cogutils
+
 
 ## Steps for OpenCog development
 1. Starting the contianers run either of the following commands
