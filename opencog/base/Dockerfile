@@ -10,16 +10,15 @@ RUN apt-get -y install software-properties-common wget rlwrap telnet netcat-open
 
 # Install repositories and dependencies
 ADD https://raw.githubusercontent.com/opencog/opencog/master/scripts/ocpkg \
-    /tmp/install-dependencies-trusty
-RUN chmod +x /tmp/install-dependencies-trusty && /tmp/install-dependencies-trusty
+    /tmp/setup.sh
+RUN chmod u+x /tmp/setup.sh && /tmp/setup.sh -rdpcl
 
-# Link Parser -- changes often
-# Download the current released version of link-grammar.
-# The wget gets the latest version w/ wildcard
-RUN wget -r --no-parent -nH --cut-dirs=2 http://www.abisource.com/downloads/link-grammar/current/
-RUN tar -zxf current/link-grammar-5*.tar.gz
-RUN rm -r current
-RUN (cd link-grammar-5.*/; mkdir build; cd build; ../configure; make -j$(nproc); make install; ldconfig)
+# The Next command is seperated because atomspace is changing frequently.
+# This way the above layers wan't be updated hence build are a bit faster.
+# TODO: Find a means of updating this and subsequent layers only, without
+# having to create a separte repository. Maybe installation of opencog
+# projects could be postponed to run and then committed???
+RUN  /tmp/setup.sh -a
 
 # Environment Variables
 ## Set Locale
