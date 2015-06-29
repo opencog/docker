@@ -1,10 +1,12 @@
 # Usages
 
-You can use docker-compose for configuring your workspace on linux systems. For
-Mac/Windows details are coming soon.
+You can use docker-compose for configuring your workspace on linux and Mac systems. For Windows details are coming soon.
 
 ## Initial setups
-1. ./docker-build.sh
+1. ./docker-build.sh [OPTIONS]
+    * For opencog development use -bt option
+    * If you want to update your images add -u option. For example for opencog
+      development use -btu
 2. sudo pip install -U docker-compose # only the first time
 3. Add these lines to .bashrc at $HOME of your PC and restart terminal or run `source ~/.bashrc` . __ Note that you don't have to clone each repository or add
 all the paths__ , just those you need. For the rest docker-compose will create
@@ -13,7 +15,7 @@ an empty directory.
     * export RELEX_SOURCE_DIR=$HOME/path/to/relex
     * export ATOMSPACE_SOURCE_DIR=$HOME/path/to/atomspace
     * export COGUTIL_SOURCE_DIR=$HOME/path/to/cogutils
-
+    * export MOSES_SOURCE_DIR=$HOME/path/to/moses
 
 ## Steps for OpenCog development
 1. Starting the contianers run either of the following commands
