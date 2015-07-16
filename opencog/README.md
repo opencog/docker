@@ -14,7 +14,7 @@ an empty directory.
     * export OPENCOG_SOURCE_DIR=$HOME/path/to/opencog
     * export RELEX_SOURCE_DIR=$HOME/path/to/relex
     * export ATOMSPACE_SOURCE_DIR=$HOME/path/to/atomspace
-    * export COGUTIL_SOURCE_DIR=$HOME/path/to/cogutils
+    * export COGUTILS_SOURCE_DIR=$HOME/path/to/cogutils
     * export MOSES_SOURCE_DIR=$HOME/path/to/moses
 
 ## Steps for OpenCog development
