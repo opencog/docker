@@ -12,7 +12,7 @@ buildmaster:
 
 # Use the zera service as template for invoking multiple buildslave containers.
 zera:
-    build: slave/latest
+    build: slaves/latest
     volumes:
         - buildbot_workspace/slaves/zera:/home/buildslave/slave
     links:
