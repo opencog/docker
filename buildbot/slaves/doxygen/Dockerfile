@@ -1,3 +1,5 @@
+# Usage: Follow the steps in ../../README.md.
+
 FROM opencog/opencog-deps
 
 RUN apt-get install -y doxygen
