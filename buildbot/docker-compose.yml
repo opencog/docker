@@ -1,20 +1,22 @@
-# Follow the instruction below for easy setup of environment
-#
-# Usage: Follow the steps in the README file in the directory containing this file
+# Usage: Follow the steps in $PWD/README.md.
 
-buildmaster:
+workspace:
+    build: workspace
+
+master:
     build: master
-    volumes:
-        - buildbot_workspace/master:/home/buildbot/master
+    volumes_from:
+        - workspace
     ports:
         - "8010:8010"
+    command: ./run.sh -cr
     restart: on-failure
 
 # Use the zera service as template for invoking multiple buildslave containers.
 zera:
     build: slaves/latest
-    volumes:
-        - buildbot_workspace/slaves/zera:/home/buildslave/slave
+    volumes_from:
+        - workspace
     links:
-        - buildmaster:zera-master
+        - master:buildmaster
     restart: on-failure
