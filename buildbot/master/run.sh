@@ -32,6 +32,7 @@ printf "\n\n----Finished configuring workspace for builders"
 }
 
 # Main Execution
+WORKSPACE_CONFIGURED=false
 if [ $# -eq 0 ] ; then NO_ARGS=true ; fi
 
 while getopts "hrc" flag ; do
@@ -44,11 +45,15 @@ while getopts "hrc" flag ; do
     esac
 done
 
-if [ $CONFIGURE_WORKSPACE ] ; then
+if [ $CONFIGURE_WORKSPACE == true ] ; then
     configure_workspace
+    # TODO: this should check for errors and try again.
 fi
 
 if [ $RUN_MASTER ] ; then
+    # the remove is required so as to enable restart when container fails, as
+    # twisted.pid is a lock against multiple instances of master.
+    rm /var/workspace/master/twistd.pid
     printf "\n\n----Starting buildbot master daemon"
     buildbot start  --nodaemon /var/workspace/master
 fi

@@ -9,6 +9,9 @@ master:
         - workspace
     ports:
         - "8010:8010"
+    environment:
+        - WORKSPACE_CONFIGURED=false # the run.sh script modifies this to
+                                     # signals the builders to start running.
     command: ./run.sh -cr
     restart: on-failure
 
@@ -19,4 +22,5 @@ zera:
         - workspace
     links:
         - master:buildmaster
+    command: ./run.sh
     restart: on-failure
