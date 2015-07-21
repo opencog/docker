@@ -13,6 +13,9 @@ while [ $DOXYGEN_WORKSPACE_CONFIGURED == false ] ; do
             echo "----Removed stale twisted.pid file from doxygen \
                 buildslave workspace."
         fi
+
+        # this is set to true so as to avoid an infinit loop should the
+        # start of the buildslave fail.
         WORKSPACE_CONFIGURED=true
         sleep 30s # This is to give time for master to finish setting up.
         buildslave start --nodaemon /var/workspace/slaves/doxygen
