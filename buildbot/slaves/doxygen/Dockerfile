@@ -2,7 +2,8 @@
 
 FROM opencog/opencog-deps
 
-RUN apt-get install -y doxygen graphviz; pip install buildbot-slave
+RUN apt-get install -y doxygen graphviz; pip install buildbot-slave ; \
+     /tmp/setup.sh -c
 COPY run.sh /home/opencog/
 RUN chown opencog:opencog run.sh
 
