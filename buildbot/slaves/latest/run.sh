@@ -47,10 +47,18 @@ if [ $RUN_ATOMSPACE_BUILDSLAVE ] ; then
                 echo "----Removed stale twisted.pid file from atomspace \
                     buildslave workspace."
             fi
+            # cogutils is required for tests to run.
+            echo "----Installing/Updating cogutils."
+            sudo /tmp/setup.sh -c
+            echo "----Installed/Updated cogutils."
+
+            # this is set to true so as to avoid an infinit loop should the
+            # start of the buildslave fail.
             ATOMSPACE_WORKSPACE_CONFIGURED=true
             sleep 30s # This is to give time for master to finish setting up.
             buildslave start --nodaemon /var/workspace/slaves/atomspace
         fi
+
         echo "----atomspace buildslave workspace not configured yet."
         sleep 10s
     done
@@ -68,10 +76,14 @@ if [ $RUN_COGUTILS_BUILDSLAVE ] ; then
                 echo "----Removed stale twisted.pid file from cogutils \
                     buildslave workspace."
             fi
+
+            # this is set to true so as to avoid an infinit loop should the
+            # start of the buildslave fail.
             COGUTILS_WORKSPACE_CONFIGURED=true
             sleep 30s # This is to give time for master to finish setting up.
             buildslave start --nodaemon /var/workspace/slaves/cogutils
         fi
+
         echo "----cogutils buildslave workspace not configured yet."
         sleep 10s
     done
@@ -89,10 +101,19 @@ if [ $RUN_OPENCOG_BULDSLAVE ] ; then
                 echo "----Removed stale twisted.pid file from opencog \
                     buildslave workspace."
             fi
+
+            # cogutils and atomspace are required for tests to run.
+            echo "----Installing/Updating cogutils and atomspace."
+            sudo /tmp/setup.sh -ca
+            echo "----Installed/Updated cogutils and atomspace."
+
+            # this is set to true so as to avoid an infinit loop should the
+            # start of the buildslave fail.
             OPENCOG_WORKSPACE_CONFIGURED=true
             sleep 30s # This is to give time for master to finish setting up.
             buildslave start --nodaemon /var/workspace/slaves/opencog
         fi
+
         echo "----opencog buildslave workspace not configured yet."
         sleep 10s
     done
