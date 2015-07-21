@@ -1,16 +1,78 @@
 #!/bin/bash
 #
-# This script is used for running the builders.
-#/var/workspace/slaves/zera/buildbot.tac
-WORKSPACE_CONFIGURED=false
+# This script is used for running the builders. Pass only a single
 
-while [ $WORKSPACE_CONFIGURED == false ] ; do
-    if [ -a /var/workspace/slaves/zera/buildbot.tac ]; then
-        echo "----zera's workspace is configured"
-        WORKSPACE_CONFIGURED=true
-        sleep 30s # This is to give time for master to finish setting up.
-        buildslave start --nodaemon /var/workspace/slaves/zera
-    fi
-    echo "----zera's workspace not configured yet."
-    sleep 10s
+# Functions
+usage() {
+printf "Usage: ./$SELF_NAME [OPTIONS]
+
+  OPTIONS:
+    -a Wait for configuration of workspace and run buildslave process for
+       atomspace tests.
+    -c Wait for configuration of workspace and run buildslave process for
+       cogutils tests.
+    -o Wait for configuration of workspace and run buildslave process for
+       cogutils tests.
+    -h This help message. \n"
+}
+
+
+# Main Execution
+ATOMSPACE_WORKSPACE_CONFIGURED=false
+COGUTILS_WORKSPACE_CONFIGURED=false
+OPENCOG_WORKSPACE_CONFIGURED=false
+
+if [ $# -eq 0 ] ; then NO_ARGS=true ; fi
+
+while getopts "aco" flag ; do
+    case $flag in
+        a) RUN_ATOMSPACE_BUILDSLAVE=true ;;
+        c) RUN_COGUTILS_BUILDSLAVE=true ;;
+        o) RUN_OPENCOG_BULDSLAVE=true ;;
+        h) usage ;;
+        \?) usage ;;
+        *)  UNKNOWN_FLAGS=true ;;
+    esac
 done
+
+if [ $RUN_ATOMSPACE_BUILDSLAVE ] ; then
+    while [ $ATOMSPACE_WORKSPACE_CONFIGURED == false ] ; do
+        if [ -a /var/workspace/slaves/atomspace/buildbot.tac ]; then
+            echo "----atomspace buildslave workspace is configured."
+            ATOMSPACE_WORKSPACE_CONFIGURED=true
+            sleep 30s # This is to give time for master to finish setting up.
+            buildslave start --nodaemon /var/workspace/slaves/atomspace
+        fi
+        echo "----atomspace buildslave workspace not configured yet."
+        sleep 10s
+    done
+fi
+
+if [ $RUN_COGUTILS_BUILDSLAVE ] ; then
+    while [ $COGUTILS_WORKSPACE_CONFIGURED == false ] ; do
+        if [ -a /var/workspace/slaves/cogutils/buildbot.tac ]; then
+            echo "----cogutils buildslave workspace is configured."
+            COGUTILS_WORKSPACE_CONFIGURED=true
+            sleep 30s # This is to give time for master to finish setting up.
+            buildslave start --nodaemon /var/workspace/slaves/cogutils
+        fi
+        echo "----cogutils buildslave workspace not configured yet."
+        sleep 10s
+    done
+fi
+
+if [ $RUN_OPENCOG_BULDSLAVE ] ; then
+    while [ $OPENCOG_WORKSPACE_CONFIGURED == false ] ; do
+        if [ -a /var/workspace/slaves/opencog/buildbot.tac ]; then
+            echo "----opencog buildslave workspace is configured."
+            OPENCOG_WORKSPACE_CONFIGURED=true
+            sleep 30s # This is to give time for master to finish setting up.
+            buildslave start --nodaemon /var/workspace/slaves/opencog
+        fi
+        echo "----opencog buildslave workspace not configured yet."
+        sleep 10s
+    done
+fi
+
+if [ $UNKNOWN_FLAGS ] ; then usage ; fi
+if [ $NO_ARGS ] ; then usage ; fi

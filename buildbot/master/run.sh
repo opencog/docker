@@ -18,16 +18,40 @@ printf "Usage: ./$SELF_NAME [OPTIONS]
 
 configure_workspace() {
 # Workspace for master
-printf "\n\n----Starting configuring workspace for master"
+printf "\n\n----Starting configuring workspace for master----"
 cp -u master.cfg /var/workspace/master/
 buildbot create-master -r /var/workspace/master/
-printf "\n\n----Finished configuring workspace for master"
+printf "\n\n----Finished configuring workspace for master----"
 
-# Workspace for slaves
-## zera
-printf "\n\n----Starting configuring workspace for builders\n"
-buildslave create-slave -r /var/workspace/slaves/zera buildmaster zera XXXXXX
-printf "\n\n----Finished configuring workspace for builders"
+# Workspace for slaves.
+## Just add to this section on adding new slaves in master.cfg.
+printf "\n\n----Starting configuring workspace for buildslaves----"
+
+## cogutils
+printf "\n\n----Starting configuring workspace for cogutils buildslave\n"
+buildslave create-slave -r /var/workspace/slaves/cogutils \
+        buildmaster cogutils XXXXXX
+printf "\n\n----Finished configuring workspace for cogutils buildslave"
+
+## atomspace
+printf "\n\n----Starting configuring workspace for atomspace buildslave\n"
+buildslave create-slave -r /var/workspace/slaves/atomspace \
+        buildmaster atomspace XXXXXX
+printf "\n\n----Finished configuring workspace for atomspace buildslaves"
+
+## opencog
+printf "\n\n----Starting configuring workspace for opencog buildslave\n"
+buildslave create-slave -r /var/workspace/slaves/opencog \
+        buildmaster opencog XXXXXX
+printf "\n\n----Finished configuring workspace for opencog buildslaves"
+
+## doxygen
+printf "\n\n----Starting configuring workspace for doxygen buildslave\n"
+buildslave create-slave -r /var/workspace/slaves/doxygen \
+        buildmaster doxygen XXXXXX
+printf "\n\n----Finished configuring workspace for doxygen buildslaves"
+
+printf "\n\n----Finished configuring workspace for buildslaves----\n"
 
 }
 
@@ -53,7 +77,10 @@ fi
 if [ $RUN_MASTER ] ; then
     # the remove is required so as to enable restart when container fails, as
     # twisted.pid is a lock against multiple instances of master.
-    rm /var/workspace/master/twistd.pid
+    if [ -a /var/workspace/master/twistd.pid ]; then
+        rm /var/workspace/master/twistd.pid
+        echo "----Removed stale twisted.pid file from buildmaster workspace."
+    fi
     printf "\n\n----Starting buildbot master daemon"
     buildbot start  --nodaemon /var/workspace/master
 fi

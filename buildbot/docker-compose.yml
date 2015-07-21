@@ -16,8 +16,36 @@ master:
     restart: on-failure
 
 # Use the zera service as template for invoking multiple buildslave containers.
-zera:
+
+cogutils:
     build: slaves/latest
+    volumes_from:
+        - workspace
+    links:
+        - master:buildmaster
+    command: ./run.sh -c
+    restart: on-failure
+
+atomspace:
+    build: slaves/latest
+    volumes_from:
+        - workspace
+    links:
+        - master:buildmaster
+    command: ./run.sh -a
+    restart: on-failure
+
+opencog:
+    build: slaves/latest
+    volumes_from:
+        - workspace
+    links:
+        - master:buildmaster
+    command: ./run.sh -o
+    restart: on-failure
+
+doxygen:
+    build: slaves/doxygen
     volumes_from:
         - workspace
     links:
