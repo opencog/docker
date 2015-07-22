@@ -2,6 +2,7 @@
 #
 # This script is used to configure the workspace when buildbot master container
 # is started.
+# Usage: Follow the steps in ../README.md.
 
 # This file's name
 SELF_NAME=$(basename $0)
@@ -44,6 +45,12 @@ printf "\n\n----Starting configuring workspace for opencog buildslave\n"
 buildslave create-slave -r /var/workspace/opencog \
         buildmaster opencog XXXXXX
 printf "\n\n----Finished configuring workspace for opencog buildslaves"
+
+## moses
+printf "\n\n----Starting configuring workspace for moses buildslave\n"
+buildslave create-slave -r /var/workspace/moses \
+        buildmaster moses XXXXXX
+printf "\n\n----Finished configuring workspace for moses buildslaves"
 
 }
 
