@@ -43,12 +43,3 @@ opencog:
         - master:buildmaster
     command: ./run.sh -o
     restart: on-failure
-
-doxygen:
-    build: slaves/doxygen
-    volumes_from:
-        - workspace
-    links:
-        - master:buildmaster
-    command: ./run.sh
-    restart: on-failure

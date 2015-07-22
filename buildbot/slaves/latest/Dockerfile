@@ -3,7 +3,7 @@
 FROM opencog/opencog-deps
 MAINTAINER David Hart "dhart@opencog.org"
 
-RUN pip install buildbot-slave
+RUN apt-get install -y doxygen graphviz; pip install buildbot-slave
 COPY run.sh /home/opencog/
 RUN chown opencog:opencog run.sh
 

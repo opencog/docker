@@ -45,14 +45,6 @@ buildslave create-slave -r /var/workspace/slaves/opencog \
         buildmaster opencog XXXXXX
 printf "\n\n----Finished configuring workspace for opencog buildslaves"
 
-## doxygen
-printf "\n\n----Starting configuring workspace for doxygen buildslave\n"
-buildslave create-slave -r /var/workspace/slaves/doxygen \
-        buildmaster doxygen XXXXXX
-printf "\n\n----Finished configuring workspace for doxygen buildslaves"
-
-printf "\n\n----Finished configuring workspace for buildslaves----\n"
-
 }
 
 # Main Execution
