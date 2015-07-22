@@ -13,8 +13,10 @@ FROM opencog/opencog-deps
 MAINTAINER Alex van der Peet "alex.van.der.peet@gmail.com"
 MAINTAINER David Hart "dhart@opencog.org"
 
-RUN apt-get -y update; apt-get -y upgrade; apt-get -y autoclean
+# Install non-system project dependencies
+RUN  /tmp/setup.sh -acl
 
+# Tools
 RUN apt-get -y install \
                         git-gui \
                         meld \

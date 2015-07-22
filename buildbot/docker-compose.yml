@@ -1,0 +1,56 @@
+# Usage: Follow the steps in $PWD/README.md.
+
+workspace:
+    build: workspace
+
+master:
+    build: master
+    volumes_from:
+        - workspace
+    ports:
+        - "8010:8010"
+    environment:
+        - WORKSPACE_CONFIGURED=false # the run.sh script modifies this to
+                                     # signals the builders to start running.
+    command: ./run.sh -cr
+    restart: on-failure
+
+# All the buildslave containers have the same structure. The main difference is
+# in the run command.
+cogutils:
+    build: slaves/latest
+    volumes_from:
+        - workspace
+    links:
+        - master:buildmaster
+    command: ./run.sh -c
+    restart: on-failure
+
+atomspace:
+    build: slaves/latest
+    volumes_from:
+        - workspace
+    links:
+        - master:buildmaster
+    command: ./run.sh -a
+    restart: on-failure
+
+opencog:
+    build: slaves/latest
+    volumes_from:
+        - workspace
+    links:
+        - master:buildmaster
+    environment:
+        - PYTHONPATH=/usr/local/share/opencog/python
+    command: ./run.sh -o
+    restart: on-failure
+
+moses:
+    build: slaves/latest
+    volumes_from:
+        - workspace
+    links:
+        - master:buildmaster
+    command: ./run.sh -m
+    restart: on-failure

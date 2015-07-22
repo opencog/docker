@@ -28,6 +28,9 @@ RUN apt-get install \
                     man \
     --assume-yes
 
+# Install non-system project dependencies
+RUN  /tmp/setup.sh -acl
+
 USER opencog
 
 CMD /bin/bash

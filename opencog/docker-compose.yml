@@ -13,7 +13,7 @@ dev:
     volumes:
         - $OPENCOG_SOURCE_DIR:/opencog
         - $ATOMSPACE_SOURCE_DIR:/atomspace
-        - $COGUTIL_SOURCE_DIR:/cogutils
+        - $COGUTILS_SOURCE_DIR:/cogutils
         - $MOSES_SOURCE_DIR:/moses
         - $HOME/.gitconfig:/home/opencog/.gitconfig
     links:

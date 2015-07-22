@@ -11,14 +11,7 @@ RUN apt-get -y install software-properties-common wget rlwrap telnet netcat-open
 # Install repositories and dependencies
 ADD https://raw.githubusercontent.com/opencog/opencog/master/scripts/ocpkg \
     /tmp/setup.sh
-RUN chmod u+x /tmp/setup.sh && /tmp/setup.sh -rdpcl
-
-# The Next command is seperated because atomspace is changing frequently.
-# This way the above layers wan't be updated hence build are a bit faster.
-# TODO: Find a means of updating this and subsequent layers only, without
-# having to create a separte repository. Maybe installation of opencog
-# projects could be postponed to run and then committed???
-RUN  /tmp/setup.sh -a
+RUN chmod u+x /tmp/setup.sh && /tmp/setup.sh -rdp
 
 # Environment Variables
 ## Set Locale
