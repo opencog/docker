@@ -9,6 +9,8 @@ master:
         - workspace
     ports:
         - "8010:8010"
+        - "9989:9989" # for cicero-slave or any other buildslave that isn't
+                      # containerized.
     environment:
         - WORKSPACE_CONFIGURED=false # the run.sh script modifies this to
                                      # signals the builders to start running.
