@@ -29,19 +29,19 @@ printf "\n\n----Starting configuring workspace for buildslaves----"
 
 ## cogutils
 printf "\n\n----Starting configuring workspace for cogutils buildslave\n"
-buildslave create-slave -r /var/workspace/slaves/cogutils \
+buildslave create-slave -r /var/workspace/cogutils \
         buildmaster cogutils XXXXXX
 printf "\n\n----Finished configuring workspace for cogutils buildslave"
 
 ## atomspace
 printf "\n\n----Starting configuring workspace for atomspace buildslave\n"
-buildslave create-slave -r /var/workspace/slaves/atomspace \
+buildslave create-slave -r /var/workspace/atomspace \
         buildmaster atomspace XXXXXX
 printf "\n\n----Finished configuring workspace for atomspace buildslaves"
 
 ## opencog
 printf "\n\n----Starting configuring workspace for opencog buildslave\n"
-buildslave create-slave -r /var/workspace/slaves/opencog \
+buildslave create-slave -r /var/workspace/opencog \
         buildmaster opencog XXXXXX
 printf "\n\n----Finished configuring workspace for opencog buildslaves"
 

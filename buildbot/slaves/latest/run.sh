@@ -38,12 +38,12 @@ done
 ## AtomSpace
 if [ $RUN_ATOMSPACE_BUILDSLAVE ] ; then
     while [ $ATOMSPACE_WORKSPACE_CONFIGURED == false ] ; do
-        if [ -a /var/workspace/slaves/atomspace/buildbot.tac ]; then
+        if [ -a /var/workspace/atomspace/buildbot.tac ]; then
             echo "----atomspace buildslave workspace is configured."
             # the remove is required so as to enable restart when container
             # fails, as twisted.pid is a lock against multiple instances.
-            if [ -a /var/workspace/slaves/atomspace/twistd.pid ]; then
-                rm /var/workspace/slaves/atomspace/twistd.pid
+            if [ -a /var/workspace/atomspace/twistd.pid ]; then
+                rm /var/workspace/atomspace/twistd.pid
                 echo "----Removed stale twisted.pid file from atomspace \
                     buildslave workspace."
             fi
@@ -56,7 +56,7 @@ if [ $RUN_ATOMSPACE_BUILDSLAVE ] ; then
             # start of the buildslave fail.
             ATOMSPACE_WORKSPACE_CONFIGURED=true
             sleep 30s # This is to give time for master to finish setting up.
-            buildslave start --nodaemon /var/workspace/slaves/atomspace
+            buildslave start --nodaemon /var/workspace/atomspace
         fi
 
         echo "----atomspace buildslave workspace not configured yet."
@@ -67,12 +67,12 @@ fi
 ## Cogutils
 if [ $RUN_COGUTILS_BUILDSLAVE ] ; then
     while [ $COGUTILS_WORKSPACE_CONFIGURED == false ] ; do
-        if [ -a /var/workspace/slaves/cogutils/buildbot.tac ]; then
+        if [ -a /var/workspace/cogutils/buildbot.tac ]; then
             echo "----cogutils buildslave workspace is configured."
             # the remove is required so as to enable restart when container
             # fails, as twisted.pid is a lock against multiple instances.
-            if [ -a /var/workspace/slaves/cogutils/twistd.pid ]; then
-                rm /var/workspace/slaves/cogutils/twistd.pid
+            if [ -a /var/workspace/cogutils/twistd.pid ]; then
+                rm /var/workspace/cogutils/twistd.pid
                 echo "----Removed stale twisted.pid file from cogutils \
                     buildslave workspace."
             fi
@@ -81,7 +81,7 @@ if [ $RUN_COGUTILS_BUILDSLAVE ] ; then
             # start of the buildslave fail.
             COGUTILS_WORKSPACE_CONFIGURED=true
             sleep 30s # This is to give time for master to finish setting up.
-            buildslave start --nodaemon /var/workspace/slaves/cogutils
+            buildslave start --nodaemon /var/workspace/cogutils
         fi
 
         echo "----cogutils buildslave workspace not configured yet."
@@ -92,12 +92,12 @@ fi
 ## OpenCog
 if [ $RUN_OPENCOG_BULDSLAVE ] ; then
     while [ $OPENCOG_WORKSPACE_CONFIGURED == false ] ; do
-        if [ -a /var/workspace/slaves/opencog/buildbot.tac ]; then
+        if [ -a /var/workspace/opencog/buildbot.tac ]; then
             echo "----opencog buildslave workspace is configured."
             # the remove is required so as to enable restart when container
             # fails, as twisted.pid is a lock against multiple instances.
-            if [ -a /var/workspace/slaves/opencog/twistd.pid ]; then
-                rm /var/workspace/slaves/opencog/twistd.pid
+            if [ -a /var/workspace/opencog/twistd.pid ]; then
+                rm /var/workspace/opencog/twistd.pid
                 echo "----Removed stale twisted.pid file from opencog \
                     buildslave workspace."
             fi
@@ -111,7 +111,7 @@ if [ $RUN_OPENCOG_BULDSLAVE ] ; then
             # start of the buildslave fail.
             OPENCOG_WORKSPACE_CONFIGURED=true
             sleep 30s # This is to give time for master to finish setting up.
-            buildslave start --nodaemon /var/workspace/slaves/opencog
+            buildslave start --nodaemon /var/workspace/opencog
         fi
 
         echo "----opencog buildslave workspace not configured yet."
