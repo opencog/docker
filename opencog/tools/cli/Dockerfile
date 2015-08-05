@@ -29,7 +29,7 @@ RUN apt-get install \
     --assume-yes
 
 # Install non-system project dependencies
-RUN  /tmp/setup.sh -acl
+RUN  /tmp/octool -acl
 
 USER opencog
 

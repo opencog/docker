@@ -30,9 +30,9 @@ RUN apt-get -y install build-essential cmake sudo git wget r-base
 
 # Build and Install moses
 WORKDIR /tmp/
-ADD https://raw.githubusercontent.com/opencog/opencog/master/scripts/ocpkg \
-    /tmp/setup.sh
-RUN chmod +x /tmp/setup.sh &&  /tmp/setup.sh -cm
+ADD https://raw.githubusercontent.com/opencog/ocpkg/master/ocpkg \
+    /tmp/octool
+RUN chmod +x /tmp/octool &&  /tmp/octool -cm
 
 # Create and switch user. The user is privileged, with no password required.
 # That is you can use sudo.

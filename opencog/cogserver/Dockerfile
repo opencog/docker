@@ -6,7 +6,7 @@
 FROM opencog/opencog-deps
 
 # Install non-system project dependencies
-RUN  /tmp/setup.sh -acl
+RUN  /tmp/octool -acl
 
 # Clone opencog and build it
 RUN git clone --depth 1 https://github.com/opencog/opencog oc

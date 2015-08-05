@@ -9,9 +9,9 @@ RUN apt-get update ; apt-get -y upgrade ; apt-get -y autoclean
 RUN apt-get -y install software-properties-common wget rlwrap telnet netcat-openbsd
 
 # Install repositories and dependencies
-ADD https://raw.githubusercontent.com/opencog/opencog/master/scripts/ocpkg \
-    /tmp/setup.sh
-RUN chmod u+x /tmp/setup.sh && /tmp/setup.sh -rdp
+ADD https://raw.githubusercontent.com/opencog/ocpkg/master/ocpkg \
+    /tmp/octool
+RUN chmod 755 /tmp/octool && /tmp/octool -rdpv
 
 # Environment Variables
 ## Set Locale
