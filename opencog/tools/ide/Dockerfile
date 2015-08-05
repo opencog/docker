@@ -14,7 +14,7 @@ MAINTAINER Alex van der Peet "alex.van.der.peet@gmail.com"
 MAINTAINER David Hart "dhart@opencog.org"
 
 # Install non-system project dependencies
-RUN  /tmp/setup.sh -acl
+RUN  /tmp/octool -acl
 
 # Tools
 RUN apt-get -y install \
