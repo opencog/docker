@@ -54,7 +54,7 @@ if [ $RUN_ATOMSPACE_BUILDSLAVE ] ; then
             fi
             # cogutils is required for tests to run.
             echo "----Installing/Updating cogutils."
-            sudo /tmp/setup.sh -c
+            sudo /tmp/octool -c
             echo "----Installed/Updated cogutils."
 
             # this is set to true so as to avoid an infinit loop should the
@@ -109,7 +109,7 @@ if [ $RUN_OPENCOG_BULDSLAVE ] ; then
 
             # cogutils and atomspace are required for tests to run.
             echo "----Installing/Updating cogutils and atomspace."
-            sudo /tmp/setup.sh -ca
+            sudo /tmp/octool -cal
             echo "----Installed/Updated cogutils and atomspace."
 
             # this is set to true so as to avoid an infinit loop should the
@@ -139,7 +139,7 @@ if [ $RUN_MOSES_BULDSLAVE ] ; then
 
             # cogutils is required for tests to run.
             echo "----Installing/Updating cogutils."
-            sudo /tmp/setup.sh -c
+            sudo /tmp/octool -c
             echo "----Installed/Updated cogutils."
 
             # this is set to true so as to avoid an infinit loop should the
