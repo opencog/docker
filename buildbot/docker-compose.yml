@@ -2,6 +2,8 @@
 
 workspace:
     build: workspace
+    volumes:
+        - $PWD/workspace/volume:/var/workspace
 
 master:
     build: master
