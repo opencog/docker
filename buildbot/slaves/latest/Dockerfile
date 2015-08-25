@@ -10,4 +10,7 @@ RUN chown opencog:opencog run.sh
 USER opencog
 WORKDIR /home/opencog
 
+# For Haskell
+RUN /tmp/octool -s
+
 CMD bash
