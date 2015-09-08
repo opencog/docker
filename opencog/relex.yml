@@ -1,0 +1,12 @@
+# Usage: Follow the steps in the README file in the directory containing this file
+
+relex:
+    image: opencog/relex
+    ports:
+        - "4444:4444"
+        - "9000:9000"
+        - "3333:3333"
+    working_dir: /relex
+    volumes:
+        - $RELEX_SOURCE_DIR:/relex
+    command: bash

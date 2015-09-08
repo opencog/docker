@@ -30,27 +30,19 @@ ENV DEBIAN_FRONTEND noninteractive
 
 ENV JAVA_HOME /usr/lib/jvm/java-7-openjdk-amd64
 
-# Change line below only if you really, really need a newer OS version.
-# Otherwise, leave it alone, and the cache will be used.
-ENV LAST_OS_UPDATE 2015-02-25
-RUN apt-get -y update
-RUN apt-get -y upgrade
+RUN apt-get update ; apt-get -y upgrade ; apt-get -y autoclean
 
-RUN apt-get -y install screen telnet netcat-openbsd byobu
-RUN apt-get -y install wget vim unzip git
+RUN apt-get -y install screen telnet netcat-openbsd byobu \
+                       wget vim git unzip
 
 # GCC and basic build tools
 RUN apt-get -y install gcc g++ make
 
 # Java
-RUN apt-get -y install openjdk-7-jdk
-RUN apt-get -y install ant
-RUN apt-get -y install libcommons-logging-java
+RUN apt-get -y install openjdk-7-jdk ant libcommons-logging-java
 
 # Wordnet
-RUN apt-get -y install wordnet
-RUN apt-get -y install wordnet-dev
-# RUN apt-get -y install wordnet-sense-index
+RUN apt-get -y install wordnet wordnet-dev wordnet-sense-index
 
 # There are UTF8 chars in the Java sources, and the RelEx build will
 # break if build in a C environment.
@@ -64,37 +56,41 @@ RUN mkdir /usr/local/share/java
 WORKDIR /home/Downloads/
 
 # JWNL - Never changes, so do this first.
-ADD http://downloads.sourceforge.net/project/jwordnet/jwnl/JWNL%201.4/jwnl14-rc2.zip /home/Downloads/jwnl14-rc2.zip
-RUN (unzip jwnl14-rc2.zip; cd jwnl14-rc2; cp jwnl.jar /usr/local/share/java/; chmod 755 /usr/local/share/java/jwnl.jar)
+ADD http://downloads.sourceforge.net/project/jwordnet/jwnl/JWNL%201.4/jwnl14-rc2.zip jwnl14-rc2.zip
+RUN unzip jwnl14-rc2.zip; cd jwnl14-rc2; \
+    cp jwnl.jar /usr/local/share/java/; \
+    chmod 755 /usr/local/share/java/jwnl.jar; \
+    cd ..; rm -rf jwnl*
 
 # OpenNLP - Never changes, so do this first.
-ADD http://www.motorlogy.com/apache/opennlp/opennlp-1.5.3/apache-opennlp-1.5.3-bin.zip /home/Downloads/apache-opennlp-1.5.3-bin.zip
-RUN unzip apache-opennlp-1.5.3-bin.zip
-RUN (cd apache-opennlp-1.5.3; cp lib/*.jar /usr/local/share/java/; cp lib/*.jar /usr/share/java/; cp lib/opennlp-tools-1.5.3.jar /usr/local/share/java/opennlp-tools-1.5.0.jar)
-
-# Change line below on rebuild. Will use cache up to this line.
-ENV LAST_SOFTWARE_UPDATE 2015-02-25
+ADD http://www.motorlogy.com/apache/opennlp/opennlp-1.5.3/apache-opennlp-1.5.3-bin.zip apache-opennlp-1.5.3-bin.zip
+RUN unzip apache-opennlp-1.5.3-bin.zip ;\
+    cd apache-opennlp-1.5.3; \
+    cp lib/*.jar /usr/local/share/java/; \
+    cp lib/*.jar /usr/share/java/; \
+    cp lib/opennlp-tools-1.5.3.jar /usr/local/share/java/opennlp-tools-1.5.0.jar; \
+    cd .. ; rm -rf apache-opennlp*
 
 # Link Parser -- changes often
 # Download the current released version of link-grammar.
 # The wget gets the latest version w/ wildcard
 RUN wget -r --no-parent -nH --cut-dirs=2 http://www.abisource.com/downloads/link-grammar/current/
-
-# Unpack the sources, too.
-RUN tar -zxf current/link-grammar-5*.tar.gz
-
-RUN (cd link-grammar-5.*/; ./configure; make -j6; sudo make install; ldconfig)
+RUN tar -zxf current/link-grammar-5*.tar.gz ;\
+    cd link-grammar-5.*/; ./configure; make -j6; sudo make install; \
+    ldconfig; cd .. ; rm -rf * link-grammar*
 
 # Relex -- changes often
-ADD http://github.com/opencog/relex/archive/master.zip /home/Downloads/relex-master.zip
-RUN (unzip relex-master.zip; cd relex-master; ant)
+ADD http://github.com/opencog/relex/archive/master.tar.gz master.tar.gz
+RUN tar -xvf master.tar.gz; cd relex-master; ant
 
 # Create and switch user. The user is privileged, with no password
 # required.  That is, you can use sudo.
 RUN adduser --disabled-password --gecos "ReLex USER" relex
 RUN adduser relex sudo
 RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+USER relex
 
+RUN sudo chown -R relex:relex .
 # Punch out ports
 ## plain-text-server.sh port
 EXPOSE 3333
@@ -104,6 +100,4 @@ EXPOSE 4444
 EXPOSE 9000
 
 WORKDIR /home/Downloads/relex-master/
-USER relex
-# ENTRYPOINT bash -l -c ./opencog-server.sh
 CMD /bin/bash

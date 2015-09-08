@@ -18,9 +18,9 @@ an empty directory.
     * export MOSES_SOURCE_DIR=$HOME/path/to/moses
 
 ## Steps for OpenCog development
-1. Starting the contianers run either of the following commands
-    * docker-compose run --service-ports dev   # to map container ports to host
-    * docker-compose run dev   # if you don't want to map ports to host
+1. Starting the containers run either of the following commands
+    * `docker-compose run --service-ports dev`   # to map container ports to host
+    * `docker-compose run dev`   # if you don't want to map ports to host
 2. Configuring postgres backing-store
     * ~/configure-database.sh
     * tmux   # You can create multiple panes and move around using your mouse
@@ -36,11 +36,13 @@ an empty directory.
 4. have fun hacking
 5. exit container
 
+## Steps for RelEx development
+Starting the containers run either of the following commands
+* `docker-compose -f relex.yml run --service-ports relex`  # to map container ports to host
+* `docker-compose -f relex.yml run relex`  # if you don't want to map ports to host
+
 ## Notes
 1. On exiting opencog container, postgres & relex will still be running in the
-   background. So when running `docker-compose run ...` it will autolink to them,
+   background. So when running `docker-compose run ...` it will auto-link to them,
    provided you haven't removed the containers or shutdown your machine.
-2. If you just want to work on RelEx the following suffices
-   * docker-compose  run --service-ports relex   # to map container ports to host
-   * docker-compose run relex   # if you don't want to map ports to hosts
-3. For more on docker-compose refert to https://docs.docker.com/compose/
+2. For more on docker-compose refert to https://docs.docker.com/compose/
