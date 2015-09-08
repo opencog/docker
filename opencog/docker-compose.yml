@@ -1,5 +1,3 @@
-# Follow the instruction below for easy setup of environment
-#
 # Usage: Follow the steps in the README file in the directory containing this file
 
 dev:
@@ -32,11 +30,4 @@ postgres:
 
 relex:
     image: opencog/relex
-    ports:
-        - "4444:4444"
-        - "9000:9000"
-        - "3333:3333"
-    working_dir: /relex
-    volumes:
-        - $RELEX_SOURCE_DIR:/relex
     command: /bin/sh -c "ant clean && ant  && ./opencog-server.sh"
