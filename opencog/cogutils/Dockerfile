@@ -10,8 +10,6 @@ RUN  /tmp/octool -c
 USER opencog
 
 # Docker defaults
-# CMD bash for maintenance only
-# ENTRYPOINT should be an application like distcc or buildbot or cogserver
 CMD bash
 
 # For images built on this

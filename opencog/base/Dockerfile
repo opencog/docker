@@ -10,7 +10,7 @@ RUN apt-get update ; apt-get -y upgrade ; apt-get -y autoclean
 # Install tools for developers.
 RUN apt-get -y install software-properties-common wget rlwrap telnet \
                        netcat-openbsd less curl vim gdb python2.7-dbg \
-                       tmux man
+                       tmux man git valgrind
 
 # Install repositories and dependencies
 ADD https://raw.githubusercontent.com/opencog/ocpkg/master/ocpkg \

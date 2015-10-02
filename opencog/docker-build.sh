@@ -35,25 +35,34 @@ printf "Usage: ./%s [OPTIONS]
     -h This help message. \n" "$SELF_NAME"
 }
 
-## If the opencog/opencog-deps image hasn't been built yet then build it.
+## Build opencog/opencog-deps image.
 build_opencog_deps(){
+    echo "---- Staring build of opencog/opencog-deps ----"
+    docker build $CACHE_OPTION -t opencog/opencog-deps base
+    echo "---- Finished build of opencog/opencog-deps ----"
+}
+
+## If the opencog/opencog-deps image hasn't been built yet then build it.
+check_opencog_deps(){
     if [ -z "$(docker images opencog/opencog-deps | grep -i opencog-deps)" ]
-    then
-        echo "---- Staring build of opencog/opencog-deps ----"
-        docker build $CACHE_OPTION -t opencog/opencog-deps base
-        echo "---- Finished build of opencog/opencog-deps ----"
+    then build_opencog_deps
     fi
 }
 
-## If the opencog/cogutils image hasn't been built yet then build it.
+## Build opencog/cogutils image.
 build_cogutils(){
-    build_opencog_deps
+    check_opencog_deps
 
+    echo "---- Staring build of opencog/cogutils ----"
+    docker build $CACHE_OPTION -t opencog/cogutils cogutils
+    echo "---- Finished build of opencog/cogutils ----"
+
+}
+
+## If the opencog/cogutils image hasn't been built yet then build it.
+check_cogutils(){
     if [ -z "$(docker images opencog/cogutils | grep -i cogutils)" ]
-    then
-        echo "---- Staring build of opencog/cogutils ----"
-        docker build $CACHE_OPTION -t opencog/cogutils cogutils
-        echo "---- Finished build of opencog/cogutils ----"
+    then build_cogutils
     fi
 }
 
@@ -83,7 +92,7 @@ if [ $BUILD_COGUTILS_IMAGE ] ; then
 fi
 
 if [ $BUILD_TOOL_IMAGE ] ; then
-    build_cogutils
+    check_cogutils
     echo "---- Staring build of opencog/opencog-dev:cli ----"
     docker build $CACHE_OPTION -t opencog/opencog-dev:cli tools/cli
     echo "---- Finished build of opencog/opencog-dev:cli ----"

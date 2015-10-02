@@ -20,9 +20,7 @@ RUN  /tmp/octool -al
 RUN apt-get -y install \
                         git-gui \
                         meld \
-                        qtcreator \
-                        valgrind \
-                        tmux
+                        qtcreator
 
 # Workspace configuration
 COPY qtcreator-startup-script.sh /home/opencog/
