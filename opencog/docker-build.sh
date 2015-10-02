@@ -19,21 +19,51 @@ SELF_NAME=$(basename $0)
 
 # Functions
 usage() {
-printf "Usage: ./$SELF_NAME [OPTIONS]
+printf "Usage: ./%s [OPTIONS]
 
   OPTIONS:
     -b Build opencog/opencog-deps image. It is the base image for
-       tools, cogserver, and the buildbot images.
-    -t Builds opencog/opencog-dev:cli image. Also use -b option if you don't
-       want to pull from registry.hub.docker.com/u/opencog/opencog-deps/
-       or you want to update base image.
-    -c Builds opencog/cogserver cogserver image. Also use -b option if you
-       don't want to pull from registry.hub.docker.com/u/opencog/opencog-deps/
-       or you want to update base image.
+       tools, cogutils, cogserver, and the buildbot images.
+    -c Builds opencog/cogutils image. It will build opencog/opencog-deps
+       if it hasn't been built, as it forms its base image.
     -m Builds opencog/moses image.
     -r Builds opencog/relex image.
+    -t Builds opencog/opencog-dev:cli image. It will build opencog/opencog-deps
+       and opencog/cogutils if they haven't been built, as they form its base
+       images.
     -u This option signals all image builds to not use cache.
-    -h This help message. \n"
+    -h This help message. \n" "$SELF_NAME"
+}
+
+## Build opencog/opencog-deps image.
+build_opencog_deps(){
+    echo "---- Staring build of opencog/opencog-deps ----"
+    docker build $CACHE_OPTION -t opencog/opencog-deps base
+    echo "---- Finished build of opencog/opencog-deps ----"
+}
+
+## If the opencog/opencog-deps image hasn't been built yet then build it.
+check_opencog_deps(){
+    if [ -z "$(docker images opencog/opencog-deps | grep -i opencog-deps)" ]
+    then build_opencog_deps
+    fi
+}
+
+## Build opencog/cogutils image.
+build_cogutils(){
+    check_opencog_deps
+
+    echo "---- Staring build of opencog/cogutils ----"
+    docker build $CACHE_OPTION -t opencog/cogutils cogutils
+    echo "---- Finished build of opencog/cogutils ----"
+
+}
+
+## If the opencog/cogutils image hasn't been built yet then build it.
+check_cogutils(){
+    if [ -z "$(docker images opencog/cogutils | grep -i cogutils)" ]
+    then build_cogutils
+    fi
 }
 
 # Main Execution
@@ -43,7 +73,7 @@ while getopts "bchmrtu" flag ; do
     case $flag in
         b) BUILD_OPENCOG_BASE_IMAGE=true ;;
         t) BUILD_TOOL_IMAGE=true ;;
-        c) BUILD_COGSERVER_IMAGE=true ;;
+        c) BUILD_COGUTILS_IMAGE=true ;;
         m) BUILD__MOSES_IMAGE=true ;;
         r) BUILD_RELEX_IMAGE=true ;;
         u) CACHE_OPTION=--no-cache ;;
@@ -54,31 +84,28 @@ while getopts "bchmrtu" flag ; do
 done
 
 if [ $BUILD_OPENCOG_BASE_IMAGE ] ; then
-    echo "---- Staring build of opencog/opencog-deps ----"
-    docker build $CACHE_OPTION -t opencog/opencog-deps base
-    echo "---- Finished build of opencog/opencog-deps ----"
+    build_opencog_deps
+fi
+
+if [ $BUILD_COGUTILS_IMAGE ] ; then
+    build_cogutils
 fi
 
 if [ $BUILD_TOOL_IMAGE ] ; then
-    echo "---- Staring build of opencog/opencog-deps"
+    check_cogutils
+    echo "---- Staring build of opencog/opencog-dev:cli ----"
     docker build $CACHE_OPTION -t opencog/opencog-dev:cli tools/cli
     echo "---- Finished build of opencog/opencog-dev:cli ----"
 fi
 
-if [ $BUILD_COGSERVER_IMAGE ] ; then
-    echo "---- Staring build of opencog/opencog-deps"
-    docker build $CACHE_OPTION -f cogserver -t opencog/cogserver cogserver
-    echo "---- Finished build of opencog/cogserver ----"
-fi
-
 if [ $BUILD__MOSES_IMAGE ] ; then
-    echo "---- Staring build of opencog/opencog-deps"
+    echo "---- Staring build of opencog/moses ----"
     docker build $CACHE_OPTION -t opencog/moses moses
     echo "---- Finished build of opencog/moses ----"
 fi
 
 if [ $BUILD_RELEX_IMAGE ] ; then
-    echo "---- Staring build of opencog/opencog-deps"
+    echo "---- Staring build of opencog/relex ----"
     docker build $CACHE_OPTION -t opencog/relex relex
     echo "---- Finished build of opencog/relex ----"
 fi

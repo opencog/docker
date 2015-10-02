@@ -12,35 +12,14 @@
 # containing some data. Instead of $PWD you could use abslute path like
 # $HOME/path/to/data/
 
-FROM ubuntu:14.04
-RUN apt-get update ; apt-get -y upgrade ; apt-get -y autoclean
+FROM opencog/cogutils
 
-# Install dependencies
-RUN apt-get install -y libboost-date-time-dev \
-                       libboost-filesystem-dev \
-                       libboost-program-options-dev \
-                       libboost-regex-dev \
-                       libboost-thread-dev \
-                       libboost-system-dev \
-                       libboost-math-dev \
-                       libboost-mpi-dev
+# Install R
+RUN apt-get -y install r-base
 
-# Install Utilities & R
-RUN apt-get -y install build-essential cmake sudo git wget r-base
-
-# Build and Install moses
-WORKDIR /tmp/
-ADD https://raw.githubusercontent.com/opencog/ocpkg/master/ocpkg \
-    /tmp/octool
-RUN chmod +x /tmp/octool &&  /tmp/octool -cm
-
-# Create and switch user. The user is privileged, with no password required.
-# That is you can use sudo.
-RUN adduser --disabled-password --gecos "MOSES USER" moses
-RUN adduser moses sudo
-RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+# Install moses
+RUN /tmp/octool -m
 
 # Docker Defaults
-USER moses
-WORKDIR /home/moses
+USER opencog
 CMD bash
