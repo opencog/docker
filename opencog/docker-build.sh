@@ -54,31 +54,31 @@ while getopts "bchmrtu" flag ; do
 done
 
 if [ $BUILD_OPENCOG_BASE_IMAGE ] ; then
-    echo "---- Staring build of opencog/opencog-deps ----"
+    echo "---- Starting build of opencog/opencog-deps ----"
     docker build $CACHE_OPTION -t opencog/opencog-deps base
     echo "---- Finished build of opencog/opencog-deps ----"
 fi
 
 if [ $BUILD_TOOL_IMAGE ] ; then
-    echo "---- Staring build of opencog/opencog-deps"
+    echo "---- Starting build of opencog/opencog-dev:cli ----"
     docker build $CACHE_OPTION -t opencog/opencog-dev:cli tools/cli
     echo "---- Finished build of opencog/opencog-dev:cli ----"
 fi
 
 if [ $BUILD_COGSERVER_IMAGE ] ; then
-    echo "---- Staring build of opencog/opencog-deps"
+    echo "---- Starting build of opencog/cogserver ----"
     docker build $CACHE_OPTION -f cogserver -t opencog/cogserver cogserver
     echo "---- Finished build of opencog/cogserver ----"
 fi
 
 if [ $BUILD__MOSES_IMAGE ] ; then
-    echo "---- Staring build of opencog/opencog-deps"
+    echo "---- Starting build of opencog/moses ----"
     docker build $CACHE_OPTION -t opencog/moses moses
     echo "---- Finished build of opencog/moses ----"
 fi
 
 if [ $BUILD_RELEX_IMAGE ] ; then
-    echo "---- Staring build of opencog/opencog-deps"
+    echo "---- Starting build of opencog/relex ----"
     docker build $CACHE_OPTION -t opencog/relex relex
     echo "---- Finished build of opencog/relex ----"
 fi
