@@ -9,12 +9,12 @@
 # 4. qtcreator
 #  Check http://wiki.opencog.org/w/Using_QT_Creator on how to use qtcreator.
 
-FROM opencog/opencog-deps
+FROM opencog/cogutils
 MAINTAINER Alex van der Peet "alex.van.der.peet@gmail.com"
 MAINTAINER David Hart "dhart@opencog.org"
 
 # Install non-system project dependencies
-RUN  /tmp/octool -acl
+RUN  /tmp/octool -al
 
 # Tools
 RUN apt-get -y install \

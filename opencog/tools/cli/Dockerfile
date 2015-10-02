@@ -11,25 +11,11 @@
 # 6. make -j$(nproc)
 # Check http://wiki.opencog.org/w/Building_OpenCog on how to use IDEs
 
-FROM opencog/opencog-deps
+FROM opencog/cogutils
 MAINTAINER David Hart "dhart@opencog.org"
 
-RUN apt-get install \
-                    less \
-                    curl \
-                    mosh \
-                    vim \
-                    pv \
-                    bc \
-                    gdb \
-                    python2.7-dbg\
-                    tmux \
-                    rlwrap \
-                    man \
-    --assume-yes
-
 # Install non-system project dependencies
-RUN  /tmp/octool -acl
+RUN  /tmp/octool -al
 
 USER opencog
 
