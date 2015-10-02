@@ -65,21 +65,22 @@ different robots to be brought up and demoed.
 
 
 ## 2. Dockerfiles for OpenCog
-The dockerfiles here are designed to be built opencog-deps in the same directory
-as this README.
+The following are details about dockerfiles found in opencog and buildbot
+directories. On how to use read [opencog's README.MD](opencog/README.md) and
+[buildbot's README.md](buildbot/README.md).
+
+The Dockerfiles in the directories `opencog/tools/distcc`, `opencog/embodiment` and `opencog/cogserver` are not detailed because they are not in active use.
+
 
 ### Docker image structure:
 
     ├─opencog/opencog-deps:utopic
     ├─opencog/opencog-deps:latest
-      ├─opencog/opencog-dev:cli (for a dev environment)
-      ├─opencog/opencog-dev:ide
-      ├─opencog/opencog-buildslave
-      ├─opencog/opencog-distcc
-      ├─opencog/cogserver
-      ├─opencog/embodiment
-
-    ├─opencog/moses
+      ├─buildbot_* (Where * = atomspace, cogutils, opencog, moses)
+      ├─opencog/cogutils:latest
+        ├─opencog/opencog-dev:cli (for a dev environment)
+        ├─opencog/opencog-dev:ide
+        ├─opencog/moses
 
     ├─opencog/relex
 
@@ -89,30 +90,30 @@ as this README.
    dependencies installed.
 
 * `opencog/opencog-deps:latest`: ubuntu 14.04 based image with all OpenCog's
-   dependencies installed. This forms the base of other main repositories. It
-   likely will be updated to the latest LTS as it is released.
+   dependencies installed. This forms the base of opencog/cogutils. It
+   likely will be updated to the latest LTS as it is released. Has some command
+   line tools for use by developers.
+
+* `buildbot_*`: Is used for buildbot found [here](buildbot.opencog.org:8010)
+
+* `opencog/cogutils`: It is the base image for `opencog/opencog-dev:cli`,
+   `opencog/opencog-dev:ide` and `opencog/moses` images. It installs cogutils
+   over `opencog/opencog-deps` image. The main reason for having this is to
+   speed up rebuilds as one doesn't ave to rebuild the `opencog-deps` image,
+   unless there are dependency changes, and rebuilding this image will suffice
+   for updating the dependent images.
 
 * `opencog/opencog-dev:cli`: Mainly for running/developing through a shared
-   filesystem between host and container. Has some command line tools installed
+   filesystem between host and container.
 
-* `opencog/opencog-dev:ide`: Still in development. To be used for developing using
-   ides.
+* `opencog/opencog-dev:ide`: To be used for developing using ides. QtCreator
+   is installed.
 
-* `opencog/opencog-buildslave`: Is used for buildbot found [here] (buildbot.opencog.org:8010)
-   Needs some cleanup along with `opencog/opencog-distcc` `opencog/embodiment`
+* `opencog/moses`: It has moses and R installed. R is installed for those
+   who want to use the R binding for moses. The binding is not yet included but can be found [here](https://github.com/mjsduncan/Rmoses).
 
-* `opencog/cogserver`: Self-contained opencog cogserver. Has a shallow clone of
-   the OpenCog repo, which is built. On starting a container the default is to
-   start the cogserver.
-
-* `opencog/moses`: It is based on the offical r-base image and has moses installed.
-   The R binding to moses is not yet included but the binding can be found [here](https://github.com/mjsduncan/Rmoses)
-
-* `opencog/relex`: It is a self-contianed image for running relex and linkg-grammar
-   servers. For the time being it is also the development image so, you have to
-   use shared filesystem for development or clone your repo inside the container
-   or use a separte data-volume.
-
+* `opencog/relex`: It is a self-contianed image for running relex and      
+   linkg-grammar servers.
 
 ## 3. Usage
 * To run the demos and other containers, docker must be installed. Instructions
@@ -120,7 +121,7 @@ as this README.
   section on the page explains how to avoid having to use `sudo` all the time.
 
 * The docker-build.sh file in opencog directory is used for building some of the
-  base images.After running the script successfully other images could be built.
+  images. Run `./docker-build.sh -h` for viewing available options.
 
 * To use docker-compose follow the instruction in the README file in the
   opencog directory.
