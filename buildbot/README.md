@@ -14,11 +14,12 @@ related configurations. Buildbot is used for both.
 The buildbot that is running this configuration is found [here](http://buildbot.opencog.org:8010/)
 
 ## Usage
-Assuming you have installed docker and docker-compose run
-```
-docker-compose up
-```
-In your browser go to http://localhost:8010/waterfall
+1. Modify master/master.cfg to fit your needs.
+2. Assuming you have installed docker and docker-compose run
+   ```
+   docker-compose up
+   ```
+3. In your browser go to http://localhost:8010/waterfall
 
 
 ### TODO:

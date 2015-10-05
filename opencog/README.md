@@ -4,9 +4,9 @@ You can use docker-compose for configuring your workspace on linux and Mac syste
 
 ## Initial setups
 1. ./docker-build.sh [OPTIONS]
-    * For opencog development use -bt option
-    * If you want to update your images add -u option. For example for opencog
-      development use -btu
+    * For opencog development use -bct option
+    * If you want to update your images add `-u` option. For example for opencog
+      development use `-ctu` options. Unless there are some system dependency changes, you don't have to update `opeoncog/opencog-deps` image.
 2. sudo pip install -U docker-compose # only the first time
 3. Add these lines to .bashrc at $HOME of your PC and restart terminal or run `source ~/.bashrc` . __ Note that you don't have to clone each repository or add
 all the paths__ , just those you need. For the rest docker-compose will create
