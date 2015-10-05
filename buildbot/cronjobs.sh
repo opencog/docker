@@ -13,17 +13,9 @@ CLONE_PATH=""
 ## Path from which the script is invoked
 CWD=$(pwd)
 
-## Command to be run when condition are met. Modify it to suit your case.
-## For updating docker images go to the `Build Settings` tab on hub.docker.com
-## and use one of the curl `Build Trigger` options listed in the examples.
-TRIGGERED_COMMAND="echo triggered command not set"
-        #curl -H "Content-Type: application/json" --data '{"build": true}' -X POST https://registry.hub.docker.com/u/opencog/opencog-deps/trigger/45dfbf0e-9412-4c6b-b3fd-a864e92ee9f6/
-
 ## File name where the output of this script is logged to. It would be in the
-## same directory.
-LOG_FILE=my.log
-
-#exec 2>&1 1>z.log
+## same directory from which the script is invoked.
+LOG_FILE="$SELF_NAME.log"
 
 # Functions
 ## Check if the given repo has been cloned to the `cronjobs` directory. If it
@@ -57,13 +49,13 @@ set_workspace(){
             cd -
             rm -rf $CLONE_PATH
             printf "cloning %s to %s \n" "$1" "$CLONE_PATH"
-            git clone --depth 5 $REPO_URL $CLONE_PATH
+            git clone --depth 1 $REPO_URL $CLONE_PATH
             cd $CWD
         fi
 
     else
         printf "cloning %s to %s \n" "$1" "$CLONE_PATH"
-        git clone --depth 5 $REPO_URL $CLONE_PATH
+        git clone --depth 1 $REPO_URL $CLONE_PATH
         cd $CWD
     fi
 }
@@ -91,20 +83,25 @@ trigger_command(){
         eval $2
 
         # Log every trigger
-        printf "%s repository: triggered on orgin/master commit-hash = %s\n" \
-               "$1" "$ORIGIN_MASTER_HEAD" >> cronjobs-triggered.log
-
+        printf "
+        ********************************************************
+        %s repository: triggered on orgin/master commit-hash = %s
+        ******************************************************** \n" \
+               "$1" "$ORIGIN_MASTER_HEAD"
         # update the origin
         git pull origin
     else
         printf "Did nothing b/c their hasn't been any change to %s repo \n" "$1"
     fi
 
-    printf "%s repository: completed ***************** \n\n\n" "$1"
+    printf ">>>> %s repository: completed \n\n\n" "$1"
     cd $CWD
 }
 
 # Main Execution
+## Redirect all stdout and stderr outputs to the $LOG_FILE.
+exec &>>$LOG_FILE
+
 printf "%s [%s] Starting ----------------------\n" "$(date)" "$SELF_NAME"
 
 ## Convert the argument passed to an abslute path
@@ -131,7 +128,11 @@ if [ "$(git rev-parse --is-inside-work-tree)" == true ] ; then
     exit 1
 fi
 
-## For opencog/opencog-deps docker image
+## Command to be run when condition are met. Modify it to suit your case.
+## For updating docker images go to the `Build Settings` tab on hub.docker.com
+## and use one of the curl `Build Trigger` options listed in the examples.
+## For opencog/opencog-deps docker image an example trigger command is,
+## curl -H "Content-Type: application/json" --data '{"build": true}' -X POST https://registry.hub.docker.com/u/opencog/opencog-deps/trigger/45dfbf0e-9412-4c6b-b3fd-a864e92ee9f6/
 TRIGGERED_COMMAND='echo replace with the command for ocpkg repo'
 trigger_command ocpkg "$TRIGGERED_COMMAND"
 
@@ -139,5 +140,5 @@ trigger_command ocpkg "$TRIGGERED_COMMAND"
 TRIGGERED_COMMAND="echo replace with the command for cogutils repo"
 trigger_command cogutils "$TRIGGERED_COMMAND"
 
-printf "%s [%s] Finished ----------------------\n" "$(date)" "$SELF_NAME"
+printf "%s [%s] Finished ----------------------\n\n" "$(date)" "$SELF_NAME"
 exit 0
