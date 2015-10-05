@@ -7,6 +7,9 @@
 ## Name of script.
 SELF_NAME=$(basename $0)
 
+## Path to a repo clone
+CLONE_PATH=""
+
 ## Path from which the script is invoked
 CWD=$(pwd)
 
@@ -22,48 +25,83 @@ LOG_FILE=my.log
 
 #exec 2>&1 1>z.log
 
-
 # Functions
 ## Check if the given repo has been cloned to the `cronjobs` directory. If it
 ## hasn't then makes a shallow clone from github into `cronjobs` directory.
 ## $1 : github opencog repository name. For eg. ocpkg for opencog/ocpkg repo.
 set_workspace(){
-    DIR_PATH=$WORKSPACE/cronjobs/$1
+    CLONE_PATH=$WORKSPACE/cronjobs/$1
     REPO_URL=https://github.com/opencog/$1.git
 
-    if [ -d $DIR_PATH ]; then
-        printf "Changing directory to %s \n" "$DIR_PATH"
-        cd $DIR_PATH
+    if [ -d $CLONE_PATH ]; then
+        printf "Changing directory to %s \n" "$CLONE_PATH"
+        cd $CLONE_PATH
 
         if [ "$(git rev-parse --is-inside-work-tree)" == true ] ; then
-            printf "%s contains a git repository \n" "$DIR_PATH"
+            printf "%s contains a git repository \n" "$CLONE_PATH"
 
             # Just b/c it is named as the repo doesn't mean it has the given
             # repo
             REMOTE_ORIGIN="https:$(git remote show origin \
                                 | grep -i "Fetch URL" | cut -d ":" -f 3)"
-            echo $REMOTE_ORIGIN
-            echo $REPO_URL
+
             if [ $REMOTE_ORIGIN == $REPO_URL ]; then
-                printf "%s already cloned to %s \n" "$REPO_URL" "$DIR_PATH"
+                printf "%s already cloned to %s \n" "$REPO_URL" "$CLONE_PATH"
             else
                 printf "The repository in %s is not from %s \n" \
-                    "$DIR_PATH" "$REPO_URL"
+                    "$CLONE_PATH" "$REPO_URL"
             fi
+
         else
-            printf "%s does not contain a git repository \n" "$DIR_PATH"
+            printf "%s does not contain a git repository \n" "$CLONE_PATH"
             cd -
-            rm -rf $DIR_PATH
-            printf "cloning %s to %s \n" "$1" "$DIR_PATH"
-            git clone --depth 1 $REPO_URL $DIR_PATH
+            rm -rf $CLONE_PATH
+            printf "cloning %s to %s \n" "$1" "$CLONE_PATH"
+            git clone --depth 5 $REPO_URL $CLONE_PATH
             cd $CWD
         fi
 
     else
-        printf "cloning %s to %s \n" "$1" "$DIR_PATH"
-        git clone --depth 1 $REPO_URL $DIR_PATH
+        printf "cloning %s to %s \n" "$1" "$CLONE_PATH"
+        git clone --depth 5 $REPO_URL $CLONE_PATH
         cd $CWD
     fi
+}
+
+## Check if the given repo's remote master has changed. If it has run the given
+## command.
+## $1 : github opencog repository name. For eg. ocpkg for opencog/ocpkg repo.
+## $2 : a string of the command to be triggered for the repo.
+trigger_command(){
+    # If the workspace haven't been set, set it
+    set_workspace $1
+    cd $CLONE_PATH
+
+    #REPO_NAME="$(basename \"$(git rev-parse --show-toplevel)\")"
+    # fetch origin/upstream depending on the repo being dealt with
+    git fetch origin
+    ORIGIN_MASTER_HEAD=$(git log -1 --pretty="%H" origin/master)
+
+    # Only check the state of the master branch
+    git stash; git checkout master
+    CURRENT_HEAD=$(git log -1 --pretty="%H")
+    if [ $ORIGIN_MASTER_HEAD != $CURRENT_HEAD ] ; then
+
+        # Trigger the command
+        eval $2
+
+        # Log every trigger
+        printf "%s repository: triggered on orgin/master commit-hash = %s\n" \
+               "$1" "$ORIGIN_MASTER_HEAD" >> cronjobs-triggered.log
+
+        # update the origin
+        git pull origin
+    else
+        printf "Did nothing b/c their hasn't been any change to %s repo \n" "$1"
+    fi
+
+    printf "%s repository: completed ***************** \n\n\n" "$1"
+    cd $CWD
 }
 
 # Main Execution
@@ -94,9 +132,12 @@ if [ "$(git rev-parse --is-inside-work-tree)" == true ] ; then
 fi
 
 ## For opencog/opencog-deps docker image
-TRIGGERED_COMMAND="echo ocpkg-trigger-replace-it"
+TRIGGERED_COMMAND='echo replace with the command for ocpkg repo'
+trigger_command ocpkg "$TRIGGERED_COMMAND"
 
 # For opencog/cogutils docker image
-TRIGGERED_COMMAND="echo ocpkg-trigger-replace-it"
-set_workspace ocpkg
+TRIGGERED_COMMAND="echo replace with the command for cogutils repo"
+trigger_command cogutils "$TRIGGERED_COMMAND"
+
 printf "%s [%s] Finished ----------------------\n" "$(date)" "$SELF_NAME"
+exit 0
