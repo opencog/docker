@@ -1,7 +1,10 @@
 #!/bin/bash
 
 # Usage:
-#  ./cronjobs.sh $HOME/path/to/dir/to/workspace
+## 1 Modify the string of the variables TRIGGERED_COMMAND and then run the
+##   the following commands to trigger the commands every 5 minutes.
+## 2. crontab -e
+## 3.  */5 * * * * path/to/opencog/docker/clone/buildbot/cronjobs.sh ~
 
 # Environment Variables
 ## Name of script.
