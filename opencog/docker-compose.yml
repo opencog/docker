@@ -18,7 +18,7 @@ dev:
         - postgres:db
         - relex:relex
     environment: # Set environment variables within the container
-        - PYTHONPATH=/usr/local/share/opencog/python:/opencog/opencog/python/:opencog/build/opencog/cython
+        - PYTHONPATH=/usr/local/share/opencog/python:/opencog/opencog/python/:/opencog/build/opencog/cython
         - OPENCOG_SOURCE_DIR=/opencog
         - PGHOST=db # This should be the same as the link's alias
         - PGUSER=opencog_user # user created by configure-database.sh
