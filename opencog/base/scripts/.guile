@@ -1,0 +1,9 @@
+; Add path to OpenCog modules
+(add-to-load-path "/usr/local/share/opencog/scm")
+
+; Add present directory
+(add-to-load-path ".")
+
+; To make working with arrow keys easier
+(use-modules (ice-9 readline))
+(activate-readline)

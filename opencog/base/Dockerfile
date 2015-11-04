@@ -15,7 +15,7 @@ RUN apt-get -y install software-properties-common wget rlwrap telnet \
 # Install repositories and dependencies
 ADD https://raw.githubusercontent.com/opencog/ocpkg/master/ocpkg \
     /tmp/octool
-RUN chmod 755 /tmp/octool && /tmp/octool -rdpv
+RUN chmod 755 /tmp/octool;  sync; /tmp/octool -rdpv
 
 # Environment Variables
 ## Set Locale
