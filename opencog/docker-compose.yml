@@ -13,7 +13,8 @@ dev:
         - $ATOMSPACE_SOURCE_DIR:/atomspace
         - $COGUTILS_SOURCE_DIR:/cogutils
         - $MOSES_SOURCE_DIR:/moses
-        - $HOME/.gitconfig:/home/opencog/.gitconfig
+        - $HOME/.gitconfig:/home/opencog/.gitconfig # for git commits,stash ...
+        - /etc/localtime:/etc/localtime:ro # for syncing with host time.
     links:
         - postgres:db
         - relex:relex
