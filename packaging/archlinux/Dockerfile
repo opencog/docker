@@ -12,3 +12,5 @@ RUN adduser -c "OpenCog Developer" -G wheel opencog
 RUN echo '%wheel ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 USER opencog
 WORKDIR /home/opencog
+
+CMD bash
