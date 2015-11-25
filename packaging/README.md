@@ -6,4 +6,4 @@ architecture.
 
 The supported architectures are likely to be x86 and x64, and the OS are likely
 to be debian-family, Fedora-family, arch-family, opensuse-family. This hasn't
-been decied yet.
+been decided yet.
