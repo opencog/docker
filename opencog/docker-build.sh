@@ -27,6 +27,7 @@ printf "Usage: ./%s [OPTIONS]
     -c Builds opencog/cogutils image. It will build opencog/opencog-deps
        if it hasn't been built, as it forms its base image.
     -m Builds opencog/moses image.
+    -p Builds opencog/postgres image.
     -r Builds opencog/relex image.
     -t Builds opencog/opencog-dev:cli image. It will build opencog/opencog-deps
        and opencog/cogutils if they haven't been built, as they form its base
@@ -69,12 +70,13 @@ check_cogutils(){
 # Main Execution
 if [ $# -eq 0 ] ; then NO_ARGS=true ; fi
 
-while getopts "bchmrtu" flag ; do
+while getopts "bchmprtu" flag ; do
     case $flag in
         b) BUILD_OPENCOG_BASE_IMAGE=true ;;
         t) BUILD_TOOL_IMAGE=true ;;
         c) BUILD_COGUTILS_IMAGE=true ;;
         m) BUILD__MOSES_IMAGE=true ;;
+        p) BUILD__POSTGRES_IMAGE=true ;;
         r) BUILD_RELEX_IMAGE=true ;;
         u) CACHE_OPTION=--no-cache ;;
         h) usage ;;
@@ -102,6 +104,12 @@ if [ $BUILD__MOSES_IMAGE ] ; then
     echo "---- Staring build of opencog/moses ----"
     docker build $CACHE_OPTION -t opencog/moses moses
     echo "---- Finished build of opencog/moses ----"
+fi
+
+if [ $BUILD__POSTGRES_IMAGE ] ; then
+    echo "---- Staring build of opencog/postgres ----"
+    docker build $CACHE_OPTION -t opencog/postgres postgres
+    echo "---- Finished build of opencog/postgres ----"
 fi
 
 if [ $BUILD_RELEX_IMAGE ] ; then
