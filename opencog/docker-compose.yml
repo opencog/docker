@@ -25,9 +25,7 @@ dev:
         - PGUSER=opencog_user # user created by configure-database.sh
 
 postgres:
-    image: postgres:latest
-    volumes: # for persisting data across sessions
-        - $PWD/data/:/var/lib/postgresql/data
+    image: opencog/postgres
 
 relex:
     image: opencog/relex
