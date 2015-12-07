@@ -8,8 +8,8 @@
 # running the script. Once run you are set.
 
 printf "___ Getting table schema ___\n"
-wget https://raw.githubusercontent.com/opencog/atomspace/master/opencog/persist/sql/atom.sql \
--O /tmp/atom.sql
+#wget https://raw.githubusercontent.com/opencog/atomspace/master/opencog/persist/sql/atom.sql \
+#-O /tmp/atom.sql
 
 # For Standard Use
 ## After setup for accessing the database run

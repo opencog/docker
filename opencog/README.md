@@ -21,20 +21,14 @@ an empty directory.
 1. Starting the containers run either of the following commands
     * `docker-compose run --service-ports dev`   # to map container ports to host
     * `docker-compose run dev`   # if you don't want to map ports to host
-2. Configuring postgres backing-store
-    * ~/configure-database.sh
-    * tmux   # You can create multiple panes and move around using your mouse
-    * Start cogserver and enter the scheme shell
-    * Follow the steps starting from line 35 in
-      $OPENCOG_SOURCE_DIR/examples/guile/persist-example.scm#
-3. Configuring RelEx
+2. Configuring RelEx
     * cat /etc/hosts   # take note of the ip address for relex, e.g.
     ```172.17.0.69     relex 8e7dc3a09f12 opencog_relex_1```
     * rlwrap telnet localhost 17001
     * (define relex-server-host "172.17.0.69")
     * (nlp-parse "you know what this is.")
-4. have fun hacking
-5. exit container
+3. have fun hacking
+4. exit container
 
 ## Steps for RelEx development
 Starting the containers run either of the following commands
