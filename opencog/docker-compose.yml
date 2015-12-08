@@ -28,5 +28,7 @@ postgres:
     image: opencog/postgres
 
 relex:
-    image: opencog/relex
+    extends:
+        file: relex.yml
+        service: relex
     command: /bin/sh -c "ant clean && ant  && ./opencog-server.sh"
