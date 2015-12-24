@@ -137,13 +137,17 @@ fi
 ## For opencog/opencog-deps docker image an example trigger command is,
 ## curl -H "Content-Type: application/json" --data '{"build": true}' -X POST https://registry.hub.docker.com/u/opencog/opencog-deps/trigger/45dfbf0e-9412-4c6b-b3fd-a864e92ee9f6/
 
-## For opencogopencog-deps docker image
+## For opencog/opencog-deps docker image
 TRIGGERED_COMMAND='echo replace with the command for ocpkg repo'
 trigger_command ocpkg "$TRIGGERED_COMMAND"
 
 ## For opencog/cogutils docker image
 TRIGGERED_COMMAND="echo replace with the command for cogutils repo"
 trigger_command cogutils "$TRIGGERED_COMMAND"
+
+## For opencog/opencog-dev:cli docker image
+TRIGGERED_COMMAND="echo replace with the command for atomspace repo"
+trigger_command atomspace "$TRIGGERED_COMMAND"
 
 printf "%s [%s] Finished ----------------------\n\n" "$(date)" "$SELF_NAME"
 exit 0
