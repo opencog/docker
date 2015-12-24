@@ -146,7 +146,7 @@ TRIGGERED_COMMAND="echo replace with the command for cogutils repo"
 trigger_command cogutils "$TRIGGERED_COMMAND"
 
 ## For opencog/opencog-dev:cli docker image
-TRIGGERED_COMMAND="echo replace with the command for cogutils repo"
+TRIGGERED_COMMAND="echo replace with the command for atomspace repo"
 trigger_command atomspace "$TRIGGERED_COMMAND"
 
 printf "%s [%s] Finished ----------------------\n\n" "$(date)" "$SELF_NAME"
