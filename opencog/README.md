@@ -5,9 +5,11 @@ You can use docker-compose for configuring your workspace on linux and Mac syste
 ## Initial setups
 ### UNIX Systems
 1. Build images using `./docker-build.sh [OPTIONS]`
-    * For opencog development use -bct option
+    * For opencog development use `-bctp` option
+    * For NLP related work add `-r` option
     * If you want to update your images add `-u` option. For example for opencog
       development use `-ctu` options. Unless there are some system dependency changes, you don't have to update `opeoncog/opencog-deps` image.
+    * To list the available options use `-h`
 2. sudo pip install -U docker-compose # only the first time
 3. Add these lines to .bashrc at $HOME of your PC and restart terminal or run `source ~/.bashrc`. __Note that you don't have to clone each repository or add
 all the paths__ , just those you need. For the rest docker-compose will create
@@ -23,9 +25,11 @@ an empty directory.
 2. Start the docker virtual machine as described in the linked web-page from
    the previous step,
 3. Build images using `./docker-build.sh [OPTIONS]`
-    * For opencog development use -bct option
+    * For opencog development use `-bctp` option
+    * For NLP related work add `-r` option
     * If you want to update your images add `-u` option. For example for opencog
       development use `-ctu` options. Unless there are some system dependency changes, you don't have to update `opeoncog/opencog-deps` image.
+    * To list the available options use `-h`
 4. In the script `windows-run.sh` found in the same directory as this README,
    Replace '$HOME/path/to/' in the export command to the appropriate absolute
    path on your windows machine. __Note that you don't have to clone each
@@ -40,7 +44,9 @@ an empty directory.
     * `docker-compose run dev`   # if you don't want to map ports to host
   2. Windows: `./windows-run.sh`
 
-2. Configuring RelEx
+2. For using opencog shells follow instruction [here](http://wiki.opencog.org/w/OpenCog_shell)
+
+3. For configuring RelEx in the cogserver run
     * cat /etc/hosts   # take note of the ip address for relex, e.g.
       `172.17.0.69     relex 8e7dc3a09f12 opencog_relex_1`
     * rlwrap telnet localhost 17001
@@ -49,7 +55,7 @@ an empty directory.
 3. have fun hacking
 4. exit container
 
-## Steps for RelEx development
+## Steps for RelEx development (For UNIX like Systems only)
 Starting the containers run either of the following commands
 * `docker-compose -f relex.yml run --service-ports relex`  # to map container ports to host
 * `docker-compose -f relex.yml run relex`  # if you don't want to map ports to host
