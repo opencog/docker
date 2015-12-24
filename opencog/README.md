@@ -5,9 +5,11 @@ You can use docker-compose for configuring your workspace on linux and Mac syste
 ## Initial setups
 ### UNIX Systems
 1. Build images using `./docker-build.sh [OPTIONS]`
-    * For opencog development use -bct option
+    * For opencog development use `-bctp` option
+    * For NLP related work add `-r` option
     * If you want to update your images add `-u` option. For example for opencog
       development use `-ctu` options. Unless there are some system dependency changes, you don't have to update `opeoncog/opencog-deps` image.
+    * To list the available options use `-h`
 2. sudo pip install -U docker-compose # only the first time
 3. Add these lines to .bashrc at $HOME of your PC and restart terminal or run `source ~/.bashrc`. __Note that you don't have to clone each repository or add
 all the paths__ , just those you need. For the rest docker-compose will create
@@ -23,9 +25,11 @@ an empty directory.
 2. Start the docker virtual machine as described in the linked web-page from
    the previous step,
 3. Build images using `./docker-build.sh [OPTIONS]`
-    * For opencog development use -bct option
+    * For opencog development use `-bctp` option
+    * For NLP related work add `-r` option
     * If you want to update your images add `-u` option. For example for opencog
       development use `-ctu` options. Unless there are some system dependency changes, you don't have to update `opeoncog/opencog-deps` image.
+    * To list the available options use `-h`
 4. In the script `windows-run.sh` found in the same directory as this README,
    Replace '$HOME/path/to/' in the export command to the appropriate absolute
    path on your windows machine. __Note that you don't have to clone each
