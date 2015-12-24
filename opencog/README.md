@@ -44,7 +44,9 @@ an empty directory.
     * `docker-compose run dev`   # if you don't want to map ports to host
   2. Windows: `./windows-run.sh`
 
-2. Configuring RelEx
+2. For using opencog shells follow instruction [here](http://wiki.opencog.org/w/OpenCog_shell)
+
+3. For configuring RelEx in the cogserver run
     * cat /etc/hosts   # take note of the ip address for relex, e.g.
       `172.17.0.69     relex 8e7dc3a09f12 opencog_relex_1`
     * rlwrap telnet localhost 17001
@@ -53,7 +55,7 @@ an empty directory.
 3. have fun hacking
 4. exit container
 
-## Steps for RelEx development
+## Steps for RelEx development (For UNIX like Systems only)
 Starting the containers run either of the following commands
 * `docker-compose -f relex.yml run --service-ports relex`  # to map container ports to host
 * `docker-compose -f relex.yml run relex`  # if you don't want to map ports to host
