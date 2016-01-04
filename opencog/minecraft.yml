@@ -1,3 +1,5 @@
+# Usage: docker-compose -f minecraft.yml run --rm oc2mc
+
 oc2mc:
     extends:
         file: common.yml
@@ -9,8 +11,8 @@ oc2mc:
     links:
         - minecraft-server:minecraft
     environment:
-        - DISPLAY=:0 # For GUI assuming a single monitor setup. This should be set on run.
-    working_dir: /opencog # This is the same as the volume mount point below
+        - DISPLAY=:0 # For GUI assuming a single monitor setup. 
+    working_dir: /opencog
 
 minecraft-server:
     image: itzg/minecraft-server

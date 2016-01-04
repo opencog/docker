@@ -1,4 +1,4 @@
-# Used for setting common docker run configurations for the files,
+# Used for setting common docker-compose run configurations for the files,
 # * docker-compose.yml
 # * minecraft.yml
 # NOTE: Don't add links in this file
