@@ -1,0 +1,22 @@
+oc2mc:
+    extends:
+        file: common.yml
+        service: workspace
+    image: opencog/minecraft
+    volumes:
+        - /tmp/.X11-unix/:/tmp/.X11-unix/:ro # For GUI
+        - $OPENCOG_TO_MINECRAFT=/ocmc
+    links:
+        - minecraft-server:minecraft
+    environment:
+        - DISPLAY=:0 # For GUI assuming a single monitor setup. This should be set on run.
+        - $HOME/.gitconfig:/home/opencog/.gitconfig # for git commits,stash ...
+        - /etc/localtime:/etc/localtime:ro # for syncing with host time.
+
+minecraft-server:
+    image: itzg/minecraft-server
+    volumes:
+        - $PWD/minecraft/data:/data
+    environment:
+        - EULA=TRUE  # This in effect says the user agrees to the Minecraft eula
+        # TODO How to handle it.
