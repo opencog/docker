@@ -1,20 +1,16 @@
-FROM ros:latest
+FROM opencog/opencog-dev:cli
 
-# http://www.webupd8.org/2014/03/how-to-install-oracle-java-8-in-debian.html
-# https://github.com/airdock-io/docker-oracle-jdk/blob/master/oracle-java8/Dockerfile
-RUN echo "deb http://ppa.launchpad.net/webupd8team/java/ubuntu \
-    $(lsb_release -cs) main" > /etc/apt/sources.list.d/webupd8team-java.list ;\
-    echo "deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu \
-    $(lsb_release -cs) main" >> /etc/apt/sources.list.d/webupd8team-java.list ;\
-    apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys EEA14886 ;\
-    apt-get update ; \
-    echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 \
-    select true" |  /usr/bin/debconf-set-selections ;\
-    apt-get -y install oracle-java8-installer oracle-java8-set-default
+# Install ros
+RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
+RUN apt-key adv --keyserver hkp://pool.sks-keyservers.net --recv-key 0xB01FA116
+RUN apt-get update && apt-get -y install ros-indigo-ros-base
 
-# Create and switch user. The user is privileged with no password required
-RUN adduser --disabled-password --gecos "OpenCog Developer" opencog
-RUN adduser opencog sudo
-RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+# Spock setup
+RUN easy_install pip ; apt-get -y install python3-dev python3-setuptools ;\
+   pip install cryptography
+RUN wget -P /tmp/  https://github.com/SpockBotMC/SpockBot/archive/master.tar.gz ;\
+    cd /tmp ; tar -xvf master.tar.gz ; cd SpockBot-master/ ;\
+    python3 setup.py install
+    # ; cd .. ; rm -rf master.tar.gz SpockBot-master
+
 USER opencog
-WORKDIR /home/opencog
