@@ -10,8 +10,6 @@ oc2mc:
         - minecraft-server:minecraft
     environment:
         - DISPLAY=:0 # For GUI assuming a single monitor setup. This should be set on run.
-        - $HOME/.gitconfig:/home/opencog/.gitconfig # for git commits,stash ...
-        - /etc/localtime:/etc/localtime:ro # for syncing with host time.
     working_dir: /opencog # This is the same as the volume mount point below
 
 minecraft-server:
