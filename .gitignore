@@ -10,4 +10,5 @@ buildbot/workspace/volume/master/
 buildbot/workspace/volume/moses/
 buildbot/workspace/volume/opencog/
 
+# For opencog/minecraft containers
 opencog/minecraft/data/

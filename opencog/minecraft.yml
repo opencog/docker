@@ -11,8 +11,8 @@ oc2mc:
     links:
         - minecraft-server:minecraft
     environment:
-        - DISPLAY=:0 # For GUI assuming a single monitor setup. 
-    working_dir: /opencog
+        - DISPLAY=:0 # For GUI assuming a single monitor setup.
+    working_dir: /oc2mc
 
 minecraft-server:
     image: itzg/minecraft-server
