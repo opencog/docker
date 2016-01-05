@@ -1,26 +1,18 @@
 # Usage: Follow the steps in the README file in the directory containing this file
 
 dev:
-    image: opencog/opencog-dev:cli
-    ports: # syntax is host:container
-        - "5000:5000"
-        - "17001:17001"
-        - "18001:18001"
-        - "8080:8080"
-    working_dir: /opencog # This is the same as the volume mount point below
+    extends:
+        file: common.yml
+        service: workspace
     volumes:
-        - $OPENCOG_SOURCE_DIR:/opencog
         - $ATOMSPACE_SOURCE_DIR:/atomspace
         - $COGUTILS_SOURCE_DIR:/cogutils
         - $MOSES_SOURCE_DIR:/moses
-        - $HOME/.gitconfig:/home/opencog/.gitconfig # for git commits,stash ...
-        - /etc/localtime:/etc/localtime:ro # for syncing with host time.
+    working_dir: /opencog # This is the same as the volume mount point below
     links:
         - postgres:db
         - relex:relex
-    environment: # Set environment variables within the container
-        - PYTHONPATH=/usr/local/share/opencog/python:/opencog/opencog/python/:/opencog/build/opencog/cython:/opencog/opencog/nlp/anaphora
-        - OPENCOG_SOURCE_DIR=/opencog
+    environment:
         - PGHOST=db # This should be the same as the link's alias
         - PGUSER=opencog_user # user created by configure-database.sh
 

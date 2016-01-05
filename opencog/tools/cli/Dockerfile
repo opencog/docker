@@ -20,3 +20,5 @@ RUN  /tmp/octool -al
 USER opencog
 
 CMD /bin/bash
+
+ONBUILD USER root

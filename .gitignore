@@ -2,9 +2,13 @@
 *~
 .tags
 tags
+
 # Just to avoid the removal of the README.md in buildbot/workspace/volume/
 buildbot/workspace/volume/atomspace/
 buildbot/workspace/volume/cogutils/
 buildbot/workspace/volume/master/
 buildbot/workspace/volume/moses/
 buildbot/workspace/volume/opencog/
+
+# For opencog/minecraft containers
+opencog/minecraft/data/
