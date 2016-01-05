@@ -1,4 +1,6 @@
-# Usage: docker-compose -f minecraft.yml run --rm oc2mc
+# Usage:
+# 1. docker build -t opencog/minecraft minecraft/
+# 2. docker-compose -f minecraft.yml run --rm oc2mc
 
 oc2mc:
     extends:
@@ -14,10 +16,19 @@ oc2mc:
         - DISPLAY=:0 # For GUI assuming a single monitor setup.
     working_dir: /oc2mc
 
+
+# For more configuration through environment variables see
+# github.com/itzg/dockerfiles/tree/master/minecraft-server#server-configuration
 minecraft-server:
     image: itzg/minecraft-server
+    container_name: minecraft-server
+    ports:
+        - "25565:25565" # Needed for the client
     volumes: # For persistance of configurations
         - $PWD/minecraft/data:/data
     environment:
         - EULA=TRUE  # This in effect says the user agrees to the Minecraft eula
         # TODO How to handle it.
+    # The follwoing are needed for interacting with the server from terminal
+    tty: true
+    stdin_open: true
