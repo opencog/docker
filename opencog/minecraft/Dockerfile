@@ -1,8 +1,8 @@
 FROM opencog/opencog-dev:cli
 
 # ROS installation
-# https://github.com/osrf/docker_images/blob/master/ros/indigo/indigo-ros-core/Dockerfile
-# https://github.com/osrf/docker_images/blob/master/ros/indigo/indigo-ros-base/Dockerfile
+# https://github.com/osrf/docker_images/blob/master/ros/indigo/indigo-ros-core/
+# https://github.com/osrf/docker_images/blob/master/ros/indigo/indigo-ros-base/
 RUN locale-gen en_US.UTF-8
 ENV LANG en_US.UTF-8
 ENV ROS_DISTRO indigo
@@ -19,7 +19,7 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
     ros-indigo-ros-base \
     python3-dev python3-setuptools \
     && rm -rf /var/lib/apt/lists/* \
-    && rosdep init && rosdep update
+    && rosdep init
 
 COPY ./ros_entrypoint.sh /
 
@@ -31,5 +31,6 @@ RUN wget -P /tmp/ https://github.com/SpockBotMC/SpockBot/archive/master.tar.gz ;
     cd .. ; rm -rf master.tar.gz SpockBot-master
 
 USER opencog
+RUN  rosdep update
 ENTRYPOINT ["/ros_entrypoint.sh"]
 CMD ["bash"]
