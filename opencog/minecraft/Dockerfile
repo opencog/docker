@@ -27,7 +27,7 @@ COPY ./ros_entrypoint.sh /
 RUN easy_install pip &&  pip install cryptography
 RUN wget -P /tmp/ https://github.com/SpockBotMC/SpockBot/archive/master.tar.gz ;\
     cd /tmp ; tar -xvf master.tar.gz ; cd SpockBot-master/ ;\
-    python3 setup.py install ;\
+    python setup.py install ;\
     cd .. ; rm -rf master.tar.gz SpockBot-master
 
 USER opencog
