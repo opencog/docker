@@ -9,11 +9,11 @@ oc2mc:
     image: opencog/minecraft
     volumes:
         - /tmp/.X11-unix/:/tmp/.X11-unix/:ro # For GUI
-        - $OPENCOG_TO_MINECRAFT:/oc2mc
+        - $OC2MC_SOURCE_DIR:/oc2mc
     links:
         - minecraft-server:minecraft
     environment:
-        - DISPLAY=:0 # For GUI assuming a single monitor setup.
+        - MC_SERVER_NAME=minecraft # Should be same as the links field hostname
     working_dir: /oc2mc
 
 
@@ -27,6 +27,7 @@ minecraft-server:
     volumes: # For persistance of configurations
         - $PWD/minecraft/data:/data
     environment:
+        - MODE=creative
         - EULA=TRUE  # This in effect says the user agrees to the Minecraft eula
         # TODO How to handle it.
     # The follwoing are needed for interacting with the server from terminal

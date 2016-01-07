@@ -6,19 +6,23 @@ You can use docker-compose for configuring your workspace on linux and Mac syste
 ### UNIX Systems
 1. Build images using `./docker-build.sh [OPTIONS]`
     * For opencog development use `-bctp` option
-    * For NLP related work add `-r` option
+    * For NLP related work use`-r` option
+    * For opencog-to-minecraft use `-bcte` option
     * If you want to update your images add `-u` option. For example for opencog
-      development use `-ctu` options. Unless there are some system dependency changes, you don't have to update `opeoncog/opencog-deps` image.
+      development use `-ctu` options. Unless there are some system dependency
+      changes, you don't have to update `opeoncog/opencog-deps` image.
     * To list the available options use `-h`
-2. sudo pip install -U docker-compose # only the first time
-3. Add these lines to .bashrc at $HOME of your PC and restart terminal or run `source ~/.bashrc`. __Note that you don't have to clone each repository or add
-all the paths__ , just those you need. For the rest docker-compose will create
-an empty directory.
+2. sudo pip install -U docker-compose # only the first time or when updating
+3. Add these lines to .bashrc at $HOME of your PC and restart terminal or run
+   `source ~/.bashrc`. __Note that you don't have to clone each repository or
+   add all the paths__ , just those you need. For the rest docker-compose will
+   create an empty directory.
     * export OPENCOG_SOURCE_DIR=$HOME/path/to/opencog
     * export RELEX_SOURCE_DIR=$HOME/path/to/relex
     * export ATOMSPACE_SOURCE_DIR=$HOME/path/to/atomspace
     * export COGUTILS_SOURCE_DIR=$HOME/path/to/cogutils
     * export MOSES_SOURCE_DIR=$HOME/path/to/moses
+    * export OC2MC_SOURCE_DIR=$HOME/path/to/opencog-to-minecraft
 
 ### Windows
 1. Follow the instruction [here](https://docs.docker.com/engine/installation/windows/#using-the-docker-quickstart-terminal) for setting docker,
@@ -60,8 +64,22 @@ Starting the containers run either of the following commands
 * `docker-compose -f relex.yml run --service-ports relex`  # to map container ports to host
 * `docker-compose -f relex.yml run relex`  # if you don't want to map ports to host
 
+## Steps for opencog-to-minecraft development (For UNIX like Systems only)
+1. To start the Minecraft server and access a configured development environment
+   run `docker-compose -f minecraft.yml run oc2mc`. Thes server.properties file
+   is found in `minecraft/data` in the same folder as this README. The file is
+   auto-generated so on changing the entries, restart the server by running
+   ` docker restart minecraft-server`.
+2. Run `tmux` inside the container for working with multiple windows/panes.
+   If you create multiple panes you can use your mouse as an alternative to
+   switch between panes.
+3. Open a separate terminal, on your host, run `docker attach minecraft-server`.
+   This gives you access to the server's console that is used for configuration.
+4. Except PYTHONPATH setting step, which isn't needed because it is already
+   configured inside the container, follow the steps described [here](https://github.com/opencog/opencog-to-minecraft#steps-to-start-the-bot)
+
 ## Notes
-1. Tmux is preinstalled so you can use it for multiple terminals.
+1. Tmux is preinstalled so you can use it for multiple windows/panes.
 2. On exiting opencog container, postgres & relex will still be running in the
    background. So when running `docker-compose run ...` it will auto-link to them,
    provided you haven't removed the containers or shutdown your machine.
