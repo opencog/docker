@@ -54,7 +54,7 @@ You can use docker-compose for configuring your workspace on linux and Mac syste
     * cat /etc/hosts   # take note of the ip address for relex, e.g.
       `172.17.0.69     relex 8e7dc3a09f12 opencog_relex_1`
     * rlwrap telnet localhost 17001
-    * (define relex-server-host "172.17.0.69")
+    * (relex-server-host! "172.17.0.69")
     * (nlp-parse "you know what this is.")
 3. have fun hacking
 4. exit container
