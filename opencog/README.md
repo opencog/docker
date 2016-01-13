@@ -53,9 +53,11 @@ You can use docker-compose for configuring your workspace on linux and Mac syste
 3. For configuring RelEx in the cogserver run
     * cat /etc/hosts   # take note of the ip address for relex, e.g.
       `172.17.0.69     relex 8e7dc3a09f12 opencog_relex_1`
-    * rlwrap telnet localhost 17001
-    * (relex-server-host! "172.17.0.69")
-    * (nlp-parse "you know what this is.")
+    * `/tmp/octool -bi` # Build and install opencog
+    * start the cogserver, telnet into it and access the scheme shell.
+    * `(use-modules (opencog nlp) (opencog nlp chatbot))`
+    * `(set! relex-server-host "172.17.0.69")`
+    * `(nlp-parse "you know what this is.")`
 3. have fun hacking
 4. exit container
 
