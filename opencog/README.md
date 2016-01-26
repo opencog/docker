@@ -1,8 +1,15 @@
-## Initial setups
-The following sub-sections describe the steps required to configure your
-workspace
+# Table of Content
+1. [Initial setups](#initial-setups)
+2. [UNIX like Systems](#unix-like-systems)
+3. [windows](#windows)
+4. [Steps for OpenCog development](#steps-for-opencog-development)
 
-### UNIX Systems
+
+## Initial Setups
+The following sub-sections describe the steps required to configure docker on
+your os.
+
+### UNIX like Systems
 1. Follow the instruction [here](https://docs.docker.com/engine/installation/)
    for setting docker,
 2. Build images using `./docker-build.sh [OPTIONS]`
@@ -67,14 +74,16 @@ workspace
 3. have fun hacking
 4. exit container
 
-## Steps for RelEx development (For UNIX like Systems only)
+## Steps for RelEx development
+__For UNIX like Systems only__
 Starting the containers run either of the following commands
 * If you want to map container ports to host run
   `docker-compose -f relex.yml run --service-ports relex`
 * If you don't want to map ports to host run
    `docker-compose -f relex.yml run relex`
 
-## Steps for opencog-to-minecraft development (For UNIX like Systems only)
+## Steps for opencog-to-minecraft development
+__For UNIX like Systems only__
 1. To start the Minecraft server and access a configured development environment
    run `docker-compose -f minecraft.yml run oc2mc`. Thes server.properties file
    is found in `minecraft/data` in the same folder as this README. The file is
