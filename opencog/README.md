@@ -1,10 +1,24 @@
-# Usages
+This directory contains docker configurations for some of OpenCog's projects.
+Following are instructions on how to get started with using docker for opencog
+development.
 
-You can use docker-compose for configuring your workspace on linux and Mac systems. For Windows details are coming soon.
+# Table of Contents
+1. [Initial Setups](#initial-setups)
+  1. [UNIX like Systems](#unix-like-systems)
+  2. [windows](#windows)
+2. [Steps for OpenCog development](#steps-for-opencog-development)
+3. [Steps for RelEx development](#steps-for-relex-development)
+4. [Steps for opencog-to-minecraft development](#steps-for-opencog-to-minecraft-development)
 
-## Initial setups
-### UNIX Systems
-1. Build images using `./docker-build.sh [OPTIONS]`
+
+## Initial Setups
+The following sub-sections describe the steps required to configure docker on
+your os.
+
+### UNIX like Systems
+1. Follow the instruction [here](https://docs.docker.com/engine/installation/)
+   for setting docker,
+2. Build images using `./docker-build.sh [OPTIONS]`
     * For opencog development use `-bctp` option
     * For NLP related work use`-r` option
     * For opencog-to-minecraft use `-bcte` option
@@ -12,8 +26,8 @@ You can use docker-compose for configuring your workspace on linux and Mac syste
       development use `-ctu` options. Unless there are some system dependency
       changes, you don't have to update `opeoncog/opencog-deps` image.
     * To list the available options use `-h`
-2. sudo pip install -U docker-compose # only the first time or when updating
-3. Add these lines to .bashrc at $HOME of your PC and restart terminal or run
+3. sudo pip install -U docker-compose # only the first time or when updating
+4. Add these lines to .bashrc at $HOME of your PC and restart terminal or run
    `source ~/.bashrc`. __Note that you don't have to clone each repository or
    add all the paths__ , just those you need. For the rest docker-compose will
    create an empty directory.
@@ -25,14 +39,16 @@ You can use docker-compose for configuring your workspace on linux and Mac syste
     * export OC2MC_SOURCE_DIR=$HOME/path/to/opencog-to-minecraft
 
 ### Windows
-1. Follow the instruction [here](https://docs.docker.com/engine/installation/windows/#using-the-docker-quickstart-terminal) for setting docker,
-2. Start the docker virtual machine as described in the linked web-page from
-   the previous step,
+1. Follow the instruction [here](https://docs.docker.com/engine/installation/windows)
+   for setting docker,
+2. Start the docker virtual machine using 'Docker Quickstart Terminal' as
+   described in the linked web-page from the previous step,
 3. Build images using `./docker-build.sh [OPTIONS]`
     * For opencog development use `-bctp` option
     * For NLP related work add `-r` option
     * If you want to update your images add `-u` option. For example for opencog
-      development use `-ctu` options. Unless there are some system dependency changes, you don't have to update `opeoncog/opencog-deps` image.
+      development use `-ctu` options. Unless there are some system dependency
+      changes, you don't have to update `opeoncog/opencog-deps` image.
     * To list the available options use `-h`
 4. In the script `windows-run.sh` found in the same directory as this README,
    Replace '$HOME/path/to/' in the export command to the appropriate absolute
@@ -44,11 +60,14 @@ You can use docker-compose for configuring your workspace on linux and Mac syste
 ## Steps for OpenCog development
 1. Starting the containers
   1. UNIX like systems: run either of the following commands,
-    * `docker-compose run --service-ports dev`   # to map container ports to host
-    * `docker-compose run dev`   # if you don't want to map ports to host
+    * If you want to map container ports to host run
+      `docker-compose run --service-ports dev`
+    * If you don't want to map ports to host run
+      `docker-compose run dev`
   2. Windows: `./windows-run.sh`
 
-2. For using opencog shells follow instruction [here](http://wiki.opencog.org/w/OpenCog_shell)
+2. For using opencog shells follow instruction
+   [here](http://wiki.opencog.org/w/OpenCog_shell)
 
 3. For configuring RelEx in the cogserver run
     * cat /etc/hosts   # take note of the ip address for relex, e.g.
@@ -61,12 +80,16 @@ You can use docker-compose for configuring your workspace on linux and Mac syste
 3. have fun hacking
 4. exit container
 
-## Steps for RelEx development (For UNIX like Systems only)
+## Steps for RelEx development
+__For UNIX like Systems only__
 Starting the containers run either of the following commands
-* `docker-compose -f relex.yml run --service-ports relex`  # to map container ports to host
-* `docker-compose -f relex.yml run relex`  # if you don't want to map ports to host
+* If you want to map container ports to host run
+  `docker-compose -f relex.yml run --service-ports relex`
+* If you don't want to map ports to host run
+   `docker-compose -f relex.yml run relex`
 
-## Steps for opencog-to-minecraft development (For UNIX like Systems only)
+## Steps for opencog-to-minecraft development
+__For UNIX like Systems only__
 1. To start the Minecraft server and access a configured development environment
    run `docker-compose -f minecraft.yml run oc2mc`. Thes server.properties file
    is found in `minecraft/data` in the same folder as this README. The file is
@@ -78,7 +101,8 @@ Starting the containers run either of the following commands
 3. Open a separate terminal, on your host, run `docker attach minecraft-server`.
    This gives you access to the server's console that is used for configuration.
 4. Except PYTHONPATH setting step, which isn't needed because it is already
-   configured inside the container, follow the steps described [here](https://github.com/opencog/opencog-to-minecraft#steps-to-start-the-bot)
+   configured inside the container, follow the steps described
+   [here](https://github.com/opencog/opencog-to-minecraft#steps-to-start-the-bot)
 
 ## Notes
 1. Tmux is preinstalled so you can use it for multiple windows/panes.
