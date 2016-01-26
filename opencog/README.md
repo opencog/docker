@@ -2,8 +2,8 @@ This directory contains docker configurations for some of OpenCog's projects.
 Following are instructions on how to get started with using docker for opencog
 development.
 
-# Table of Content
-1. [Initial setups](#initial-setups)
+# Table of Contents
+1. [Initial Setups](#initial-setups)
   1. [UNIX like Systems](#unix-like-systems)
   2. [windows](#windows)
 2. [Steps for OpenCog development](#steps-for-opencog-development)
