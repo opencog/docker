@@ -1,8 +1,14 @@
+This directory contains docker configurations for some of OpenCog's projects.
+Following are instructions on how to get started with using docker for opencog
+development.
+
 # Table of Content
 1. [Initial setups](#initial-setups)
-2. [UNIX like Systems](#unix-like-systems)
-3. [windows](#windows)
-4. [Steps for OpenCog development](#steps-for-opencog-development)
+  1. [UNIX like Systems](#unix-like-systems)
+  2. [windows](#windows)
+2. [Steps for OpenCog development](#steps-for-opencog-development)
+3. [Steps for RelEx development](#steps-for-relex-development)
+4. [Steps for opencog-to-minecraft development](#steps-for-opencog-to-minecraft-development)
 
 
 ## Initial Setups
