@@ -106,6 +106,9 @@ while getopts "bcehmprtu" flag ; do
     esac
 done
 
+# Create .ccache directory for use by docker-compose
+mkdir .ccache
+
 # NOTE: To avoid repetion of builds don't reorder the sequence here.
 
 if [ $BUILD_OPENCOG_BASE_IMAGE ] ; then

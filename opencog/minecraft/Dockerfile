@@ -7,9 +7,6 @@ RUN locale-gen en_US.UTF-8
 ENV LANG en_US.UTF-8
 ENV ROS_DISTRO indigo
 
-RUN echo "deb http://packages.ros.org/ros/ubuntu trusty main" > /etc/apt/sources.list.d/ros-latest.list
-RUN apt-key adv --keyserver hkp://pool.sks-keyservers.net --recv-key 0xB01FA116
-
 ##  python3-dev & python3-setuptools are for spock included in this
 ## instruction for minimizing layers
 RUN apt-get update && apt-get install --no-install-recommends -y \
