@@ -6,7 +6,7 @@
 FROM opencog/cogutils
 
 # Install non-system project dependencies
-RUN  /tmp/octool -al
+RUN  /tmp/octool -al ; ccache -C
 
 # Clone opencog and build it
 RUN git clone --depth 1 https://github.com/opencog/opencog oc

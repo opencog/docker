@@ -24,6 +24,9 @@ ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 
+## For using ccache
+ENV PATH /usr/lib/ccache:$PATH
+
 # Create and switch user. The user is privileged with no password required
 RUN adduser --disabled-password --gecos "OpenCog Developer" opencog
 RUN adduser opencog sudo
