@@ -37,6 +37,10 @@ your os.
     * export COGUTILS_SOURCE_DIR=$HOME/path/to/cogutils
     * export MOSES_SOURCE_DIR=$HOME/path/to/moses
     * export OC2MC_SOURCE_DIR=$HOME/path/to/opencog-to-minecraft
+5. This is optional. Specify a directory for storing ccache's compiler outputs
+   `export CCACHE_DIR=$HOME/path/to/where/you/want/to/save/ccache/output`.
+   Specifying this means, making a clean build of source code after removing a
+   container will be faster.
 
 ### Windows
 1. Follow the instruction [here](https://docs.docker.com/engine/installation/windows)
