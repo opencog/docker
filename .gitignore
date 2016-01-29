@@ -12,6 +12,3 @@ buildbot/workspace/volume/opencog/
 
 # For opencog/minecraft containers
 opencog/minecraft/data/
-
-# Directory for cached compiler outputs
-.ccache

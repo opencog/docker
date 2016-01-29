@@ -12,9 +12,6 @@ dev:
     links:
         - postgres:db
         - relex:relex
-    environment:
-        - PGHOST=db # This should be the same as the link's alias
-        - PGUSER=opencog_user # user created by configure-database.sh
 
 postgres:
     image: opencog/postgres
