@@ -39,7 +39,6 @@ WORKDIR /home/opencog
 ## if you do you want find the contents copied below
 COPY /scripts/ /home/opencog
 RUN sudo chown -R opencog:opencog * .* ; \
-    sudo chmod u+x configure-database.sh ; \
     /tmp/octool -s
 
 # Defaults
