@@ -8,9 +8,10 @@
 xhost +local:root
 
 # Assorted grunge to let X11 use the 3D graphics acceleration.
+# 11311 is the roscore port
 docker run --name="opencog-eva-ros" --privileged  \
    -e DISPLAY=:0.0 \
-   -p 33433:33433 -p 80:80 -p 9090:9090 -p 8080:8080 \
+   -p 11311:11311 \
    -v /dev/video0:/dev/video0 -v /dev/snd:/dev/snd  \
    -v /tmp/.X11-unix/X0:/tmp/.X11-unix/X0 -v /dev/dri:/dev/dri \
    -v /dev/shm:/dev/shm -it opencog/eva-ros

@@ -68,8 +68,7 @@ RUN echo source /catkin_ws/devel/setup.bash >> ~/.bashrc
 COPY /scripts/eva.sh /catkin_ws/eva.sh
 
 # Ports exposed
-EXPOSE 9090
-EXPOSE 80
-EXPOSE 33433
+# 11311 is roscore
+EXPOSE 11311
 
 ENTRYPOINT bash -l -c "./eva.sh; bash"

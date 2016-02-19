@@ -10,7 +10,7 @@ fi
 TAINER=`docker ps -a |grep opencog-eva-ros`
 if test x"$TAINER" != x; then
 	echo -n 'Removing... '
-	docker rm opencog-eva
+	docker rm opencog-eva-ros
 fi
 
 # Disable local X11 connections, just in case.
