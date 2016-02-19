@@ -27,9 +27,15 @@ and bodies, mostly those from Hanson Robotics. Several of the heads are
 modeled with blender, and so can be usefully worked with and controlled
 even without a physical robot.
 
+These files are contained in the `hydro` and `indigo` directories. Eva
+comes in two forms: a basic animation and social intereaction demo,
+in the `indigo/eva-owyl` folder, and a full-featured system (under heavy
+development, and may be broken) in the `indigo/eva` folder.  See the
+README's in those directories for more info.
+
 ## Dockerfiles for OpenCog
-The following are details about dockerfiles found in opencog and buildbot
-directories. On how to use read [opencog's README.MD](opencog/README.md)
+Opencog system dockerfiles can be found in the opencog and buildbot
+directories.  See [opencog's README.MD](opencog/README.md)
 and [buildbot's README.md](buildbot/README.md).
 
 The Dockerfiles in the directories `opencog/tools/distcc`,
