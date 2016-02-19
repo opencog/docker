@@ -1,7 +1,27 @@
-# OpenCog's Docker library
-This repository is used for setting different docker containers for the various
-components/dependencies/tools/repositories/configurations associated with the
-OpenCog project. The dockerfiles here are designed to be built in an additive way.
+# OpenCog Docker library
+This repository contains various docker images for demoing and using
+various parts of the OpenCog project. Using the docker images here is
+the easiest way to get interesting parts of OpenCog running.
+
+By using Docker, most of the difficulty of installing and configuring
+the large variety of required packages and dependencies is eliminated.
+The individual docker files specify exactly what is needed to run a
+system or demo.  Using these is as simple as saying `./build.sh` and
+then `./run.sh`.
+
+The most sophisticated demo is Eva, an animated female head, capable
+of seeing you (via a webcam), talking to you (via a chatbot), and
+engaging you (and your guests) in social interaction.  She will
+make eye contact, and express her pleasure with smiles and looks
+of surprise and happiness.
+
+![Eva Splash 1](indigo/Eva-1.png)
+![Eva Splash 2](indigo/Eva-2.png)
+![Eva Splash 3](indigo/Eva-3.png)
+
+Another particularly interesting container is that for the OpenCog to
+MineCraft bridge, which allows OpenCog to operate an avatar running
+around in the MineCraft world.
 
 ## 1. Dockerfiles for Robot Operating System (ROS)
 Dockerfiles for demoing and working with various different robot heads
@@ -16,18 +36,8 @@ facial gestures, and perform lip sync for speech.  The Eva blender file
 allows all this without the need of a physical robot head to be
 available.
 
-Docker is used primarily because there are a large number of software
-dependencies that must be installed in order to make this all work.
-This includes the Robot Operating System (ROS), Blender, Pololu motor
-drivers, a variety of ROS webcam and face-tracking/saliency nodes,
-OpenCog, and other add-ons.
 
 ### Docker image structure:
-
-    ├─ros-hydro-deps
-      ├─ros-hydro-dev
-        ├─ros-hydro-openni
-          ├─ros-hydro-percept
 
     ├─ros-indigo-base
       ├─ros-indigo-blender
