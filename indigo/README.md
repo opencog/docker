@@ -18,6 +18,13 @@ a female head that can express a variety of emotional gestures.
    ROS nodes for camera and vision processing, scripted behavior trees,
    motor controllers, and a web-based user interface.
 
+* `eva-owyl` contains an older version of the `eva` environment, one
+  that does not use OpenCog in any way.  It controls behavior using
+  the Owyl behavior tree system.  It does not include any chatbot
+  interfaces. It serves as a stable demo of the basic Eva blender
+  head, together with the ROS nodes and messaging systems to control it.
+  Developmentally, though, this is a dead-end.
+
 ## Miscellaneous packages
 
 * `dev`, derived from `base`, contains a docker image for a ROS indigo
