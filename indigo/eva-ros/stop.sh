@@ -4,12 +4,12 @@
 #
 TAINER=`docker ps |grep opencog-eva-ros |cut -f1 -d" "`
 if test x"$TAINER" != x; then
-	echo -n 'Stopping leftover container.. '
+	echo -n 'Stopping leftover container... '
 	docker stop -t 1 $TAINER
 fi
 TAINER=`docker ps -a |grep opencog-eva-ros`
 if test x"$TAINER" != x; then
-	echo -n 'Removing.. '
+	echo -n 'Removing... '
 	docker rm opencog-eva
 fi
 
