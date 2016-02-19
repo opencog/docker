@@ -38,15 +38,16 @@ RUN git clone https://github.com/hansonrobotics/perception.git
 RUN git clone https://github.com/hansonrobotics/eva_behavior.git
 RUN git clone https://github.com/hansonrobotics/blender_api_msgs.git
 RUN git clone https://github.com/hansonrobotics/blender_api.git
-RUN git clone https://github.com/hansonrobotics/pau2motors.git
 
-# RUN git clone https://github.com/geni-lab/ros_pololu_servo.git
-RUN git clone https://github.com/hansonrobotics/ros_pololu_servo.git
+# The pau2motors package defines the PAU messages, which are
+# needed by the perception (vision-geometry) module.
+RUN git clone https://github.com/hansonrobotics/pau2motors.git
 RUN git clone https://github.com/hansonrobotics/robots_config.git
 
+# The motor side of things is not needed for the software head.
+# RUN git clone https://github.com/geni-lab/ros_pololu_servo.git
+# RUN git clone https://github.com/hansonrobotics/ros_pololu_servo.git
 # RUN git clone https://github.com/hansonrobotics/ros_motors_webui.git
-# # RUN git clone https://github.com/hansonrobotics/chatbot.git
-# # RUN git clone https://github.com/hansonrobotics/ros_faceshift.git
 
 # Change line below on rebuild. Will use cache up to this line
 ENV LAST_SOFTWARE_UPDATE 2015-02-19
