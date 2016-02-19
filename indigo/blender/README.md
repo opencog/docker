@@ -1,7 +1,7 @@
 ros-indigo-blender
 ==================
 
-An docker image that installs both ROS and blender, for demoing
+A docker image that installs both ROS and blender, for demoing
 ROS-controlled blender animations.  The image holds only the base
 packages needed for running blender and ROS together; no actual ROS
 nodes are started, no blender animations are run.
