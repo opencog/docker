@@ -4,4 +4,7 @@
 # accumulated juk to be blown away.  Use at your own risk.
 #
 # First, remove the non-running containers.
-docker rm $(docker ps -aq -f status=exited)
+docker rm $(docker ps -aq -f "status=exited")
+
+# Next, remove failed images.
+docker rmi $(docker images -q -f "dangling=true")
