@@ -7,6 +7,7 @@
 # Enable local, non-network connections to X-Server
 xhost +local:root
 
+# Assorted grunge to let X11 use the 3D graphics acceleration.
 docker run --name="opencog-eva-ros" --privileged  \
    -e DISPLAY=:0.0 \
    -p 33433:33433 -p 80:80 -p 9090:9090 -p 8080:8080 \

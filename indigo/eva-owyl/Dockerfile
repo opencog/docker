@@ -72,9 +72,4 @@ RUN echo source /catkin_ws/devel/setup.bash >> ~/.bashrc
 
 COPY /scripts/eva.sh /catkin_ws/eva.sh
 
-# Ports exposed
-EXPOSE 9090
-EXPOSE 80
-EXPOSE 33433
-
 ENTRYPOINT bash -l -c "./eva.sh; bash"
