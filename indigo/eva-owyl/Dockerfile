@@ -1,9 +1,10 @@
 #
-# Container for the Hanson Robotics Eva head (Owyl version)
-# This provides the Owyl-behavior-tree version of the demo head.
-# It does include the UVC webcam vision input, pi_vision to discover
-# faces, behavior controled by owyl trees, and the full motor control
-# output. It does not include OpenCog infrastructure.
+# Container for the Hanson Robotics Eva head (stand-alone Owyl version).
+# This provides the complete Owyl-behavior-tree version of the demo head.
+# It includes UVC webcam vision input, pi_vision to discover faces, and
+# behavior controlled by Owyl trees.  This is a stand-alone version of
+# the Eva head, it does not depend on or use any OpenCog software.
+# In particular, it is not capable of chat.
 #
 # To build:
 # sudo docker build -t opencog/eva-owyl .

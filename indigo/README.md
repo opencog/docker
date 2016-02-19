@@ -1,29 +1,36 @@
 ros-indigo-base
 ===============
-Docker files for Hanson Robotics expressive heads. Currently, the most
-sophisticated container here is for the Eva head, which uses a UVC
-webcam with scripted behavior trees to drive a blender model of Eva,
-a female head that can express a variety of emotional gestures.
+Docker files for Hanson Robotics robots and heads.  The most
+sophisticated of the bunch is Eva, an animated female head, capable
+of seeing you (via a webcam), talking to you (via a chatbot), and
+engaging you (and your guests) in social interaction.  She will
+make eye contact, and express her pleasure with smiles and looks
+of surprise and happiness.
+
 
 ## Hierarchy and dependents
 
 * `base` contains a docker image defining only the basic ROS indigo
-  nodes shared by all robots, and nothing more.
+   nodes shared by all robots, and nothing more.
 
 * `blender` contains a docker image for ROS and blender. Depends on
    base, above.
 
 * `eva` contains the full end-to-end development environment
    for the Hanson Robotics Eva head.  This includes a half-dozen
-   ROS nodes for camera and vision processing, scripted behavior trees,
-   motor controllers, and a web-based user interface.
+   ROS nodes for camera and vision processing.
 
-* `eva-owyl` contains an older version of the `eva` environment, one
-  that does not use OpenCog in any way.  It controls behavior using
-  the Owyl behavior tree system.  It does not include any chatbot
-  interfaces. It serves as a stable demo of the basic Eva blender
-  head, together with the ROS nodes and messaging systems to control it.
-  Developmentally, though, this is a dead-end.
+* `eva-owyl` is a a stand-alone demo of the basic Hanson Robotics
+   Eva blender rig, showing the full range of emotional facial
+   expressions, ranging from happiness to frustration, excitement
+   to boredom, as well as gestures such as shakes, nods, blinks and
+   a keep-alive breathing cycle. It includes basic vision processing
+   and basic human-face awareness behavior, but without a chatbot or
+   any OpenCog processing software.  This is a stand-alone demo,
+   without any other dependencies. It is representative of the state
+   of development of the Hanson Robotics Eva blender rig, as of
+   May 2015.
+
 
 ## Miscellaneous packages
 

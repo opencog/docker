@@ -1,14 +1,24 @@
 eva-owyl
 ========
 
-An integrated demo image for demoing the Hanson Robotics Eva blender
-rig.  The image contains not only the Eva blender rig, but also a
-half-dozen ROS nodes that control that rig.  When the image is started,
-the demo runs automatically.
+Eva is an animated female head, capable of seeing you via a webcam,
+and engaging you in social interaction, making eye contact, and
+expressing her pleasure with smiles and looks of surprise and happiness.
 
-This demo does NOT include any OpenCog infrastructure: no AtomSpace,
-no chatbot, on OpenCog behaviors.  This captures the state of
-development, as of June 2015.
+There are several Eva demos.  This is a stand-alone demo of the basic
+Hanson Robotics Eva blender rig, showing the full range of emotional
+facial expressions, ranging from happiness to frustration, excitement
+to boredom, as well as gestures such as shakes, nods, blinks and a
+keep-alive breathing cycle.
+
+This docker image includes vision processing and basic human-face
+awareness behavior, but without a chatbot or any OpenCog processing
+software.  The behaviors are controlled by a simple behavior-tree
+script implemented using Owyl.  When the docker image is started, the
+demo starts and runs automatically; she should be able to see you
+(and your guests) through your webcam, and interact with all of you
+in a most charming way.  This demo is roughly representative of the
+state of the Hanson Robotics Eva development, as of April 2015.
 
 The demo processing pipeline consists of:
 * A ROS node that takes video input from a UVC-compatible USB webcam
