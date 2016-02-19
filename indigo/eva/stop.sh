@@ -12,3 +12,6 @@ if test x"$TAINER" != x; then
 	echo -n 'Removing.. '
 	docker rm opencog-eva
 fi
+
+# Disable local X11 connections, just in case.
+xhost -local:root
