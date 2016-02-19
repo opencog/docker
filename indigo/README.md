@@ -7,6 +7,9 @@ engaging you (and your guests) in social interaction.  She will
 make eye contact, and express her pleasure with smiles and looks
 of surprise and happiness.
 
+![Eva Splash 1](Eva-1.png)
+![Eva Splash 2](Eva-2.png)
+![Eva Splash 3](Eva-3.png)
 
 ## Hierarchy and dependents
 
