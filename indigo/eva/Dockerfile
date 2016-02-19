@@ -23,6 +23,17 @@ RUN apt-get -y install ros-indigo-dynamixel-msgs
 RUN apt-get -y install ros-indigo-robot-state-publisher
 RUN apt-get -y install ros-indigo-joint-state-publisher
 
+WORKDIR /opencog
+RUN git clone https://github.com/opencog/cogutils
+
+# Git pull for all packages
+RUN cd /opencog/ && find . -maxdepth 1 -mindepth 1 -type d \
+	-execdir git --git-dir=$PWD/{}/.git --work-tree=$PWD/{} pull \;
+
+WORKDIR /opencog/build
+RUN bash -l -c "cmake .."
+RUN bash -l -c "make -j6"
+
 # Change line below on rebuild. Will use cache up to this line
 ENV LAST_SOFTWARE_UPDATE 2016-02-18
 
@@ -45,9 +56,6 @@ RUN git clone https://github.com/hansonrobotics/robots_config.git
 
 # Change line below on rebuild. Will use cache up to this line
 ENV LAST_SOFTWARE_UPDATE 2016-02-18
-
-WORKDIR /opencog
-RUN git clone https://github.com/opencog/cogutils
 
 # Change line below on rebuild. Will use cache up to this line
 ENV LAST_SOFTWARE_UPDATE 2015-02-19

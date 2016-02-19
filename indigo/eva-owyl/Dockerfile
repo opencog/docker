@@ -1,11 +1,12 @@
 #
-# Container for the Hanson Robotics Eva head (full version)
-# This provides the complete running package for the demo head,
-# including UVC webcam vision input, pi_vision to discover faces,
-# behavior controled by owyl trees, and the full motor control output.
+# Container for the Hanson Robotics Eva head (Owyl version)
+# This provides the Owyl-behavior-tree version of the demo head.
+# It does include the UVC webcam vision input, pi_vision to discover
+# faces, behavior controled by owyl trees, and the full motor control
+# output. It does not include OpenCog infrastructure.
 #
 # To build:
-# sudo docker build -t opencog/eva .
+# sudo docker build -t opencog/eva-owyl .
 #
 FROM opencog/ros-indigo-blender
 MAINTAINER Linas Vepštas "linasvepstas@gmail.com"

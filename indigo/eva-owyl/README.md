@@ -1,10 +1,14 @@
-eva
-===
+eva-owyl
+========
 
 An integrated demo image for demoing the Hanson Robotics Eva blender
 rig.  The image contains not only the Eva blender rig, but also a
 half-dozen ROS nodes that control that rig.  When the image is started,
 the demo runs automatically.
+
+This demo does NOT include any OpenCog infrastructure: no AtomSpace,
+no chatbot, on OpenCog behaviors.  This captures the state of
+development, as of June 2015.
 
 The demo processing pipeline consists of:
 * A ROS node that takes video input from a UVC-compatible USB webcam
