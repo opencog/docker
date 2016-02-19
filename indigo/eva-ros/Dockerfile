@@ -1,11 +1,11 @@
 #
-# Container for the Hanson Robotics Eva head (full version)
-# This provides the complete running package for the demo head,
-# including UVC webcam vision input, pi_vision to discover faces,
-# behavior controled by owyl trees, and the full motor control output.
+# Container for the Hanson Robotics Eva blender rig ROS node, and
+# the ROS vision subsystem.  It does not include behaviors or a
+# chatbot. On launch, it will start roscore, blender, and the vision
+# (face-detection) subsystem, but will not perform any behaviors.
 #
 # To build:
-# sudo docker build -t opencog/eva .
+# sudo docker build -t opencog/eva-ros .
 #
 FROM opencog/ros-indigo-blender
 MAINTAINER Linas Vepštas "linasvepstas@gmail.com"
@@ -36,6 +36,8 @@ RUN git clone https://github.com/hansonrobotics/blender_api.git
 RUN git clone https://github.com/hansonrobotics/pau2motors.git
 RUN git clone https://github.com/hansonrobotics/robots_config.git
 
+# The OpenCog github account mirrors all of the Hanson Robotics
+# software.  At this time, the two are in sync with each-other.
 # RUN git clone https://github.com/opencog/pi_vision.git
 # RUN git clone https://github.com/opencog/perception.git
 # RUN git clone https://github.com/opencog/blender_api_msgs.git

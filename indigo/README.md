@@ -14,11 +14,15 @@ of surprise and happiness.
    nodes shared by all robots, and nothing more.
 
 * `blender` contains a docker image for ROS and blender. Depends on
-   base, above.
+   base, above.  it does not provide anything beyond a configured
+   ROS+blender environment.
 
-* `eva` contains the full end-to-end development environment
-   for the Hanson Robotics Eva head.  This includes a half-dozen
-   ROS nodes for camera and vision processing.
+* `eva-ros` contains the basic Hanson Robotics Eva blender rig,
+   together with the ROS nodes needed for vision processing.
+   Upon startup, it will automatically run the blender rig and the
+   vision subsystem.  However, it is missing the chatbot and the
+   behavior subsystem; Eva will stare blankly into space and breath,
+   but do nothing more.
 
 * `eva-owyl` is a a stand-alone demo of the basic Hanson Robotics
    Eva blender rig, showing the full range of emotional facial
