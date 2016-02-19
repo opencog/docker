@@ -13,6 +13,20 @@ of surprise and happiness.
 
 ## Hierarchy and dependents
 
+The docker image hierarchy is:
+
+    ├─ros-indigo-base
+      ├─ros-indigo-blender
+        ├─eva-owyl
+        ├─eva-ros
+        ├─ros-arthur-animation
+        ├─ros-arthur-dev
+        ├─ros-indigo-opencog
+      ├─ros-indigo-dev
+        ├─ros-indigo-einstein
+        ├─ros-indigo-zenorsm
+
+
 * `base` contains a docker image defining only the basic ROS indigo
    nodes shared by all robots, and nothing more.
 
