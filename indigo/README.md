@@ -186,4 +186,136 @@ trusty LTS), docker introduces a networking overlay.  This seems like it
 is almost enough to get ROS working in Docker, and there are even some
 'famous' highly visible tutorials for this:
 
-Its not
+* [Official ROS Docker Tutorial](http://wiki.ros.org/docker/Tutorials/Docker)
+* [Todd Sampson Blog](http://toddsampson.com/post/131227320927/docker-experimental-networking-and-ros)
+
+However, these tutorials are misleading: Some stuff works, but other,
+different stuff breaks, and the original problem remains unsolved. This
+can be reproduced as described below. Thier success depends on using
+Docker networks, and being very very careful -- diligently careful --
+about setting ROS environment variables. This makes the whole process
+very fragile, and subject to lots of confusion. YMMV.
+
+First, create a Docker network:
+```
+docker network create boingo
+```
+Start three ROS containers. One, called the `master`, will contain
+`roscore`.  The other two will publish and subscribe to each-other.
+There are several ways to start these, including the setting of ROS
+environment variables during startup.  This won't be done for this
+example, since it clouds the issue: it confuses what is really
+happening.  The environment variables can be set by hand, after
+startup.  Start the containers as follows:
+```
+docker run --net=boingo --name=master -p 11311:11311 -it opencog/ros-indigo-base
+docker run --net=boingo --name=aaa -p 11311:11311 -it opencog/ros-indigo-base
+docker run --net=boingo --name=bbb -p 11311:11311 -it opencog/ros-indigo-base
+```
+Note the `--net=boingo` parameter. This causes Docker to use a different
+set of network addresses. It also alters how Docker does port proxying.
+Although the proxying is different, the core issue of re-labelling port
+numbers remains: the ROS messages still have port numbers in them that
+fail to match up with the actual port assignments.  Let's plow onwards.
+
+Start `roscore` inside container `master`. Next, inside `aaa`, do this:
+```
+export ROS_HOSTNAME=aaa
+export ROS_MASTER_URI=http://master:11311
+rostopic pub -r 5 /bar std_msgs/String '{data: olaaa}'
+```
+while inside `bbb`, do this:
+```
+export ROS_HOSTNAME=bbb
+export ROS_MASTER_URI=http://master:11311
+rostopic echo /bar
+```
+Yayyy! This works! They can hear each other!  This is the sum-total of
+the widely-publicized, easy-to-find ROS+Docker tutorials all over the
+net.  That all is not right heaven is easy to see.  Outside of the
+containers, `rostopic list` and `rostopic info /bar` works just as
+before, and `rostopic echo /bar` still fails, as before.  Unlike before,
+however, there is now a new failure: go to container `aaa`, and, in a
+new tmux terminal, try `rostopic echo /bar` -- it doesn't work!!! This
+is a new failure: subscribers can no longer hear publishers living
+inside the same container!  Be careful to export the `ROS_HOSTNAME`
+correctly in the new tmux terminal; failing to do this adds to the
+confusion. You may experiment at this point: you won't get lucky,
+though, even though it seems like you might, with just one more try.
+
+This new failure mode forces one to a new design point that might seem
+reasonable, but is ultimately untenable: one ROS node per container.
+This might almost work, although its terribly fragile. Debugging is
+hard, because if you're outside a container, you canot hear what they
+are passing around to each-other.  Altering the network structure
+becomes difficult.  Using tools like `rviz` to visualize the ROS network
+becomes difficult, because you now have to put `rviz` in it's own Docker
+container, and then punch a hole through it to get the graphs to
+display on your screen. It devolves from there, and by the time you get
+to OpenCog, you've got the cogserver launching one python thread for ROS
+messaging, while other threads send scheme over other sockets, while yet
+more threads are handling tcpip sockets to IRC, and messages are flying
+every-which way.  It appears that the Docker philosophy of "one process
+per container" is untenable, in any practical sense.  Its too hard to
+manage, too hard to configure and control.  Perhaps Docker Swarm might
+one day help with this, but perhaps not: Swarm seems to push the problem
+around; it doesn't solve the core issue: ROS messages contain port
+numbers, and Docker proxying re-assigns ports.  That is the core issue.
+
+## Version C: Desperation.
+There are several stunts that one might think could work, but they
+don't.  A breif report here.
+
+### Remap all the ports
+That is, start the Docker container with something like this:
+`-p 32768-65536:32768-65536`. *DO NOT DO EVEN TRY THIS* -- you'll be
+sorry if you do.  If you do, it will take Docker 5 minutes to remap
+about 2K of these ports, at which point you will wonder what's going
+on. What its doing is creating a process `docker-proxy -proto tcp
+-host-ip 0.0.0.0 -host-port 60374 -container-ip 172.18.0.2
+-container-port 60374` -- one for each port.  So `ps ax |grep docker |wc` 
+will tel you how many its done so far. Problem: you can't stop the
+container. You can `kill -9` it, but the proxying keeps going on. We're
+in a bd state now, so you can try `service docker stop` which won't
+work, so you can `kill -9` it.  Which works. However `service docker
+start` leaves vast quantities of crap in `iptables`, which you can
+clean with `iptables -t nat -F`.  However, `service docker start` merely
+recreates these bogus filters. So you have to `iptables` while Docker is
+running.  Which hoses Docker, so you have to stop and restart again.
+Anyway, the unclean docker shutdown also left crap in `aufs` -- some
+dead docker containers that cannot be `docker rm`'ed. If you are brave,
+you can now go into `/var/lib/docker/aufs` aand clean up by hand.  Or
+you can reboot ...  Ugh.
+
+### Speaking of iptables...
+Several stackexchange questions deal with using `iptables` to remap
+ports between docker containers and the host.  If you're naive, yu might
+hope that that will solve the problem. It won't. The corre issue is that
+ROS messages contain port numbers in them, and Docker remaps ports.  The
+only way that masquerading could be don't would be just like
+masquerading for FTP: you have to inspect the packets themselves, find
+the port number in them, and then re-write the port number.  Since some
+ROS messages are strings, this can be challenging. Checksums and gzip
+add to the mess.
+
+### Use the host network
+Start all of the containers with `--net=host`.  This will cause Docker
+to not use its own private networks, but instead, use the IP address of
+the host for all networking.  From the Docker point of view, its really
+not ideal, its a kind-of-a-hack.  From the ROS point of view, you might
+expect that everything will now start working, since, after all, there
+are no more networking barriers anywhere. Right? Almost!
+
+With this network setting, you can now publish, with `rostopic pub`
+inside the container, and subscribe, with `rostopic echo` on the
+outside, and this now works.  The toy example works! At last! Woot!
+
+Unfortunately, that's all that works. The real-life ROS nodes inside the
+ros-eva container are publishing messages that still cannot be heard
+outside of the container: specifically, `rostopic echo /camera/face_locations`
+fails.  You might think that it should work. It doesn't.  I don't
+understand why it doesn't, when the toy examples do work. Clearly,
+there's yet more to ROS networking, and the Docker `--net=host` is not
+enough to make things transparent.
+
+## Version D: Hard reality
