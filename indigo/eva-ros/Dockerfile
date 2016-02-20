@@ -71,6 +71,4 @@ COPY /scripts/eva.sh /catkin_ws/eva.sh
 # 11311 is roscore
 EXPOSE 11311
 
-RUN apt-get -y install socat
-
 ENTRYPOINT bash -l -c "./eva.sh; bash"
