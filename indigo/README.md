@@ -273,7 +273,7 @@ sorry if you do.  If you do, it will take Docker 5 minutes to remap
 about 2K of these ports, at which point you will wonder what's going
 on. What its doing is creating a process `docker-proxy -proto tcp
 -host-ip 0.0.0.0 -host-port 60374 -container-ip 172.18.0.2
--container-port 60374` -- one for each port.  So `ps ax |grep docker |wc` 
+-container-port 60374` -- one for each port.  So `ps ax |grep docker |wc`
 will tel you how many its done so far. Problem: you can't stop the
 container. You can `kill -9` it, but the proxying keeps going on. We're
 in a bd state now, so you can try `service docker stop` which won't
@@ -319,3 +319,9 @@ there's yet more to ROS networking, and the Docker `--net=host` is not
 enough to make things transparent.
 
 ## Version D: Hard reality
+The misery documented above points us in only one direction.  Its not a
+pretty one... its conceptually icky and not a good software design.
+However, its the only solution that works: Stick all of OpenCog
+(specifically, the CogServer) into the same Docker container with ROS.
+That will be one giant bloated container.  But that's what the school
+of hard knocks teaches you.
