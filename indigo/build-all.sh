@@ -15,3 +15,8 @@ cd ..
 cd eva-owyl
 ./build.sh
 cd ..
+
+cd ros-opencog
+./build.sh
+cd ..
+

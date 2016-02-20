@@ -11,10 +11,18 @@ of surprise and happiness.
 
 ## Hierarchy and dependents
 
-The docker image hierarchy is:
+The docker image hierarchy is needlessly complex.  It has been driven
+into this state in order to accomodate the conflicting needs of
+ROS+Docker.  The root cause of this mess is discussed further down
+below. In short, ROS and Docker have conflicting ideas about how
+networking should work; this forces us to dump everything and the
+kitchen sink into one giant Docker container.  This is not ideal, but
+ its what is needed to get stuff to work.  See the design discussion
+below.
 
     ├─ros-indigo-base
       ├─ros-indigo-opencog
+        ├─ros-incog-blender
       ├─ros-indigo-blender
         ├─eva-owyl
         ├─eva-ros
@@ -29,12 +37,16 @@ The docker image hierarchy is:
    nodes shared by all robots, and nothing more.
 
 * `ros-opencog` contains a docker image for ROS and OpenCog. Depends
-   on `ros-base`, above.  it does not provide anything beyond a
+   on `ros-base`, above.  It does not provide anything beyond a
    configured ROS+OpenCog environment.
 
 * `ros-blender` contains a docker image for ROS and blender. Depends
-   on `ros-base`, above.  it does not provide anything beyond a
+   on `ros-base`, above.  It does not provide anything beyond a
    configured ROS+blender environment.
+
+* `ros-incog-blender` contains a docker image for ROS, opencog and
+   blender. Depends on `ros-opencog`, above.  It does not provide
+   anything beyond a configured ROS+opencog+blender environment.
 
 * `eva-ros` contains the basic Hanson Robotics Eva blender rig,
    together with the ROS nodes needed for vision processing.

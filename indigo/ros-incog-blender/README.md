@@ -9,7 +9,7 @@ nodes are started, no blender animations are run.
 ## Building
 
 Run the `build.sh` file in this directory.  You need to have built
-the base container (in the `../ros-base` directory) first.
+the base container (in the `../base` directory) first.
 
 ## Testing
 To verify that blender works, run the `run.sh` shell script.
