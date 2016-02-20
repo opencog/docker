@@ -88,8 +88,8 @@ This may take an hour or more.
 Most subdirectories contain a pair of scripts: `run.sh` and `stop.sh`.
 These will run and stop the containers defined in that directory.
 
-# Design
-Building a well-designed system using docker and ROS is impossible at
+# ROS+Docker Container Design
+Building a well-designed system using Docker and ROS is impossible at
 this point in time (as of spring 2016). This is because the way that
 Docker does networking is in direct conflict with how ROS does
 networking.  Worse, the way that Docker does networking is changing
