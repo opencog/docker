@@ -124,5 +124,6 @@ RUN bash -l -c "make -j12 tests"
 # Run the unit tests, too.
 COPY /scripts/unit-test.sh /opencog/unit-test.sh
 
+WORKDIR /opencog
 ENTRYPOINT bash -l -c "./unit-test.sh; bash"
 # CMD /bin/bash
