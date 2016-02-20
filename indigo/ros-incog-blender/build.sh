@@ -4,4 +4,4 @@
 #
 # Build this docker image.
 #
-docker build -t opencog/ros-indigo-blender .
+docker build -t opencog/ros-incog-blender .

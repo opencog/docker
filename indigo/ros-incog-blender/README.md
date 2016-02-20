@@ -1,15 +1,15 @@
-ros-indigo-blender
-==================
+ros-incog-blender
+=================
 
-A docker image that installs both ROS and blender, for demoing
-ROS-controlled blender animations.  The image holds only the base
-packages needed for running blender and ROS together; no actual ROS
-nodes are started, no blender animations are run.
+A docker image that installs ROS, OpenCog and blender.  The image holds
+only the base packages needed for running OpenCog, blender and ROS
+together; no actual ROS nodes are started, the CogServer is not started,
+and no blender animations are run.
 
 ## Building
 
 Run the `build.sh` file in this directory.  You need to have built
-the base container (in the `../base` directory) first.
+the opencog image (in the `../ros-opencog` directory) first.
 
 ## Testing
 To verify that blender works, run the `run.sh` shell script.

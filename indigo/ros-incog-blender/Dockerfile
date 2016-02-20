@@ -1,23 +1,27 @@
 #
-# Docker file for base ROS+Blender install
-# No ROS nodes are started.
+# Docker file for base ROS+OpenCog+Blender install
+# The CogServer is not started; no ROS nodes are started.
+#
+# XXX THIS IS IDENTICAL TO the ros-indigo-blender DOCKERFILE,
+# XXX EXCEPT THAT A DIFFERENT BASE IS USED!
+# XXX Please try to keep it that way!
 #
 # The primary difficulty here is that Blender wants Python3
 # while ROS wants Python2, and so there are install conflicts.
 #
 # To build:
-# docker build -t opencog/ros-indigo-blender .
+# docker build -t opencog/ros-incog-blender .
 #
 # To run:
 # docker run --rm --privileged -i -v /tmp/.X11-unix/X0:/tmp/.X11-unix/X0 \
 #    -v /dev/dri:/dev/dri -v /dev/shm:/dev/shm -e DISPLAY=:0.0 \
-#    -t opencog/ros-indigo-blender
+#    -t opencog/ros-incog-blender
 #
 # The above should be sufficient to get blender running with full
 # 3D hardware acceleration on the local host (dri==direct rendering interface)
 # Note: /dev/dri=gpu, /dev/shm=gpu
 #
-FROM opencog/ros-indigo-base
+FROM opencog/ros-indigo-opencog
 MAINTAINER Mandeep Singh Bhatia "mandeep.singh.bhatia@gmail.com"
 MAINTAINER David Hart "dhart@opencog.org"
 MAINTAINER Linas Vepštas "linasvepstas@gmail.com"

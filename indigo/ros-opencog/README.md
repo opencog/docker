@@ -8,7 +8,7 @@ The CogServer is not started, no ROS nodes are started.
 ## Building
 
 Run the `build.sh` file in this directory.  You need to have built
-the base container (in the `../ros-base` directory) first.
+the base ROS image (in the `../ros-base` directory) first.
 
 ## Testing
 To verify that OpenCog works, run the `run.sh` shell script.
