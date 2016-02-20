@@ -28,9 +28,9 @@ The docker image hierarchy is:
 * `ros-base` contains a docker image defining only the basic ROS indigo
    nodes shared by all robots, and nothing more.
 
-* `blender` contains a docker image for ROS and blender. Depends on
-   base, above.  it does not provide anything beyond a configured
-   ROS+blender environment.
+* `ros-blender` contains a docker image for ROS and blender. Depends
+   on `ros-base`, above.  it does not provide anything beyond a
+   configured ROS+blender environment.
 
 * `eva-ros` contains the basic Hanson Robotics Eva blender rig,
    together with the ROS nodes needed for vision processing.

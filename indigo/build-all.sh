@@ -8,7 +8,7 @@ cd ros-base
 ./build.sh
 cd ..
 
-cd blender
+cd ros-blender
 ./build.sh
 cd ..
 
