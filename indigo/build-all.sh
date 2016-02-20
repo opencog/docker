@@ -20,3 +20,6 @@ cd ros-opencog
 ./build.sh
 cd ..
 
+cd ros-incog-blender
+./build.sh
+cd ..

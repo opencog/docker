@@ -125,5 +125,5 @@ RUN bash -l -c "make -j12 tests"
 COPY /scripts/unit-test.sh /opencog/unit-test.sh
 
 WORKDIR /opencog
-ENTRYPOINT bash -l -c "./unit-test.sh; bash"
+ENTRYPOINT bash -l -c "/opencog/unit-test.sh; bash"
 # CMD /bin/bash
