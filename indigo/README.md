@@ -87,3 +87,41 @@ This may take an hour or more.
 ## Running
 Most subdirectories contain a pair of scripts: `run.sh` and `stop.sh`.
 These will run and stop the containers defined in that directory.
+
+# Design
+Building a well-designed system using docker and ROS is impossible at
+this point in time (as of spring 2016). This is because the way that
+Docker does networking is in direct conflict with how ROS does
+networking.  Worse, the way that Docker does networking is changing
+(for Swarm), while ROS will also change, with a completely different
+messaing sysem for ROS2.  It will be a while before the dust settles
+and there's a coherent networking policy.
+
+There are three reasonable design choices:
+
+* Put OpenCog and ROS in the same Docker container.   This is ugly
+  and unpleasant, and not a reasonable design choice at all, but it's
+  the one we take, because nothing else works.
+
+* Put Eva blender and vision in one Docker container, (or maybe two
+  containers, one for blender, and one for vision) and OpenCog in a
+  third container. This is an ideal design, but cannot be made to work
+  due to conflicting networking models.
+
+* Put every ROS node into its own container. This would result in a
+  half-dozen to a dozen or more containers, and becomes a manageability
+  issue: too many containers to correctly build, set up, monitor, and
+  run.  Might work for some super-admin with superman-cloud-fu, but is
+  way too complicated for us AI scientists.  Also, at this time, it also
+  won't work, due to design limiations/flaws with Docker+ROS networking.
+
+Below is a discussion and notes about the issues that block the second
+and third design points.
+
+Main issue: a ROS publisher inside a Docker container cannot be
+subscribed to outside of a Docker container.  There are several ways
+to set this up and try to hack around it.
+
+Version A: Default Docker networking.
+
+
