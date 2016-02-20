@@ -14,10 +14,10 @@ of surprise and happiness.
 The docker image hierarchy is:
 
     ├─ros-indigo-base
+      ├─ros-indigo-opencog
       ├─ros-indigo-blender
         ├─eva-owyl
         ├─eva-ros
-        ├─ros-indigo-opencog
         ├─ros-arthur-animation
         ├─ros-arthur-dev
       ├─ros-indigo-dev
@@ -27,6 +27,10 @@ The docker image hierarchy is:
 
 * `ros-base` contains a docker image defining only the basic ROS indigo
    nodes shared by all robots, and nothing more.
+
+* `ros-opencog` contains a docker image for ROS and OpenCog. Depends
+   on `ros-base`, above.  it does not provide anything beyond a
+   configured ROS+OpenCog environment.
 
 * `ros-blender` contains a docker image for ROS and blender. Depends
    on `ros-base`, above.  it does not provide anything beyond a
