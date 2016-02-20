@@ -20,6 +20,7 @@ RUN apt-get -y install libboost-system-dev libboost-thread-dev
 RUN apt-get -y install cxxtest
 # Additional stuff for atomspace.
 RUN apt-get -y install guile-2.0-dev cython
+RUN apt-get -y install unixodbc-dev odbc-postgresql
 
 # Need wget to download link-grammar source
 RUN apt-get -y install wget
