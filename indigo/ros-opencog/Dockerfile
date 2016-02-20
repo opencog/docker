@@ -121,12 +121,31 @@ RUN bash -l -c "make install"
 # WORKDIR /opencog/opencog/build
 # RUN bash -l -c "make -j12 tests"
 #
-# Run the unit tests, too.
+WORKDIR /root
 COPY /scripts/.guile /root
 COPY /scripts/unit-test.sh /root
 COPY /scripts/tmux.sh /root
 
-WORKDIR /root
+# Pre-compile the guile modules. We could say `guild comple ...`, but
+# this is easier. This avoid fly compilation during container start.
+RUN bash -l -c "echo \"(use-modules (opencog))\"" | guile
+RUN bash -l -c "echo \"(use-modules (opencog exec))\"" | guile
+RUN bash -l -c "echo \"(use-modules (opencog logger))\"" | guile
+RUN bash -l -c "echo \"(use-modules (opencog persist))\"" | guile
+RUN bash -l -c "echo \"(use-modules (opencog persist-sql))\"" | guile
+RUN bash -l -c "echo \"(use-modules (opencog query))\"" | guile
+RUN bash -l -c "echo \"(use-modules (opencog rule-engine))\"" | guile
+# and now the cogserver modules:
+RUN bash -l -c "echo \"(use-modules (opencog atom-types))\"" | guile
+RUN bash -l -c "echo \"(use-modules (opencog cogserver))\"" | guile
+RUN bash -l -c "echo \"(use-modules (opencog nlp))\"" | guile
+RUN bash -l -c "echo \"(use-modules (opencog nlp chatbot))\"" | guile
+RUN bash -l -c "echo \"(use-modules (opencog nlp chatbot-eva))\"" | guile
+RUN bash -l -c "echo \"(use-modules (opencog nlp fuzzy))\"" | guile
+RUN bash -l -c "echo \"(use-modules (opencog nlp lg-dict))\"" | guile
+RUN bash -l -c "echo \"(use-modules (opencog nlp relex2logic))\"" | guile
+RUN bash -l -c "echo \"(use-modules (opencog nlp sureal))\"" | guile
+
 # ENTRYPOINT bash -l -c "./unit-test.sh; bash"
 ENTRYPOINT bash -l -c "./tmux.sh; bash"
 # CMD /bin/bash
