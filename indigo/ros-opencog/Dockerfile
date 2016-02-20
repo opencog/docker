@@ -112,18 +112,21 @@ RUN bash -l -c "make install"
 
 # Build the unit tests. This is .. optional, but we do it anyway,
 # for right now, just to sanity-check things.
-WORKDIR /opencog/cogutils/build
-RUN bash -l -c "make -j6 tests"
-
-WORKDIR /opencog/atomspace/build
-RUN bash -l -c "make -j12 tests"
-
-WORKDIR /opencog/opencog/build
-RUN bash -l -c "make -j12 tests"
-
+# WORKDIR /opencog/cogutils/build
+# RUN bash -l -c "make -j6 tests"
+#
+# WORKDIR /opencog/atomspace/build
+# RUN bash -l -c "make -j12 tests"
+#
+# WORKDIR /opencog/opencog/build
+# RUN bash -l -c "make -j12 tests"
+#
 # Run the unit tests, too.
-COPY /scripts/unit-test.sh /opencog/unit-test.sh
+COPY /scripts/.guile /root
+COPY /scripts/unit-test.sh /root
+COPY /scripts/tmux.sh /root
 
-WORKDIR /opencog
-ENTRYPOINT bash -l -c "/opencog/unit-test.sh; bash"
+WORKDIR /root
+# ENTRYPOINT bash -l -c "./unit-test.sh; bash"
+ENTRYPOINT bash -l -c "./tmux.sh; bash"
 # CMD /bin/bash
