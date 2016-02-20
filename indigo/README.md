@@ -88,13 +88,13 @@ This may take an hour or more.
 Most subdirectories contain a pair of scripts: `run.sh` and `stop.sh`.
 These will run and stop the containers defined in that directory.
 
-# Design
-Building a well-designed system using docker and ROS is impossible at
+# ROS+Docker Container Design
+Building a well-designed system using Docker and ROS is impossible at
 this point in time (as of spring 2016). This is because the way that
 Docker does networking is in direct conflict with how ROS does
 networking.  Worse, the way that Docker does networking is changing
 (for Swarm), while ROS will also change, with a completely different
-messaing sysem for ROS2.  It will be a while before the dust settles
+messaging system for ROS2.  It will be a while before the dust settles
 and there's a coherent networking policy.
 
 There are three reasonable design choices:
@@ -113,7 +113,7 @@ There are three reasonable design choices:
   issue: too many containers to correctly build, set up, monitor, and
   run.  Might work for some super-admin with superman-cloud-fu, but is
   way too complicated for us AI scientists.  Also, at this time, it also
-  won't work, due to design limiations/flaws with Docker+ROS networking.
+  won't work, due to design limitations/flaws with Docker+ROS networking.
 
 Below is a discussion and notes about the issues that block the second
 and third design points.
@@ -191,7 +191,7 @@ is almost enough to get ROS working in Docker, and there are even some
 
 However, these tutorials are misleading: Some stuff works, but other,
 different stuff breaks, and the original problem remains unsolved. This
-can be reproduced as described below. Thier success depends on using
+can be reproduced as described below. Their success depends on using
 Docker networks, and being very very careful -- diligently careful --
 about setting ROS environment variables. This makes the whole process
 very fragile, and subject to lots of confusion. YMMV.
@@ -246,7 +246,7 @@ though, even though it seems like you might, with just one more try.
 This new failure mode forces one to a new design point that might seem
 reasonable, but is ultimately untenable: one ROS node per container.
 This might almost work, although its terribly fragile. Debugging is
-hard, because if you're outside a container, you canot hear what they
+hard, because if you're outside a container, you cannot hear what they
 are passing around to each-other.  Altering the network structure
 becomes difficult.  Using tools like `rviz` to visualize the ROS network
 becomes difficult, because you now have to put `rviz` in it's own Docker
@@ -264,7 +264,7 @@ numbers, and Docker proxying re-assigns ports.  That is the core issue.
 
 ## Version C: Desperation.
 There are several stunts that one might think could work, but they
-don't.  A breif report here.
+don't.  A brief report here.
 
 ### Remap all the ports
 That is, start the Docker container with something like this:
@@ -274,9 +274,9 @@ about 2K of these ports, at which point you will wonder what's going
 on. What its doing is creating a process `docker-proxy -proto tcp
 -host-ip 0.0.0.0 -host-port 60374 -container-ip 172.18.0.2
 -container-port 60374` -- one for each port.  So `ps ax |grep docker |wc`
-will tel you how many its done so far. Problem: you can't stop the
+will tell you how many its done so far. Problem: you can't stop the
 container. You can `kill -9` it, but the proxying keeps going on. We're
-in a bd state now, so you can try `service docker stop` which won't
+in a bad state now, so you can try `service docker stop` which won't
 work, so you can `kill -9` it.  Which works. However `service docker
 start` leaves vast quantities of crap in `iptables`, which you can
 clean with `iptables -t nat -F`.  However, `service docker start` merely
@@ -284,13 +284,13 @@ recreates these bogus filters. So you have to `iptables` while Docker is
 running.  Which hoses Docker, so you have to stop and restart again.
 Anyway, the unclean docker shutdown also left crap in `aufs` -- some
 dead docker containers that cannot be `docker rm`'ed. If you are brave,
-you can now go into `/var/lib/docker/aufs` aand clean up by hand.  Or
+you can now go into `/var/lib/docker/aufs` and clean up by hand.  Or
 you can reboot ...  Ugh.
 
 ### Speaking of iptables...
-Several stackexchange questions deal with using `iptables` to remap
-ports between docker containers and the host.  If you're naive, yu might
-hope that that will solve the problem. It won't. The corre issue is that
+Several stack-exchange questions deal with using `iptables` to remap
+ports between docker containers and the host.  If you're naive, you might
+hope that that will solve the problem. It won't. The core issue is that
 ROS messages contain port numbers in them, and Docker remaps ports.  The
 only way that masquerading could be don't would be just like
 masquerading for FTP: you have to inspect the packets themselves, find
