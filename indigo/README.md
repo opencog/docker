@@ -17,9 +17,9 @@ The docker image hierarchy is:
       ├─ros-indigo-blender
         ├─eva-owyl
         ├─eva-ros
+        ├─ros-indigo-opencog
         ├─ros-arthur-animation
         ├─ros-arthur-dev
-        ├─ros-indigo-opencog
       ├─ros-indigo-dev
         ├─ros-indigo-einstein
         ├─ros-indigo-zenorsm
