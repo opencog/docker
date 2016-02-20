@@ -22,6 +22,9 @@ RUN apt-get -y install cxxtest
 RUN apt-get -y install guile-2.0-dev cython
 RUN apt-get -y install unixodbc-dev odbc-postgresql
 
+# Additional stuff for OpenCog. We need telnet as a debug utility.
+RUN apt-get -y install telnet
+
 # Need wget to download link-grammar source
 RUN apt-get -y install wget
 
