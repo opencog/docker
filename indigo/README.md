@@ -25,7 +25,7 @@ The docker image hierarchy is:
         ├─ros-indigo-zenorsm
 
 
-* `base` contains a docker image defining only the basic ROS indigo
+* `ros-base` contains a docker image defining only the basic ROS indigo
    nodes shared by all robots, and nothing more.
 
 * `blender` contains a docker image for ROS and blender. Depends on
