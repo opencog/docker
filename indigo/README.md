@@ -122,6 +122,68 @@ Main issue: a ROS publisher inside a Docker container cannot be
 subscribed to outside of a Docker container.  There are several ways
 to set this up and try to hack around it.
 
-Version A: Default Docker networking.
+## Version A: Default Docker networking.
+Start the ROS container in directory `base` using the `./run.sh` command.
+Make yourself a tmux session as follows (this is for convenience only):
+```
+byobu new-session -d -n 'aa' '$SHELL'
+tmux new-window -n 'bb' '$SHELL'
+tmux new-window -n 'cc' '$SHELL'
+tmux new-window -n 'dd' '$SHELL'
+echo "tmux_left=\"session\"" > $HOME/.byobu/status
+echo "tmux_right=\"load_average disk_io date time\"" >> $HOME/.byobu/status
+tmux attach
+```
+Start `roscore` by hand in one terminal.  In another terminal, publish
+something:
+```
+rostopic pub -r 5 /foo std_msgs/String '{data: hallooooo}'
+```
+In a third terminal, subscribe:
+```
+rostopic echo /foo
+```
+Yayy! This works!  Can we subscribe to this topic outside of this
+container? No, we cannot. Here's how to check.  Inside a terminal, say
+`ifconfig` and get the IP address of the container. Its will probably be
+`172.17.0.2`.  Alternately, you can get this number from the outside,
+with
+```
+docker inspect opencog-eva-ros | grep IPAdress
+```
+We can now attempt to contact ROS from the outside world. First, set
+```
+export ROS_MASTER_URI=http://172.17.0.2:11311
+```
+Now, ROS will *almost* work. But not quite.  This works:
+```
+rostopic list
+rostopic info /foo
+```
+This fails (it hangs):
+```
+rostopic echo /foo
+```
+The reason that this is broken is because ROS messages themselves contain
+tcpip port numbers, and Docker uses a form of port proxying and
+firewalling (iptables) that remaps ports. Thus, port numbers inside the
+container do not match the port number contained in the message, when
+that message is coming from outside the container.  This mis-match is at
+the root of the hang.
 
+Curiously, the reversed process works: if you publish on the outside,
+then you can subscribe on the inside, just fine.
 
+This issue prevents the natural separation between OpenCog and Eva-ROS.
+The Eva-ROS container is publishing `/camera/face_locations` and OpenCog
+subscribes to that to find out about the location of human faces visible
+to Eva.  Since the messages never arrive, Eva is blind, and sees
+nothing.
+
+## Version B: New Docker networking.
+Starting with Docker version 1.9 (the current version in Ubuntu 14.04
+trusty LTS), docker introduces a networking overlay.  This seems like it
+is almost enough to get ROS working in Docker, and there are even some
+'famous' highly visible tutorials for this:
+
+Its not
