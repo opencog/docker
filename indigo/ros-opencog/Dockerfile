@@ -8,9 +8,14 @@ FROM opencog/ros-indigo-base
 MAINTAINER Linas Vepštas "linasvepstas@gmail.com"
 
 # Install required packages
-ENV LAST_OS_UPDATE 2016-02-20
+ENV LAST_OS_UPDATE 2016-02-18
 RUN apt-get -y update
 RUN apt-get -y upgrade
+RUN apt-get -y install gcc g++ cmake binutils-dev libiberty-dev
+RUN apt-get -y install libboost-dev libboost-date-time-dev
+RUN apt-get -y install libboost-filesystem-dev libboost-program-options-dev
+RUN apt-get -y install libboost-regex-dev libboost-serialization-dev
+RUN apt-get -y install libboost-system-dev libboost-thread-dev
 
 WORKDIR /opencog
 RUN git clone https://github.com/opencog/cogutils.git
@@ -24,6 +29,6 @@ RUN cd /opencog/ && find . -maxdepth 1 -mindepth 1 -type d \
 
 WORKDIR /opencog/cogutils/build
 RUN bash -l -c "cmake .."
-RUN bash -l -c "make"
+RUN bash -l -c "make -j6"
 
 ENTRYPOINT bash -l -c "bash"
