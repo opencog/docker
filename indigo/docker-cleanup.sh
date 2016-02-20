@@ -5,7 +5,7 @@
 #
 # First, remove the non-running containers.
 # docker rm $(docker ps -aq -f "status=exited")
-TAINERS=`docker ps -aq -f "status=exited"`
+TAINERS=`docker ps -aq -f "status=exited" -f "status=dead"`
 if test x"$TAINERS" != x; then
 	echo -n 'Removing exited containers...'
 	docker rm $TAINERS
