@@ -62,7 +62,7 @@ The docker image hierarchy is:
 * `zenorsm` ... Zeno ?? with Einstein head ??
 
 ## Unmaintained images
-The arthur-animation and arthur-dev packages are deprecated. They
+The `arthur-animation` and `arthur-dev` packages are deprecated. They
 implement an older animation system that was difficult to work with.
 Most importantly, eye-tracking and emotion gestures were not blended
 and integrated in an easy-to-use fashion.
@@ -92,12 +92,19 @@ These will run and stop the containers defined in that directory.
 Building a well-designed system using Docker and ROS is impossible at
 this point in time (as of spring 2016). This is because the way that
 Docker does networking is in direct conflict with how ROS does
-networking.  Worse, the way that Docker does networking is changing
-(for Swarm), while ROS will also change, with a completely different
-messaging system for ROS2.  It will be a while before the dust settles
-and there's a coherent networking policy.
+networking.  The primary issue is that ROS messages contain port
+numbers in them, whereas Docker networking uses proxies to remap ports
+between containers. This means that the port numbers in the ROS messages
+do not match the actual port numbers being used in the Docker container.
+This can be hacked around in various ways, but none of the hacks solve
+all of the problems.
 
-There are three reasonable design choices:
+The way that Docker does networking is changing (for Swarm), while ROS
+will also change, with a completely different messaging system for ROS2.
+It will be a while before the dust settles and there's a coherent
+networking policy.
+
+In the meantime, there are three reasonable design choices:
 
 * Put OpenCog and ROS in the same Docker container.   This is ugly
   and unpleasant, and not a reasonable design choice at all, but it's
