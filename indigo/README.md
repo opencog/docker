@@ -23,6 +23,7 @@ below.
     ├─ros-indigo-base
       ├─ros-indigo-opencog
         ├─ros-incog-blender
+          ├─eva-opencog
       ├─ros-indigo-blender
         ├─eva-owyl
         ├─eva-ros
@@ -66,6 +67,9 @@ below.
    of development of the Hanson Robotics Eva blender rig, as of
    May 2015.
 
+* `eva-opencog` contains the Eva blender rig, ROS, OpenCog, chatbot.
+   This is the whole kit-n-kaboodle. Under development.  Probably
+   broken just right now.
 
 ## Miscellaneous packages
 
