@@ -94,6 +94,7 @@ ENV LAST_SOFTWARE_UPDATE 2016-02-19
 RUN cd /opencog/ && find . -maxdepth 1 -mindepth 1 -type d \
 	-execdir git --git-dir=$PWD/{}/.git --work-tree=$PWD/{} pull \;
 
+# Build the base software.
 WORKDIR /opencog/cogutils/build
 RUN bash -l -c "cmake .."
 RUN bash -l -c "make -j6"
@@ -109,4 +110,18 @@ RUN bash -l -c "cmake .."
 RUN bash -l -c "make -j12"
 RUN bash -l -c "make install"
 
-ENTRYPOINT bash -l -c "bash"
+# Build the unit tests. This is .. optional, but we do it anyway,
+# for right now, just to sanity-check things.
+WORKDIR /opencog/cogutils/build
+RUN bash -l -c "make -j6 tests"
+
+WORKDIR /opencog/atomspace/build
+RUN bash -l -c "make -j12 tests"
+
+WORKDIR /opencog/opencog/build
+RUN bash -l -c "make -j12 tests"
+
+# Run the unit tests, too.
+COPY /scripts/unit-test.sh /opencog/unit-test.sh
+
+ENTRYPOINT bash -l -c "./unit-test.sh; bash"
