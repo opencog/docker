@@ -4,14 +4,26 @@
 #
 # Handy dandy snippet to build all the various images.
 #
-cd base
+cd ros-base
 ./build.sh
 cd ..
 
-cd blender
+cd ros-blender
 ./build.sh
 cd ..
 
-cd eva
+cd eva-owyl
+./build.sh
+cd ..
+
+cd ros-opencog
+./build.sh
+cd ..
+
+cd ros-incog-blender
+./build.sh
+cd ..
+
+cd eva-opencog
 ./build.sh
 cd ..

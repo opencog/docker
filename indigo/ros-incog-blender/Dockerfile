@@ -1,25 +1,27 @@
 #
-# Docker file for base ROS+Blender install
-# No ROS nodes are started.
+# Docker file for base ROS+OpenCog+Blender install
+# The CogServer is not started; no ROS nodes are started.
+#
+# XXX THIS IS IDENTICAL TO the ros-indigo-blender DOCKERFILE,
+# XXX EXCEPT THAT A DIFFERENT BASE IS USED!
+# XXX Please try to keep it that way!
 #
 # The primary difficulty here is that Blender wants Python3
 # while ROS wants Python2, and so there are install conflicts.
 #
 # To build:
-# docker build -t opencog/ros-indigo-blender .
+# docker build -t opencog/ros-incog-blender .
 #
 # To run:
 # docker run --rm --privileged -i -v /tmp/.X11-unix/X0:/tmp/.X11-unix/X0 \
 #    -v /dev/dri:/dev/dri -v /dev/shm:/dev/shm -e DISPLAY=:0.0 \
-#    -t opencog/ros-indigo-blender
+#    -t opencog/ros-incog-blender
 #
 # The above should be sufficient to get blender running with full
 # 3D hardware acceleration on the local host (dri==direct rendering interface)
 # Note: /dev/dri=gpu, /dev/shm=gpu
 #
-FROM opencog/ros-indigo-base
-MAINTAINER Mandeep Singh Bhatia "mandeep.singh.bhatia@gmail.com"
-MAINTAINER David Hart "dhart@opencog.org"
+FROM opencog/ros-indigo-opencog
 MAINTAINER Linas Vepštas "linasvepstas@gmail.com"
 
 ENV LAST_OS_UPDATE 2015-02-16
@@ -27,14 +29,10 @@ RUN apt-get -y update
 RUN apt-get -y upgrade
 
 # Blender with dependencies
-RUN apt-get -y install blender
-
 # Install x11-utils to get xdpyinfo, for X11 display debugging
 # mesa-utils provides glxinfo, handy for understanding the 3D support.
-RUN apt-get -y install x11-utils
-RUN apt-get -y install mesa-utils
 # Blender needs python3
-RUN apt-get -y install python3-yaml python3-pip
+RUN apt-get -y install blender x11-utils mesa-utils python3-yaml python3-pip
 RUN pip3 install rospkg catkin_pkg
 
 WORKDIR /catkin_ws/src

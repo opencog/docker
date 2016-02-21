@@ -18,3 +18,5 @@ if test x"$MAGES" != x; then
 	echo -n 'Removing dangling images'
 	docker rmi $MAGES
 fi
+
+# docker rmi $(docker images --filter dangling=true)

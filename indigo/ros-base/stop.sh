@@ -2,16 +2,13 @@
 #
 # Stop any running containers previously started with 'run.sh'
 #
-TAINER=`docker ps |grep eva-owyl |cut -f1 -d" "`
+TAINER=`docker ps |grep ros-base |cut -f1 -d" "`
 if test x"$TAINER" != x; then
 	echo -n 'Stopping leftover container.. '
 	docker stop -t 1 $TAINER
 fi
-TAINER=`docker ps -a |grep eva-owyl`
+TAINER=`docker ps -a |grep ros-base`
 if test x"$TAINER" != x; then
 	echo -n 'Removing.. '
-	docker rm eva-owyl
+	docker rm ros-base
 fi
-
-# Disable local X11 connections, just in case.
-xhost -local:root

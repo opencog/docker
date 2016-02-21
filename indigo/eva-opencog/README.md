@@ -1,9 +1,8 @@
-eva-ros
-=======
+eva-opencog
+===========
 
-An image containing the Hanson Robotics Eva blender rig, and the ROS
-vision subsystem.  It does not contain any parts of OpenCog, or a
-chatbot, nor any behavior controls; its just blender+vision.
+An image containing the OpenCog + Hanson Robotics Eva robot.
+This is the whole kit-n-kaboodle. In development. Probably broken.
 
 The data processing pipeline consists of:
 * A ROS node that takes video input from a UVC-compatible USB webcam
@@ -18,11 +17,13 @@ The data processing pipeline consists of:
 
 ## Building
 
-Run the `build.sh` file in this directory.  You need to have built
-the ros-indigo-blender image (in the `../blender` directory) first.
+Run the `./build.sh` file in this directory.  You need to have built
+the `ros-incog-blender` image (in the `../ros-incog-blender` directory)
+first.
 
 ## Testing
-To verify that blender works, run the `run.sh` shell script.
+To verify that blender works, run the `./run.sh` shell script.
 This will start blender and the half-dozen ROS nodes that control it.
-You should see a living, breating Eva; however, she is lobotimized:
-there's no brain, she cannot actually see you, and will not react.
+You should see a living, breating Eva; however, you proably won't
+due to some bug that is being worked right now.  Open a github issue
+or complain on the mailing list!
