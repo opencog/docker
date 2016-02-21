@@ -13,14 +13,15 @@ MAINTAINER Linas Vepštas "linasvepstas@gmail.com"
 ENV LAST_OS_UPDATE 2015-02-16
 RUN apt-get -y update
 RUN apt-get -y upgrade
-RUN apt-get -y install ros-indigo-tf ros-indigo-driver-common
-RUN apt-get -y install ros-indigo-cv-bridge ros-indigo-image-transport
-RUN apt-get -y install ros-indigo-openni-camera ros-indigo-mjpeg-server
-RUN apt-get -y install ros-indigo-usb-cam
-# The below are needed by perception node
-RUN apt-get -y install ros-indigo-dynamixel-msgs
-RUN apt-get -y install ros-indigo-robot-state-publisher
-RUN apt-get -y install ros-indigo-joint-state-publisher
+# The perception node needs ros-indigo-dynamixel-msgs and
+# the joint/robot-state publishers
+RUN apt-get -y install ros-indigo-tf ros-indigo-driver-common \
+ ros-indigo-cv-bridge ros-indigo-image-transport \
+ ros-indigo-openni-camera ros-indigo-mjpeg-server \
+ ros-indigo-usb-cam \
+ ros-indigo-dynamixel-msgs \
+ ros-indigo-robot-state-publisher \
+ ros-indigo-joint-state-publisher
 
 # Install catkinized packages
 WORKDIR /catkin_ws/src
@@ -44,8 +45,10 @@ RUN git clone https://github.com/hansonrobotics/robots_config.git
 # RUN git clone https://github.com/opencog/pau2motors.git
 # RUN git clone https://github.com/opencog/robots_config.git
 
+RUN git clone https://github.com/opencog/ros-behavior-scripting.git
+
 # Change line below on rebuild. Will use cache up to this line
-ENV LAST_SOFTWARE_UPDATE 2015-02-19
+ENV LAST_SOFTWARE_UPDATE 2016-02-19
 
 # Git pull for all packages
 RUN cd /catkin_ws/src/ && find . -maxdepth 1 -mindepth 1 -type d \
