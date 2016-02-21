@@ -27,11 +27,11 @@ and bodies, mostly those from Hanson Robotics. Several of the heads are
 modeled with blender, and so can be usefully worked with and controlled
 even without a physical robot.
 
-These files are contained in the `hydro` and `[indigo](indigo)`
+These files are contained in the `hydro` and [indigo](indigo)
 directories. Eva comes in two forms: a basic animation and social
-intereaction demo, in the `[indigo/eva-owyl](indigo/eva-owyl)` folder,
+interaction demo, in the [indigo/eva-owyl](indigo/eva-owyl) folder,
 and a full-featured system (under heavy development, and probably broken)
-in the `[indigo/eva-opencog](indigo/eva-opencog)` folder.  See the
+in the [indigo/eva-opencog](indigo/eva-opencog) folder.  See the
 README's in those directories for more info.
 
 ## Dockerfiles for OpenCog
