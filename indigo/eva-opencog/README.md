@@ -1,9 +1,8 @@
-eva-ros
-=======
+eva-opencog
+===========
 
-An image containing the Hanson Robotics Eva blender rig, and the ROS
-vision subsystem.  It does not cntain any parts of OpenCog, or a
-chatbot, nor any behavior controls; its just blnder+vision.
+An image containing the OpenCog + Hanson Robotics Eva robot.
+This is the whole kit-n-kaboodle. In development. Probably broken.
 
 The data processing pipeline consists of:
 * A ROS node that takes video input from a UVC-compatible USB webcam

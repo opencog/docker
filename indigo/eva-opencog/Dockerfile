@@ -1,13 +1,12 @@
 #
-# Container for the Hanson Robotics Eva blender rig ROS node, and
-# the ROS vision subsystem.  It does not include behaviors or a
-# chatbot. On launch, it will start roscore, blender, and the vision
-# (face-detection) subsystem, but will not perform any behaviors.
+# Container for the OpenCog-based Hanson Robotics Eva robot.
+# This is the whole kit-n-kaboodle.  Under development, probably
+# broken.
 #
 # To build:
-# sudo docker build -t opencog/eva-ros .
+# sudo docker build -t opencog/eva-opencog .
 #
-FROM opencog/ros-indigo-blender
+FROM opencog/ros-incog-blender
 MAINTAINER Linas Vepštas "linasvepstas@gmail.com"
 
 # Install required packages
