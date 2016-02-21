@@ -22,8 +22,6 @@
 # Note: /dev/dri=gpu, /dev/shm=gpu
 #
 FROM opencog/ros-indigo-opencog
-MAINTAINER Mandeep Singh Bhatia "mandeep.singh.bhatia@gmail.com"
-MAINTAINER David Hart "dhart@opencog.org"
 MAINTAINER Linas Vepštas "linasvepstas@gmail.com"
 
 ENV LAST_OS_UPDATE 2015-02-16
