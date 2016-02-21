@@ -295,8 +295,8 @@ don't.  A brief report here.
 
 ### Remap all the ports
 That is, start the Docker container with something like this:
-`-p 32768-65536:32768-65536`. *DO NOT DO EVEN TRY THIS* -- you'll be
-sorry if you do.  If you do, it will take Docker 5 minutes to remap
+`-p 32768-65536:32768-65536`. *DO NOT EVEN TRY THIS* -- you'll be
+sorry if you do.  If you do, it will take Docker five minutes to remap
 about 2K of these ports, at which point you will wonder what's going
 on. What its doing is creating a process `docker-proxy -proto tcp
 -host-ip 0.0.0.0 -host-port 60374 -container-ip 172.18.0.2
@@ -347,8 +347,8 @@ enough to make things transparent.
 
 ## Version D: Hard reality
 The misery documented above points us in only one direction.  Its not a
-pretty one... its conceptually icky and not a good software design.
-However, its the only solution that works: Stick all of OpenCog
-(specifically, the CogServer) into the same Docker container with ROS.
-That will be one giant bloated container.  But that's what the school
-of hard knocks teaches you.
+pretty one... its not `docker compose` and its conceptually icky and
+not a good software design.  However, its the only solution that works:
+Stick all of OpenCog (specifically, the CogServer) into the same Docker
+container with ROS.  That will be one giant bloated container.  But
+that's what the school of hard knocks teaches you.
