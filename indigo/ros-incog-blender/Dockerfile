@@ -34,8 +34,7 @@ RUN apt-get -y upgrade
 # Install x11-utils to get xdpyinfo, for X11 display debugging
 # mesa-utils provides glxinfo, handy for understanding the 3D support.
 # Blender needs python3
-RUN apt-get -y install blender x11-utils mesa-utils python3-yaml
-python3-pip
+RUN apt-get -y install blender x11-utils mesa-utils python3-yaml python3-pip
 RUN pip3 install rospkg catkin_pkg
 
 WORKDIR /catkin_ws/src
