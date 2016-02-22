@@ -45,7 +45,7 @@ RUN git clone https://github.com/hansonrobotics/robots_config.git
 # RUN git clone https://github.com/opencog/pau2motors.git
 # RUN git clone https://github.com/opencog/robots_config.git
 
-RUN git clone https://github.com/opencog/ros-behavior-scripting.git
+RUN cd /opencog && git clone https://github.com/opencog/ros-behavior-scripting.git
 
 # Change line below on rebuild. Will use cache up to this line
 ENV LAST_SOFTWARE_UPDATE 2016-02-19
