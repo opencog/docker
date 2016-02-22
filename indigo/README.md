@@ -67,6 +67,12 @@ below.
    of development of the Hanson Robotics Eva blender rig, as of
    May 2015.
 
+* `eva-silent` contains the Eva blender rig, ROS, and OpenCog, but not
+   the chatbot.  Behaviors are executed using an OpenCog-based behavior
+   tree, very similar to the owyl tree.  She can see you, and reacts
+	to your presence by making eye contact, smiling, and showing general
+   interest.  She reacts to absence by being bored and falling asleep.
+
 * `eva-opencog` contains the Eva blender rig, ROS, OpenCog, chatbot.
    This is the whole kit-n-kaboodle. Under development.  Probably
    broken just right now.
