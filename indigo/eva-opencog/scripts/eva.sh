@@ -21,6 +21,9 @@ tmux new-window -n 'trk' 'roslaunch robots_config tracker-single-cam.launch; $SH
 tmux new-window -n 'geo' 'roslaunch robots_config geometry.launch gui:=false; $SHELL'
 tmux new-window -n 'eva' 'cd /catkin_ws/src/blender_api && blender -y Eva.blend -P autostart.py; $SHELL'
 
+# Run the qucik-n-dirty face tracker.
+tmux new-window -n 'fac' 'cd /opencog/ros-behavior-scripting/face_track && ./main.py ; $SHELL'
+
 tmux new-window -n 'bhv' 'cd /opencog/ros-behavior-scripting/src && guile -l btree.scm ; $SHELL'
 
 # Spare-usage shell
