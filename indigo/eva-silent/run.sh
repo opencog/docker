@@ -13,7 +13,7 @@ docker run --name="eva-silent" -p 11311:11311 \
    -e DISPLAY=:0.0 --privileged \
    -v /dev/video0:/dev/video0 -v /dev/snd:/dev/snd  \
    -v /tmp/.X11-unix/X0:/tmp/.X11-unix/X0 -v /dev/dri:/dev/dri \
-   -v /dev/shm:/dev/shm -it silent/eva-silent
+   -v /dev/shm:/dev/shm -it opencog/eva-silent
 
 xhost -local:root
 clear
