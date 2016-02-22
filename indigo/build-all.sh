@@ -24,6 +24,10 @@ cd ros-incog-blender
 ./build.sh
 cd ..
 
+cd eva-silent
+./build.sh
+cd ..
+
 cd eva-opencog
 ./build.sh
 cd ..

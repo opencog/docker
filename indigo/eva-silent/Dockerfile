@@ -1,10 +1,10 @@
 #
-# Container for the OpenCog-based Hanson Robotics Eva robot.
-# This is the whole kit-n-kaboodle.  Under development, probably
-# broken.
+# Container for the OpenCog-based Hanson Robotics Eva mute robot.
+# No chatbot; she merely reacts to your presence or absence, as seen
+# by the webcam.
 #
 # To build:
-# sudo docker build -t opencog/eva-opencog .
+# sudo docker build -t opencog/eva-silent .
 #
 FROM opencog/ros-incog-blender
 MAINTAINER Linas Vepštas "linasvepstas@gmail.com"
