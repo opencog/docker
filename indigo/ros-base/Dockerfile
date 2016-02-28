@@ -26,7 +26,11 @@ RUN apt-get -y update
 #
 # Most robot bringup will require git-cloning the working repos.
 # Need byobu+tmux for ROS terminal control.
-RUN apt-get -y install ros-indigo-ros-base ros-indigo-angles git tmux byobu
+# Need vim so that we can do at least some basic debugging.
+RUN apt-get -y install ros-indigo-ros-base ros-indigo-angles git tmux byobu vim
+
+# Make vim be usable instead of insane.
+COPY /scripts/.vimrc /root
 
 # Environment Variables
 ## Set Locale -- Catkin crashes on Krisčiunas, Mickevičius without this.
