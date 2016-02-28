@@ -48,9 +48,24 @@ RUN git clone https://github.com/hansonrobotics/robots_config.git
 RUN cd /opencog && git clone https://github.com/opencog/ros-behavior-scripting.git
 
 # Change line below on rebuild. Will use cache up to this line
-ENV LAST_SOFTWARE_UPDATE 2016-02-19
+ENV LAST_SOFTWARE_UPDATE 2016-02-28
 
-# Git pull for all packages
+# Git pull for all OpenCog packages
+RUN cd /opencog/ && find . -maxdepth 1 -mindepth 1 -type d \
+   -execdir git --git-dir=$PWD/{}/.git --work-tree=$PWD/{} pull \;
+
+### RUN cd /opencog/ros-behavior-scripting && git pull https://github.com/linas/ros-behavior-scripting +lookie:master
+
+# Install the behaviors as a module.
+RUN (mkdir /opencog/ros-behavior-scripting/build; \
+     cd /opencog/ros-behavior-scripting/build; \
+     cmake ..; make install)
+
+# Pre-compile the guile modules.
+RUN (bash -l -c "echo \"(use-modules (opencog eva-model))\" | guile ")
+RUN (bash -l -c "echo \"(use-modules (opencog eva-behvaior))\" | guile ")
+
+# Git pull for all ROS packages
 RUN cd /catkin_ws/src/ && find . -maxdepth 1 -mindepth 1 -type d \
 	-execdir git --git-dir=$PWD/{}/.git --work-tree=$PWD/{} pull \;
 
