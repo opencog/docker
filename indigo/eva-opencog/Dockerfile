@@ -63,6 +63,7 @@ RUN (mkdir /opencog/ros-behavior-scripting/build; \
 
 # Pre-compile the guile modules.
 RUN (bash -l -c "echo \"(use-modules (opencog eva-model))\" | guile ")
+RUN (bash -l -c "echo \"(use-modules (opencog eva-behvaior))\" | guile ")
 
 # Git pull for all ROS packages
 RUN cd /catkin_ws/src/ && find . -maxdepth 1 -mindepth 1 -type d \
