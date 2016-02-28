@@ -27,3 +27,8 @@ This will start blender and the half-dozen ROS nodes that control it.
 You should see a living, breating Eva; however, you proably won't
 due to some bug that is being worked right now.  Open a github issue
 or complain on the mailing list!
+
+## TODO
+* Remove joint_state_publisher robot_state_publisher from the geometry
+  startup -- we only need to track face locations via geometry, and not
+  the rest of the stuff.
