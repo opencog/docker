@@ -154,6 +154,7 @@ RUN (bash -l -c "echo \"(use-modules (opencog))\" | guile ; \
   echo \"(use-modules (opencog nlp relex2logic))\" | guile ; \
   echo \"(use-modules (opencog nlp sureal))\" | guile ")
 
+WORKDIR /root
 # ENTRYPOINT bash -l -c "./unit-test.sh; bash"
 ENTRYPOINT bash -l -c "./tmux.sh; bash"
 # CMD /bin/bash
