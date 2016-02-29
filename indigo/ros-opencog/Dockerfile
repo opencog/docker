@@ -24,6 +24,10 @@ RUN apt-get -y install gcc g++ cmake binutils-dev libiberty-dev \
 RUN apt-get -y install guile-2.0-dev cython unixodbc-dev odbc-postgresql \
     telnet locales rlwrap
 
+# Additional stuff needed to build and run relex.
+RUN apt-get -y install wordnet-dev wordnet-sense-index openjdk-7-jdk \
+    ant libcommons-logging-java libgetopt-java
+
 # -------------------------------------------------------------
 # Right now, just clone the OpenCog sources. They will be built
 # later on.
@@ -31,6 +35,7 @@ WORKDIR /opencog
 RUN git clone https://github.com/opencog/cogutils.git
 RUN git clone https://github.com/opencog/atomspace.git
 RUN git clone https://github.com/opencog/opencog.git
+RUN git clone https://github.com/opencog/relex.git
 
 # -------------------------------------------------------------
 # Download and build Link Grammar. Its needed for Sureal,
@@ -76,8 +81,7 @@ RUN (cd link-grammar-5*; mkdir build; cd build; ../configure --disable-java-bind
 RUN adduser --disabled-password --gecos "Link Parser User" link-parser
 
 USER link-parser
-WORKDIR /home/link-parser
-RUN echo "export LANG=en_US.UTF-8" >> .bash_aliases
+RUN (cd /home/link-parser; echo "export LANG=en_US.UTF-8" >> .bash_aliases)
 CMD bash
 
 RUN export LANG=en_US.UTF-8
@@ -101,6 +105,7 @@ RUN (mkdir /opencog/atomspace/build; cd /opencog/atomspace/build; \
 	cmake ..; make -j12; make install)
 RUN (mkdir /opencog/opencog/build; cd /opencog/opencog/build; \
 	cmake ..; make -j12; make install)
+RUN (cd /opencog/relex; ant build; ant install)
 
 # Build the unit tests. This is .. optional, but we do it anyway,
 # for right now, just to sanity-check things.
