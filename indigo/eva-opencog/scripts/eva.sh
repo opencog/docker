@@ -12,8 +12,11 @@ source devel/setup.sh
 echo "Starting... this will take 15-20 seconds..."
 
 # Use byobu so that the scroll bars actually work.
-byobu new-session -d -n 'roscore' 'roscore; $SHELL'
+byobu new-session -d -n 'ros' 'roscore; $SHELL'
 sleep 4;
+
+# Run the relex parse server.
+tmux new-window -n 'rlx' 'cd /opencog/relex && ./opencog-server.sh ; $SHELL'
 
 # Single Video (body) camera and face tracker.
 tmux new-window -n 'trk' 'roslaunch robots_config tracker-single-cam.launch; $SHELL'
