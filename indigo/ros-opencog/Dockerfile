@@ -18,15 +18,17 @@ RUN apt-get -y install gcc g++ cmake binutils-dev libiberty-dev \
     libboost-program-options-dev libboost-regex-dev \
     libboost-serialization-dev libboost-system-dev libboost-thread-dev \
     cxxtest
-# Additional stuff for atomspace.
-# Additional stuff for OpenCog. We need telnet as a debug utility.
-# Need wget to download link-grammar source
-RUN apt-get -y install guile-2.0-dev cython unixodbc-dev odbc-postgresql \
-    telnet locales rlwrap
 
 # Additional stuff needed to build and run relex.
 RUN apt-get -y install wordnet-dev wordnet-sense-index openjdk-7-jdk \
     ant libcommons-logging-java libgetopt-java
+
+# Additional stuff for the AtomSpace: cython and guile and ODBC.
+# Additional stuff for OpenCog. We need telnet as a debug utility.
+# Need wget to download link-grammar source.
+# Need unzip to unzip JWNL.
+RUN apt-get -y install guile-2.0-dev cython unixodbc-dev odbc-postgresql \
+    wget telnet locales rlwrap unzip
 
 # -------------------------------------------------------------
 # Right now, just clone the OpenCog sources. They will be built
@@ -36,6 +38,15 @@ RUN git clone https://github.com/opencog/cogutils.git
 RUN git clone https://github.com/opencog/atomspace.git
 RUN git clone https://github.com/opencog/opencog.git
 RUN git clone https://github.com/opencog/relex.git
+
+# -------------------------------------------------------------
+# Download and install JWNL; its needed for relex.
+WORKDIR /src
+RUN wget http://downloads.sourceforge.net/project/jwordnet/jwnl/JWNL%201.4/jwnl14-rc2.zip
+RUN (unzip jwnl14-rc2.zip jwnl14-rc2/jwnl.jar ; \
+    mv -v jwnl14-rc2/jwnl.jar /usr/local/share/java ; /
+    rm -v jwnl14-rc2.zip ; rmdir jwnl14-rc2 ; \
+    chmod -v 0644 /usr/local/share/java/jwnl.jar)
 
 # -------------------------------------------------------------
 # Download and build Link Grammar. Its needed for Sureal,
@@ -77,8 +88,7 @@ RUN locale-gen en_US.UTF-8 ru_RU.UTF-8 he_IL.UTF-8 \
 # Build the libraries and command-line parser only
 # Assumes that the sources have already been unpacked.
 RUN (cd link-grammar-5*; mkdir build; cd build; \
-     JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64 ../configure; \
-     make -j12; make install; ldconfig)
+     ../configure; make -j12; make install; ldconfig)
 
 RUN adduser --disabled-password --gecos "Link Parser User" link-parser
 
