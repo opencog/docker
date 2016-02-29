@@ -44,7 +44,8 @@ RUN git clone https://github.com/opencog/relex.git
 WORKDIR /src
 RUN wget http://downloads.sourceforge.net/project/jwordnet/jwnl/JWNL%201.4/jwnl14-rc2.zip
 RUN (unzip jwnl14-rc2.zip jwnl14-rc2/jwnl.jar ; \
-    mv -v jwnl14-rc2/jwnl.jar /usr/local/share/java ; /
+    mkdir /usr/local/share/java ; \
+    mv -v jwnl14-rc2/jwnl.jar /usr/local/share/java ; \
     rm -v jwnl14-rc2.zip ; rmdir jwnl14-rc2 ; \
     chmod -v 0644 /usr/local/share/java/jwnl.jar)
 
