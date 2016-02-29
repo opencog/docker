@@ -76,7 +76,9 @@ RUN locale-gen en_US.UTF-8 ru_RU.UTF-8 he_IL.UTF-8 \
 
 # Build the libraries and command-line parser only
 # Assumes that the sources have already been unpacked.
-RUN (cd link-grammar-5*; mkdir build; cd build; ../configure --disable-java-bindings; make -j12; make install; ldconfig)
+RUN (cd link-grammar-5*; mkdir build; cd build; \
+     JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64 ../configure; \
+     make -j12; make install; ldconfig)
 
 RUN adduser --disabled-password --gecos "Link Parser User" link-parser
 
