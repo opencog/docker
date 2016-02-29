@@ -13,11 +13,16 @@ RUN apt-get -y update
 RUN apt-get -y upgrade
 # Base stuff for cogutils. All on one line, to avoid error
 # `Cannot create container with more than 127 parents`
-RUN apt-get -y install gcc g++ cmake binutils-dev libiberty-dev libboost-dev libboost-date-time-dev libboost-filesystem-dev libboost-program-options-dev libboost-regex-dev libboost-serialization-dev libboost-system-dev libboost-thread-dev cxxtest
+RUN apt-get -y install gcc g++ cmake binutils-dev libiberty-dev \
+    libboost-dev libboost-date-time-dev libboost-filesystem-dev \
+    libboost-program-options-dev libboost-regex-dev \
+    libboost-serialization-dev libboost-system-dev libboost-thread-dev \
+    cxxtest
 # Additional stuff for atomspace.
 # Additional stuff for OpenCog. We need telnet as a debug utility.
 # Need wget to download link-grammar source
-RUN apt-get -y install guile-2.0-dev cython unixodbc-dev odbc-postgresql telnet wget locales
+RUN apt-get -y install guile-2.0-dev cython unixodbc-dev odbc-postgresql \
+    telnet locales rlwrap
 
 # -------------------------------------------------------------
 # Right now, just clone the OpenCog sources. They will be built
