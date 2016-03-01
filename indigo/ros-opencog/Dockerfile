@@ -13,11 +13,22 @@ RUN apt-get -y update
 RUN apt-get -y upgrade
 # Base stuff for cogutils. All on one line, to avoid error
 # `Cannot create container with more than 127 parents`
-RUN apt-get -y install gcc g++ cmake binutils-dev libiberty-dev libboost-dev libboost-date-time-dev libboost-filesystem-dev libboost-program-options-dev libboost-regex-dev libboost-serialization-dev libboost-system-dev libboost-thread-dev cxxtest
-# Additional stuff for atomspace.
+RUN apt-get -y install gcc g++ cmake binutils-dev libiberty-dev \
+    libboost-dev libboost-date-time-dev libboost-filesystem-dev \
+    libboost-program-options-dev libboost-regex-dev \
+    libboost-serialization-dev libboost-system-dev libboost-thread-dev \
+    cxxtest
+
+# Additional stuff needed to build and run relex.
+RUN apt-get -y install wordnet-dev wordnet-sense-index openjdk-7-jdk \
+    ant libcommons-logging-java libgetopt-java
+
+# Additional stuff for the AtomSpace: cython and guile and ODBC.
 # Additional stuff for OpenCog. We need telnet as a debug utility.
-# Need wget to download link-grammar source
-RUN apt-get -y install guile-2.0-dev cython unixodbc-dev odbc-postgresql telnet wget locales
+# Need wget to download link-grammar source.
+# Need unzip to unzip JWNL.
+RUN apt-get -y install guile-2.0-dev cython unixodbc-dev odbc-postgresql \
+    wget telnet locales rlwrap unzip
 
 # -------------------------------------------------------------
 # Right now, just clone the OpenCog sources. They will be built
@@ -26,6 +37,17 @@ WORKDIR /opencog
 RUN git clone https://github.com/opencog/cogutils.git
 RUN git clone https://github.com/opencog/atomspace.git
 RUN git clone https://github.com/opencog/opencog.git
+RUN git clone https://github.com/opencog/relex.git
+
+# -------------------------------------------------------------
+# Download and install JWNL; its needed for relex.
+WORKDIR /src
+RUN wget http://downloads.sourceforge.net/project/jwordnet/jwnl/JWNL%201.4/jwnl14-rc2.zip
+RUN (unzip jwnl14-rc2.zip jwnl14-rc2/jwnl.jar ; \
+    mkdir /usr/local/share/java ; \
+    mv -v jwnl14-rc2/jwnl.jar /usr/local/share/java ; \
+    rm -v jwnl14-rc2.zip ; rmdir jwnl14-rc2 ; \
+    chmod -v 0644 /usr/local/share/java/jwnl.jar)
 
 # -------------------------------------------------------------
 # Download and build Link Grammar. Its needed for Sureal,
@@ -66,13 +88,13 @@ RUN locale-gen en_US.UTF-8 ru_RU.UTF-8 he_IL.UTF-8 \
 
 # Build the libraries and command-line parser only
 # Assumes that the sources have already been unpacked.
-RUN (cd link-grammar-5*; mkdir build; cd build; ../configure --disable-java-bindings; make -j12; make install; ldconfig)
+RUN (cd link-grammar-5*; mkdir build; cd build; \
+     ../configure; make -j12; make install; ldconfig)
 
 RUN adduser --disabled-password --gecos "Link Parser User" link-parser
 
 USER link-parser
-WORKDIR /home/link-parser
-RUN echo "export LANG=en_US.UTF-8" >> .bash_aliases
+RUN (cd /home/link-parser; echo "export LANG=en_US.UTF-8" >> .bash_aliases)
 CMD bash
 
 RUN export LANG=en_US.UTF-8
@@ -96,6 +118,7 @@ RUN (mkdir /opencog/atomspace/build; cd /opencog/atomspace/build; \
 	cmake ..; make -j12; make install)
 RUN (mkdir /opencog/opencog/build; cd /opencog/opencog/build; \
 	cmake ..; make -j12; make install)
+RUN (cd /opencog/relex; ant build; ant install)
 
 # Build the unit tests. This is .. optional, but we do it anyway,
 # for right now, just to sanity-check things.
@@ -131,6 +154,7 @@ RUN (bash -l -c "echo \"(use-modules (opencog))\" | guile ; \
   echo \"(use-modules (opencog nlp relex2logic))\" | guile ; \
   echo \"(use-modules (opencog nlp sureal))\" | guile ")
 
+WORKDIR /root
 # ENTRYPOINT bash -l -c "./unit-test.sh; bash"
 ENTRYPOINT bash -l -c "./tmux.sh; bash"
 # CMD /bin/bash
