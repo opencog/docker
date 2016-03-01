@@ -18,8 +18,9 @@ ENV DEBIAN_FRONTEND noninteractive
 ENV LAST_OS_UPDATE 2015-06-09
 RUN apt-get -y update
 RUN apt-get -y upgrade
-#
-RUN apt-get -y install wget
+
+# Need software-properties-common for `add-apt-repository` command
+RUN apt-get -y install wget software-properties-common
 RUN wget http://packages.ros.org/ros.key -O - | sudo apt-key add -
 RUN echo "deb http://packages.ros.org/ros/ubuntu trusty main" > /etc/apt/sources.list.d/ros-latest.list
 RUN apt-get -y update
@@ -27,8 +28,8 @@ RUN apt-get -y update
 # Most robot bringup will require git-cloning the working repos.
 # Need byobu+tmux for ROS terminal control.
 # Need vim so that we can do at least some basic debugging.
-RUN apt-get -y install ros-indigo-ros-base ros-indigo-angles git tmux byobu
-RUN apt-get -y install vim
+RUN apt-get -y install ros-indigo-ros-base ros-indigo-angles
+RUN apt-get -y install git tmux byobu vim
 
 # Make vim be usable instead of insane.
 COPY /scripts/.vimrc /root
