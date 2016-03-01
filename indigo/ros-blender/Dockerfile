@@ -22,7 +22,12 @@ MAINTAINER Mandeep Singh Bhatia "mandeep.singh.bhatia@gmail.com"
 MAINTAINER David Hart "dhart@opencog.org"
 MAINTAINER Linas Vepštas "linasvepstas@gmail.com"
 
-ENV LAST_OS_UPDATE 2015-02-16
+ENV LAST_OS_UPDATE 2015-11-25
+
+# Get current version of blender; the one in trusty is too old to
+# read the saved blender file format. :-(
+RUN apt-get -y install software-properties-common
+RUN add-apt-repository ppa:thomas-schiex/blender
 RUN apt-get -y update
 RUN apt-get -y upgrade
 
@@ -31,6 +36,10 @@ RUN apt-get -y upgrade
 # mesa-utils provides glxinfo, handy for understanding the 3D support.
 # Blender needs python3
 RUN apt-get -y install blender x11-utils mesa-utils python3-yaml python3-pip
+
+# We perform some magic incantations to allow ROS (which normally
+# expects python2) to happily co-exist with python3.  Yes, its odd
+# to do this here, but here is where we first install python3.
 RUN pip3 install rospkg catkin_pkg
 
 WORKDIR /catkin_ws/src
