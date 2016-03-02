@@ -48,13 +48,15 @@ RUN git clone https://github.com/hansonrobotics/robots_config.git
 RUN cd /opencog && git clone https://github.com/opencog/ros-behavior-scripting.git
 
 # Change line below on rebuild. Will use cache up to this line
-ENV LAST_SOFTWARE_UPDATE 2016-02-28
+ENV LAST_SOFTWARE_UPDATE 2016-03-01
 
 # Git pull for all OpenCog packages
 RUN cd /opencog/ && find . -maxdepth 1 -mindepth 1 -type d \
    -execdir git --git-dir=$PWD/{}/.git --work-tree=$PWD/{} pull \;
 
 ### RUN cd /opencog/ros-behavior-scripting && git pull https://github.com/linas/ros-behavior-scripting +lookie:master
+# Make sure we really have the lastest chatbot scripts
+RUN (cd /opencog/opencog/build; cmake ..; make install)
 
 # Install the behaviors as a module.
 RUN (mkdir /opencog/ros-behavior-scripting/build; \
@@ -86,6 +88,8 @@ COPY /scripts/eva.sh /catkin_ws/eva.sh
 
 # Ports exposed
 # 11311 is roscore
-EXPOSE 11311
+# EXPOSE 11311
+# 4444 is the relex parse server
+# EXPOSE 4444
 
 ENTRYPOINT bash -l -c "./eva.sh; bash"
