@@ -28,6 +28,9 @@ tmux new-window -n 'geo' 'roslaunch robots_config geometry.launch gui:=false; $S
 ### Start the blender GUI.
 tmux new-window -n 'eva' 'cd /catkin_ws/src/blender_api && blender -y Eva.blend -P autostart.py; $SHELL'
 
+# Start the IRC chatbot bridge.
+tmux new-window -n 'irc' 'cd /opencog/opencog/build/opencog/nlp/irc && ./cogita -n ieva -f "Robot Eva" -t 17020; ; $SHELL'
+
 # Start the cogserver.
 # It seems to take more than 5 seconds to load all scripts!?
 tmux new-window -n 'cog' 'cd /opencog/ros-behavior-scripting/src && guile -l btree-eva.scm ; $SHELL'
