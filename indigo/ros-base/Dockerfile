@@ -15,7 +15,7 @@ MAINTAINER Linas Vepštas "linasvepstas@gmail.com"
 # http://stackoverflow.com/questions/25019183/docker-java7-install-fail
 ENV DEBIAN_FRONTEND noninteractive
 
-ENV LAST_OS_UPDATE 2015-06-09
+ENV LAST_OS_UPDATE 2016-02-29
 RUN apt-get -y update
 RUN apt-get -y upgrade
 
