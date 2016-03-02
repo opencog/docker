@@ -24,10 +24,11 @@ MAINTAINER Linas Vepštas "linasvepstas@gmail.com"
 
 ENV LAST_OS_UPDATE 2015-11-25
 
-# Get current version of blender; the one in trusty is too old to
-# read the saved blender file format. :-(
-RUN apt-get -y install software-properties-common
-RUN add-apt-repository ppa:thomas-schiex/blender
+# Get blender version 2.71; the default in trusty is 2.69, and lighting
+# looks wrong in it.  The one in ppa:thomas-schiex is 2.75, and gestures
+# don't work with that version.
+# RUN add-apt-repository ppa:thomas-schiex/blender
+RUN add-apt-repository ppa:irie/blender
 RUN apt-get -y update
 RUN apt-get -y upgrade
 
