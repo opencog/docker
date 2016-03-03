@@ -15,7 +15,7 @@ FROM opencog/cogutils
 MAINTAINER David Hart "dhart@opencog.org"
 
 # Install non-system project dependencies
-RUN  /tmp/octool -al ; ccache -C
+RUN  /tmp/octool -a ; ccache -C
 
 USER opencog
 
