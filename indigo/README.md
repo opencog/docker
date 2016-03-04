@@ -295,6 +295,11 @@ one day help with this, but perhaps not: Swarm seems to push the problem
 around; it doesn't solve the core issue: ROS messages contain port
 numbers, and Docker proxying re-assigns ports.  That is the core issue.
 
+## Version B.1: Newer version of Docker??
+[It has been reported](https://gist.github.com/ruffsl/4a24c26a1aa2cc733c64)
+that perhaps version 1.10 of docker does not have these problems.  I
+have not yet tried.
+
 ## Version C: Desperation.
 There are several stunts that one might think could work, but they
 don't.  A brief report here.
