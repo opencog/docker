@@ -10,6 +10,9 @@
 # 4. If run without -u option it will not rebuild all the images unless the base
 #    ubuntu image is updated.
 
+# Exit on error
+set -e
+
 # Environment Variables
 ## Use's cache by default unless the -u options is passed
 CACHE_OPTION=""
