@@ -40,7 +40,6 @@ mv "$DIR_PATH/$FILE_NAME" "$DIR_PATH/$FILE_NAME.done"
 # Continue the running of docker-entrypoint.sh after configuration.
 # NOTE: Copy pasted from docker-entrypoint.sh
 gosu postgres pg_ctl -D "$PGDATA" -m fast -w stop
-set_listen_addresses '*'
 
 echo
 echo 'PostgreSQL init process complete; ready for start up.'
