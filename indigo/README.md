@@ -1,5 +1,5 @@
-ros-indigo-base
-===============
+ROS Indigo + Blender + OpenCog
+==============================
 Docker files for Hanson Robotics robots and heads.  The most
 sophisticated of the bunch is Eva, an animated female head, capable
 of seeing you (via a webcam), talking to you (via a chatbot), and
@@ -11,13 +11,12 @@ of surprise and happiness.
 
 ## Hierarchy and dependents
 
-The docker image hierarchy is needlessly complex.  It has been driven
-into this state in order to accomodate the conflicting needs of
-ROS+Docker.  The root cause of this mess is discussed further down
-below. In short, ROS and Docker have conflicting ideas about how
-networking should work; this forces us to dump everything and the
-kitchen sink into one giant Docker container.  This is not ideal, but
- its what is needed to get stuff to work.  See the design discussion
+The docker image hierarchy is slightly more complex than it could be.
+It has been driven into this state in order to accomodate the conflicting
+needs of ROS+Docker.  The root cause is discussed further down below.
+In short, ROS and Docker have conflicting ideas about how networking
+should work; this forces us to install everything into one giant Docker
+container.  This is not ideal, but it works.  See the design discussion
 below.
 
     ├─ros-indigo-base
@@ -74,8 +73,8 @@ below.
    interest.  She reacts to absence by being bored and falling asleep.
 
 * `eva-opencog` contains the Eva blender rig, ROS, OpenCog, chatbot.
-   This is the whole kit-n-kaboodle. Under development.  Probably
-   broken just right now.
+   This is the whole kit-n-kaboodle. Under development.  Sometimes
+   works, sometimes broken.
 
 ## Miscellaneous packages
 
