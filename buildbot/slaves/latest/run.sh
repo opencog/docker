@@ -109,7 +109,7 @@ if [ $RUN_OPENCOG_BULDSLAVE ] ; then
 
             # cogutils and atomspace are required for tests to run.
             echo "----Installing/Updating cogutils and atomspace."
-            sudo /tmp/octool -cal
+            sudo /tmp/octool -ca
             echo "----Installed/Updated cogutils and atomspace."
 
             # this is set to true so as to avoid an infinit loop should the
