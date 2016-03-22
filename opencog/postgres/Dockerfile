@@ -3,7 +3,7 @@
 
 FROM postgres:latest
 
-ADD https://raw.githubusercontent.com/opencog/atomspace/master/opencog/persist/sql/pg_atom.sql /tmp/atom.sql
+ADD https://raw.githubusercontent.com/opencog/atomspace/master/opencog/persist/sql/postgres/pg_atom.sql /tmp/atom.sql
 
 COPY configure.sh /docker-entrypoint-initdb.d/
 
