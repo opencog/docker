@@ -138,7 +138,7 @@ COPY /scripts/unit-test.sh /root
 COPY /scripts/tmux.sh /root
 
 # Pre-compile the guile modules. We could say `guild comple ...`, but
-# this is easier. This avoid fly compilation during container start.
+# this is easier. This avoids fly compilation during container start.
 RUN (bash -l -c "echo \"(use-modules (opencog))\" | guile ; \
   echo \"(use-modules (opencog exec))\" | guile ; \
   echo \"(use-modules (opencog logger))\" | guile ; \
@@ -153,6 +153,7 @@ RUN (bash -l -c "echo \"(use-modules (opencog))\" | guile ; \
   echo \"(use-modules (opencog nlp chatbot-eva))\" | guile ; \
   echo \"(use-modules (opencog nlp fuzzy))\" | guile ; \
   echo \"(use-modules (opencog nlp lg-dict))\" | guile ; \
+  echo \"(use-modules (opencog nlp microplanning))\" | guile ; \
   echo \"(use-modules (opencog nlp relex2logic))\" | guile ; \
   echo \"(use-modules (opencog nlp sureal))\" | guile ")
 
