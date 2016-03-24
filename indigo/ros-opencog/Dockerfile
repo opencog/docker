@@ -133,9 +133,9 @@ RUN (cd /opencog/relex; ant build; ant install)
 # WORKDIR /opencog/opencog/build
 # RUN bash -l -c "make -j12 tests"
 #
-COPY /scripts/.guile /root
-COPY /scripts/unit-test.sh /root
-COPY /scripts/tmux.sh /root
+COPY /scripts/.guile /root/
+COPY /scripts/unit-test.sh /root/
+COPY /scripts/tmux.sh /root/
 
 # Pre-compile the guile modules. We could say `guild comple ...`, but
 # this is easier. This avoids fly compilation during container start.

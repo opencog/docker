@@ -32,7 +32,7 @@ RUN apt-get -y install ros-indigo-ros-base ros-indigo-angles
 RUN apt-get -y install git tmux byobu vim
 
 # Make vim be usable instead of insane.
-COPY /scripts/.vimrc /root
+COPY /scripts/.vimrc /root/
 
 # Environment Variables
 ## Set Locale -- Catkin crashes on Krisčiunas, Mickevičius without this.
