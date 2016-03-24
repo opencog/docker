@@ -2,17 +2,9 @@
 #
 # build-all.sh
 #
-# Handy dandy snippet to build all the various images.
+# Handy dandy snippet to build the current demo images.
 #
 cd ros-base
-./build.sh
-cd ..
-
-cd ros-blender
-./build.sh
-cd ..
-
-cd eva-owyl
 ./build.sh
 cd ..
 
@@ -24,9 +16,9 @@ cd ros-incog-blender
 ./build.sh
 cd ..
 
-cd eva-silent
-./build.sh
-cd ..
+# cd eva-silent
+# ./build.sh
+# cd ..
 
 cd eva-opencog
 ./build.sh
