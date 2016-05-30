@@ -9,5 +9,5 @@ set -e
 source "/opt/ros/$ROS_DISTRO/setup.bash"
 
 # For oc2mc
-export PYTHONPATH=$PYTHONPATH:/oc2mc
+export PYTHONPATH=$PYTHONPATH:/oc2mc:/oc2mc/minecraft_bot/src
 exec "$@"

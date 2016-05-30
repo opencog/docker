@@ -22,10 +22,14 @@ COPY ./ros_entrypoint.sh /
 
 # Spock installation
 RUN easy_install pip &&  pip install cryptography
-RUN wget -P /tmp/ https://github.com/SpockBotMC/SpockBot/archive/master.tar.gz ;\
-    cd /tmp ; tar -xvf master.tar.gz ; cd SpockBot-master/ ;\
+RUN wget -P /tmp/ https://github.com/SpockBotMC/SpockBot/archive/v0.1.5.tar.gz ;\
+    cd /tmp ; tar -xvf v0.1.5.tar.gz ; cd SpockBot-0.1.5/ ;\
     python setup.py install ;\
-    cd .. ; rm -rf master.tar.gz SpockBot-master
+    cd .. ; rm -rf v0.1.5.master.tar.gz SpockBot-0.1.5
+
+# Installing tmuxinator
+RUN apt-get update && apt-get install ruby -y;\
+    gem install tmuxinator
 
 USER opencog
 RUN  rosdep update
