@@ -11,9 +11,9 @@ development.
 4. [Steps for opencog-to-minecraft development](#steps-for-opencog-to-minecraft-development)
 
 
-## Initial Setups
+## Common Initial Setups
 The following sub-sections describe the steps required to configure docker on
-your os.
+your os, regardles of which project you are working on.
 
 ### UNIX like Systems
 1. Follow the instruction [here](https://docs.docker.com/engine/installation/)
@@ -35,7 +35,7 @@ your os.
     * export COGUTILS_SOURCE_DIR=$HOME/path/to/cogutils
     * export MOSES_SOURCE_DIR=$HOME/path/to/moses
     * export OC2MC_SOURCE_DIR=$HOME/path/to/opencog-to-minecraft
-   __Note that you don't have to clone each repository or  add all the paths__ ,
+   __Note that you don't have to clone each repository or add all the paths__ ,
    just those you need. The minimum essential are `opencog` and `relex`. For
    the rest, comment out the lines in docker-compose.yml file under the
    `volumes` key(If you remove all of them make sure the `volumes` key is also
@@ -58,8 +58,8 @@ your os.
     * For opencog development use `-bctp` option
     * For NLP related work add `-r` option
     * If you want to update your images add `-u` option. For example for opencog
-      development use `-ctu` options. Unless there are some system dependency
-      changes, you don't have to update `opeoncog/opencog-deps` image.
+      development use `-ctu` options. __Unless there are some system dependency
+      changes, you don't have to update `opeoncog/opencog-deps` image.__
     * To list the available options use `-h`
 4. In the script `windows-run.sh` found in the same directory as this README,
    Replace '$HOME/path/to/' in the export command to the appropriate absolute
@@ -67,51 +67,76 @@ your os.
    repository or add all the paths__, just those you need. Since you will be
    using the MINGW environment that was setup by the first step, use UNIX path
    naming format.
+5. Run `./windows-run.sh`.
 
 ## Steps for OpenCog development
-1. Starting the containers
-  1. UNIX like systems: run either of the following commands,
-    * If you want to map container ports to host run
-      `docker-compose run --service-ports dev`
-    * If you don't want to map ports to host run
-      `docker-compose run dev`
-  2. Windows: `./windows-run.sh`
+__For UNIX like Systems only__
+1. Add these lines to `~/.bashrc` at $HOME of your PC and run
+   `source ~/.bashrc`.
+    ```
+    export OPENCOG_SOURCE_DIR=$HOME/path/to/opencog
+    export ATOMSPACE_SOURCE_DIR=$HOME/path/to/atomspace
+    export COGUTILS_SOURCE_DIR=$HOME/path/to/cogutils
+    export OC2MC_SOURCE_DIR=$HOME/path/to/opencog-to-minecraft
+    ```
+    __Optionally, if you are using `moses` add to `~/.bashrc`,
+    `export MOSES_SOURCE_DIR=$HOME/path/to/moses` and uncomment
+    `- $MOSES_SOURCE_DIR:/moses` line in the docker-compose.yml file.__
 
-2. For using opencog shells follow instruction
+2. For starting the containers run either of the following commands,
+  * If you want to map container ports to host run
+    `docker-compose run --service-ports dev`
+  * If you don't want to map ports to host run
+    `docker-compose run dev`
+
+3. For using opencog shells follow instruction
    [here](http://wiki.opencog.org/w/OpenCog_shell)
 
-3. For configuring RelEx in the cogserver run
-    * cat /etc/hosts   # take note of the ip address for relex, e.g.
+4. For configuring RelEx in the cogserver run
+    * `cat /etc/hosts`   # take note of the ip address for relex, e.g.
       `172.17.0.69     relex 8e7dc3a09f12 opencog_relex_1`
     * `/tmp/octool -bi` # Build and install opencog
     * start the cogserver, telnet into it and access the scheme shell.
     * `(use-modules (opencog nlp) (opencog nlp chatbot))`
     * `(set! relex-server-host "172.17.0.69")`
     * `(nlp-parse "you know what this is.")`
-3. have fun hacking
-4. exit container
+5. have fun hacking
+6. exit container
 
 ## Steps for RelEx development
 __For UNIX like Systems only__
-Starting the containers run either of the following commands
-* If you want to map container ports to host run
-  `docker-compose -f relex.yml run --service-ports relex`
-* If you don't want to map ports to host run
-   `docker-compose -f relex.yml run relex`
+1. Add these lines to `~/.bashrc` at $HOME of your PC and run
+   `source ~/.bashrc`.
+    ```
+    export RELEX_SOURCE_DIR=$HOME/path/to/relex
+    ```
+2. For starting the containers run either of the following commands,
+  * If you want to map container ports to host run
+    `docker-compose -f relex.yml run --service-ports relex`
+  * If you don't want to map ports to host run
+     `docker-compose -f relex.yml run relex`
 
 ## Steps for opencog-to-minecraft development
 __For UNIX like Systems only__
-1. To start the Minecraft server and access a configured development environment
-   run `docker-compose -f minecraft.yml run oc2mc`. Thes server.properties file
+1. Add these lines to `~/.bashrc` at $HOME of your PC and run
+   `source ~/.bashrc`.
+    ```
+    export OPENCOG_SOURCE_DIR=$HOME/path/to/opencog
+    export ATOMSPACE_SOURCE_DIR=$HOME/path/to/atomspace
+    export COGUTILS_SOURCE_DIR=$HOME/path/to/cogutils
+    export OC2MC_SOURCE_DIR=$HOME/path/to/opencog-to-minecraft
+    ```
+2. To start the Minecraft server and access a configured development environment
+   run `docker-compose -f minecraft.yml run oc2mc`. The server.properties file
    is found in `minecraft/data` in the same folder as this README. The file is
    auto-generated so on changing the entries, restart the server by running
    ` docker restart minecraft-server`.
-2. Run `tmux` inside the container for working with multiple windows/panes.
+3. Run `tmux` inside the container for working with multiple windows/panes.
    If you create multiple panes you can use your mouse as an alternative to
    switch between panes.
-3. Open a separate terminal, on your host, run `docker attach minecraft-server`.
+4. Open a separate terminal, on your host, run `docker attach minecraft-server`.
    This gives you access to the server's console that is used for configuration.
-4. Except PYTHONPATH setting step, which isn't needed because it is already
+5. Except PYTHONPATH setting step, which isn't needed because it is already
    configured inside the container, follow the steps described
    [here](https://github.com/opencog/opencog-to-minecraft#steps-to-start-the-bot)
 
