@@ -7,7 +7,8 @@ dev:
     volumes:
         - $ATOMSPACE_SOURCE_DIR:/atomspace
         - $COGUTILS_SOURCE_DIR:/cogutils
-        - $MOSES_SOURCE_DIR:/moses
+        # Uncomment the following lines if you want to work on moses
+    #    - $MOSES_SOURCE_DIR:/moses
     working_dir: /opencog # This is the same as the volume mount point below
     links:
         - postgres:db
@@ -17,7 +18,5 @@ postgres:
     image: opencog/postgres
 
 relex:
-    extends:
-        file: relex.yml
-        service: relex
-    command: /bin/sh -c "ant clean && ant  && ./opencog-server.sh"
+    image: opencog/relex
+    command: /bin/sh -c "./opencog-server.sh"
