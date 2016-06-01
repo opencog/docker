@@ -1,7 +1,7 @@
 # docker build -t opencog/postgres
 # TODO optimize for speeding up atom saves. See https://github.com/opencog/atomspace/tree/master/opencog/persist/sql#performance-tweaks
 
-FROM postgres:latest
+FROM postgres:9.5
 
 ADD https://raw.githubusercontent.com/opencog/atomspace/master/opencog/persist/sql/postgres/pg_atom.sql /tmp/atom.sql
 

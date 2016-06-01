@@ -27,20 +27,7 @@ your os, regardles of which project you are working on.
       changes, you don't have to update `opeoncog/opencog-deps` image.
     * To list the available options use `-h`
 3. sudo pip install -U docker-compose # only the first time or when updating
-4. Add these lines to .bashrc at $HOME of your PC and restart terminal or run
-   `source ~/.bashrc`.
-    * export OPENCOG_SOURCE_DIR=$HOME/path/to/opencog
-    * export RELEX_SOURCE_DIR=$HOME/path/to/relex
-    * export ATOMSPACE_SOURCE_DIR=$HOME/path/to/atomspace
-    * export COGUTILS_SOURCE_DIR=$HOME/path/to/cogutils
-    * export MOSES_SOURCE_DIR=$HOME/path/to/moses
-    * export OC2MC_SOURCE_DIR=$HOME/path/to/opencog-to-minecraft
-   __Note that you don't have to clone each repository or add all the paths__ ,
-   just those you need. The minimum essential are `opencog` and `relex`. For
-   the rest, comment out the lines in docker-compose.yml file under the
-   `volumes` key(If you remove all of them make sure the `volumes` key is also
-   commented out).
-5. Specify a directory for storing ccache's compiler outputs
+4. Specify a directory for storing ccache's compiler outputs
    ```
    mkdir -p $HOME/path/to/where/you/want/to/save/ccache/output
    export CCACHE_DIR=$HOME/path/to/where/you/want/to/save/ccache/output`
@@ -48,6 +35,7 @@ your os, regardles of which project you are working on.
    Specifying this means, making a clean build of source code after removing a
    container will be faster. If you don't want to do this, then comment out the
    `- $CCACHE_DIR:/home/opencog/.ccache` in `common.yml` file
+5. Follow the steps below, as per your type of development.
 
 ### Windows
 1. Follow the instruction [here](https://docs.docker.com/engine/installation/windows)
