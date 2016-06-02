@@ -126,7 +126,7 @@ fi
 if [ $BUILD_EMBODIMENT_IMAGE ] ; then
     check_dev_cli
     echo "---- Staring build of opencog/minecraft ----"
-    docker build $CACHE_OPTION -t opencog/minecraft:1.1 minecraft
+    docker build $CACHE_OPTION -t opencog/minecraft:0.1.0 minecraft
     echo "---- Finished build of opencog/minecraft ----"
 fi
 
