@@ -6,7 +6,7 @@ oc2mc:
     extends:
         file: common.yml
         service: workspace
-    image: opencog/minecraft:1.1
+    image: opencog/minecraft:0.1.0
     volumes:
         - /tmp/.X11-unix/:/tmp/.X11-unix/:ro # For GUI
         - $OC2MC_SOURCE_DIR:/oc2mc
