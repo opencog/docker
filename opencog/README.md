@@ -28,10 +28,12 @@ your os, regardles of which project you are working on.
     * To list the available options use `-h`
 3. sudo pip install -U docker-compose # only the first time or when updating
 4. Specify a directory for storing ccache's compiler outputs
+
    ```
    mkdir -p $HOME/path/to/where/you/want/to/save/ccache/output
    export CCACHE_DIR=$HOME/path/to/where/you/want/to/save/ccache/output`
    ```
+
    Specifying this means, making a clean build of source code after removing a
    container will be faster. If you don't want to do this, then comment out the
    `- $CCACHE_DIR:/home/opencog/.ccache` in `common.yml` file
@@ -58,18 +60,22 @@ your os, regardles of which project you are working on.
 5. Run `./windows-run.sh`.
 
 ## Steps for OpenCog development
+
 __For UNIX like Systems only__
+
 1. Add these lines to `~/.bashrc` at $HOME of your PC and run
    `source ~/.bashrc`.
-    ```
-    export OPENCOG_SOURCE_DIR=$HOME/path/to/opencog
-    export ATOMSPACE_SOURCE_DIR=$HOME/path/to/atomspace
-    export COGUTILS_SOURCE_DIR=$HOME/path/to/cogutils
-    export OC2MC_SOURCE_DIR=$HOME/path/to/opencog-to-minecraft
-    ```
-    __Optionally, if you are using `moses` add to `~/.bashrc`,
-    `export MOSES_SOURCE_DIR=$HOME/path/to/moses` and uncomment
-    `- $MOSES_SOURCE_DIR:/moses` line in the docker-compose.yml file.__
+
+   ```
+   export OPENCOG_SOURCE_DIR=$HOME/path/to/opencog
+   export ATOMSPACE_SOURCE_DIR=$HOME/path/to/atomspace
+   export COGUTILS_SOURCE_DIR=$HOME/path/to/cogutils
+   export OC2MC_SOURCE_DIR=$HOME/path/to/opencog-to-minecraft
+   ```
+
+   __Optionally, if you are using `moses` add to `~/.bashrc`,
+   `export MOSES_SOURCE_DIR=$HOME/path/to/moses` and uncomment
+   `- $MOSES_SOURCE_DIR:/moses` line in the docker-compose.yml file.__
 
 2. For starting the containers run either of the following commands,
   * If you want to map container ports to host run
@@ -92,12 +98,16 @@ __For UNIX like Systems only__
 6. exit container
 
 ## Steps for RelEx development
+
 __For UNIX like Systems only__
+
 1. Add these lines to `~/.bashrc` at $HOME of your PC and run
    `source ~/.bashrc`.
-    ```
-    export RELEX_SOURCE_DIR=$HOME/path/to/relex
-    ```
+
+   ```
+   export RELEX_SOURCE_DIR=$HOME/path/to/relex
+   ```
+   
 2. For starting the containers run either of the following commands,
   * If you want to map container ports to host run
     `docker-compose -f relex.yml run --service-ports relex`
@@ -106,14 +116,17 @@ __For UNIX like Systems only__
 
 ## Steps for opencog-to-minecraft development
 __For UNIX like Systems only__
+
 1. Add these lines to `~/.bashrc` at $HOME of your PC and run
-   `source ~/.bashrc`.
+`source ~/.bashrc`.
+
     ```
     export OPENCOG_SOURCE_DIR=$HOME/path/to/opencog
     export ATOMSPACE_SOURCE_DIR=$HOME/path/to/atomspace
     export COGUTILS_SOURCE_DIR=$HOME/path/to/cogutils
     export OC2MC_SOURCE_DIR=$HOME/path/to/opencog-to-minecraft
     ```
+
 2. To start the Minecraft server and access a configured development environment
    run `docker-compose -f minecraft.yml run oc2mc`. The server.properties file
    is found in `minecraft/data` in the same folder as this README. The file is
