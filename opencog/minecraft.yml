@@ -6,7 +6,7 @@ oc2mc:
     extends:
         file: common.yml
         service: workspace
-    image: opencog/minecraft
+    image: opencog/minecraft:0.1.0
     volumes:
         - /tmp/.X11-unix/:/tmp/.X11-unix/:ro # For GUI
         - $OC2MC_SOURCE_DIR:/oc2mc
@@ -27,6 +27,7 @@ minecraft-server:
     volumes: # For persistance of configurations
         - $PWD/minecraft/data:/data
     environment:
+        - VERSION=1.8.8
         - MODE=creative
         - EULA=TRUE  # This in effect says the user agrees to the Minecraft eula
         # TODO How to handle it.
