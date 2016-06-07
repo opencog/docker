@@ -21,9 +21,9 @@ alter_pg() {
 # Returns a value reprsenting the percentage of ram in megabytes.
 # $1 = percent of ram. For e.g. 25 for 25%
 ram_percent() {
-  local RAM_SIZE=$( free -m | cut -d " " -f 10)
+  local RAM_SIZE=$(grep MemTotal /proc/meminfo | awk '{print $2}')
   local RAM_MULTIPLE=$(($RAM_SIZE * $1))
-  local RAM_PERCENT="$(($RAM_MULTIPLE / 100))MB"
+  local RAM_PERCENT="$(($RAM_MULTIPLE / 100000))MB"
   echo "$RAM_PERCENT"
 }
 
