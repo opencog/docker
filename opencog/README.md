@@ -92,7 +92,7 @@ __For UNIX like Systems only__
     * `/tmp/octool -bi` # Build and install opencog
     * start the cogserver, telnet into it and access the scheme shell.
     * `(use-modules (opencog nlp) (opencog nlp chatbot))`
-    * `(set! relex-server-host "172.17.0.69")`
+    * `(set-relex-server-host)`
     * `(nlp-parse "you know what this is.")`
 5. have fun hacking
 6. exit container
@@ -107,7 +107,7 @@ __For UNIX like Systems only__
    ```
    export RELEX_SOURCE_DIR=$HOME/path/to/relex
    ```
-   
+
 2. For starting the containers run either of the following commands,
   * If you want to map container ports to host run
     `docker-compose -f relex.yml run --service-ports relex`
