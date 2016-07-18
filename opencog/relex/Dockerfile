@@ -63,8 +63,8 @@ RUN unzip jwnl14-rc2.zip; cd jwnl14-rc2; \
     cd ..; rm -rf jwnl*
 
 # OpenNLP - Never changes, so do this first.
-ADD http://www.motorlogy.com/apache/opennlp/opennlp-1.5.3/apache-opennlp-1.5.3-bin.zip apache-opennlp-1.5.3-bin.zip
-RUN unzip apache-opennlp-1.5.3-bin.zip ;\
+ADD http://www-us.apache.org/dist/opennlp/opennlp-1.5.3/apache-opennlp-1.5.3-bin.tar.gz apache-opennlp-1.5.3-bin.tar.gz
+RUN tar -zxf apache-opennlp-1.5.3-bin.tar.gz ;\
     cd apache-opennlp-1.5.3; \
     cp lib/*.jar /usr/local/share/java/; \
     cp lib/*.jar /usr/share/java/; \
