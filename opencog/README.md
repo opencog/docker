@@ -91,7 +91,7 @@ __For UNIX like Systems only__
       `172.17.0.69     relex 8e7dc3a09f12 opencog_relex_1`
     * `/tmp/octool -bi` # Build and install opencog
     * start the cogserver, telnet into it and access the scheme shell.
-    * `(use-modules (opencog nlp) (opencog nlp chatbot))`
+    * `(use-modules (opencog nlp) (opencog nlp chatbot) (opencog nlp relex2logic))`
     * `(set-relex-server-host)`
     * `(nlp-parse "you know what this is.")`
 5. have fun hacking
