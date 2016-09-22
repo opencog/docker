@@ -44,3 +44,10 @@ document patomspace
 	Example:
 	patomspace as - Prints the whole atomspace as
 end
+
+
+# ----------------------------------------------------------------------------
+# For debugging python
+# See https://wiki.python.org/moin/DebuggingWithGdb
+# ----------------------------------------------------------------------------
+add-auto-load-safe-path  /usr/lib/debug/usr/bin/python2.7-gdb.py
