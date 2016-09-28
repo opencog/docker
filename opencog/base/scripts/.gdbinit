@@ -45,7 +45,6 @@ document patomspace
 	patomspace as - Prints the whole atomspace as
 end
 
-
 # ----------------------------------------------------------------------------
 # For debugging python
 # See https://wiki.python.org/moin/DebuggingWithGdb
