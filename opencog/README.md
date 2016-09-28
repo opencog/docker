@@ -26,18 +26,15 @@ your os, regardles of which project you are working on.
       development use `-ctu` options. Unless there are some system dependency
       changes, you don't have to update `opeoncog/opencog-deps` image.
     * To list the available options use `-h`
-3. sudo pip install -U docker-compose # only the first time or when updating
-4. Specify a directory for storing ccache's compiler outputs
+3. The following is required only if you want to use docker-compose setup that
+   is described below
 
    ```
-   mkdir -p $HOME/path/to/where/you/want/to/save/ccache/output
-   export CCACHE_DIR=$HOME/path/to/where/you/want/to/save/ccache/output`
+   sudo pip install -U docker-compose # This is required only the first time or when updating
    ```
 
-   Specifying this means, making a clean build of source code after removing a
-   container will be faster. If you don't want to do this, then comment out the
-   `- $CCACHE_DIR:/home/opencog/.ccache` in `common.yml` file
-5. Follow the steps below, as per your type of development.
+4. Run docker using whichever setup you are accustomed to. If you want to
+   use docker-compose, follow the steps below, as per your type of development.
 
 ### Windows
 1. Follow the instruction [here](https://docs.docker.com/engine/installation/windows)
@@ -61,9 +58,20 @@ your os, regardles of which project you are working on.
 
 ## Steps for OpenCog development
 
-__For UNIX like Systems only__
+__For UNIX like Systems only, and if you choose to use docker-compose__
 
-1. Add these lines to `~/.bashrc` at $HOME of your PC and run
+1. Specify a directory for storing ccache's compiler outputs on your host OS
+
+   ```
+   mkdir -p $HOME/path/to/where/you/want/to/save/ccache/output
+   export CCACHE_DIR=$HOME/path/to/where/you/want/to/save/ccache/output`
+   ```
+
+   Specifying this means, making a clean build of source code after removing a
+   container will be faster. If you don't want to do this, then comment out the
+   `- $CCACHE_DIR:/home/opencog/.ccache` in `common.yml` file
+
+2. Add these lines to `~/.bashrc` at $HOME of your host OS and run
    `source ~/.bashrc`.
 
    ```
@@ -77,7 +85,8 @@ __For UNIX like Systems only__
    `export MOSES_SOURCE_DIR=$HOME/path/to/moses` and uncomment
    `- $MOSES_SOURCE_DIR:/moses` line in the docker-compose.yml file.__
 
-2. For starting the containers run either of the following commands,
+3. For starting the containers using docker-compose run either of the following
+   commands,
   * If you want to map container ports to host run
     `docker-compose run --service-ports dev`
   * If you don't want to map ports to host run
@@ -99,7 +108,7 @@ __For UNIX like Systems only__
 
 ## Steps for RelEx development
 
-__For UNIX like Systems only__
+__For UNIX like Systems only, and if you choose to use docker-compose__
 
 1. Add these lines to `~/.bashrc` at $HOME of your PC and run
    `source ~/.bashrc`.
