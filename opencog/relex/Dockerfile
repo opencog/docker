@@ -71,6 +71,9 @@ RUN tar -zxf apache-opennlp-1.5.3-bin.tar.gz ;\
     cp lib/opennlp-tools-1.5.3.jar /usr/local/share/java/opennlp-tools-1.5.0.jar; \
     cd .. ; rm -rf apache-opennlp*
 
+# Link-parser dependencies
+RUN apt-get install -y zlib1g-dev python-dev
+
 # Link Parser -- changes often
 # Download the current released version of link-grammar.
 # The wget gets the latest version w/ wildcard
