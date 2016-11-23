@@ -1,5 +1,6 @@
 cd $WORKSPACE
 chmod g+w .
+chmod -R g+w opencog
 docker info
 docker pull opencog/opencog-dev:cli
 docker images opencog/opencog-dev:cli
