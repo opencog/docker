@@ -12,34 +12,26 @@
 ## psql -h db -U opencog_user -d mycogdata
 printf "___ Configuring for standard OpenCog use ___\n"
 
-psql -U postgres -c "CREATE USER opencog_user WITH SUPERUSER PASSWORD 'cheese'"
+psql -U postgres -c \
+    "CREATE USER opencog_user WITH SUPERUSER PASSWORD '$POSTGRES_PASSWORD'"
 psql -U postgres -c "CREATE DATABASE mycogdata OWNER opencog_user"
 
-## 'cheese' is the password for the next step
-cat /tmp/atom.sql | psql mycogdata -U opencog_user
+printf "___ Create the database tables for standard OpenCog use ___\n"
+psql -U opencog_user -d mycogdata -a -f /tmp/atom.sql -h localhost
 
 # For Unit testing
 printf "\n___ Configuring for OpenCog unit testing ___\n"
-
-psql -U postgres -c "CREATE USER opencog_tester WITH SUPERUSER PASSWORD 'cheese'"
+psql -U postgres -c \
+    "CREATE USER opencog_tester WITH SUPERUSER PASSWORD '$POSTGRES_PASSWORD'"
 psql -U postgres -c "CREATE DATABASE opencog_test OWNER opencog_tester"
 
 ## 'cheese' is the password for the next step
-cat /tmp/atom.sql | psql opencog_test -U opencog_tester
-
-# Prevent the run of this script on startup. Since /docker-entrypoint.sh
-# in postgres image will execute any *.sh file on docker run and this script
-# is already run on image build.
-# NOTE: docker-entrypoint.sh runs this script in the same process thus
-# the environment variables had to be named explicitly, see
-# http://stackoverflow.com/a/8352939/2322857
-FILE_NAME="configure.sh"
-DIR_PATH="docker-entrypoint-initdb.d"
-mv "$DIR_PATH/$FILE_NAME" "$DIR_PATH/$FILE_NAME.done"
+printf "\n___ Create the database tables for OpenCog unit testing ___\n"
+psql -U opencog_tester -d opencog_test -a -f /tmp/atom.sql -h localhost
 
 # Continue the running of docker-entrypoint.sh after configuration.
 # NOTE: Copy pasted from docker-entrypoint.sh
-gosu postgres pg_ctl -D "$PGDATA" -m fast -w stop
+PGUSER="${PGUSER:-postgres}" pg_ctl -D "$PGDATA" -m fast -w stop
 
 echo
 echo 'PostgreSQL init process complete; ready for start up.'
