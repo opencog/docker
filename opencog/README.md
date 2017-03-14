@@ -161,6 +161,17 @@ __For UNIX like systems only, and if you choose to use docker-compose__
    configured inside the container, follow the steps described
    [here](https://github.com/opencog/opencog-to-minecraft#steps-to-start-the-bot)
 
+## Steps for opencog perception developments
+__WIP and only for use with systems with gpus, for now__
+1. Install nvidia docker plugin by following instruction
+   [here](https://github.com/NVIDIA/nvidia-docker/wiki/Installation).
+
+2. Build openog/perception image by running
+   `docker build -t opencog/perception perception/` from this directory.
+
+3. For usage of the built image see
+   [here](https://github.com/NVIDIA/nvidia-docker/wiki/nvidia-docker).
+
 ## Notes
 1. Tmux is preinstalled so you can use it for multiple windows/panes.
 
