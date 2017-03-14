@@ -163,6 +163,7 @@ __For UNIX like systems only, and if you choose to use docker-compose__
 
 ## Steps for opencog perception developments
 __WIP and only for use with systems with gpus, for now__
+
 1. Install nvidia docker plugin by following instruction
    [here](https://github.com/NVIDIA/nvidia-docker/wiki/Installation).
 
