@@ -12,6 +12,8 @@ RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 USER opencog
 WORKDIR /home/opencog
 
+COPY .tmux.conf /home/opencog/.tmux.conf
+
 # Docker defaults
 CMD bash
 
