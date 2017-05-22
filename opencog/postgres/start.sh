@@ -42,14 +42,15 @@ if [ "$1" = "postgres" ]; then
       alter_pg shared_buffers $(ram_percent 25)
       alter_pg work_mem 32MB
       alter_pg effective_cache_size $(ram_percent 50)
-      alter_pg fsync off
       alter_pg synchronous_commit off
       # In 9.5 wal_buffers is auto-calcuated as 1/32 of shared_buffers
-      alter_pg commit_delay 10000
       # In 9.5 checkpoint_segments doesn't exist
+      alter_pg max_connections 130
+      alter_pg max_worker_processes 32
+      alter_pg checkpoint_timeout 1h
+      alter_pg max_wal_size 8GB
+      alter_pg checkpoint_completion_target 0.9
       alter_pg ssl off
-      alter_pg autovacuum on
-      alter_pg track_counts on
 
       # Stop the server for a restart for changes to take effect.
       gosu postgres pg_ctl -D "$PGDATA" -m fast -w stop

@@ -15,6 +15,6 @@ done
 
 if [ $STARTED == "FALSE" ]; then
     echo "Starting container opencog-postgres"
-    docker run  -d --name opencog-postgres -p 5432:5432 opencog/postgres
+    docker run  -d --name opencog-postgres -e PROD="True" -p 5432:5432 opencog/postgres
     echo "Started container opencog-postgres"
 fi
