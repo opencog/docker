@@ -28,11 +28,11 @@ printf "\n\n----Finished configuring workspace for master----"
 ## Just add to this section on adding new slaves in master.cfg.
 printf "\n\n----Starting configuring workspace for buildslaves----"
 
-## cogutils
-printf "\n\n----Starting configuring workspace for cogutils buildslave\n"
-buildslave create-slave -r /var/workspace/cogutils \
-        buildmaster cogutils XXXXXX
-printf "\n\n----Finished configuring workspace for cogutils buildslave"
+## cogutil
+printf "\n\n----Starting configuring workspace for cogutil buildslave\n"
+buildslave create-slave -r /var/workspace/cogutil \
+        buildmaster cogutil XXXXXX
+printf "\n\n----Finished configuring workspace for cogutil buildslave"
 
 ## atomspace
 printf "\n\n----Starting configuring workspace for atomspace buildslave\n"

@@ -6,7 +6,7 @@ dev:
         service: workspace
     volumes:
         - $ATOMSPACE_SOURCE_DIR:/atomspace
-        - $COGUTILS_SOURCE_DIR:/cogutils
+        - $COGUTIL_SOURCE_DIR:/cogutil
         # Uncomment the following lines if you want to work on moses
         # - $MOSES_SOURCE_DIR:/moses
     working_dir: /opencog # This is the same as the volume mount point below

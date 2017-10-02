@@ -11,9 +11,9 @@ printf "Usage: ./$SELF_NAME [OPTIONS]
     -a Wait for configuration of workspace and run buildslave process for
        atomspace tests.
     -c Wait for configuration of workspace and run buildslave process for
-       cogutils tests.
+       cogutil tests.
     -o Wait for configuration of workspace and run buildslave process for
-       cogutils tests.
+       cogutil tests.
     -m Wait for configuration of workspace and run buildslave process for
        moses tests.
     -h This help message. \n"
@@ -22,7 +22,7 @@ printf "Usage: ./$SELF_NAME [OPTIONS]
 
 # Main Execution
 ATOMSPACE_WORKSPACE_CONFIGURED=false
-COGUTILS_WORKSPACE_CONFIGURED=false
+COGUTIL_WORKSPACE_CONFIGURED=false
 OPENCOG_WORKSPACE_CONFIGURED=false
 MOSES_WORKSPACE_CONFIGURED=false
 
@@ -31,7 +31,7 @@ if [ $# -eq 0 ] ; then NO_ARGS=true ; fi
 while getopts "acom" flag ; do
     case $flag in
         a) RUN_ATOMSPACE_BUILDSLAVE=true ;;
-        c) RUN_COGUTILS_BUILDSLAVE=true ;;
+        c) RUN_COGUTIL_BUILDSLAVE=true ;;
         o) RUN_OPENCOG_BULDSLAVE=true ;;
         m) RUN_MOSES_BULDSLAVE=true ;;
         h) usage ;;
@@ -52,10 +52,10 @@ if [ $RUN_ATOMSPACE_BUILDSLAVE ] ; then
                 echo "----Removed stale twisted.pid file from atomspace \
                     buildslave workspace."
             fi
-            # cogutils is required for tests to run.
-            echo "----Installing/Updating cogutils."
+            # cogutil is required for tests to run.
+            echo "----Installing/Updating cogutil."
             sudo /tmp/octool -c
-            echo "----Installed/Updated cogutils."
+            echo "----Installed/Updated cogutil."
 
             # this is set to true so as to avoid an infinit loop should the
             # start of the buildslave fail.
@@ -69,27 +69,27 @@ if [ $RUN_ATOMSPACE_BUILDSLAVE ] ; then
     done
 fi
 
-## Cogutils
-if [ $RUN_COGUTILS_BUILDSLAVE ] ; then
-    while [ $COGUTILS_WORKSPACE_CONFIGURED == false ] ; do
-        if [ -a /var/workspace/cogutils/buildbot.tac ]; then
-            echo "----cogutils buildslave workspace is configured."
+## Cogutil
+if [ $RUN_COGUTIL_BUILDSLAVE ] ; then
+    while [ $COGUTIL_WORKSPACE_CONFIGURED == false ] ; do
+        if [ -a /var/workspace/cogutil/buildbot.tac ]; then
+            echo "----cogutil buildslave workspace is configured."
             # the remove is required so as to enable restart when container
             # fails, as twisted.pid is a lock against multiple instances.
-            if [ -a /var/workspace/cogutils/twistd.pid ]; then
-                rm /var/workspace/cogutils/twistd.pid
-                echo "----Removed stale twisted.pid file from cogutils \
+            if [ -a /var/workspace/cogutil/twistd.pid ]; then
+                rm /var/workspace/cogutil/twistd.pid
+                echo "----Removed stale twisted.pid file from cogutil \
                     buildslave workspace."
             fi
 
             # this is set to true so as to avoid an infinit loop should the
             # start of the buildslave fail.
-            COGUTILS_WORKSPACE_CONFIGURED=true
+            COGUTIL_WORKSPACE_CONFIGURED=true
             sleep 30s # This is to give time for master to finish setting up.
-            buildslave start --nodaemon /var/workspace/cogutils
+            buildslave start --nodaemon /var/workspace/cogutil
         fi
 
-        echo "----cogutils buildslave workspace not configured yet."
+        echo "----cogutil buildslave workspace not configured yet."
         sleep 10s
     done
 fi
@@ -107,10 +107,10 @@ if [ $RUN_OPENCOG_BULDSLAVE ] ; then
                     buildslave workspace."
             fi
 
-            # cogutils and atomspace are required for tests to run.
-            echo "----Installing/Updating cogutils and atomspace."
+            # cogutil and atomspace are required for tests to run.
+            echo "----Installing/Updating cogutil and atomspace."
             sudo /tmp/octool -ca
-            echo "----Installed/Updated cogutils and atomspace."
+            echo "----Installed/Updated cogutil and atomspace."
 
             # this is set to true so as to avoid an infinit loop should the
             # start of the buildslave fail.
@@ -137,10 +137,10 @@ if [ $RUN_MOSES_BULDSLAVE ] ; then
                     buildslave workspace."
             fi
 
-            # cogutils is required for tests to run.
-            echo "----Installing/Updating cogutils."
+            # cogutil is required for tests to run.
+            echo "----Installing/Updating cogutil."
             sudo /tmp/octool -c
-            echo "----Installed/Updated cogutils."
+            echo "----Installed/Updated cogutil."
 
             # this is set to true so as to avoid an infinit loop should the
             # start of the buildslave fail.

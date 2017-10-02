@@ -111,12 +111,12 @@
       <command>cd $WORKSPACE
 
 docker info
-docker pull opencog/cogutils
-docker images opencog/cogutils
+docker pull opencog/cogutil
+docker images opencog/cogutil
 
 docker run --rm -v $PWD:/moses -v /var/opencog/ccache:/home/opencog/.ccache \
   -e CCACHE_UMASK=002 -e PATH=/usr/lib/ccache:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin \
-  opencog/cogutils /bin/sh -c &quot;cd /moses &amp;&amp; rm -rf build &amp;&amp; /tmp/octool -beti&quot;
+  opencog/cogutil /bin/sh -c &quot;cd /moses &amp;&amp; rm -rf build &amp;&amp; /tmp/octool -beti&quot;
 </command>
     </hudson.tasks.Shell>
   </builders>

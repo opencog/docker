@@ -21,7 +21,7 @@ master:
 
 # All the buildslave containers have the same structure. The main difference is
 # in the run command.
-cogutils:
+cogutil:
     build: slaves/latest
     volumes_from:
         - workspace
