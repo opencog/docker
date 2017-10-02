@@ -9,7 +9,7 @@
 export OPENCOG_SOURCE_DIR=$HOME/path/to/opencog
 export RELEX_SOURCE_DIR=$HOME/path/to/relex
 export ATOMSPACE_SOURCE_DIR=$HOME/path/to/atomspace
-export COGUTILS_SOURCE_DIR=$HOME/path/to/cogutils
+export COGUTIL_SOURCE_DIR=$HOME/path/to/cogutil
 export MOSES_SOURCE_DIR=$HOME/path/to/moses
 
 # NOTE: Error outputs during creation are silenced b/c this script is a
@@ -30,7 +30,7 @@ docker create \
     -v "$OPENCOG_SOURCE_DIR:/opencog" \
     -v "$RELEX_SOURCE_DIR:/relex" \
     -v "$ATOMSPACE_SOURCE_DIR:/atomspace" \
-    -v "$COGUTILS_SOURCE_DIR:/cogutils" \
+    -v "$COGUTIL_SOURCE_DIR:/cogutil" \
     -v "$MOSES_SOURCE_DIR:/moses" \
     -e PYTHONPATH=/usr/local/share/opencog/python:/opencog/opencog/python/:/opencog/build/opencog/cython:/opencog/opencog/nlp/anaphora \
     -e OPENCOG_SOURCE_DIR=/opencog \

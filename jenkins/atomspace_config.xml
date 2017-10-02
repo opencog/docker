@@ -115,15 +115,15 @@
 
 docker info
 docker pull opencog/postgres
-docker pull opencog/cogutils
-docker images opencog/cogutils
+docker pull opencog/cogutil
+docker images opencog/cogutil
 docker inspect --format=&quot;{{ .State.Running }}&quot; postgres 2&gt;/dev/null &amp;&amp; docker rm -f postgres
 docker run -d --name postgres opencog/postgres
 
 docker run --rm -v $PWD:/atomspace -v /var/opencog/ccache:/home/opencog/.ccache \
   --link postgres:db -e PGHOST=db -e PGUSER=opencog_test \
   -e CCACHE_UMASK=002 -e PATH=/usr/lib/ccache:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin \
-  opencog/cogutils /bin/sh -c &quot;cd /atomspace &amp;&amp; rm -rf build &amp;&amp; /tmp/octool -beti&quot;
+  opencog/cogutil /bin/sh -c &quot;cd /atomspace &amp;&amp; rm -rf build &amp;&amp; /tmp/octool -beti&quot;
 
 docker inspect --format=&quot;{{ .State.Running }}&quot; postgres 2&gt;/dev/null &amp;&amp; docker rm -f postgres
 

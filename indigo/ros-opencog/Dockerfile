@@ -11,7 +11,7 @@ MAINTAINER Linas Vepštas "linasvepstas@gmail.com"
 ENV LAST_OS_UPDATE 2016-02-18
 RUN apt-get -y update
 RUN apt-get -y upgrade
-# Base stuff for cogutils. All on one line, to avoid error
+# Base stuff for cogutil. All on one line, to avoid error
 # `Cannot create container with more than 127 parents`
 RUN apt-get -y install gcc g++ cmake binutils-dev libiberty-dev \
     libboost-dev libboost-date-time-dev libboost-filesystem-dev \
@@ -34,7 +34,7 @@ RUN apt-get -y install guile-2.0-dev cython unixodbc-dev odbc-postgresql \
 # Right now, just clone the OpenCog sources. They will be built
 # later on.
 WORKDIR /opencog
-RUN git clone https://github.com/opencog/cogutils.git
+RUN git clone https://github.com/opencog/cogutil.git
 RUN git clone https://github.com/opencog/atomspace.git
 RUN git clone https://github.com/opencog/opencog.git
 RUN git clone https://github.com/opencog/relex.git
@@ -114,7 +114,7 @@ RUN cd /opencog/ && find . -maxdepth 1 -mindepth 1 -type d \
 	-execdir git --git-dir=$PWD/{}/.git --work-tree=$PWD/{} pull \;
 
 # Build the base software.
-RUN (mkdir /opencog/cogutils/build; cd /opencog/cogutils/build; \
+RUN (mkdir /opencog/cogutil/build; cd /opencog/cogutil/build; \
 	cmake ..; make -j6; make install)
 RUN (mkdir /opencog/atomspace/build; cd /opencog/atomspace/build; \
 	cmake ..; make -j12; make install)
@@ -124,7 +124,7 @@ RUN (cd /opencog/relex; ant build; ant install)
 
 # Build the unit tests. This is .. optional, but we do it anyway,
 # for right now, just to sanity-check things.
-# WORKDIR /opencog/cogutils/build
+# WORKDIR /opencog/cogutil/build
 # RUN bash -l -c "make -j6 tests"
 #
 # WORKDIR /opencog/atomspace/build

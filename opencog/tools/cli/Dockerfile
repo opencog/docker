@@ -11,7 +11,7 @@
 # 6. make -j$(nproc)
 # Check http://wiki.opencog.org/w/Building_OpenCog on how to use IDEs
 
-FROM opencog/cogutils
+FROM opencog/cogutil
 MAINTAINER David Hart "dhart@opencog.org"
 
 # Install non-system project dependencies

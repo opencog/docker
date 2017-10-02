@@ -47,8 +47,8 @@ they are not in active use.
 
     ├─opencog/opencog-deps:utopic
     ├─opencog/opencog-deps:latest
-      ├─buildbot_* (Where * = atomspace, cogutils, opencog, moses)
-      ├─opencog/cogutils:latest
+      ├─buildbot_* (Where * = atomspace, cogutil, opencog, moses)
+      ├─opencog/cogutil:latest
         ├─opencog/opencog-dev:cli (for a dev environment)
         ├─opencog/opencog-dev:ide
         ├─opencog/moses
@@ -61,14 +61,14 @@ they are not in active use.
    dependencies installed.
 
 * `opencog/opencog-deps:latest`: ubuntu 14.04 based image with all OpenCog's
-   dependencies installed. This forms the base of opencog/cogutils. It
+   dependencies installed. This forms the base of opencog/cogutil. It
    likely will be updated to the latest LTS as it is released. Has some command
    line tools for use by developers.
 
 * `buildbot_*`: Is used for buildbot found [here](buildbot.opencog.org:8010)
 
-* `opencog/cogutils`: It is the base image for `opencog/opencog-dev:cli`,
-   `opencog/opencog-dev:ide` and `opencog/moses` images. It installs cogutils
+* `opencog/cogutil`: It is the base image for `opencog/opencog-dev:cli`,
+   `opencog/opencog-dev:ide` and `opencog/moses` images. It installs cogutil
    over `opencog/opencog-deps` image. The main reason for having this is to
    speed up rebuilds as one doesn't ave to rebuild the `opencog-deps` image,
    unless there are dependency changes, and rebuilding this image will suffice

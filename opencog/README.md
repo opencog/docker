@@ -84,7 +84,7 @@ __For UNIX like systems only, and if you choose to use docker-compose__
    ```
    export OPENCOG_SOURCE_DIR=$HOME/path/to/opencog
    export ATOMSPACE_SOURCE_DIR=$HOME/path/to/atomspace
-   export COGUTILS_SOURCE_DIR=$HOME/path/to/cogutils
+   export COGUTIL_SOURCE_DIR=$HOME/path/to/cogutil
    export OC2MC_SOURCE_DIR=$HOME/path/to/opencog-to-minecraft
    ```
 
@@ -140,7 +140,7 @@ __For UNIX like systems only, and if you choose to use docker-compose__
     ```
     export OPENCOG_SOURCE_DIR=$HOME/path/to/opencog
     export ATOMSPACE_SOURCE_DIR=$HOME/path/to/atomspace
-    export COGUTILS_SOURCE_DIR=$HOME/path/to/cogutils
+    export COGUTIL_SOURCE_DIR=$HOME/path/to/cogutil
     export OC2MC_SOURCE_DIR=$HOME/path/to/opencog-to-minecraft
     ```
 

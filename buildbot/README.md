@@ -28,5 +28,5 @@ The buildbot that is running this configuration is found [here](http://buildbot.
 3. Add integration testing between opencog and unity3d-opencog-game
 4. Add support for offline run of unit tests on developer machine using their
    local clone.
-5. Auto update buildslaves installation of cogutils and/or atomspace when build
+5. Auto update buildslaves installation of cogutil and/or atomspace when build
    passes for these repositories.

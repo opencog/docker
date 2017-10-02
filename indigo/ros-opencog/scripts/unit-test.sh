@@ -10,7 +10,7 @@ echo "Will Run OpenCog unit tests..."
 # Use byobu so that the scroll bars actually work
 byobu new-session -d -n 'bash' '$SHELL'
 
-tmux new-window -n 'utils' 'cd /opencog/cogutils/build && make test; $SHELL'
+tmux new-window -n 'utils' 'cd /opencog/cogutil/build && make test; $SHELL'
 tmux new-window -n 'atoms' 'cd /opencog/atomspace/build && make test; $SHELL'
 tmux new-window -n 'servr' 'cd /opencog/opencog/build && make test; $SHELL'
 

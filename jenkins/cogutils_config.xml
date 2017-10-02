@@ -1,13 +1,13 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <project>
   <actions/>
-  <description>opencog/cogutils</description>
-  <displayName>opencog/cogutils</displayName>
+  <description>opencog/cogutil</description>
+  <displayName>opencog/cogutil</displayName>
   <keepDependencies>false</keepDependencies>
   <properties>
     <com.coravy.hudson.plugins.github.GithubProjectProperty plugin="github@1.16.0">
-      <projectUrl>https://github.com/opencog/cogutils/</projectUrl>
-      <displayName>opencog/cogutils</displayName>
+      <projectUrl>https://github.com/opencog/cogutil/</projectUrl>
+      <displayName>opencog/cogutil</displayName>
     </com.coravy.hudson.plugins.github.GithubProjectProperty>
     <hudson.model.ParametersDefinitionProperty>
       <parameterDefinitions>
@@ -42,7 +42,7 @@
       <hudson.plugins.git.UserRemoteConfig>
         <name>origin</name>
         <refspec>+refs/heads/*:refs/remotes/origin/* +refs/pull/*:refs/remotes/origin/pr/*</refspec>
-        <url>https://github.com/opencog/cogutils.git</url>
+        <url>https://github.com/opencog/cogutil.git</url>
       </hudson.plugins.git.UserRemoteConfig>
     </userRemoteConfigs>
     <branches>
@@ -92,7 +92,7 @@
           <branch></branch>
         </org.jenkinsci.plugins.ghprb.GhprbBranch>
       </whiteListTargetBranches>
-      <project>ci-cogutils</project>
+      <project>ci-cogutil</project>
       <__project class="project" reference="../../.."/>
       <gitHubAuthId>d49e5527-98a5-4527-991b-80f92eee4914</gitHubAuthId>
       <extensions>
@@ -113,9 +113,9 @@ docker info
 docker pull opencog/opencog-deps
 docker images opencog/opencog-deps
 
-docker run --rm -v $PWD:/cogutils -v /var/opencog/ccache:/home/opencog/.ccache \
+docker run --rm -v $PWD:/cogutil -v /var/opencog/ccache:/home/opencog/.ccache \
   -e CCACHE_UMASK=002 -e PATH=/usr/lib/ccache:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin \
-  opencog/opencog-deps /bin/sh -c &quot;cd /cogutils &amp;&amp; rm -rf build &amp;&amp; /tmp/octool -bti&quot;</command>
+  opencog/opencog-deps /bin/sh -c &quot;cd /cogutil &amp;&amp; rm -rf build &amp;&amp; /tmp/octool -bti&quot;</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers>

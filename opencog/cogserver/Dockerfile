@@ -3,7 +3,7 @@
 # 2. docker run -p 17001:17001 -it opencog/cogserver
 # 3. rlwrap telnet localhost 17001
 
-FROM opencog/cogutils
+FROM opencog/cogutil
 
 # Install non-system project dependencies
 RUN  /tmp/octool -al ; ccache -C

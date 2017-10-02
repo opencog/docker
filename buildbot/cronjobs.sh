@@ -141,9 +141,9 @@ fi
 TRIGGERED_COMMAND='echo replace with the command for ocpkg repo'
 trigger_command ocpkg "$TRIGGERED_COMMAND"
 
-## For opencog/cogutils docker image
-TRIGGERED_COMMAND="echo replace with the command for cogutils repo"
-trigger_command cogutils "$TRIGGERED_COMMAND"
+## For opencog/cogutil docker image
+TRIGGERED_COMMAND="echo replace with the command for cogutil repo"
+trigger_command cogutil "$TRIGGERED_COMMAND"
 
 ## For opencog/opencog-dev:cli docker image
 TRIGGERED_COMMAND="echo replace with the command for atomspace repo"
