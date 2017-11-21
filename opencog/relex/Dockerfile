@@ -25,7 +25,7 @@ MAINTAINER David Hart "dhart@opencog.org"
 MAINTAINER Linas Vepštas "linasvepstas@gmail.com"
 
 # Avoid triggering apt-get dialogs (which may lead to errors). See:
-# http://stackoverflow.com/questions/25019183/docker-java7-install-fail
+# https://stackoverflow.com/questions/25019183/docker-java7-install-fail
 ENV DEBIAN_FRONTEND noninteractive
 
 ENV JAVA_HOME /usr/lib/jvm/java-7-openjdk-amd64
@@ -56,14 +56,14 @@ RUN mkdir /usr/local/share/java
 WORKDIR /home/Downloads/
 
 # JWNL - Never changes, so do this first.
-ADD http://downloads.sourceforge.net/project/jwordnet/jwnl/JWNL%201.4/jwnl14-rc2.zip jwnl14-rc2.zip
+ADD https://downloads.sourceforge.net/project/jwordnet/jwnl/JWNL%201.4/jwnl14-rc2.zip jwnl14-rc2.zip
 RUN unzip jwnl14-rc2.zip; cd jwnl14-rc2; \
     cp jwnl.jar /usr/local/share/java/; \
     chmod 755 /usr/local/share/java/jwnl.jar; \
     cd ..; rm -rf jwnl*
 
 # OpenNLP - Never changes, so do this first.
-ADD http://www-us.apache.org/dist/opennlp/opennlp-1.5.3/apache-opennlp-1.5.3-bin.tar.gz apache-opennlp-1.5.3-bin.tar.gz
+ADD https://archive.apache.org/dist/opennlp/opennlp-1.5.3/apache-opennlp-1.5.3-bin.tar.gz apache-opennlp-1.5.3-bin.tar.gz
 RUN tar -zxf apache-opennlp-1.5.3-bin.tar.gz ;\
     cd apache-opennlp-1.5.3; \
     cp lib/*.jar /usr/local/share/java/; \
@@ -74,13 +74,13 @@ RUN tar -zxf apache-opennlp-1.5.3-bin.tar.gz ;\
 # Link Parser -- changes often
 # Download the current released version of link-grammar.
 # The wget gets the latest version w/ wildcard
-RUN wget -r --no-parent -nH --cut-dirs=2 http://www.abisource.com/downloads/link-grammar/current/
+RUN wget -r --no-parent -nH --cut-dirs=2 https://www.abisource.com/downloads/link-grammar/current/
 RUN tar -zxf current/link-grammar-5*.tar.gz ;\
     cd link-grammar-5.*/; ./configure; make -j6; sudo make install; \
     ldconfig; cd .. ; rm -rf * link-grammar*
 
 # Relex -- changes often
-ADD http://github.com/opencog/relex/archive/master.tar.gz master.tar.gz
+ADD https://github.com/opencog/relex/archive/master.tar.gz master.tar.gz
 RUN tar -xvf master.tar.gz; cd relex-master; ant
 
 # Create and switch user. The user is privileged, with no password
