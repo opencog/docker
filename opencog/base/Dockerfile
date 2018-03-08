@@ -3,7 +3,6 @@
 # docker build --no-cache -t opencog/opencog-deps .
 
 FROM ubuntu:16.04
-MAINTAINER David Hart "dhart@opencog.org"
 
 RUN apt-get update
 

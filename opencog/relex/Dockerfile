@@ -21,8 +21,6 @@
 # parse of the sentence, in opencog scheme format.
 #
 FROM ubuntu:14.04
-MAINTAINER David Hart "dhart@opencog.org"
-MAINTAINER Linas Vepštas "linasvepstas@gmail.com"
 
 # Avoid triggering apt-get dialogs (which may lead to errors). See:
 # https://stackoverflow.com/questions/25019183/docker-java7-install-fail
