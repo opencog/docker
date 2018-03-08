@@ -12,7 +12,6 @@
 # Check http://wiki.opencog.org/w/Building_OpenCog on how to use IDEs
 
 FROM opencog/cogutil
-MAINTAINER David Hart "dhart@opencog.org"
 
 # Install non-system project dependencies
 RUN  /tmp/octool -ao ; ccache -C

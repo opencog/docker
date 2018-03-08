@@ -10,8 +10,6 @@
 #  Check http://wiki.opencog.org/w/Using_QT_Creator on how to use qtcreator.
 
 FROM opencog/cogutil
-MAINTAINER Alex van der Peet "alex.van.der.peet@gmail.com"
-MAINTAINER David Hart "dhart@opencog.org"
 
 # Install non-system project dependencies
 RUN  /tmp/octool -al ; ccache -C

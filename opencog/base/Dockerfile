@@ -2,15 +2,14 @@
 #
 # docker build --no-cache -t opencog/opencog-deps .
 
-FROM ubuntu:14.04
-MAINTAINER David Hart "dhart@opencog.org"
+FROM ubuntu:16.04
 
 RUN apt-get update
 
 # Install tools for developers.
 RUN apt-get -y install software-properties-common wget rlwrap telnet \
                        netcat-openbsd less curl vim python2.7-dbg \
-                       tmux man git valgrind gdb
+                       tmux man git valgrind gdb sudo
 
 # Install repositories and dependencies
 ADD https://raw.githubusercontent.com/opencog/ocpkg/master/ocpkg \
