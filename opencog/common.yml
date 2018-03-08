@@ -16,7 +16,7 @@ workspace:
         - /etc/localtime:/etc/localtime:ro # for syncing with host time.
         - $CCACHE_DIR:/home/opencog/.ccache # for persisting ccache artifacts
     environment: # Set environment variables within the container
-        - PYTHONPATH=/usr/local/share/opencog/python:/opencog/opencog/python/:/opencog/build/opencog/cython:/opencog/opencog/nlp/anaphora
+        - PYTHONPATH=/usr/local/lib/python3.5/dist-packages:/opencog/opencog/python/:/opencog/build/opencog/cython:/opencog/opencog/nlp/anaphora
         - OPENCOG_SOURCE_DIR=/opencog
         - PGHOST=db # This should be the same as the link's alias
         - PGUSER=opencog_user # user created by configure-database.sh
