@@ -20,7 +20,7 @@
 # with a period, and hit enter.  The response returned will be the
 # parse of the sentence, in opencog scheme format.
 #
-FROM ubuntu:14.04
+FROM ubuntu:16.04
 
 # Avoid triggering apt-get dialogs (which may lead to errors). See:
 # https://stackoverflow.com/questions/25019183/docker-java7-install-fail
@@ -31,20 +31,21 @@ ENV JAVA_HOME /usr/lib/jvm/java-7-openjdk-amd64
 RUN apt-get update ; apt-get -y upgrade ; apt-get -y autoclean
 
 RUN apt-get -y install screen telnet netcat-openbsd byobu \
-                       wget vim git unzip
+                       wget vim git unzip sudo apt-utils
 
 # GCC and basic build tools
 RUN apt-get -y install gcc g++ make
 
 # Java
-RUN apt-get -y install openjdk-7-jdk ant libcommons-logging-java
+RUN apt-get -y install openjdk-8-jdk ant libcommons-logging-java
+ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/
 
 # Wordnet
 RUN apt-get -y install wordnet wordnet-dev wordnet-sense-index
 
 # There are UTF8 chars in the Java sources, and the RelEx build will
 # break if build in a C environment.
-RUN locale-gen en_US.UTF-8
+RUN apt-get -y install locales && locale-gen en_US.UTF-8
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
@@ -54,15 +55,15 @@ RUN mkdir /usr/local/share/java
 WORKDIR /home/Downloads/
 
 # JWNL - Never changes, so do this first.
-ADD https://downloads.sourceforge.net/project/jwordnet/jwnl/JWNL%201.4/jwnl14-rc2.zip jwnl14-rc2.zip
-RUN unzip jwnl14-rc2.zip; cd jwnl14-rc2; \
+RUN wget https://downloads.sourceforge.net/project/jwordnet/jwnl/JWNL%201.4/jwnl14-rc2.zip \
+    && unzip jwnl14-rc2.zip; cd jwnl14-rc2; \
     cp jwnl.jar /usr/local/share/java/; \
     chmod 755 /usr/local/share/java/jwnl.jar; \
     cd ..; rm -rf jwnl*
 
 # OpenNLP - Never changes, so do this first.
-ADD https://archive.apache.org/dist/opennlp/opennlp-1.5.3/apache-opennlp-1.5.3-bin.tar.gz apache-opennlp-1.5.3-bin.tar.gz
-RUN tar -zxf apache-opennlp-1.5.3-bin.tar.gz ;\
+RUN wget https://archive.apache.org/dist/opennlp/opennlp-1.5.3/apache-opennlp-1.5.3-bin.tar.gz \
+    && tar -zxf apache-opennlp-1.5.3-bin.tar.gz ;\
     cd apache-opennlp-1.5.3; \
     cp lib/*.jar /usr/local/share/java/; \
     cp lib/*.jar /usr/share/java/; \
