@@ -11,6 +11,11 @@ RUN apt-get -y install software-properties-common wget rlwrap telnet \
                        netcat-openbsd less curl vim python2.7-dbg \
                        tmux man git valgrind gdb sudo
 
+
+#Java
+RUN apt-get -y install openjdk-8-jdk ant libcommons-logging-java
+ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/
+
 # Install repositories and dependencies
 ADD https://raw.githubusercontent.com/opencog/ocpkg/master/ocpkg \
     /tmp/octool
