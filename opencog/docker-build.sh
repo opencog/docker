@@ -25,6 +25,7 @@ usage() {
 printf "Usage: ./%s [OPTIONS]
 
   OPTIONS:
+    -a Pull all images needed for development from hub.docker.com/u/opencog/
     -b Build opencog/opencog-deps image. It is the base image for
        tools, cogutil, cogserver, and the buildbot images.
     -c Builds opencog/cogutil image. It will build opencog/opencog-deps
@@ -44,7 +45,7 @@ printf "Usage: ./%s [OPTIONS]
 # -----------------------------------------------------------------------------
 ## Build opencog/opencog-deps image.
 build_opencog_deps() {
-    echo "---- Staring build of opencog/opencog-deps ----"
+    echo "---- Starting build of opencog/opencog-deps ----"
     docker build $CACHE_OPTION -t opencog/opencog-deps base
     echo "---- Finished build of opencog/opencog-deps ----"
 }
@@ -60,7 +61,7 @@ check_opencog_deps() {
 ## Build opencog/cogutil image.
 build_cogutil() {
     check_opencog_deps
-    echo "---- Staring build of opencog/cogutil ----"
+    echo "---- Starting build of opencog/cogutil ----"
     docker build $CACHE_OPTION -t opencog/cogutil cogutil
     echo "---- Finished build of opencog/cogutil ----"
 
@@ -77,7 +78,7 @@ check_cogutil() {
 ## Build opencog/opencog-dev:cli image.
 build_dev_cli() {
     check_cogutil
-    echo "---- Staring build of opencog/opencog-dev:cli ----"
+    echo "---- Starting build of opencog/opencog-dev:cli ----"
     docker build $CACHE_OPTION -t opencog/opencog-dev:cli tools/cli
     echo "---- Finished build of opencog/opencog-dev:cli ----"
 }
@@ -90,11 +91,24 @@ check_dev_cli() {
 }
 
 # -----------------------------------------------------------------------------
+## Pull all images needed for development from hub.docker.com/u/opencog/
+pull_dev_images() {
+  echo "---- Starting pull of opencog development images ----"
+  docker pull opencog/opencog-deps
+  docker pull opencog/cogutil
+  docker pull opencog/opencog-dev:cli
+  docker pull opencog/postgres
+  docker pull opencog/relex
+  echo "---- Finished pull of opencog development images ----"
+}
+
+# -----------------------------------------------------------------------------
 # Main Execution
 if [ $# -eq 0 ] ; then NO_ARGS=true ; fi
 
-while getopts "bcehmprtu" flag ; do
+while getopts "abcehmprtu" flag ; do
     case $flag in
+        a) PULL_DEV_IMAGES=true ;;
         b) BUILD_OPENCOG_BASE_IMAGE=true ;;
         t) BUILD_TOOL_IMAGE=true ;;
         e) BUILD_EMBODIMENT_IMAGE=true ;;
@@ -104,12 +118,17 @@ while getopts "bcehmprtu" flag ; do
         r) BUILD_RELEX_IMAGE=true ;;
         u) CACHE_OPTION=--no-cache ;;
         h) usage ;;
-        \?) usage ;;
+        \?) usage; exit 1 ;;
         *)  UNKNOWN_FLAGS=true ;;
     esac
 done
 
 # NOTE: To avoid repetion of builds don't reorder the sequence here.
+
+if [ $PULL_DEV_IMAGES ] ; then
+    pull_dev_images
+    exit 0
+fi
 
 if [ $BUILD_OPENCOG_BASE_IMAGE ] ; then
     build_opencog_deps
@@ -125,29 +144,29 @@ fi
 
 if [ $BUILD_EMBODIMENT_IMAGE ] ; then
     check_dev_cli
-    echo "---- Staring build of opencog/minecraft ----"
+    echo "---- Starting build of opencog/minecraft ----"
     docker build $CACHE_OPTION -t opencog/minecraft:0.1.0 minecraft
     echo "---- Finished build of opencog/minecraft ----"
 fi
 
 if [ $BUILD__MOSES_IMAGE ] ; then
     check_cogutil
-    echo "---- Staring build of opencog/moses ----"
+    echo "---- Starting build of opencog/moses ----"
     docker build $CACHE_OPTION -t opencog/moses moses
     echo "---- Finished build of opencog/moses ----"
 fi
 
 if [ $BUILD__POSTGRES_IMAGE ] ; then
-    echo "---- Staring build of opencog/postgres ----"
+    echo "---- Starting build of opencog/postgres ----"
     docker build $CACHE_OPTION -t opencog/postgres postgres
     echo "---- Finished build of opencog/postgres ----"
 fi
 
 if [ $BUILD_RELEX_IMAGE ] ; then
-    echo "---- Staring build of opencog/relex ----"
+    echo "---- Starting build of opencog/relex ----"
     docker build $CACHE_OPTION -t opencog/relex relex
     echo "---- Finished build of opencog/relex ----"
 fi
 
-if [ $UNKNOWN_FLAGS ] ; then usage ; fi
+if [ $UNKNOWN_FLAGS ] ; then usage; exit 1 ; fi
 if [ $NO_ARGS ] ; then usage ; fi
