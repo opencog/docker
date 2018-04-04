@@ -8,7 +8,9 @@ development.
   2. [windows](#windows)
 2. [Steps for OpenCog development](#steps-for-opencog-development)
 3. [Steps for RelEx development](#steps-for-relex-development)
+<!--
 4. [Steps for opencog-to-minecraft development](#steps-for-opencog-to-minecraft-development)
+-->
 
 ## Common Initial Setups
 The following sub-sections describe the steps required to configure docker on
@@ -21,7 +23,7 @@ your os, regardles of which project you are working on.
 2. Build images using `./docker-build.sh [OPTIONS]`.
     * For opencog development use `-bctp` option
     * For NLP related work use`-r` option
-    * For opencog-to-minecraft use `-bcte` option
+    <!-- * For opencog-to-minecraft use `-bcte` option -->
     * If you want to update your images add `-u` option. For example for opencog
       development use `-ctu` options. Unless there are some system dependency
       changes, you don't have to update `opeoncog/opencog-deps` image.
@@ -131,6 +133,7 @@ __For UNIX like systems only, and if you choose to use docker-compose__
   * If you don't want to map ports to host run
      `docker-compose -f relex.yml run relex`
 
+<!--
 ## Steps for opencog-to-minecraft development
 __For UNIX like systems only, and if you choose to use docker-compose__
 
@@ -181,3 +184,4 @@ __WIP and only for use with systems with gpus, for now__
    provided you haven't removed the containers or shutdown your machine.
 
 3. For more on docker-compose refert to https://docs.docker.com/compose/
+-->
