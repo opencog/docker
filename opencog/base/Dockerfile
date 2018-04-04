@@ -8,13 +8,13 @@ RUN apt-get update
 
 # Install tools for developers.
 RUN apt-get -y install software-properties-common wget rlwrap telnet \
-                       netcat-openbsd less curl vim python2.7-dbg \
+                       netcat-openbsd less curl vim python3-dbg \
                        tmux man git valgrind gdb sudo
 
 # Install repositories and dependencies
 ADD https://raw.githubusercontent.com/opencog/ocpkg/master/ocpkg \
     /tmp/octool
-RUN chmod 755 /tmp/octool;  sync; /tmp/octool -rdpvl
+RUN chmod 755 /tmp/octool;  sync; /tmp/octool -rdpv -l default
 
 # Environment Variables
 ## Set Locale
