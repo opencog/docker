@@ -3,7 +3,7 @@ Following are instructions on how to get started with using docker for opencog
 development.
 
 # Table of Contents
-1. [Initial Setups](#initial-setups)
+1. [Common Initial Setups](#common-initial-setups)
   1. [UNIX like Systems](#unix-like-systems)
   2. [windows](#windows)
 2. [Steps for OpenCog development](#steps-for-opencog-development)
@@ -18,7 +18,7 @@ your os, regardles of which project you are working on.
 1. Follow the instruction [here](https://docs.docker.com/engine/installation/)
    for setting docker,
 
-2. Build images using `./docker-build.sh [OPTIONS]`
+2. Build images using `./docker-build.sh [OPTIONS]`.
     * For opencog development use `-bctp` option
     * For NLP related work use`-r` option
     * For opencog-to-minecraft use `-bcte` option
@@ -40,7 +40,7 @@ your os, regardles of which project you are working on.
    choose to remove the containers.
 
 ### Windows
-1. Follow the instruction   
+1. Follow the instruction
    [here](https://docs.docker.com/engine/installation/windows) for setting
    docker,
 
