@@ -5,7 +5,7 @@ development.
 # Table of Contents
 1. [Common Initial Setups](#common-initial-setups)
   1. [UNIX like Systems](#unix-like-systems)
-  2. [windows](#windows)
+  2. [Windows](#windows)
 2. [Steps for OpenCog development](#steps-for-opencog-development)
 3. [Steps for RelEx development](#steps-for-relex-development)
 <!--
@@ -105,10 +105,10 @@ __For UNIX like systems only, and if you choose to use docker-compose__
 
 3. For starting the containers using docker-compose run either of the following
    commands,
-  * If you want to map container ports to host run
-    `docker-compose run --service-ports dev`
-  * If you don't want to map ports to host run
-    `docker-compose run dev`
+    * If you want to map container ports to host run
+      `docker-compose run --service-ports dev`
+    * If you don't want to map ports to host run
+      `docker-compose run dev`
 
 4. Build and install opencog by running `/tmp/octool -bi`
 
