@@ -20,14 +20,19 @@ your os, regardles of which project you are working on.
 1. Follow the instruction [here](https://docs.docker.com/engine/installation/)
    for setting docker,
 
+2. Pull images that are used for opencog development by running
+   `./docker-build.sh -a`
+<!--
 2. Build images using `./docker-build.sh [OPTIONS]`.
     * For opencog development use `-bctp` option
     * For NLP related work use`-r` option
-    <!-- * For opencog-to-minecraft use `-bcte` option -->
+    * For opencog-to-minecraft use `-bcte` option
     * If you want to update your images add `-u` option. For example for opencog
       development use `-ctu` options. Unless there are some system dependency
       changes, you don't have to update `opeoncog/opencog-deps` image.
     * To list the available options use `-h`
+-->
+
 3. The following is required only if you want to use docker-compose setup that
    is described below
 
@@ -49,6 +54,9 @@ your os, regardles of which project you are working on.
 2. Start the docker virtual machine using 'Docker Quickstart Terminal' as
    described in the linked web-page from the previous step,
 
+3. Pull images that are used for opencog development by running
+   `./docker-build.sh -a`
+<!--
 3. Build images using `./docker-build.sh [OPTIONS]`
     * For opencog development use `-bctp` option
     * For NLP related work add `-r` option
@@ -56,6 +64,7 @@ your os, regardles of which project you are working on.
       development use `-ctu` options. __Unless there are some system dependency
       changes, you don't have to update `opeoncog/opencog-deps` image.__
     * To list the available options use `-h`
+-->
 
 4. In the script `windows-run.sh` found in the same directory as this README,
    Replace '$HOME/path/to/' in the export command to the appropriate absolute
@@ -101,21 +110,20 @@ __For UNIX like systems only, and if you choose to use docker-compose__
   * If you don't want to map ports to host run
     `docker-compose run dev`
 
-4. For using opencog shells follow instruction
+4. Build and install opencog by running `/tmp/octool -bi`
+
+5. For using opencog shells follow instruction
    [here](http://wiki.opencog.org/w/OpenCog_shell)
 
-5. For configuring RelEx in the cogserver run
-    * `cat /etc/hosts`   # take note of the ip address for relex, e.g.
-      `172.17.0.69     relex 8e7dc3a09f12 opencog_relex_1`
-    * `/tmp/octool -bi` # Build and install opencog
+6. For configuring RelEx in the cogserver run
     * start the cogserver, telnet into it and access the scheme shell.
     * `(use-modules (opencog nlp) (opencog nlp chatbot) (opencog nlp relex2logic))`
     * `(set-relex-server-host)`
     * `(nlp-parse "you know what this is.")`
 
-6. have fun hacking
+7. have fun hacking
 
-7. exit container
+8. exit container
 
 ## Steps for RelEx development
 __For UNIX like systems only, and if you choose to use docker-compose__
@@ -175,6 +183,7 @@ __WIP and only for use with systems with gpus, for now__
 
 3. For usage of the built image see
    [here](https://github.com/NVIDIA/nvidia-docker/wiki/nvidia-docker).
+-->
 
 ## Notes
 1. Tmux is preinstalled so you can use it for multiple windows/panes.
@@ -184,4 +193,3 @@ __WIP and only for use with systems with gpus, for now__
    provided you haven't removed the containers or shutdown your machine.
 
 3. For more on docker-compose refert to https://docs.docker.com/compose/
--->
