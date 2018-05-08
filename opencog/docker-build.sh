@@ -31,8 +31,8 @@ printf "Usage: ./%s [OPTIONS]
     -c Builds opencog/cogutil image. It will build opencog/opencog-deps
        if it hasn't been built, as it forms its base image.
     -e Builds opencog/minecraft image. It will build all needed images if they
-    -j Builds opencog/jupyter image. It will add jupyter notebook to opencog/opencog-dev
        haven't already been built.
+    -j Builds opencog/jupyter image. It will add jupyter notebook to opencog/opencog-dev:cli
     -m Builds opencog/moses image.
     -p Builds opencog/postgres image.
     -r Builds opencog/relex image.
