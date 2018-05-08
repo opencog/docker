@@ -31,6 +31,7 @@ printf "Usage: ./%s [OPTIONS]
     -c Builds opencog/cogutil image. It will build opencog/opencog-deps
        if it hasn't been built, as it forms its base image.
     -e Builds opencog/minecraft image. It will build all needed images if they
+    -j Builds opencog/jupyter image. It will add jupyter notebook to opencog/opencog-dev
        haven't already been built.
     -m Builds opencog/moses image.
     -p Builds opencog/postgres image.
@@ -106,7 +107,7 @@ pull_dev_images() {
 # Main Execution
 if [ $# -eq 0 ] ; then NO_ARGS=true ; fi
 
-while getopts "abcehmprtu" flag ; do
+while getopts "abcehjmprtu" flag ; do
     case $flag in
         a) PULL_DEV_IMAGES=true ;;
         b) BUILD_OPENCOG_BASE_IMAGE=true ;;
@@ -116,6 +117,7 @@ while getopts "abcehmprtu" flag ; do
         m) BUILD__MOSES_IMAGE=true ;;
         p) BUILD__POSTGRES_IMAGE=true ;;
         r) BUILD_RELEX_IMAGE=true ;;
+        j) BUILD_JUPYTER_IMAGE=true ;;
         u) CACHE_OPTION=--no-cache ;;
         h) usage ;;
         \?) usage; exit 1 ;;
@@ -166,6 +168,13 @@ if [ $BUILD_RELEX_IMAGE ] ; then
     echo "---- Starting build of opencog/relex ----"
     docker build $CACHE_OPTION -t opencog/relex relex
     echo "---- Finished build of opencog/relex ----"
+fi
+
+if [ $BUILD_JUPYTER_IMAGE ]; then
+    check_dev_cli
+    echo "---- Starting build of opencog/jupyter ----"
+    docker build $CACHE_OPTION -t opencog/jupyter tools/jupyter_notebook
+    echo "---- Finished build of opencog/jupyter ----" 
 fi
 
 if [ $UNKNOWN_FLAGS ] ; then usage; exit 1 ; fi

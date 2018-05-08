@@ -141,6 +141,23 @@ __For UNIX like systems only, and if you choose to use docker-compose__
   * If you don't want to map ports to host run
      `docker-compose -f relex.yml run relex`
 
+## Steps for running jupyter kernels with opencog
+1. Build the image which has python and guile kernels installed with the following command.
+    ```
+    ./docker-build -j
+    ```
+This would build/pull necessary docker images.
+2. Add this lines to `./.bashrc` to point to your preferred notebooks save directory 
+
+    ``` 
+    export OPENCOG_NOTEBOOKS=$HOME/clone_dir/opencog_notebooks 
+    ```
+3. For starting jupyter notebook run the following command. 
+
+    ```
+    docker-compose -f opencog-jupyter.yml run --service-ports notes
+    ```
+4. Go to `0.0.0.0:8888/tree/notebooks` to interact with your notebooks and save them.
 <!--
 ## Steps for opencog-to-minecraft development
 __For UNIX like systems only, and if you choose to use docker-compose__
