@@ -151,7 +151,7 @@ This would build/pull necessary docker images.
 2. Add this lines to `./.bashrc` to point to your preferred notebooks save directory 
 
     ``` 
-    export OPENCOG_NOTEBOOKS=$HOME/clone_dir/opencog_notebooks 
+    export OPENCOG_NOTEBOOKS=$HOME/path/to/opencog_notebooks 
     ```
 3. For starting jupyter notebook run the following command. 
 
