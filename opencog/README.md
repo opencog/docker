@@ -147,6 +147,7 @@ __For UNIX like systems only, and if you choose to use docker-compose__
     ./docker-build -j
     ```
 This would build/pull necessary docker images.
+
 2. Add this lines to `./.bashrc` to point to your preferred notebooks save directory 
 
     ``` 
@@ -157,7 +158,7 @@ This would build/pull necessary docker images.
     ```
     docker-compose -f opencog-jupyter.yml run --service-ports notes
     ```
-4. Go to `0.0.0.0:8888/tree/notebooks` to interact with your notebooks and save them.
+4. Go to `0.0.0.0:8888/tree/notebooks` to interact with your notebooks.
 <!--
 ## Steps for opencog-to-minecraft development
 __For UNIX like systems only, and if you choose to use docker-compose__
