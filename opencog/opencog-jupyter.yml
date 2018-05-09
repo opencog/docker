@@ -8,7 +8,7 @@ notes:
         - "18001:18001"
         - "8080:8080"
         - "8888:8888"
-    working_dir: /opencog
+    working_dir: /opencog/notebooks
     volumes:
         - $OPENCOG_SOURCE_DIR:/opencog
         - $HOME/.gitconfig:/home/opencog/.gitconfig
