@@ -15,7 +15,7 @@ RUN python3 -m pip install jupyter ipykernel tornado==4.5.3
 # Install guile-json as it is needed for guile-kernel
 WORKDIR /opt/
 
-RUN wget http://download.savannah.gnu.org/releases/guile-json/guile-json-0.6.0.tar.gz && \
+RUN wget https://download.savannah.gnu.org/releases/guile-json/guile-json-0.6.0.tar.gz && \
     tar xvf guile-json-0.6.0.tar.gz && \
     rm guile-json-0.6.0.tar.gz && \
     cd guile-json-0.6.0 && \
