@@ -9,7 +9,7 @@ RUN apt-get update
 # Install tools for developers.
 RUN apt-get -y install software-properties-common wget rlwrap telnet \
                        netcat-openbsd less curl vim python3-dbg \
-                       tmux man git valgrind gdb sudo
+                       tmux man git valgrind gdb sudo byobu
 
 # Install repositories and dependencies
 ADD https://raw.githubusercontent.com/opencog/ocpkg/master/ocpkg \
