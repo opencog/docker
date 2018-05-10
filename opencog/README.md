@@ -110,7 +110,10 @@ __For UNIX like systems only, and if you choose to use docker-compose__
     * If you don't want to map ports to host run
       `docker-compose run dev`
 
-4. Build and install opencog by running `/tmp/octool -bi`
+4. The container has opencog installed, but if you want to install
+   cogutil, atomspace, or opencog due to some change you made in
+   the source code found on your host, `cd` into the mount directory inside
+   the container and then run `/tmp/octool -bi`
 
 5. For using opencog shells follow instruction
    [here](http://wiki.opencog.org/w/OpenCog_shell)
@@ -148,12 +151,12 @@ __For UNIX like systems only, and if you choose to use docker-compose__
     ```
 This would build/pull necessary docker images.
 
-2. Add this lines to `./.bashrc` to point to your preferred notebooks save directory 
+2. Add this lines to `./.bashrc` to point to your preferred notebooks save directory
 
-    ``` 
-    export OPENCOG_NOTEBOOKS=$HOME/path/to/opencog_notebooks 
     ```
-3. For starting jupyter notebook run the following command. 
+    export OPENCOG_NOTEBOOKS=$HOME/path/to/opencog_notebooks
+    ```
+3. For starting jupyter notebook run the following command.
 
     ```
     docker-compose -f opencog-jupyter.yml run --service-ports notes
