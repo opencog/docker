@@ -13,8 +13,8 @@
 
 FROM opencog/cogutil
 
-# Install non-system project dependencies
-RUN  /tmp/octool -ao ; ccache -C
+# Downlaod data and install atomspace & opencog.
+RUN  /tmp/octool -aow ; ccache -C
 
 USER opencog
 
