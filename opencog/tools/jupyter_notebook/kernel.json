@@ -1,5 +1,5 @@
 {
-    "argv": ["guile", "-s", "/usr/local/share/jupyter/kernels/guile-kernel/src/main.scm", "--", "{connection_file}"],
+    "argv": ["guile", "-s", "/usr/local/share/jupyter/kernels/guile-kernel/src/guile-jupyter-kernel.scm", "--", "{connection_file}"],
     "display_name": "Guile",
     "language": "scheme"
 }
