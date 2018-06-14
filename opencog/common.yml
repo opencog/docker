@@ -17,6 +17,7 @@ workspace:
         - $CCACHE_DIR:/home/opencog/.ccache # for persisting ccache artifacts
     environment: # Set environment variables within the container
         - OPENCOG_SOURCE_DIR=/opencog
+        - CCACHE_DIR=/home/opencog/.ccache
         - PGHOST=db # This should be the same as the link's alias
         - PGUSER=opencog_user # user created by configure-database.sh
     command: bash
