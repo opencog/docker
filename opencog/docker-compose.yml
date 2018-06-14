@@ -10,6 +10,9 @@ dev:
         # Uncomment the following lines if you want to work on moses
         # - $MOSES_SOURCE_DIR:/moses
     working_dir: /opencog # This is the same as the volume mount point below
+    environment:
+        - ATOMSPACE_SOURCE_DIR=/atomspace
+        - COGUTIL_SOURCE_DIR=/cogutil
     links:
         - postgres:db
         - relex:relex
