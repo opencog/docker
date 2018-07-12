@@ -1,7 +1,8 @@
 # Follow the instructions below for setting using jupyter notebooks with opencog.
 #
-
-notes:
+version: '3'
+services:
+  notes:
     image: opencog/jupyter:latest
     ports: 
         - "17001:17001"
@@ -17,7 +18,9 @@ notes:
     environment: # Set environment variables within the container
         - PYTHONPATH=/opencog/build/opencog/cython:/opencog/opencog/python/:/opencog/opencog/nlp/
         - OPENCOG_SOURCE_DIR=/opencog
-postgres:
+    depends_on:
+        - relex
+  postgres:
     image: opencog/postgres
     # Uncomment the following lines if you want to work on a production
     # system.
@@ -26,6 +29,6 @@ postgres:
     # environment:
     #     - PROD=True
 
-relex:
+  relex:
     image: opencog/relex
     command: /bin/sh -c "./opencog-server.sh"
