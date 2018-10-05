@@ -26,19 +26,21 @@ FROM ubuntu:16.04
 # https://stackoverflow.com/questions/25019183/docker-java7-install-fail
 ENV DEBIAN_FRONTEND noninteractive
 
-ENV JAVA_HOME /usr/lib/jvm/java-7-openjdk-amd64
+ENV JAVA_HOME /usr/lib/jvm/java-1.9.0-openjdk-amd64
 
 RUN apt-get update ; apt-get -y upgrade ; apt-get -y autoclean
 
-RUN apt-get -y install screen telnet netcat-openbsd byobu \
+# Java
+RUN apt-get -y install maven screen telnet netcat-openbsd byobu \
                        wget vim git unzip sudo apt-utils
+
+# incorrect packaging in ubuntu-xenial
+# dpkg: error processing archive /var/cache/apt/archives/openjdk-9-jdk_9~b114-0ubuntu1_amd64.deb (--unpack):
+# trying to overwrite '/usr/lib/jvm/java-9-openjdk-amd64/include/linux/jawt_md.h', which is also in package openjdk-9-jdk-headless:amd64 9~b114-0ubuntu1
+RUN apt-get -o Dpkg::Options::="--force-overwrite" -y install openjdk-9-jdk
 
 # GCC and basic build tools
 RUN apt-get -y install gcc g++ make
-
-# Java
-RUN apt-get -y install openjdk-8-jdk ant libcommons-logging-java
-ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/
 
 # Wordnet
 RUN apt-get -y install wordnet wordnet-dev wordnet-sense-index
@@ -74,13 +76,25 @@ RUN wget https://archive.apache.org/dist/opennlp/opennlp-1.5.3/apache-opennlp-1.
 # Download the current released version of link-grammar.
 # The wget gets the latest version w/ wildcard
 RUN wget -r --no-parent -nH --cut-dirs=2 https://www.abisource.com/downloads/link-grammar/current/
-RUN tar -zxf current/link-grammar-5*.tar.gz ;\
-    cd link-grammar-5.*/; ./configure; make -j6; sudo make install; \
-    ldconfig; cd .. ; rm -rf * link-grammar*
+RUN tar -zxf current/link-grammar-5*.tar.gz
+# get linkgrammar version
+RUN bash -l -c 'echo `ls|grep link|sed 's/link-grammar-//g'` >> LINKGRAMMAR_VERSION'
+
+RUN cd link-grammar-5.*/; ./configure; make -j6; sudo make install; \
+    ldconfig;
+
+RUN cd link-grammar-5.*/; mvn install:install-file \
+    -Dfile=./bindings/java/linkgrammar-`cat ../LINKGRAMMAR_VERSION`.jar \
+    -DgroupId=org.opencog \
+    -DartifactId=linkgrammar \
+    -Dversion=`cat ../LINKGRAMMAR_VERSION` \
+    -Dpackaging=jar
+
+RUN rm -rf * link-grammar*
 
 # Relex -- changes often
 ADD https://github.com/opencog/relex/archive/master.tar.gz master.tar.gz
-RUN tar -xvf master.tar.gz; cd relex-master; ant
+RUN tar -xvf master.tar.gz; cd relex-master; mvn install
 
 # Create and switch user. The user is privileged, with no password
 # required.  That is, you can use sudo.
