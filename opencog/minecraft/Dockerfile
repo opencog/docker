@@ -9,11 +9,12 @@ ENV ROS_DISTRO indigo
 
 ##  python3-dev & python3-setuptools are for spock included in this
 ## instruction for minimizing layers
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys F42ED6FBAB17C654
 RUN apt-get update && apt-get install --no-install-recommends -y \
     python-rosdep \
     python-rosinstall \
     python-vcstools \
-    ros-indigo-ros-base \
+    ros-kinetic-ros-base \
     python3-dev python3-setuptools \
     && rm -rf /var/lib/apt/lists/* \
     && rosdep init
