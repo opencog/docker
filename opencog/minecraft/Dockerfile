@@ -37,8 +37,6 @@ RUN wget -qO- https://get.rvm.io | bash -s stable
 RUN /usr/local/rvm/bin/rvm requirements
 RUN /usr/local/rvm/bin/rvm install 2.4.6
 RUN /bin/bash -l -c "rvm use 2.4.6 --default"
-#RUN bash --login /usr/local/rvm/bin/rvm use 2.4.6 --default
-#RUN gem install tmuxinator
 RUN /bin/bash -l -c "gem install tmuxinator"
 
 USER opencog
