@@ -16,6 +16,10 @@ FROM opencog/cogutil
 # Downlaod data and install atomspace & opencog.
 RUN  /tmp/octool -aow ; ccache -C
 
+# Install tools for developers.
+RUN apt-get -y install telnet netcat-openbsd less vim python3-dbg \
+                       tmux man valgrind gdb byobu
+
 USER opencog
 WORKDIR /home/opencog
 
