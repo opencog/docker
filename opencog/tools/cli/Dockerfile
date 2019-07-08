@@ -17,6 +17,13 @@ FROM opencog/cogutil
 RUN  /tmp/octool -aow ; ccache -C
 
 USER opencog
+WORKDIR /home/opencog
+
+# Setup the workspace for developers
+## Dont't mount host volumes to opencog's home directory inside the container,
+## if you do you will not find the contents copied below
+COPY /scripts/ /home/opencog
+RUN sudo chown -R opencog:opencog .*
 
 CMD /bin/bash
 
