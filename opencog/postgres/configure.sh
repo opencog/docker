@@ -17,7 +17,7 @@ psql -U postgres -c \
 psql -U postgres -c "CREATE DATABASE mycogdata OWNER opencog_user"
 
 printf "___ Create the database tables for standard OpenCog use ___\n"
-psql -U opencog_user -d mycogdata -a -f /tmp/atom.sql -h localhost
+psql -U opencog_user -d mycogdata -a -f /tmp/atom.sql
 
 # For Unit testing
 printf "\n___ Configuring for OpenCog unit testing ___\n"
@@ -27,7 +27,7 @@ psql -U postgres -c "CREATE DATABASE opencog_test OWNER opencog_tester"
 
 ## 'cheese' is the password for the next step
 printf "\n___ Create the database tables for OpenCog unit testing ___\n"
-psql -U opencog_tester -d opencog_test -a -f /tmp/atom.sql -h localhost
+psql -U opencog_tester -d opencog_test -a -f /tmp/atom.sql
 
 # Continue the running of docker-entrypoint.sh after configuration.
 # NOTE: Copy pasted from docker-entrypoint.sh
