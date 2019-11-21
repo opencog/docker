@@ -10,12 +10,12 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get -y upgrade
 
 # Install apt utilities
-RUN apt-get -y install apt-transport-https software-properties-common sudo
+RUN apt-get -y install apt-transport-https software-properties-common sudo \
+      wget tzdata
 
 # Install repositories and dependencies
 ADD https://raw.githubusercontent.com/opencog/ocpkg/master/ocpkg \
     /tmp/octool
-RUN apt-get install -y tzdata
 RUN chmod 755 /tmp/octool;  sync; /tmp/octool -rdpv -l default
 
 # Environment Variables
