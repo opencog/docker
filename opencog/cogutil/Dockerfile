@@ -4,12 +4,6 @@
 
 FROM opencog/opencog-deps
 
-# Install repositories and dependencies
-# FIXME: when octools auto-updates remove this.
-ADD https://raw.githubusercontent.com/opencog/ocpkg/master/ocpkg \
-    /tmp/octool
-RUN chmod 755 /tmp/octool
-
 # Install cogutil
 RUN  /tmp/octool -c ; ccache -C
 
