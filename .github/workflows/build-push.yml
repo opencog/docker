@@ -13,18 +13,13 @@ jobs:
       - name: Checkout this repo
         uses: actions/checkout@v1
 
-      - name: Login to docker hub
-        run: >
-          docker login
-            -u ${{ github.repository_owner }}
-            --password-stdin ${{ secrets.DOCKER_TOKEN }}
-
       - name: Pull opencog/opencog-deps
         run: docker pull opencog/opencog-deps
 
-      - name: Build opencog/cogutil
-        run: ./docker-build.sh -c
-      - name: Push opencog/cogutil
-        run: >
-          docker tag
-            opencog/cogutil ${{ env.GITHUB_REPOSITORY_OWNER }}/cogutil
+      - name: Build and push ${{ github.repository_owner }}/cogutil
+        uses: docker/build-push-action@v1
+        with:
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.DOCKER_TOKEN }}
+          repository: opencog/cogutil
+          path: cogutil
