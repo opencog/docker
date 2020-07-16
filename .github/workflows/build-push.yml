@@ -1,4 +1,4 @@
-name: build-push
+name: build-and-push
 
 on: push
 
@@ -12,3 +12,19 @@ jobs:
     steps:
       - name: Checkout this repo
         uses: actions/checkout@v1
+
+      - name: Login to docker hub
+        run: >
+          docker login
+            -u ${{ env.GITHUB_REPOSITORY_OWNER }}
+            -p ${{ secrets.DOCKER_TOKEN }}
+
+      - name: Pull opencog/opencog-deps
+        run: docker pull opencog/opencog-deps
+
+      - name: Build opencog/cogutil
+        run: ./docker-build.sh -c
+      - name: Push opencog/cogutil
+        run: >
+          docker tag
+            opencog/cogutil ${{ env.GITHUB_REPOSITORY_OWNER }}/cogutil
