@@ -16,10 +16,10 @@ jobs:
       - name: Pull opencog/opencog-deps
         run: docker pull opencog/opencog-deps
 
-      - name: Build and push ${{ github.repository_owner }}/cogutil
+      - name: Build and push ${{ secrets.DOCKER_REPOSITORY_OWNER }}/cogutil
         uses: docker/build-push-action@v1
         with:
-          username: ${{ github.repository_owner }}
-          password: ${{ secrets.DOCKER_TOKEN }}
-          repository: opencog/cogutil
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
+          repository: ${{ secrets.DOCKER_REPOSITORY_OWNER }}/cogutil
           path: cogutil
