@@ -16,7 +16,7 @@ jobs:
       - name: Login to docker hub
         run: >
           docker login
-            -u ${{ env.GITHUB_REPOSITORY_OWNER }}
+            -u ${{ github.repository_owner }}
             --password-stdin ${{ secrets.DOCKER_TOKEN }}
 
       - name: Pull opencog/opencog-deps
