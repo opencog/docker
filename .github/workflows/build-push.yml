@@ -1,0 +1,14 @@
+name: build-push
+
+on: push
+
+jobs:
+  opencog:
+    name: opencog-images
+    runs-on: ubuntu-20.04
+    defaults:
+      run:
+        working-directory: opencog
+    steps:
+      - name: Checkout this repo
+        uses: actions/checkout@v1
