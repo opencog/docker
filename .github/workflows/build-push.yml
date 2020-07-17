@@ -6,20 +6,22 @@ jobs:
   opencog:
     name: opencog-images
     runs-on: ubuntu-20.04
-    defaults:
-      run:
-        working-directory: opencog
     steps:
       - name: Checkout this repo
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
 
-      - name: Pull opencog/opencog-deps
-        run: docker pull opencog/opencog-deps
+      - name: Build and push opencog-deps image
+        uses: docker/build-push-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
+          repository: ${{ secrets.DOCKER_REPOSITORY_OWNER }}/opencog-deps
+          path: opencog/base
 
-      - name: Build and push ${{ secrets.DOCKER_REPOSITORY_OWNER }}/cogutil
+      - name: Build and push cogutil image
         uses: docker/build-push-action@v1
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
           repository: ${{ secrets.DOCKER_REPOSITORY_OWNER }}/cogutil
-          path: cogutil
+          path: opencog/cogutil
