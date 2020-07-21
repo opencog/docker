@@ -214,3 +214,14 @@ __WIP and only for use with systems with gpus, for now__
    provided you haven't removed the containers or shutdown your machine.
 
 3. For more on docker-compose refert to https://docs.docker.com/compose/
+
+## TODO
+1. Update docker-compose configuration for minimizing steps to start
+   developing
+
+2. Add more images to github workflow for automated publishing
+
+3. Make docker-build.sh and Dockerfiles independent of the github and
+   docker namespaces
+
+4. Use debian packages to minimize size of images and faster builds
