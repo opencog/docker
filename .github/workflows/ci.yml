@@ -1,0 +1,24 @@
+name: CI
+
+on:
+  pull_request:
+    paths: 'opencog/**'
+
+jobs:
+  build_opencog_images:
+    name: Build opencog images
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout current repo
+        uses: actions/checkout@v1
+
+      - name: Lowercase docker image name
+        run: echo "::set-env
+               name=IMAGE_NAME::$(echo ${{ github.repository }}/cogutil |
+               tr '[:upper:]' '[:lower:]')"
+      - run: echo $IMAGE_NAME
+
+
+      - name: Build all opencog images
+        working-directory: opencog
+        run: ./docker-build.sh -bcmprt
