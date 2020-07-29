@@ -2,7 +2,9 @@ name: CI
 
 on:
   pull_request:
-    paths: 'opencog/**'
+    paths:
+      - "opencog/**"
+      - ".github/workflows/**"
 
 jobs:
   build_opencog_images:
