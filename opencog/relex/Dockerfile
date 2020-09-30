@@ -20,27 +20,20 @@
 # with a period, and hit enter.  The response returned will be the
 # parse of the sentence, in opencog scheme format.
 #
-FROM ubuntu:16.04
+FROM ubuntu:latest
 
 # Avoid triggering apt-get dialogs (which may lead to errors). See:
 # https://stackoverflow.com/questions/25019183/docker-java7-install-fail
 ENV DEBIAN_FRONTEND noninteractive
 
-ENV JAVA_HOME /usr/lib/jvm/java-1.9.0-openjdk-amd64
+ENV JAVA_HOME /usr/lib/jvm/java-1.11.0-openjdk-amd64
 
 RUN apt-get update ; apt-get -y upgrade ; apt-get -y autoclean
 
-# Java
+# Java and basic build tools
 RUN apt-get -y install maven screen telnet netcat-openbsd byobu \
-                       wget vim git unzip sudo apt-utils
-
-# incorrect packaging in ubuntu-xenial
-# dpkg: error processing archive /var/cache/apt/archives/openjdk-9-jdk_9~b114-0ubuntu1_amd64.deb (--unpack):
-# trying to overwrite '/usr/lib/jvm/java-9-openjdk-amd64/include/linux/jawt_md.h', which is also in package openjdk-9-jdk-headless:amd64 9~b114-0ubuntu1
-RUN apt-get -o Dpkg::Options::="--force-overwrite" -y install openjdk-9-jdk
-
-# GCC and basic build tools
-RUN apt-get -y install gcc g++ make
+    wget vim git unzip sudo apt-utils  openjdk-11-jdk gcc g++ make m4 \
+    autoconf-archive libtool swig flex pkg-config ant
 
 # Wordnet
 RUN apt-get -y install wordnet wordnet-dev wordnet-sense-index
@@ -74,16 +67,18 @@ RUN wget https://archive.apache.org/dist/opennlp/opennlp-1.5.3/apache-opennlp-1.
 
 # Link Parser -- changes often
 # Download the current released version of link-grammar.
-# The wget gets the latest version w/ wildcard
-RUN wget -r --no-parent -nH --cut-dirs=2 https://www.abisource.com/downloads/link-grammar/current/
-RUN tar -zxf current/link-grammar-5*.tar.gz
-# get linkgrammar version
-RUN bash -l -c 'echo `ls|grep link|sed 's/link-grammar-//g'` >> LINKGRAMMAR_VERSION'
+RUN git ls-remote -t \
+    https://github.com/opencog/link-grammar "link-grammar-5*" \
+    --sort=taggerdate | grep -v "\^"| tail -n 1 | cut -d "-" -f 3 \
+    >> LINKGRAMMAR_VERSION
 
-RUN cd link-grammar-5.*/; ./configure; make -j6; sudo make install; \
-    ldconfig;
+RUN wget https://github.com/opencog/link-grammar/archive/link-grammar-`cat LINKGRAMMAR_VERSION`.tar.gz; \
+    tar -zxf link-grammar-5*.tar.gz; \
+    cd link-grammar-link-grammar-5.*/; \
+    ./autogen.sh --no-configure; \
+    ./configure; make -j6; make install; ldconfig
 
-RUN cd link-grammar-5.*/; mvn install:install-file \
+RUN cd link-grammar-link-grammar-5.*/; mvn install:install-file \
     -Dfile=./bindings/java/linkgrammar-`cat ../LINKGRAMMAR_VERSION`.jar \
     -DgroupId=org.opencog \
     -DartifactId=linkgrammar \
