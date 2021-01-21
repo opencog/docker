@@ -14,13 +14,6 @@ jobs:
       - name: Checkout current repo
         uses: actions/checkout@v2
 
-      - name: Lowercase docker image name
-        run: echo "::set-env
-               name=IMAGE_NAME::$(echo ${{ github.repository }}/cogutil |
-               tr '[:upper:]' '[:lower:]')"
-      - run: echo $IMAGE_NAME
-
-
       - name: Build all opencog images
         working-directory: opencog
         run: ./docker-build.sh -bcmprt
