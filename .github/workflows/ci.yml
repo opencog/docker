@@ -12,14 +12,7 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout current repo
-        uses: actions/checkout@v1
-
-      - name: Lowercase docker image name
-        run: echo "::set-env
-               name=IMAGE_NAME::$(echo ${{ github.repository }}/cogutil |
-               tr '[:upper:]' '[:lower:]')"
-      - run: echo $IMAGE_NAME
-
+        uses: actions/checkout@v2
 
       - name: Build all opencog images
         working-directory: opencog
