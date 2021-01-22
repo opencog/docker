@@ -56,9 +56,9 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: opencog/tools/cli
-          tags:
-            - ${{ secrets.DOCKER_NAMESPACE }}/${{ github.job }}:cli
-            - ${{ secrets.DOCKER_NAMESPACE }}/${{ github.job }}:latest
+          tags: |
+            ${{ secrets.DOCKER_NAMESPACE }}/${{ github.job }}:cli
+            ${{ secrets.DOCKER_NAMESPACE }}/${{ github.job }}:latest
           push: true
 
   moses:
