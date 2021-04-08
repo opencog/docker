@@ -2,7 +2,7 @@
 #
 # docker build --no-cache -t opencog/opencog-deps .
 
-ARG VERSION=18.04
+ARG VERSION=20.04
 FROM ubuntu:${VERSION}
 
 ENV DEBIAN_FRONTEND=noninteractive
