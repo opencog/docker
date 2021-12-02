@@ -3,18 +3,12 @@
 # 2. docker run -p 17001:17001 -it opencog/cogserver
 # 3. rlwrap telnet localhost 17001
 
-FROM opencog/cogutil
-
-# Install non-system project dependencies
-RUN  /tmp/octool -al ; ccache -C
-
-# Clone opencog and build it
-RUN git clone --depth 1 https://github.com/opencog/opencog oc
-RUN cd oc; mkdir build; cd build; cmake ..; make -j$(nproc)
+# Starting with the container with everything in it...
+FROM opencog/opencog-dev:cli
 
 # Docker defaults
-WORKDIR /home/opencog/oc/build
+WORKDIR /home/opencog/
 USER opencog
 
 ## Start cogserver when container runs
-CMD opencog/server/cogserver
+CMD /usr/local/bin/cogserver
