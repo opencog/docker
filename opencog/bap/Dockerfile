@@ -1,14 +1,17 @@
 # Step to take
 # 1. docker build -t opencog/atomspace:bap .
-# 2. docker create --name atomspace:bap -p 17001:17001
+# 2. docker create --name atomspace-bap -p 17001:17001
 #       -v /ABSOLUTE/PATH/TO/YOUR/WORKING/DIRECTORY/On/Your/PC/:/devel
 #       -w /devel
 #       -it opencog/atomspace:bap
-# 3. docker start -it opencog/atomspace:bap
+# 3. docker start -i atomspace-bap
 
 FROM opencog/atomspace
 
 RUN apt-get -y install opam
+
+# Switch away from the root user before doing opam work.
+USER opencog
 
 # Inits opam and install the OCaml compiler. Disable sandboxing
 # per https://github.com/ocaml/opam-repository/issues/20093
@@ -23,8 +26,6 @@ RUN opam install -y depext
 RUN opam -y depext --install bap -y
 
 RUN eval $(opam env)
-
-USER opencog
 
 # Docker defaults
 CMD bash
