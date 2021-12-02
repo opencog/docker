@@ -69,7 +69,7 @@ RUN wget https://archive.apache.org/dist/opennlp/opennlp-1.5.3/apache-opennlp-1.
 # Download the current released version of link-grammar.
 RUN git ls-remote -t \
     https://github.com/opencog/link-grammar "link-grammar-5*" \
-    --sort=taggerdate | grep -v "\^"| tail -n 1 | cut -d "-" -f 3 \
+    | grep -v "\^"| cut -d "-" -f 3 | sort -V | tail -n 1 \
     >> LINKGRAMMAR_VERSION
 
 RUN wget https://github.com/opencog/link-grammar/archive/link-grammar-`cat LINKGRAMMAR_VERSION`.tar.gz; \
