@@ -127,14 +127,14 @@ done
 
 if ! command -v docker &> /dev/null
 then
-    echo "docker could not be found!"
-    echo "On Debian/Ubuntu try saying:"
+    echo "Error: docker could not be found!"
+    echo "You can fix this on Debian/Ubuntu by saying:"
     echo "$ sudo apt install docker.io docker-compose"
     exit
 fi
 
 
-# NOTE: To avoid repetion of builds don't reorder the sequence here.
+# NOTE: To avoid repetition of builds, don't reorder the sequence here.
 
 if [ $PULL_DEV_IMAGES ] ; then
     pull_dev_images
