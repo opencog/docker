@@ -2,7 +2,7 @@
 # Steps:
 # 1. docker build -t opencog/opencog-dev:cli .
 # 2. docker create --name opencog -p 17001:17001 -p 5000:5000
-#       -v ABSOLUTE/PATH/TO/OPENCOG/ROOT/DIRECTORY/On/Your/PC/:/opencog
+#       -v /ABSOLUTE/PATH/TO/OPENCOG/ROOT/DIRECTORY/On/Your/PC/:/opencog
 #       -w /opencog
 #       -it opencog/opencog-dev:cli
 # 3. docker start -i opencog
