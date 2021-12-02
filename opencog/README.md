@@ -93,6 +93,7 @@ __For UNIX like systems only, and if you choose to use docker-compose__
    `source ~/.bashrc`.
 
    ```
+   export ETC_LOCALTIME=$(readlink /etc/localtime)
    export OPENCOG_SOURCE_DIR=$HOME/path/to/opencog
    export ATOMSPACE_SOURCE_DIR=$HOME/path/to/atomspace
    export COGUTIL_SOURCE_DIR=$HOME/path/to/cogutil
@@ -170,6 +171,7 @@ __For UNIX like systems only, and if you choose to use docker-compose__
 `source ~/.bashrc`.
 
     ```
+    export ETC_LOCALTIME=$(readlink /etc/localtime)
     export OPENCOG_SOURCE_DIR=$HOME/path/to/opencog
     export ATOMSPACE_SOURCE_DIR=$HOME/path/to/atomspace
     export COGUTIL_SOURCE_DIR=$HOME/path/to/cogutil
