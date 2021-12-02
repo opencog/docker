@@ -6,16 +6,11 @@
 FROM opencog/cogutil
 
 # Install non-system project dependencies
-RUN  /tmp/octool -al ; ccache -C
-
-# Clone opencog and build it
-# Not needed, its part of `octool -al` above.
-# RUN git clone --depth 1 https://github.com/opencog/cogserver cogserver
-# RUN cd cogserver; mkdir build; cd build; cmake ..; make -j$(nproc)
+RUN  /tmp/octool -a ; ccache -C
 
 # Docker defaults
-WORKDIR /home/opencog/cogserver/build
+WORKDIR /home/opencog/
 USER opencog
 
 ## Start cogserver when container runs
-CMD opencog/cogserver/server/cogserver
+CMD /usr/local/bin/cogserver
