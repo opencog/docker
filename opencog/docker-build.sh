@@ -125,6 +125,15 @@ while getopts "abcehjmprtu" flag ; do
     esac
 done
 
+if ! command -v docker &> /dev/null
+then
+    echo "docker could not be found!"
+    echo "On Debian/Ubuntu try saying:"
+    echo "$ sudo apt install docker.io docker-compose"
+    exit
+fi
+
+
 # NOTE: To avoid repetion of builds don't reorder the sequence here.
 
 if [ $PULL_DEV_IMAGES ] ; then
