@@ -3,10 +3,8 @@
 # 2. docker run -p 17001:17001 -it opencog/cogserver
 # 3. rlwrap telnet localhost 17001
 
-FROM opencog/cogutil
-
-# Install non-system project dependencies
-RUN  /tmp/octool -a ; ccache -C
+# Starting with the container with everything in it...
+FROM opencog/opencog-dev:cli
 
 # Docker defaults
 WORKDIR /home/opencog/
