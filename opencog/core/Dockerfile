@@ -2,13 +2,11 @@
 # Steps:
 # 1. docker build -t opencog/atomspace .
 # 2. docker create --name atomspace -p 17001:17001
-#       -v /ABSOLUTE/PATH/TO/OPENCOG/ROOT/DIRECTORY/On/Your/PC/:/opencog
+#       -v /ABSOLUTE/PATH/TO/YOUR/WORKING/DIRECTORY/On/Your/PC/:/opencog
 #       -w /opencog
 #       -it opencog/atomspace
 # 3. docker start -i atomspace
-# 4. mkdir build
-# 5. cmake ..
-# 6. make -j$(nproc)
+#
 # Check http://wiki.opencog.org/w/Building_OpenCog on how to use IDEs
 
 FROM opencog/cogutil
@@ -20,6 +18,7 @@ USER opencog
 WORKDIR /home/opencog
 
 # Setup the workspace for developers
+RUN sudo chown -R opencog:opencog .
 RUN sudo chown -R opencog:opencog .*
 
 CMD /bin/bash
