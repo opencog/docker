@@ -8,6 +8,8 @@
 
 FROM opencog/atomspace
 
+RUN apt-get -y install opam
+
 # Inits opam and install the OCaml compiler. Disable sandboxing
 # per https://github.com/ocaml/opam-repository/issues/20093
 RUN opam init --comp=4.09.0 --disable-sandboxing
@@ -15,8 +17,12 @@ RUN opam init --comp=4.09.0 --disable-sandboxing
 # Activate opam environment
 RUN eval `opam config env`
 
+RUN opam install -y depext
+
 # Install bap and its dependencies
-RUN opam depext --install bap
+RUN opam -y depext --install bap -y
+
+RUN eval $(opam env)
 
 USER opencog
 
