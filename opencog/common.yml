@@ -8,12 +8,11 @@ workspace:
     ports: # syntax is host:container
         - "5000:5000"
         - "17001:17001"
-        - "18001:18001"
         - "8080:8080"
     volumes:
         - $OPENCOG_SOURCE_DIR:/opencog
         - $HOME/.gitconfig:/home/opencog/.gitconfig # for git commits,stash ...
-        - /etc/localtime:/etc/localtime:ro # for syncing with host time.
+        - ${ETC_LOCALTIME}:/etc/localtime:ro # for syncing with host time.
         - $CCACHE_DIR:/home/opencog/.ccache # for persisting ccache artifacts
     environment: # Set environment variables within the container
         - OPENCOG_SOURCE_DIR=/opencog
