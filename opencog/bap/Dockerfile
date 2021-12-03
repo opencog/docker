@@ -33,10 +33,14 @@ RUN eval $(opam env)
 RUN  /tmp/octool -a ; ccache -C
 
 # Setup the workspace for developers
-## Dont't mount host volumes to opencog's home directory inside the container,
-## if you do you will not find the contents copied below
+## Dont't mount host volumes to opencog's home directory inside the
+## container, if you do you will not find the contents copied below
 COPY /scripts/ /home/opencog
-RUN sudo chown -R opencog:opencog .*
+
+# Cannot chown -R .* because the .opam dir is 4.5 GB and the .stack
+# dir is 1.5 GB and these take forever to chown. ... and don't need
+# to be. However, anything we copy does need to be.
+RUN sudo chown -R opencog:opencog .ocamlinit
 
 # Docker defaults
 CMD /bin/bash
