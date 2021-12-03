@@ -21,6 +21,7 @@ RUN opam init --comp=4.09.0 --disable-sandboxing
 # Activate opam environment
 RUN eval `opam config env`
 
+RUN opam install -y core
 RUN opam install -y depext
 
 # Install bap and its dependencies
