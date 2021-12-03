@@ -1,0 +1,13 @@
+(* boilplate  -- not sure if all of this is needed. *)
+#use "topfind"
+#camlp4o
+#thread
+#require "core.top"
+#require "core.syntax"
+
+(* BAP stuff *)
+#require "bap.top";;
+
+(* Atomese stuff *)
+#directory "/usr/local/lib/opencog/ocaml/" ;;
+#use "atomese.ml" ;;
