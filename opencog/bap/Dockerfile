@@ -6,12 +6,13 @@
 #       -it opencog/atomspace:bap
 # 3. docker start -i atomspace-bap
 
-FROM opencog/atomspace
+FROM opencog/cogutil
 
 RUN apt-get -y install opam
 
 # Switch away from the root user before doing opam work.
 USER opencog
+WORKDIR /home/opencog
 
 # Inits opam and install the OCaml compiler. Disable sandboxing
 # per https://github.com/ocaml/opam-repository/issues/20093
@@ -27,8 +28,11 @@ RUN opam -y depext --install bap -y
 
 RUN eval $(opam env)
 
+# Install core atomspace.
+RUN  /tmp/octool -a ; ccache -C
+
 # Docker defaults
-CMD bash
+CMD /bin/bash
 
 # For images built on this
 ONBUILD USER root
