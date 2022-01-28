@@ -1,0 +1,14 @@
+;
+; .guile -- commands to execute on guile REPL startup.
+;
+;; rlb's method for activiting realine ...
+(use-modules (ice-9 readline))
+(activate-readline)
+
+(debug-enable 'backtrace)
+;; (debug-enable 'debug)
+
+; Record positions of source code expressions.
+(read-enable 'positions)
+
+(add-to-load-path "/usr/local/share/opencog/scm")
