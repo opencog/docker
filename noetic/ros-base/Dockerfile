@@ -9,18 +9,20 @@
 # docker run --rm --name="noetic-base" -i -t opencog/ros-noetic-base
 #
 FROM ubuntu:20.04
-MAINTAINER Linas Vepštas "linasvepstas@gmail.com"
+MAINTAINER Mark Wigzell "markwigzell@gmail.com"
 
 # Avoid triggering apt-get dialogs (which may lead to errors). See:
 # http://stackoverflow.com/questions/25019183/docker-java7-install-fail
 ENV DEBIAN_FRONTEND noninteractive
 
-ENV LAST_OS_UPDATE 2020-04-23_1
-RUN apt-get -y update
+ENV LAST_OS_UPDATE 2022-02-25_2
 RUN apt-get -y upgrade
+RUN apt-get -y update
+RUN apt-get -y install iproute2 iputils-ping apt-utils
 
 # Need software-properties-common for `add-apt-repository` command
 RUN apt-get -y install wget software-properties-common sudo
+RUN apt-get -y  install --no-install-recommends   xserver-xorg-core   xauth   x11-apps x11-utils
 RUN wget http://packages.ros.org/ros.key -O - | sudo apt-key add -
 RUN echo "deb http://packages.ros.org/ros/ubuntu focal main" > /etc/apt/sources.list.d/ros-latest.list
 RUN apt-get -y update

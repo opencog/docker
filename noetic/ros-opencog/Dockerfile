@@ -5,7 +5,7 @@
 # sudo docker build -t opencog/ros-noetic-opencog .
 #
 FROM opencog/ros-noetic-base
-MAINTAINER Linas Vepštas "linasvepstas@gmail.com"
+MAINTAINER Mark Wigzell "markwigzell@gmail.com"
 
 # Install required packages
 ENV LAST_OS_UPDATE 2020-04-23_6
@@ -39,6 +39,9 @@ RUN git clone https://github.com/opencog/atomspace.git
 RUN git clone https://github.com/opencog/lg-atomese.git
 RUN git clone https://github.com/opencog/opencog.git
 RUN git clone https://github.com/opencog/relex.git
+RUN git clone https://github.com/opencog/atomspace-rocks.git
+RUN git clone https://github.com/opencog/cogserver.git
+RUN git clone https://github.com/opencog/atomspace-cog.git
 
 # -------------------------------------------------------------
 # Download and install JWNL; its needed for relex.
@@ -147,7 +150,7 @@ RUN (bash -l -c "echo \"(use-modules (opencog))\" | guile ; \
   echo \"(use-modules (opencog exec))\" | guile ; \
   echo \"(use-modules (opencog logger))\" | guile ; \
   echo \"(use-modules (opencog persist))\" | guile ; \
-  echo \"(use-modules (opencog persist-sql))\" | guile ; \
+  echo \"(use-modules (opencog persist-rocks))\" | guile ; \
   echo \"(use-modules (opencog query))\" | guile ; \
   echo \"(use-modules (opencog rule-engine))\" | guile ; \
   echo \"(use-modules (opencog atom-types))\" | guile ; \

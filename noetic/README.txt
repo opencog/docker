@@ -1,6 +1,6 @@
 Status
 ======
-The project so far is the Roadmap 1. See below. With the caveat that certain libs are unavail. therefore commented out.
+My project so far is in the Roadmap 1 stage. See below.
 
 Dependencies
 ============
@@ -20,10 +20,24 @@ eva-opencog --> ros-incog-blender --> ros-opencog --> ros-base
 Roadmap
 =======
 1. eva-ros builds
+    (will need to replace the vision / face detection subsystem - Done!)
+    ISSUES:
+    - the "roslaunch robots_config geometry.launch" fails to start
+    - blender has issues: NOSE bone missing? dependency cycles ...
+                          Sophia has no eyes?
 2. eva-ros works
+    ISSUES:
+    not started
 3. eva-owyl builds & works
+    (will need to replace OWYL with atomspace: eva-atom?)
+    ISSUES:
+    not started
 4. eva-silent builds & works
+    ISSUES:
+    not started
 5. eva-opencog builds & works
+    ISSUES:
+    not started
 
 For Further Reading
 ===================
