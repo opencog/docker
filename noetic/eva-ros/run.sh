@@ -16,4 +16,4 @@ docker run --name="eva-ros" -p 11311:11311 \
    -v /dev/shm:/dev/shm -it opencog/eva-ros
 
 xhost -local:root
-clear
+#clear

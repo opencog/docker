@@ -53,12 +53,15 @@ RUN cd /catkin_ws/src/ && find . -maxdepth 1 -mindepth 1 -type d \
 
 # The blender API has not been fully catkinized yet.
 RUN pip3 install ./blender_api_msgs/ dlib
-run ln -s /usr/bin/python3 /usr/bin/python
+# crappy python. Do we have to switch all our calls whenever python has major release?
+RUN ln -s /usr/bin/python3 /usr/bin/python
 
-# Some versions of ros_pololu_server will fail during build; the
-# work-around for this is to build twice (This because the missing
-# files are autogened, and the pololu Cmakefiles fail to list them as
-# dependencies.)
+# install blender trial till we get one that works
+RUN mkdir blender
+COPY '/blender-2.76b-linux-glibc211-x86_64.tar.bz2' /catkin_ws/src/blender
+
+# build the catkin packages. Run twice for good measure. 
+# (some may fail first time due to bad deps)
 WORKDIR /catkin_ws
 RUN bash -l -c "/opt/ros/noetic/bin/catkin_make" || true
 RUN bash -l -c "/opt/ros/noetic/bin/catkin_make"

@@ -43,6 +43,8 @@ RUN git clone https://github.com/opencog/atomspace-rocks.git
 RUN git clone https://github.com/opencog/cogserver.git
 RUN git clone https://github.com/opencog/atomspace-cog.git
 
+# need this somewhere 
+RUN apt-get install -y flex
 # -------------------------------------------------------------
 # Download and install JWNL; its needed for relex.
 WORKDIR /src
@@ -113,7 +115,7 @@ WORKDIR /opencog
 # twigging this date will update the opencog sources.
 ENV LAST_SOFTWARE_UPDATE 2016-03_13
 
-# Git pull for all packages
+# Git pull for all packfages
 RUN cd /opencog/ && find . -maxdepth 1 -mindepth 1 -type d \
 	-execdir git --git-dir=$PWD/{}/.git --work-tree=$PWD/{} pull \;
 
