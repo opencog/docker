@@ -56,10 +56,6 @@ RUN pip3 install ./blender_api_msgs/ dlib
 # crappy python. Do we have to switch all our calls whenever python has major release?
 RUN ln -s /usr/bin/python3 /usr/bin/python
 
-# install blender trial till we get one that works
-RUN mkdir blender
-COPY '/blender-2.76b-linux-glibc211-x86_64.tar.bz2' /catkin_ws/src/blender
-
 # build the catkin packages. Run twice for good measure. 
 # (some may fail first time due to bad deps)
 WORKDIR /catkin_ws
