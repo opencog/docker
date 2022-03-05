@@ -1,13 +1,10 @@
-Status
-======
-My project so far is in the Roadmap 1 stage. See below.
+Status of ROS noetic port and bit rot removal
+==============================================
+This project so far is in the Roadmap 1 stage. See below.
 
 Dependencies
 ============
 
-eva-owyl --
-           \
-            v
 eva-ros --> ros-blender --------------------------
                                                   \
                                                    \
@@ -26,10 +23,6 @@ Roadmap
     - blender has issues: NOSE bone missing? dependency cycles ...
                           Sophia has no eyes?
 2. eva-ros works
-    ISSUES:
-    not started
-3. eva-owyl builds & works
-    (will need to replace OWYL with atomspace: eva-atom?)
     ISSUES:
     not started
 4. eva-silent builds & works
