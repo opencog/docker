@@ -8,7 +8,7 @@ FROM opencog/ros-noetic-base
 MAINTAINER Mark Wigzell "markwigzell@gmail.com"
 
 # Install required packages
-ENV LAST_OS_UPDATE 2020-04-23_6
+ENV LAST_OS_UPDATE 2022-03-05
 RUN apt-get -y update
 RUN apt-get -y upgrade
 # Base stuff for cogutil. All on one line, to avoid error
@@ -43,7 +43,7 @@ RUN git clone https://github.com/opencog/atomspace-rocks.git
 RUN git clone https://github.com/opencog/cogserver.git
 RUN git clone https://github.com/opencog/atomspace-cog.git
 
-# need this somewhere 
+# need this for link-grammar below 
 RUN apt-get install -y flex
 # -------------------------------------------------------------
 # Download and install JWNL; its needed for relex.
@@ -113,9 +113,9 @@ WORKDIR /opencog
 
 # Change line below on rebuild. Will use Docker cache up to this line,
 # twigging this date will update the opencog sources.
-ENV LAST_SOFTWARE_UPDATE 2016-03_13
+ENV LAST_SOFTWARE_UPDATE 2022-03-05
 
-# Git pull for all packfages
+# Git pull for all packages
 RUN cd /opencog/ && find . -maxdepth 1 -mindepth 1 -type d \
 	-execdir git --git-dir=$PWD/{}/.git --work-tree=$PWD/{} pull \;
 
