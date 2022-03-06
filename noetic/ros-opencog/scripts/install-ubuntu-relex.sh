@@ -51,5 +51,5 @@ sudo -u $MVN_USER mvn install:install-file \
    -Dpackaging=jar
 
 # RelEx
-sudo -u $MVN_USER mvn package
+sudo -u $MVN_USER mvn package -DskipTests
 sudo -u $MVN_USER mvn install -DskipTests
