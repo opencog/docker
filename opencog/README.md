@@ -1,18 +1,19 @@
-This directory contains docker configurations for some of OpenCog's projects.
-Following are instructions on how to get started with using docker for opencog
-development.
+This directory contains docker configurations for some of OpenCog's
+projects.  Following are instructions on how to get started with
+using docker for OpenCog production and development.
 
 # Table of Contents
-1. [Common Initial Setups](#common-initial-setups)
-  1. [UNIX like Systems](#unix-like-systems)
+1. [Common Initial Setup](#common-initial-setup)
+  1. [Linux and UNIX-like Systems](#linux-and-unix-like-systems)
   2. [Windows](#windows)
-2. [Steps for OpenCog development](#steps-for-opencog-development)
-3. [Steps for RelEx development](#steps-for-relex-development)
+2. [Running Production Servers](#running-production-servers)
+3. [Steps for OpenCog development](#steps-for-opencog-development)
+4. [Steps for RelEx development](#steps-for-relex-development)
 <!--
-4. [Steps for opencog-to-minecraft development](#steps-for-opencog-to-minecraft-development)
+5. [Steps for opencog-to-minecraft development](#steps-for-opencog-to-minecraft-development)
 -->
 
-## Common Initial Setups
+## Common Initial Setup
 The following sub-sections describe the steps required to configure docker on
 your os, regardles of which project you are working on.
 
@@ -75,6 +76,28 @@ your os, regardles of which project you are working on.
    naming format.
 
 5. Run `./windows-run.sh`.
+
+## Running Production Servers
+Several different server containers are provided. The most important of
+these is the cogserver container.
+
+* __Running the CogServer__
+
+   1. Build the container:
+```
+      docker build --no-cache -t opencog/cogserver .
+```
+   2. Run the container, exposing port 17001 to the external world:
+```
+      docker run -p 17001:17001 -it opencog/cogserver
+```
+   3. Wait until this is printed: `Listening on port 17001`
+
+   4. Connect into the cogserver:
+```
+      rlwrap telnet localhost 17001
+```
+   5. Follow the conventional cogserver instructions for more.
 
 ## Steps for OpenCog development
 __For UNIX-like systems only, if you choose to use docker-compose__
