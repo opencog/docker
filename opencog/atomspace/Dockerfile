@@ -1,4 +1,6 @@
+#
 # Container with just the core atomspace installed.
+#
 # Steps:
 # 1. docker build -t opencog/atomspace .
 # 2. docker create --name atomspace -p 17001:17001
