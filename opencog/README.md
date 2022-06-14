@@ -1,6 +1,10 @@
 This directory contains docker configurations for some of OpenCog's
-projects.  Following are instructions on how to get started with
-using docker for OpenCog production and development.
+projects.  Below are instructions on how to get started with using
+docker to deploy production servers, as well as for development.
+Some of the notable containers include:
+
+* `opencog/opencog-dev` -- A full command-line development interface.
+* `opencog/cogserver` -- An empty CogServer container.
 
 # Table of Contents
 1. [Common Initial Setup](#common-initial-setup)
@@ -15,7 +19,7 @@ using docker for OpenCog production and development.
 
 ## Common Initial Setup
 The following sub-sections describe the steps required to configure docker on
-your os, regardles of which project you are working on.
+your OS, regardles of which project you are working on.
 
 ### Linux and UNIX-like Systems
 1. Follow the instructions [here](https://docs.docker.com/engine/installation/)
