@@ -1,4 +1,12 @@
-# Step to take
+#
+# OpenCog BAP/BIL development container.
+# BAP is the Carnegie-Mellon Binary Analysis Program
+# BIL is the BAP intermediate language
+# This container is meant for developing machine learning to analyze
+# software binaries, with the end-goal of threat mitigation. Provided
+# for Object Security LLC objectsecurity.com
+#
+# Steps to take:
 # 1. docker build -t opencog/atomspace:bap .
 # 2. docker create --name atomspace-bap -p 17001:17001
 #       -v /ABSOLUTE/PATH/TO/YOUR/WORKING/DIRECTORY/On/Your/PC/:/devel
