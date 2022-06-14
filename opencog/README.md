@@ -16,9 +16,9 @@ development.
 The following sub-sections describe the steps required to configure docker on
 your os, regardles of which project you are working on.
 
-### UNIX like Systems
-1. Follow the instruction [here](https://docs.docker.com/engine/installation/)
-   for setting docker,
+### Linux and UNIX-like Systems
+1. Follow the instructions [here](https://docs.docker.com/engine/installation/)
+   for setting up docker.
 
 2. Pull images that are used for opencog development by running
    `./docker-build.sh -a`
@@ -33,18 +33,19 @@ your os, regardles of which project you are working on.
     * To list the available options use `-h`
 -->
 
-3. The following is required only if you want to use docker-compose setup that
-   is described below
+3. The following is required only if you want to use `docker-compose`
+   setup that is described below. You only need to do this once, or
+   repeat it when updating.
 
    ```
-   # The following is required only the first time or when updating
    sudo pip install -U docker-compose
    ```
 
-4. Run docker using whichever setup you are accustomed to. If you want to
-   use docker-compose, follow the steps below, as per your type of development.
-   The docker-compose setup enables you to persist changes you make on the opencog repos, from within the container, to your host OS, even when you
-   choose to remove the containers.
+4. Run docker using whichever setup you are accustomed to. If you want
+   to use `docker-compose`, follow the steps below, as per your type
+   of development.  The `docker-compose` setup enables you to persist
+   changes you make on the opencog repos, from within the container,
+   to your host OS, even when you choose to remove the containers.
 
 ### Windows
 1. Follow the instruction
@@ -67,7 +68,7 @@ your os, regardles of which project you are working on.
 -->
 
 4. In the script `windows-run.sh` found in the same directory as this README,
-   Replace '$HOME/path/to/' in the export command to the appropriate absolute
+   Replace `$HOME/path/to/` in the export command to the appropriate absolute
    path on your windows machine. __Note that you don't have to clone each
    repository or add all the paths__, just those you need. Since you will be
    using the MINGW environment that was setup by the first step, use UNIX path
@@ -76,7 +77,7 @@ your os, regardles of which project you are working on.
 5. Run `./windows-run.sh`.
 
 ## Steps for OpenCog development
-__For UNIX like systems only, and if you choose to use docker-compose__
+__For UNIX-like systems only, if you choose to use docker-compose__
 
 1. Specify a directory for storing ccache's compiler outputs on your host OS
 
@@ -100,9 +101,9 @@ __For UNIX like systems only, and if you choose to use docker-compose__
    export OC2MC_SOURCE_DIR=$HOME/path/to/opencog-to-minecraft
    ```
 
-   __Optionally, if you are using `moses` add to `~/.bashrc`,
+   Optionally, if you are using `moses` add to `~/.bashrc`,
    `export MOSES_SOURCE_DIR=$HOME/path/to/moses` and uncomment
-   `- $MOSES_SOURCE_DIR:/moses` line in the docker-compose.yml file.__
+   `- $MOSES_SOURCE_DIR:/moses` line in the docker-compose.yml file.
 
 3. For starting the containers using docker-compose run either of the following
    commands,
@@ -125,9 +126,9 @@ __For UNIX like systems only, and if you choose to use docker-compose__
     * `(set-relex-server-host)`
     * `(nlp-parse "you know what this is.")`
 
-7. have fun hacking
+7. Have fun hacking
 
-8. exit container
+8. Exit container
 
 ## Steps for RelEx development
 __For UNIX like systems only, and if you choose to use docker-compose__
