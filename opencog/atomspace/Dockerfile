@@ -23,6 +23,7 @@ USER opencog
 WORKDIR /home/opencog
 
 # Setup the workspace for developers
+COPY /scripts/ /home/opencog
 RUN sudo chown -R opencog:opencog .
 RUN sudo chown -R opencog:opencog .[a-z]*
 

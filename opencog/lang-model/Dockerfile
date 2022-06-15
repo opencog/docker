@@ -33,7 +33,6 @@ COPY /scripts/ /home/opencog
 
 # Setup the workspace for developers
 WORKDIR /home/opencog
-RUN sudo chown -R opencog:opencog .[a-z]*
 RUN sudo chown -R opencog:opencog experiments
 
 CMD /bin/bash
