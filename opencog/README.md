@@ -236,6 +236,12 @@ __WIP and only for use with systems with gpus, for now__
    [here](https://github.com/NVIDIA/nvidia-docker/wiki/nvidia-docker).
 -->
 
+## Docker Cheat Sheet
+* `docker images`
+* `docker rmi <image-hex>`
+* `docker ps -a`
+* `docker rm <image-name>`
+
 ## Notes
 1. Tmux is preinstalled so you can use it for multiple windows/panes.
 
