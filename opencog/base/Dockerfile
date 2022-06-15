@@ -36,6 +36,12 @@ RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 USER opencog
 WORKDIR /home/opencog
 
+# Setup config files
+## Dont't mount host volumes to opencog's home directory inside the
+## container, if you do you will not find the contents copied below
+COPY /scripts/ /home/opencog
+RUN sudo chown -R opencog:opencog .guile
+
 # Disable Haskell; its unused, unloved.
 # ARG INSTALL_HASKELL="yes"
 RUN if [ ${INSTALL_HASKELL} = "yes" ]; then /tmp/octool -s; fi

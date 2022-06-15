@@ -1,4 +1,6 @@
-# Step to take
+#
+# Steps to take:
+#
 # 1. docker build --no-cache -t opencog/cogutil
 # 2. docker run --rm -it opencog/cogutil
 

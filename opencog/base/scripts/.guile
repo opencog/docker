@@ -1,0 +1,9 @@
+; To make working with arrow keys easier
+(use-modules (ice-9 readline))
+(activate-readline)
+
+; Enable showing of backtrace on error
+(debug-enable 'backtrace)
+
+; Record positions of source code expressions.
+(read-enable 'positions)
