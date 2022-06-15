@@ -10,7 +10,9 @@
 #    The scripts in this container start a cogserver on 19014
 # 3. docker start -i lang-model
 # 4. cd experiments/run-word-pairs
-# 5. guile -l scm/cogserver-nav.scm
+# 5. . 0-pipeline.sh
+# 6. . pairs-en-conf.sh
+# 7. guile -l scm/cogserver-nav.scm
 #
 
 FROM opencog/learn

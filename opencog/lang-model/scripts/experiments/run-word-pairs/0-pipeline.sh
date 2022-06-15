@@ -16,7 +16,8 @@ export COMMON_DIR=/home/ubuntu/src/learn/run-common
 # It is recommended that this be located on an SSD disk, for
 # performance.
 # If you are using Postgres, just delete `ROCKS_DATA_DIR`.
-export ROCKS_DATA_DIR=/home/atomspace/data/
+# export ROCKS_DATA_DIR=/home/atomspace/data/
+export ROCKS_DATA_DIR=/home/opencog/data/
 
 # Directory in which configuration parameters (including this file)
 # are located. Obtained automatically; don't change.
