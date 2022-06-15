@@ -3,8 +3,10 @@ projects.  Below are instructions on how to get started with using
 docker to deploy production servers, as well as for development.
 Some of the notable containers include:
 
-* `opencog/opencog-dev` -- A full command-line development interface.
+* `opencog/opencog-dev` -- All supported OpenCog components.
 * `opencog/cogserver` -- An empty CogServer container.
+* `opencog/atomspace` -- Core AtomSpace only.
+* `opencog/learn` -- Learning subsystem.
 
 # Table of Contents
 1. [Common Initial Setup](#common-initial-setup)
@@ -96,6 +98,7 @@ these are:
 
 1. Build the container:
 ```
+      cd cogserver
       docker build --no-cache -t opencog/cogserver .
 ```
 2. Run the container, exposing port 17001 to the external world:
