@@ -16,12 +16,15 @@ FROM opencog/cogutil
 # Install core atomspace.
 RUN  /tmp/octool -a ; ccache -C
 
+# Basic tools that allow this image to be minimally usable.
+RUN apt-get -y install telnet netcat-openbsd tmux byobu
+
 USER opencog
 WORKDIR /home/opencog
 
 # Setup the workspace for developers
 RUN sudo chown -R opencog:opencog .
-RUN sudo chown -R opencog:opencog .*
+RUN sudo chown -R opencog:opencog .[a-z]*
 
 # XXX FIXME - despite efforts, the timestamp on
 #    /usr/local/lib/guile/3.0/site-ccache/opencog.go

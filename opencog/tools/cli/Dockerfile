@@ -17,8 +17,7 @@ FROM opencog/atomspace
 RUN  /tmp/octool -ow ; ccache -C
 
 # Install tools for developers.
-RUN apt-get -y install telnet netcat-openbsd python3-dbg \
-                       tmux man valgrind gdb byobu
+RUN apt-get -y install python3-dbg man valgrind gdb
 
 USER opencog
 WORKDIR /home/opencog
