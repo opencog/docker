@@ -44,7 +44,7 @@ RUN sudo chown -R opencog:opencog .guile
 
 # Disable Haskell; its unused, unloved.
 # ARG INSTALL_HASKELL="yes"
-RUN if [ ${INSTALL_HASKELL} = "yes" ]; then /tmp/octool -s; fi
+RUN if [ x${INSTALL_HASKELL} = "xyes" ]; then /tmp/octool -s; fi
 
 # For images built on this
 ONBUILD USER root
