@@ -14,7 +14,11 @@
 # 6. . pairs-en-conf.sh
 # 7. Run either tmux or byobu according to taste.
 # 8. guile -l scm/cogserver-nav.scm
+#    Wait until the guile command prompt appears.
 #
+# 9. Outside of the container, connect to the cogserver:
+#    rlwrap telnet localhost 17001
+#    Then try various commands: help, status, top, etc.
 
 FROM opencog/learn
 
