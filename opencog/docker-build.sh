@@ -30,9 +30,11 @@ printf "Usage: ./%s [OPTIONS]
        and development tools used by opencog.
     -c Builds opencog/cogutil image. This is the base image for all
        other opencog images.
-    -t Builds opencog/opencog-dev:cli image. It all supported opencog
-       components.
+    -t Builds opencog/opencog-dev:cli image. It contains all supported
+       opencog components.
 
+    -s Builds opencog/atomspace image.
+    -l Builds opencog/learn image.
     -e Builds opencog/minecraft image.
     -j Builds opencog/jupyter image. It adds a jupyter notebook to
        opencog/opencog-dev:cli
@@ -76,6 +78,12 @@ check_cogutil() {
     fi
 }
 
+check_atomspace() {
+    if [ -z "$(docker images opencog/atomspace | grep -i atomspace)" ]
+    then build_atomspace
+    fi
+}
+
 # -----------------------------------------------------------------------------
 ## Build opencog/opencog-dev:cli image.
 build_dev_cli() {
@@ -108,17 +116,19 @@ pull_dev_images() {
 # Main Execution
 if [ $# -eq 0 ] ; then NO_ARGS=true ; fi
 
-while getopts "abcehjmprtu" flag ; do
+while getopts "abcehjlmprstu" flag ; do
     case $flag in
         a) PULL_DEV_IMAGES=true ;;
         b) BUILD_OPENCOG_BASE_IMAGE=true ;;
-        t) BUILD_TOOL_IMAGE=true ;;
-        e) BUILD_EMBODIMENT_IMAGE=true ;;
         c) BUILD_COGUTIL_IMAGE=true ;;
+        e) BUILD_EMBODIMENT_IMAGE=true ;;
+        j) BUILD_JUPYTER_IMAGE=true ;;
+        l) BUILD_LEARN_IMAGE=true ;;
         m) BUILD__MOSES_IMAGE=true ;;
         p) BUILD__POSTGRES_IMAGE=true ;;
         r) BUILD_RELEX_IMAGE=true ;;
-        j) BUILD_JUPYTER_IMAGE=true ;;
+        s) BUILD_ATOMSPACE_IMAGE=true ;;
+        t) BUILD_TOOL_IMAGE=true ;;
         u) CACHE_OPTION=--no-cache ;;
         h) usage ;;
         \?) usage; exit 1 ;;
@@ -148,6 +158,20 @@ fi
 
 if [ $BUILD_COGUTIL_IMAGE ] ; then
     build_cogutil
+fi
+
+if [ $BUILD_ATOMSPACE_IMAGE ] ; then
+    check_cogutil
+    echo "---- Starting build of opencog/atomspace ----"
+    docker build $CACHE_OPTION -t opencog/atomspace atomspace
+    echo "---- Finished build of opencog/atomspace ----"
+fi
+
+if [ $BUILD_LEARN_IMAGE ] ; then
+    check_atomspace
+    echo "---- Starting build of opencog/learn ----"
+    docker build $CACHE_OPTION -t opencog/learn learn
+    echo "---- Finished build of opencog/learn ----"
 fi
 
 if [ $BUILD_TOOL_IMAGE ] ; then
