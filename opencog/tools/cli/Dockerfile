@@ -11,13 +11,13 @@
 # 6. make -j$(nproc)
 # Check http://wiki.opencog.org/w/Building_OpenCog on how to use IDEs
 
-FROM opencog/cogutil
+FROM opencog/atomspace
 
-# Downlaod data and install atomspace & opencog.
-RUN  /tmp/octool -aow ; ccache -C
+# Download data and install opencog.
+RUN  /tmp/octool -ow ; ccache -C
 
 # Install tools for developers.
-RUN apt-get -y install telnet netcat-openbsd less vim python3-dbg \
+RUN apt-get -y install telnet netcat-openbsd python3-dbg \
                        tmux man valgrind gdb byobu
 
 USER opencog
@@ -27,7 +27,7 @@ WORKDIR /home/opencog
 ## Dont't mount host volumes to opencog's home directory inside the container,
 ## if you do you will not find the contents copied below
 COPY /scripts/ /home/opencog
-RUN sudo chown -R opencog:opencog .*
+RUN sudo chown -R opencog:opencog .[a-z]*
 
 CMD /bin/bash
 

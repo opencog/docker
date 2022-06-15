@@ -68,7 +68,6 @@ build_cogutil() {
     echo "---- Starting build of opencog/cogutil ----"
     docker build $CACHE_OPTION -t opencog/cogutil cogutil
     echo "---- Finished build of opencog/cogutil ----"
-
 }
 
 ## If the opencog/cogutil image hasn't been built yet then build it.
@@ -76,6 +75,16 @@ check_cogutil() {
     if [ -z "$(docker images opencog/cogutil | grep -i cogutil)" ]
     then build_cogutil
     fi
+}
+
+# -----------------------------------------------------------------------------
+## Build opencog/atomspace image.
+
+build_atomspace() {
+    check_cogutil
+    echo "---- Starting build of opencog/atomspace ----"
+    docker build $CACHE_OPTION -t opencog/atomspace atomspace
+    echo "---- Finished build of opencog/atomspace ----"
 }
 
 check_atomspace() {
@@ -87,7 +96,7 @@ check_atomspace() {
 # -----------------------------------------------------------------------------
 ## Build opencog/opencog-dev:cli image.
 build_dev_cli() {
-    check_cogutil
+    check_atomspace
     echo "---- Starting build of opencog/opencog-dev:cli ----"
     docker build $CACHE_OPTION -t opencog/opencog-dev:cli tools/cli
     echo "---- Finished build of opencog/opencog-dev:cli ----"
@@ -161,10 +170,7 @@ if [ $BUILD_COGUTIL_IMAGE ] ; then
 fi
 
 if [ $BUILD_ATOMSPACE_IMAGE ] ; then
-    check_cogutil
-    echo "---- Starting build of opencog/atomspace ----"
-    docker build $CACHE_OPTION -t opencog/atomspace atomspace
-    echo "---- Finished build of opencog/atomspace ----"
+    build_atomspace
 fi
 
 if [ $BUILD_LEARN_IMAGE ] ; then
