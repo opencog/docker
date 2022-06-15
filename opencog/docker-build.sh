@@ -26,16 +26,20 @@ printf "Usage: ./%s [OPTIONS]
 
   OPTIONS:
     -a Pull all images needed for development from hub.docker.com/u/opencog/
-    -b Build opencog/opencog-deps image. It is the base image for
-       tools, cogutil, cogserver, and the buildbot images.
-    -c Builds opencog/cogutil image. It will build opencog/opencog-deps
-       if it hasn't been built, as it forms its base image.
+    -b Build opencog/opencog-deps image. This provides all dependencies
+       and development tools used by opencog.
+    -c Builds opencog/cogutil image. This is the base image for all
+       other opencog images.
+    -t Builds opencog/opencog-dev:cli image. It all supported opencog
+       components.
+
     -e Builds opencog/minecraft image.
-    -j Builds opencog/jupyter image. It adds jupyter notebook to opencog/opencog-dev:cli
+    -j Builds opencog/jupyter image. It adds a jupyter notebook to
+       opencog/opencog-dev:cli
     -m Builds opencog/moses image.
     -p Builds opencog/postgres image.
     -r Builds opencog/relex image.
-    -t Builds opencog/opencog-dev:cli image. It provides an opencog command line.
+
     -u This option signals all image builds to not use cache.
     -h This help message. \n" "$SELF_NAME"
 }

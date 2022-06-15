@@ -43,7 +43,7 @@ WORKDIR /home/opencog
 ## Dont't mount host volumes to opencog's home directory inside the
 ## container, if you do you will not find the contents copied below
 COPY /scripts/ /home/opencog
-RUN sudo chown -R opencog:opencog .guile
+RUN sudo chown -R opencog:opencog .guile .gdbinit
 
 # Disable Haskell; its unused, unloved.
 # ARG INSTALL_HASKELL="yes"
