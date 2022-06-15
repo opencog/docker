@@ -12,7 +12,8 @@
 # 4. cd experiments/run-word-pairs
 # 5. . 0-pipeline.sh
 # 6. . pairs-en-conf.sh
-# 7. guile -l scm/cogserver-nav.scm
+# 7. Run either tmux or byobu according to taste.
+# 8. guile -l scm/cogserver-nav.scm
 #
 
 FROM opencog/learn

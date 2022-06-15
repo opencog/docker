@@ -29,7 +29,7 @@ screen_lower_left="color logo distro release #arch session"
 screen_lower_right="color network #disk_io custom #entropy raid reboot_required updates_available #apport #services #mail users uptime #fan_speed #cpu_temp battery wifi_quality #processes load_average cpu_count cpu_freq memory #swap disk #time_utc date time"
 
 tmux_right="load_average disk_io date time"
-tmux_left="logo #distro release #arch session"
+tmux_left="session"
 
 
 # Tmux has one status line, with 2 halves for status
