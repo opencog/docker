@@ -36,7 +36,8 @@ RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 USER opencog
 WORKDIR /home/opencog
 
-ARG INSTALL_HASKELL="yes"
+# Disable Haskell; its unused, unloved.
+# ARG INSTALL_HASKELL="yes"
 RUN if [ ${INSTALL_HASKELL} = "yes" ]; then /tmp/octool -s; fi
 
 # For images built on this
