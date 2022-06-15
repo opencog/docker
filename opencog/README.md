@@ -83,25 +83,32 @@ your OS, regardles of which project you are working on.
 
 ## Running Production Servers
 Several different server containers are provided. The most important of
-these is the cogserver container.
+these are:
+* The atomspace container, which contains the core atomspace that
+  everyone needs. It does not contain any of the obscure or rarely-used
+  repos.
+* The cogserver container, which, when started, runs an empty cogserver.
+* The development container, which contains everything, including
+  development tools, and most (but not all!) of the obscure, rarely-used
+  repos.
 
-* __Running the CogServer__
+### Running the CogServer
 
-   1. Build the container:
+1. Build the container:
 ```
       docker build --no-cache -t opencog/cogserver .
 ```
-   2. Run the container, exposing port 17001 to the external world:
+2. Run the container, exposing port 17001 to the external world:
 ```
       docker run -p 17001:17001 -it opencog/cogserver
 ```
-   3. Wait until this is printed: `Listening on port 17001`
+3. Wait until this is printed: `Listening on port 17001`
 
-   4. Connect into the cogserver:
+4. Connect into the cogserver:
 ```
       rlwrap telnet localhost 17001
 ```
-   5. Follow the conventional cogserver instructions for more.
+5. Follow the conventional cogserver instructions for more.
 
 ## Steps for OpenCog development
 __For UNIX-like systems only, if you choose to use docker-compose__
