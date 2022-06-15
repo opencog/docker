@@ -12,7 +12,7 @@
 # 5. guile -l scm/cogserver-nav.scm
 #
 
-FROM opencog/atomspace
+FROM opencog/learn
 
 USER opencog
 WORKDIR /home/opencog
