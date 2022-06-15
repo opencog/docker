@@ -6,7 +6,8 @@
 # 1. docker build -t opencog/lang-model .
 # 2. docker create --name lang-model -p 17001:19014
 #       -it opencog/lang-model
-# Note: the -p flag is external_port:internal_port
+#    Note: the -p flag is external_port:internal_port
+#    The scripts in this container start a cogserver on 19014
 # 3. docker start -i lang-model
 # 4. cd experiments/run-word-pairs
 # 5. guile -l scm/cogserver-nav.scm
