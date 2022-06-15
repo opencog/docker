@@ -1,6 +1,9 @@
-# For creating images with all the dependencies for development installed.
 #
-# docker build --no-cache -t opencog/opencog-deps .
+# Images with all the dependencies for development installed.
+#
+# Steps to build & run:
+# 1. docker build --no-cache -t opencog/opencog-deps .
+# 2. docker run --rm -it opencog/opencog-deps
 
 ARG VERSION=20.04
 FROM ubuntu:${VERSION}
