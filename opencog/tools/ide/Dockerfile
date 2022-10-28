@@ -12,7 +12,7 @@
 FROM opencog/cogutil
 
 # Install non-system project dependencies
-RUN  /tmp/octool -al ; ccache -C
+RUN  /tmp/octool -al && ccache -C
 
 # Tools
 RUN apt-get -y install \

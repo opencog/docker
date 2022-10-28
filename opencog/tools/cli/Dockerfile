@@ -14,7 +14,7 @@
 FROM opencog/atomspace
 
 # Download data and install opencog.
-RUN  /tmp/octool -ow ; ccache -C
+RUN  /tmp/octool -ow && ccache -C
 
 # Install tools for developers.
 RUN apt-get -y install python3-dbg man valgrind gdb

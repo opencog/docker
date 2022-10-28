@@ -18,7 +18,7 @@ FROM opencog/cogutil
 RUN apt-get -y install r-base
 
 # Install moses
-RUN /tmp/octool -m ; ccache -C
+RUN /tmp/octool -m && ccache -C
 
 # Docker Defaults
 USER opencog

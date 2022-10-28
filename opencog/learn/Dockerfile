@@ -11,7 +11,7 @@
 
 FROM opencog/atomspace
 
-RUN  /tmp/octool -z ; ccache -C
+RUN  /tmp/octool -z && ccache -C
 
 USER opencog
 WORKDIR /home/opencog
