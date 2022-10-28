@@ -37,6 +37,13 @@ jobs:
           tags: ${{ secrets.DOCKER_NAMESPACE }}/cogutil:latest
           push: true
 
+      - name: Build and push atomspace to docker hub
+        uses: docker/build-push-action@v3
+        with:
+          context: opencog/atomspace
+          tags: ${{ secrets.DOCKER_NAMESPACE }}/atomspace:latest
+          push: true
+
   opencog-dev:
     needs: base-images
     runs-on: ubuntu-20.04
