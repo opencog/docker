@@ -5,6 +5,7 @@ on:
     paths:
       - "opencog/**"
       - ".github/workflows/**"
+  workflow_dispatch:
 
 jobs:
   build_opencog_images:

@@ -33,7 +33,7 @@ RUN apt-get update ; apt-get -y upgrade ; apt-get -y autoclean
 # Java and basic build tools
 RUN apt-get -y install maven screen telnet netcat-openbsd byobu \
     wget vim git unzip sudo apt-utils  openjdk-11-jdk gcc g++ make m4 \
-    autoconf-archive libtool swig flex pkg-config ant
+    autoconf-archive libtool swig flex pkg-config ant libpcre2-dev
 
 # Wordnet
 RUN apt-get -y install wordnet wordnet-dev wordnet-sense-index
@@ -67,25 +67,9 @@ RUN wget https://archive.apache.org/dist/opennlp/opennlp-1.5.3/apache-opennlp-1.
 
 # Link Parser -- changes often
 # Download the current released version of link-grammar.
-RUN git ls-remote -t \
-    https://github.com/opencog/link-grammar "link-grammar-5*" \
-    | grep -v "\^"| cut -d "-" -f 3 | sort -V | tail -n 1 \
-    >> LINKGRAMMAR_VERSION
-
-RUN wget https://github.com/opencog/link-grammar/archive/link-grammar-`cat LINKGRAMMAR_VERSION`.tar.gz; \
-    tar -zxf link-grammar-5*.tar.gz; \
-    cd link-grammar-link-grammar-5.*/; \
-    ./autogen.sh --no-configure; \
-    ./configure; make -j6; make install; ldconfig
-
-RUN cd link-grammar-link-grammar-5.*/; mvn install:install-file \
-    -Dfile=./bindings/java/linkgrammar-`cat ../LINKGRAMMAR_VERSION`.jar \
-    -DgroupId=org.opencog \
-    -DartifactId=linkgrammar \
-    -Dversion=`cat ../LINKGRAMMAR_VERSION` \
-    -Dpackaging=jar
-
-RUN rm -rf * link-grammar*
+ADD https://raw.githubusercontent.com/opencog/ocpkg/master/ocpkg \
+    /tmp/octool
+RUN chmod 755 /tmp/octool;  sync; /tmp/octool -l java
 
 # Relex -- changes often
 ADD https://github.com/opencog/relex/archive/master.tar.gz master.tar.gz
