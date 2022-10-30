@@ -7,7 +7,7 @@
 FROM opencog/opencog-deps
 
 # Install cogutil
-RUN  /tmp/octool -c ; ccache -C
+RUN  /tmp/octool -c && ccache -C
 
 USER opencog
 

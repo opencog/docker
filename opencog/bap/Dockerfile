@@ -38,7 +38,7 @@ RUN opam -y depext --install bap -y
 RUN eval $(opam env)
 
 # Install core atomspace.
-RUN  /tmp/octool -a ; ccache -C
+RUN  /tmp/octool -a && ccache -C
 
 # Setup the workspace for developers
 ## Dont't mount host volumes to opencog's home directory inside the

@@ -14,7 +14,7 @@
 FROM opencog/cogutil
 
 # Install core atomspace.
-RUN  /tmp/octool -a ; ccache -C
+RUN  /tmp/octool -a && ccache -C
 
 # Basic tools that allow this image to be minimally usable.
 RUN apt-get -y install telnet netcat-openbsd tmux byobu
