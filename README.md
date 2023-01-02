@@ -53,17 +53,11 @@ they are not in active use.
         ├─opencog/opencog-dev:ide
         ├─opencog/moses
 
-    ├─opencog/relex
-
 ### Organizational Notes:
 
-* `opencog/opencog-deps:utopic`: ubuntu 14.10 based image with all OpenCog's
-   dependencies installed.
-
-* `opencog/opencog-deps:latest`: ubuntu 14.04 based image with all OpenCog's
-   dependencies installed. This forms the base of opencog/cogutil. It
-   likely will be updated to the latest LTS as it is released. Has some command
-   line tools for use by developers.
+* `opencog/opencog-deps:latest`: Ubuntu 20.04 based image with all
+   OpenCog's dependencies installed. This forms the base of
+   `opencog/cogutil`.
 
 * `buildbot_*`: Is used for buildbot found [here](buildbot.opencog.org:8010)
 
@@ -83,9 +77,6 @@ they are not in active use.
 * `opencog/moses`: It has moses and R installed. R is installed for those
    who want to use the R binding for moses. The binding is not yet
    included but can be found [here](https://github.com/mjsduncan/Rmoses).
-
-* `opencog/relex`: It is a self-contianed image for running relex and
-   link-grammar servers.
 
 ## Usage
 * To run the demos and other containers, docker must be installed.

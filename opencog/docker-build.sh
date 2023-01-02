@@ -41,13 +41,15 @@ printf "Usage: ./%s [OPTIONS]
     -m Builds opencog/moses image.
 
     -u This option signals all image builds to not use cache.
-    -h This help message. \n" "$SELF_NAME"
+    -h This help message.
 
 Deprecated (Obsolete):
 
     -e Builds opencog/minecraft image.
     -p Builds opencog/postgres image.
     -r Builds opencog/relex image.
+
+\n" "$SELF_NAME"
 }
 
 # -----------------------------------------------------------------------------
