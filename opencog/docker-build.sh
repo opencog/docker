@@ -30,20 +30,24 @@ printf "Usage: ./%s [OPTIONS]
        and development tools used by opencog.
     -c Builds opencog/cogutil image. This is the base image for all
        other opencog images.
-    -t Builds opencog/opencog-dev:cli image. It contains all supported
-       opencog components.
 
     -s Builds opencog/atomspace image.
     -l Builds opencog/learn image.
-    -e Builds opencog/minecraft image.
+
+    -t Builds opencog/opencog-dev:cli image. It contains all supported
+       opencog components.
     -j Builds opencog/jupyter image. It adds a jupyter notebook to
        opencog/opencog-dev:cli
     -m Builds opencog/moses image.
-    -p Builds opencog/postgres image.
-    -r Builds opencog/relex image.
 
     -u This option signals all image builds to not use cache.
     -h This help message. \n" "$SELF_NAME"
+
+Deprecated (Obsolete):
+
+    -e Builds opencog/minecraft image.
+    -p Builds opencog/postgres image.
+    -r Builds opencog/relex image.
 }
 
 # -----------------------------------------------------------------------------
