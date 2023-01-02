@@ -3,10 +3,10 @@ projects.  Below are instructions on how to get started with using
 docker to deploy production servers, as well as for development.
 Some of the notable containers include:
 
-* `opencog/opencog-dev` -- All supported OpenCog components.
-* `opencog/cogserver` -- An empty CogServer container.
 * `opencog/atomspace` -- Core AtomSpace only.
+* `opencog/cogserver` -- An empty CogServer container.
 * `opencog/learn` -- Learning subsystem.
+* `opencog/opencog-dev` -- All supported OpenCog components.
 
 # Table of Contents
 1. [Common Initial Setup](#common-initial-setup)
@@ -14,8 +14,10 @@ Some of the notable containers include:
   2. [Windows](#windows)
 2. [Running Production Servers](#running-production-servers)
 3. [Steps for OpenCog development](#steps-for-opencog-development)
-4. [Steps for RelEx development](#steps-for-relex-development)
 <!--
+RelEx is deprecated/obsolete.
+4. [Steps for RelEx development](#steps-for-relex-development)
+Minecraft is obsolete.
 5. [Steps for opencog-to-minecraft development](#steps-for-opencog-to-minecraft-development)
 -->
 
@@ -157,15 +159,18 @@ __For UNIX-like systems only, if you choose to use docker-compose__
 5. For using opencog shells follow instruction
    [here](http://wiki.opencog.org/w/OpenCog_shell)
 
+6. Have fun hacking
+
+7. Exit container
+
+<!--
+RelEx is deprecated/obsolete.
+
 6. For configuring RelEx in the cogserver run
     * start the cogserver, telnet into it and access the scheme shell.
     * `(use-modules (opencog nlp) (opencog nlp chatbot) (opencog nlp relex2logic))`
     * `(set-relex-server-host)`
     * `(nlp-parse "you know what this is.")`
-
-7. Have fun hacking
-
-8. Exit container
 
 ## Steps for RelEx development
 __For UNIX like systems only, and if you choose to use docker-compose__
@@ -182,6 +187,8 @@ __For UNIX like systems only, and if you choose to use docker-compose__
     `docker-compose -f relex.yml run --service-ports relex`
   * If you don't want to map ports to host run
      `docker-compose -f relex.yml run relex`
+
+-->
 
 ## Steps for running jupyter kernels with opencog
 1. Build the image which has python and guile kernels installed with the following command.
