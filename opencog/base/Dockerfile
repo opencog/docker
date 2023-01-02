@@ -14,7 +14,7 @@ RUN apt-get update && apt-get -y upgrade
 
 # Install apt utilities
 RUN apt-get -y install apt-transport-https software-properties-common sudo \
-      wget tzdata
+      wget tzdata apt-utils
 
 # Install repositories and dependencies
 ADD https://raw.githubusercontent.com/opencog/ocpkg/master/ocpkg \
