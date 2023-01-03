@@ -22,18 +22,22 @@ RUN  /tmp/octool -z && ccache -C
 USER opencog
 WORKDIR /home/opencog
 
-RUN mkdir data
+# Copy user text files into the container.
 RUN mkdir text
 RUN mkdir text/input-pages
 COPY --chown=opencog:opencog text-pages/* text/input-pages/
 RUN rm text/input-pages/README.md
 
-
+# Set up a reasonable user environment.
+RUN mkdir data
 RUN mkdir experiments
 RUN mkdir experiments/run-1
 RUN cp -r /usr/local/share/opencog/learn/run-config/*.sh experiments/run-1
+RUN cp -r /usr/local/share/opencog/learn/run-common experiments/run-common
+RUN chmod ugo+x experiments/run-common/*.sh
 RUN cp -r /usr/local/share/opencog/learn/run experiments/run-1
 RUN chmod ugo+x experiments/run-1/run/*.sh
+RUN chmod ugo+x experiments/run-1/run/*/*.sh
 
 CMD /bin/bash
 
