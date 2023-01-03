@@ -54,6 +54,8 @@ they are not in active use.
         ├─opencog/moses
 
 ### Organizational Notes:
+Dockerhub's copies of opencog dockerfiles are here:
+https://hub.docker.com/search?q=opencog
 
 * `opencog/opencog-deps:latest`: Ubuntu 20.04 based image with all
    OpenCog's dependencies installed. This forms the base of
