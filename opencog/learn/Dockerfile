@@ -9,9 +9,11 @@
 # 2. docker create --name learn -p 17001:17001 -it opencog/learn
 #    Note: the -p flag is external_port:internal_port
 # 3. docker start -i learn
-# 4. cd /home/opencog/experiments/run-1
+# 4. cd experiments/run-1
 # 5. Review the config files; change as desired.
-# 6. Run run-tmux.sh
+# 6. . 0-pipeline.sh  # i.e. source the contents of this config file.
+# 7. run/run-tmux.sh  # Set up multiple byobu terminals.
+# 8. Review the project README's and follow those ...
 
 FROM opencog/atomspace
 
@@ -31,6 +33,7 @@ RUN mkdir experiments
 RUN mkdir experiments/run-1
 RUN cp -r /usr/local/share/opencog/learn/run-config/*.sh experiments/run-1
 RUN cp -r /usr/local/share/opencog/learn/run experiments/run-1
+RUN chmod ugo+x experiments/run-1/run/*.sh
 
 CMD /bin/bash
 
