@@ -22,7 +22,9 @@ RUN apt-get -y install gcc g++ cmake binutils-dev libiberty-dev \
 # Additional stuff for the AtomSpace: cython and guile.
 # RocksDB is needed for the RocksStorageNode
 # We need rlwrap+telnet for the CogServer.
-RUN apt-get -y install guile-3.0-dev cython librocksdb-dev telnet rlwrap
+# Octomap is for spacetime, needed by PLN.
+RUN apt-get -y install guile-3.0-dev cython librocksdb-dev telnet rlwrap \
+	liboctomap-dev
 
 # Need wget to download link-grammar source.
 RUN apt-get install -y wget flex libpcre2-dev locales
@@ -173,11 +175,15 @@ RUN (bash -l -c "echo \"(use-modules (opencog))\" | guile ; \
   echo \"(use-modules (opencog atom-types))\" | guile ; \
   echo \"(use-modules (opencog exec))\" | guile ; \
   echo \"(use-modules (opencog logger))\" | guile ; \
+  echo \"(use-modules (opencog cogserver))\" | guile ; \
   echo \"(use-modules (opencog persist))\" | guile ; \
+  echo \"(use-modules (opencog persist-cog))\" | guile ; \
   echo \"(use-modules (opencog persist-rocks))\" | guile ; \
   echo \"(use-modules (opencog query))\" | guile ; \
-  echo \"(use-modules (opencog rule-engine))\" | guile ; \
-  echo \"(use-modules (opencog cogserver))\" | guile ; \
+  echo \"(use-modules (opencog unify))\" | guile ; \
+  echo \"(use-modules (opencog ure))\" | guile ; \
+  echo \"(use-modules (opencog spacetime))\" | guile ; \
+  echo \"(use-modules (opencog pln))\" | guile ; \
   echo \"(use-modules (opencog nlp))\" | guile ; \
   echo \"(use-modules (opencog nlp chatbot))\" | guile ; \
   echo \"(use-modules (opencog nlp chatbot-eva))\" | guile ; \
