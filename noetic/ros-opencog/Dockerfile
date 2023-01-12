@@ -19,16 +19,17 @@ RUN apt-get -y install gcc g++ cmake binutils-dev libiberty-dev \
     libboost-serialization-dev libboost-system-dev libboost-thread-dev \
     cxxtest
 
-# Additional stuff needed to build and run relex.
-RUN apt-get -y install wordnet-dev wordnet-sense-index \
-    ant libcommons-logging-java libgetopt-java
+# Additional stuff for the AtomSpace: cython and guile.
+# We need rlwrap+telnet for the CogServer.
+RUN apt-get -y install guile-3.0-dev cython telnet rlwrap
 
-# Additional stuff for the AtomSpace: cython and guile and ODBC.
-# Additional stuff for OpenCog. We need telnet as a debug utility.
 # Need wget to download link-grammar source.
+RUN apt-get install -y wget flex libpcre2-dev locales
+
+# Additional stuff needed to build and run relex.
 # Need unzip to unzip JWNL.
-RUN apt-get -y install guile-2.2-dev cython unixodbc-dev odbc-postgresql \
-    wget telnet locales rlwrap unzip
+RUN apt-get -y install wordnet-dev wordnet-sense-index \
+    ant libcommons-logging-java libgetopt-java unzip
 
 # -------------------------------------------------------------
 # Right now, just clone the OpenCog sources. They will be built
@@ -43,8 +44,6 @@ RUN git clone https://github.com/opencog/atomspace-rocks.git
 RUN git clone https://github.com/opencog/cogserver.git
 RUN git clone https://github.com/opencog/atomspace-cog.git
 
-# need this for link-grammar below 
-RUN apt-get install -y flex
 # -------------------------------------------------------------
 # Download and install JWNL; its needed for relex.
 WORKDIR /src
@@ -61,7 +60,7 @@ RUN (unzip jwnl14-rc2.zip jwnl14-rc2/jwnl.jar ; \
 WORKDIR /src
 
 # Touch this tag to grab the latest version of LinkGrammar.
-ENV LAST_LG_UPDATE 2020-04-23_7
+ENV LAST_LG_UPDATE 2022-11-26_1
 
 # Download the current released version of link-grammar.
 # We do NOT want to git-clone this; the git version is unstable;
@@ -77,21 +76,22 @@ RUN tar -zxf current/link-grammar-5*.tar.gz
 # Need the locales for utf8
 RUN (echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
      echo "ru_RU.UTF-8 UTF-8" >> /etc/locale.gen && \
-     echo "he_IL.UTF-8 UTF-8" >> /etc/locale.gen && \
+     echo "th_TH.UTF-8 UTF-8" >> /etc/locale.gen && \
      echo "de_DE.UTF-8 UTF-8" >> /etc/locale.gen && \
-     echo "lt_LT.UTF-8 UTF-8" >> /etc/locale.gen && \
      echo "fa_IR.UTF-8 UTF-8" >> /etc/locale.gen && \
      echo "ar_AE.UTF-8 UTF-8" >> /etc/locale.gen && \
+     echo "he_IL.UTF-8 UTF-8" >> /etc/locale.gen && \
      echo "kk_KZ.UTF-8 UTF-8" >> /etc/locale.gen && \
+     echo "lt_LT.UTF-8 UTF-8" >> /etc/locale.gen && \
      echo "tr_TR.UTF-8 UTF-8" >> /etc/locale.gen)
 
 # WTF. In debian wheezy, it is enough to just say locale-gen without
-# any arguments. But in trusty, we eneed to be explicit.  I'm confused.
+# any arguments. But in Ubuntu, we need to be explicit.  I'm confused.
 # RUN locale-gen
-# Note also: under trusty, fa_IR.UTF-8 causes locale-gen to fail,
+# Note also: under Ubuntu, fa_IR.UTF-8 causes locale-gen to fail,
 # must use the naked  fa_IR
 # Note also: Kazakh is kk_KZ not kz_KZ
-RUN locale-gen en_US.UTF-8 ru_RU.UTF-8 he_IL.UTF-8 \
+RUN locale-gen en_US.UTF-8 ru_RU.UTF-8 he_IL.UTF-8 th_TH.UTF-8 \
      de_DE.UTF-8 lt_LT.UTF-8 fa_IR ar_AE.UTF-8 kk_KZ.UTF-8 tr_TR.UTF-8
 
 # Build the libraries and command-line parser only
@@ -113,7 +113,7 @@ WORKDIR /opencog
 
 # Change line below on rebuild. Will use Docker cache up to this line,
 # twigging this date will update the opencog sources.
-ENV LAST_SOFTWARE_UPDATE 2022-03-05
+ENV LAST_SOFTWARE_UPDATE 2023-01-11
 
 # Git pull for all packages
 RUN cd /opencog/ && find . -maxdepth 1 -mindepth 1 -type d \
@@ -149,13 +149,13 @@ COPY /scripts/tmux.sh /root/
 # Pre-compile the guile modules. We could say `guild comple ...`, but
 # this is easier. This avoids fly compilation during container start.
 RUN (bash -l -c "echo \"(use-modules (opencog))\" | guile ; \
+  echo \"(use-modules (opencog atom-types))\" | guile ; \
   echo \"(use-modules (opencog exec))\" | guile ; \
   echo \"(use-modules (opencog logger))\" | guile ; \
   echo \"(use-modules (opencog persist))\" | guile ; \
   echo \"(use-modules (opencog persist-rocks))\" | guile ; \
   echo \"(use-modules (opencog query))\" | guile ; \
   echo \"(use-modules (opencog rule-engine))\" | guile ; \
-  echo \"(use-modules (opencog atom-types))\" | guile ; \
   echo \"(use-modules (opencog cogserver))\" | guile ; \
   echo \"(use-modules (opencog nlp))\" | guile ; \
   echo \"(use-modules (opencog nlp chatbot))\" | guile ; \
