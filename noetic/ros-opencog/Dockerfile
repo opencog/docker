@@ -26,54 +26,8 @@ RUN apt-get -y install guile-3.0-dev cython telnet rlwrap
 # Need wget to download link-grammar source.
 RUN apt-get install -y wget flex libpcre2-dev locales
 
-# Additional stuff needed to build and run relex.
-# Need unzip to unzip JWNL.
-RUN apt-get -y install wordnet-dev wordnet-sense-index \
-    ant libcommons-logging-java libgetopt-java unzip
-
 # -------------------------------------------------------------
-# Right now, just clone the OpenCog sources. They will be built
-# later on.
-WORKDIR /opencog
-RUN git clone https://github.com/opencog/cogutil.git
-RUN git clone https://github.com/opencog/atomspace.git
-RUN git clone https://github.com/opencog/lg-atomese.git
-RUN git clone https://github.com/opencog/opencog.git
-RUN git clone https://github.com/opencog/relex.git
-RUN git clone https://github.com/opencog/atomspace-rocks.git
-RUN git clone https://github.com/opencog/cogserver.git
-RUN git clone https://github.com/opencog/atomspace-cog.git
-
-# -------------------------------------------------------------
-# Download and install JWNL; its needed for relex.
-WORKDIR /src
-RUN wget http://downloads.sourceforge.net/project/jwordnet/jwnl/JWNL%201.4/jwnl14-rc2.zip
-RUN (unzip jwnl14-rc2.zip jwnl14-rc2/jwnl.jar ; \
-    mkdir /usr/local/share/java ; \
-    mv -v jwnl14-rc2/jwnl.jar /usr/local/share/java ; \
-    rm -v jwnl14-rc2.zip ; rmdir jwnl14-rc2 ; \
-    chmod -v 0644 /usr/local/share/java/jwnl.jar)
-
-# -------------------------------------------------------------
-# Download and build Link Grammar. Its needed for Sureal,
-# the language generation component of opencog.
-WORKDIR /src
-
-# Touch this tag to grab the latest version of LinkGrammar.
-ENV LAST_LG_UPDATE 2022-11-26_1
-
-# Download the current released version of link-grammar.
-# We do NOT want to git-clone this; the git version is unstable;
-# it also requires extra tools and mish-mash to build it.
-# RUN http://www.abisource.com/downloads/link-grammar/current/link-grammar-5*.tar.gz
-# The wget tries to guess the correct file to download w/ wildcard
-# But that won't work.
-RUN wget -r --no-parent -nH --cut-dirs=2 http://www.abisource.com/downloads/link-grammar/current/
-
-# Unpack the sources, too.
-RUN tar -zxf current/link-grammar-5*.tar.gz
-
-# Need the locales for utf8
+# Need assorted locales for Link Grammar
 RUN (echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
      echo "ru_RU.UTF-8 UTF-8" >> /etc/locale.gen && \
      echo "th_TH.UTF-8 UTF-8" >> /etc/locale.gen && \
@@ -93,6 +47,37 @@ RUN (echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
 # Note also: Kazakh is kk_KZ not kz_KZ
 RUN locale-gen en_US.UTF-8 ru_RU.UTF-8 he_IL.UTF-8 th_TH.UTF-8 \
      de_DE.UTF-8 lt_LT.UTF-8 fa_IR ar_AE.UTF-8 kk_KZ.UTF-8 tr_TR.UTF-8
+
+# -------------------------------------------------------------
+# Right now, just clone the OpenCog sources. They will be built
+# later on.
+WORKDIR /opencog
+RUN git clone https://github.com/opencog/cogutil.git
+RUN git clone https://github.com/opencog/atomspace.git
+RUN git clone https://github.com/opencog/atomspace-rocks.git
+RUN git clone https://github.com/opencog/cogserver.git
+RUN git clone https://github.com/opencog/atomspace-cog.git
+RUN git clone https://github.com/opencog/lg-atomese.git
+RUN git clone https://github.com/opencog/relex.git
+RUN git clone https://github.com/opencog/opencog.git
+
+# -------------------------------------------------------------
+# Download and build Link Grammar.
+WORKDIR /src
+
+# Touch this tag to grab the latest version of LinkGrammar.
+ENV LAST_LG_UPDATE 2022-11-26_1
+
+# Download the current released version of link-grammar.
+# We do NOT want to git-clone this; the git version is unstable;
+# it also requires extra tools and mish-mash to build it.
+# RUN http://www.abisource.com/downloads/link-grammar/current/link-grammar-5*.tar.gz
+# The wget tries to guess the correct file to download w/ wildcard
+# But that won't work.
+RUN wget -r --no-parent -nH --cut-dirs=2 http://www.abisource.com/downloads/link-grammar/current/
+
+# Unpack the sources, too.
+RUN tar -zxf current/link-grammar-5*.tar.gz
 
 # Build the libraries and command-line parser only
 # Assumes that the sources have already been unpacked.
@@ -124,13 +109,36 @@ RUN (mkdir /opencog/cogutil/build; cd /opencog/cogutil/build; \
 	cmake ..; make -j6; make install)
 RUN (mkdir /opencog/atomspace/build; cd /opencog/atomspace/build; \
 	cmake ..; make -j12; make install)
+RUN (mkdir /opencog/cogserver/build; cd /opencog/cogserver/build; \
+	cmake ..; make -j12; make install)
+RUN (mkdir /opencog/atomspace-rocks/build; cd /opencog/atomspace-rocks/build; \
+	cmake ..; make -j12; make install)
+RUN (mkdir /opencog/atomspace-cog/build; cd /opencog/atomspace-cog/build; \
+	cmake ..; make -j12; make install)
 RUN (mkdir /opencog/lg-atomese/build; cd /opencog/lg-atomese/build; \
-    cmake ..; make -j12; make install)
+	cmake ..; make -j12; make install)
 RUN (mkdir /opencog/opencog/build; cd /opencog/opencog/build; \
 	cmake ..; make -j12; make install)
+
+# -------------------------------------------------------------
+# Additional stuff needed to build and run relex.
+# Need unzip to unzip JWNL.
+RUN apt-get -y install wordnet-dev wordnet-sense-index \
+    ant libcommons-logging-java libgetopt-java unzip
+
+# Download and install JWNL; its needed for relex.
+WORKDIR /src
+RUN wget http://downloads.sourceforge.net/project/jwordnet/jwnl/JWNL%201.4/jwnl14-rc2.zip
+RUN (unzip jwnl14-rc2.zip jwnl14-rc2/jwnl.jar ; \
+    mkdir /usr/local/share/java ; \
+    mv -v jwnl14-rc2/jwnl.jar /usr/local/share/java ; \
+    rm -v jwnl14-rc2.zip ; rmdir jwnl14-rc2 ; \
+    chmod -v 0644 /usr/local/share/java/jwnl.jar)
+
 COPY /scripts/install-ubuntu-relex.sh /opencog/relex/install-scripts/
 RUN (cd /opencog/relex; install-scripts/install-ubuntu-relex.sh; ant build; ant install)
 
+# -------------------------------------------------------------
 # Build the unit tests. This is .. optional, but we do it anyway,
 # for right now, just to sanity-check things.
 # WORKDIR /opencog/cogutil/build
