@@ -59,6 +59,9 @@ RUN git clone https://github.com/opencog/atomspace-rocks.git
 RUN git clone https://github.com/opencog/cogserver.git
 RUN git clone https://github.com/opencog/atomspace-cog.git
 RUN git clone https://github.com/opencog/lg-atomese.git
+RUN git clone https://github.com/opencog/unify.git
+RUN git clone https://github.com/opencog/ure.git
+RUN git clone https://github.com/opencog/pln.git
 RUN git clone https://github.com/opencog/relex.git
 RUN git clone https://github.com/opencog/opencog.git
 
@@ -117,6 +120,12 @@ RUN (mkdir /opencog/atomspace-rocks/build; cd /opencog/atomspace-rocks/build; \
 RUN (mkdir /opencog/atomspace-cog/build; cd /opencog/atomspace-cog/build; \
 	cmake ..; make -j12; make install)
 RUN (mkdir /opencog/lg-atomese/build; cd /opencog/lg-atomese/build; \
+	cmake ..; make -j12; make install)
+RUN (mkdir /opencog/unify/build; cd /opencog/unify/build; \
+	cmake ..; make -j12; make install)
+RUN (mkdir /opencog/ure/build; cd /opencog/ure/build; \
+	cmake ..; make -j12; make install)
+RUN (mkdir /opencog/pln/build; cd /opencog/pln/build; \
 	cmake ..; make -j12; make install)
 RUN (mkdir /opencog/opencog/build; cd /opencog/opencog/build; \
 	cmake ..; make -j12; make install)
