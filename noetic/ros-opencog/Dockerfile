@@ -20,8 +20,9 @@ RUN apt-get -y install gcc g++ cmake binutils-dev libiberty-dev \
     cxxtest
 
 # Additional stuff for the AtomSpace: cython and guile.
+# RocksDB is needed for the RocksStorageNode
 # We need rlwrap+telnet for the CogServer.
-RUN apt-get -y install guile-3.0-dev cython telnet rlwrap
+RUN apt-get -y install guile-3.0-dev cython librocksdb-dev telnet rlwrap
 
 # Need wget to download link-grammar source.
 RUN apt-get install -y wget flex libpcre2-dev locales
