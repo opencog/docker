@@ -1,5 +1,7 @@
 #
-# Container with just the core atomspace installed.
+# Container with just the core AtomSpace framework installed.
+# This does include the cogserver, atomspce-rocks and atomspace-cog.
+# It does NOT include nlp, unify, ure, pln or opencog.
 #
 # Steps:
 # 1. docker build --no-cache -t opencog/atomspace .
@@ -33,6 +35,10 @@ RUN sudo chown -R opencog:opencog .[a-z]*
 #    /usr/local/share/guile/site/3.0/opencog.scm
 # So hack around this by forcing a compile.
 RUN guile -c "(use-modules (opencog))"
+RUN guile -c "(use-modules (opencog matrix))"
+RUN guile -c "(use-modules (opencog persist))"
+RUN guile -c "(use-modules (opencog persist-cog))"
+RUN guile -c "(use-modules (opencog persist-rocks))"
 
 CMD /bin/bash
 
