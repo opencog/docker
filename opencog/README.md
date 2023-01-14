@@ -1,3 +1,5 @@
+AtomSpace and OpenCog Docker Containers
+---------------------------------------
 This directory contains docker configurations for some of OpenCog's
 projects.  Below are instructions on how to get started with using
 docker to deploy production servers, as well as for development.
@@ -8,18 +10,25 @@ Some of the notable containers include:
 * `opencog/learn` -- Learning subsystem.
 * `opencog/opencog-dev` -- All supported OpenCog components.
 
+All of the containers above are "empty", in that they contain no data,
+and thus, they don't "do anything".
+
+Containers that "actually do something" include:
+* `opencog/lang-pairs` -- Tabulate and visualize word pairs from
+                          blocks of  text.
+
 # Table of Contents
 1. [Common Initial Setup](#common-initial-setup)
    1. [Linux and UNIX-like Systems](#linux-and-unix-like-systems)
    2. [Windows](#windows)
 2. [Running Production Servers](#running-production-servers)
 3. [Steps for OpenCog development](#steps-for-opencog-development)
-<!--
+<!-- ==============================
 RelEx is deprecated/obsolete.
 4. [Steps for RelEx development](#steps-for-relex-development)
 Minecraft is obsolete.
 5. [Steps for opencog-to-minecraft development](#steps-for-opencog-to-minecraft-development)
--->
+=================================== -->
 
 ## Common Initial Setup
 The following sub-sections describe the steps required to configure docker on
@@ -31,16 +40,18 @@ your OS, regardles of which project you are working on.
 
 2. Pull images that are used for opencog development by running
    `./docker-build.sh -a`
-<!--
 2. Build images using `./docker-build.sh [OPTIONS]`.
+    * For langauge learning work, use the `-l` option.
+<!-- ==============================
     * For opencog development use `-bctp` option
-    * For NLP related work use`-r` option
+    * For NLP related work use `-r` option
     * For opencog-to-minecraft use `-bcte` option
-    * If you want to update your images add `-u` option. For example for opencog
-      development use `-ctu` options. Unless there are some system dependency
-      changes, you don't have to update `opeoncog/opencog-deps` image.
-    * To list the available options use `-h`
--->
+=================================== -->
+    * If you want to update your images add `-u` option. For example,
+      for opencog development, use `-ctu` options. Unless there are
+      some system dependency changes, you don't have to update
+      `opeoncog/opencog-deps` image. (???)
+    * To list the available options, use `-h`
 
 3. The following is required only if you want to use `docker-compose`
    setup that is described below. You only need to do this once, or
@@ -66,15 +77,16 @@ your OS, regardles of which project you are working on.
 
 3. Pull images that are used for opencog development by running
    `./docker-build.sh -a`
-<!--
 3. Build images using `./docker-build.sh [OPTIONS]`
+<!-- ==============================
     * For opencog development use `-bctp` option
     * For NLP related work add `-r` option
-    * If you want to update your images add `-u` option. For example for opencog
-      development use `-ctu` options. __Unless there are some system dependency
-      changes, you don't have to update `opeoncog/opencog-deps` image.__
-    * To list the available options use `-h`
--->
+=================================== -->
+    * If you want to update your images add `-u` option. For example,
+      for opencog development, use `-ctu` options. Unless there are
+      some system dependency changes, you don't have to update
+      `opeoncog/opencog-deps` image. (???)
+    * To list the available options, use `-h`
 
 4. In the script `windows-run.sh` found in the same directory as this README,
    Replace `$HOME/path/to/` in the export command to the appropriate absolute
@@ -89,12 +101,11 @@ your OS, regardles of which project you are working on.
 Several different server containers are provided. The most important of
 these are:
 * The atomspace container, which contains the core atomspace that
-  everyone needs. It does not contain any of the obscure or rarely-used
-  repos.
-* The cogserver container, which, when started, runs an empty cogserver.
+  everyone needs. It does not contain any of the more experimental
+  repos, nor any of the older, deprecated or abandoned projects.
 * The development container, which contains everything, including
-  development tools, and most (but not all!) of the obscure, rarely-used
-  repos.
+  development tools, and most (but not all!) of the experimental
+  repos, and some of the deprecated repos that are still in use.
 
 ### Running the CogServer
 
@@ -163,7 +174,7 @@ __For UNIX-like systems only, if you choose to use docker-compose__
 
 7. Exit container
 
-<!--
+<!-- =============================================
 RelEx is deprecated/obsolete.
 
 6. For configuring RelEx in the cogserver run
@@ -188,7 +199,7 @@ __For UNIX like systems only, and if you choose to use docker-compose__
   * If you don't want to map ports to host run
      `docker-compose -f relex.yml run relex`
 
--->
+=============================================== -->
 
 ## Steps for running jupyter kernels with opencog
 1. Build the image which has python and guile kernels installed with the following command.
@@ -208,7 +219,7 @@ This would build/pull necessary docker images.
     docker-compose -f opencog-jupyter.yml run --service-ports notes
     ```
 4. Go to `0.0.0.0:8888/tree/notebooks` to interact with your notebooks.
-<!--
+<!-- ==============================
 ## Steps for opencog-to-minecraft development
 __For UNIX like systems only, and if you choose to use docker-compose__
 
@@ -251,7 +262,7 @@ __WIP and only for use with systems with gpus, for now__
 
 3. For usage of the built image see
    [here](https://github.com/NVIDIA/nvidia-docker/wiki/nvidia-docker).
--->
+=================================== -->
 
 ## Docker Cheat Sheet
 * `docker images`
@@ -260,13 +271,15 @@ __WIP and only for use with systems with gpus, for now__
 * `docker rm <image-name>`
 
 ## Notes
-1. Tmux is preinstalled so you can use it for multiple windows/panes.
+1. Both `tmux` and `byobu` are installed, so you can use either for
+   multiple windows/panes.
 
-2. On exiting opencog container, postgres & relex will still be running in the
-   background. So when running `docker-compose run ...` it will auto-link to them,
-   provided you haven't removed the containers or shutdown your machine.
+2. On exiting the opencog container, postgres & relex will still be
+   running in the background. So when running `docker-compose run ...`
+   it will auto-link to them, provided you haven't removed the
+   containers or shutdown your machine.
 
-3. For more on docker-compose refert to https://docs.docker.com/compose/
+3. For more on docker-compose refer to https://docs.docker.com/compose/
 
 ## TODO
 1. Update docker-compose configuration for minimizing steps to start
@@ -274,7 +287,7 @@ __WIP and only for use with systems with gpus, for now__
 
 2. Add more images to github workflow for automated publishing
 
-3. Make docker-build.sh and Dockerfiles independent of the github and
+3. Make `docker-build.sh` and Dockerfiles independent of the github and
    docker namespaces
 
 4. Use debian packages to minimize size of images and faster builds
