@@ -24,7 +24,7 @@ Steps:
 
 For example:
 A. Go to the `cogsrv` tab, and run `run/2-word-pairs/run-cogserver.sh`
-B. Go to the `telnet` tab, and run `rlwrap telnet localhost 17001`
+B. Go to the `telnet` tab, and run `rlwrap telnet localhost 17002`
    Then run `help` in the cogserver shell and get oriented.
    Then run `top`  in the cogserver shell, to see the stats.
 C. Go to the `submit` tab, and run `run/2-word-pairs/pair-submit.sh`
@@ -45,7 +45,19 @@ F. Go to the `cogsrv` tab, and perform batch MI calculations
 ```
 
 G. The word-pair dataset can now be browsed with a simple web browser.
-   Load the broswer naviation support:
+   Go to the `cntl` tab and run `sudo service apache2 start`
+H. Go to the `cogsrv` tab, load the broswer navigation support:
 ```
 (load "/home/opencog/src/cogprotolab/run-word-pairs/scm/navigate.scm")
 ```
+I. On your local machine, connect to the webserver, using the port 8080
+   specified on `docker create` line above:
+```
+http://localhost:8080
+```
+   or
+```
+http://172.17.0.1:8080
+```
+   where `172.17.0.1` is the Docker container IP address; will vary,
+   in general.
