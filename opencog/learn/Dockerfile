@@ -3,6 +3,7 @@
 #
 FROM opencog/atomspace
 
+# Install everythign learn-related.
 RUN  /tmp/octool -z && ccache -C
 
 # Compile the scheme files now. octool did not do this.
