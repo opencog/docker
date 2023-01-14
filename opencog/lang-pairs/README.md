@@ -4,8 +4,9 @@ A container that can be used to count and visualize word-pairs.
 
 Steps:
 
--1: Run `../docker-build.sh -a` and `../docker-build.sh -l` to build
+0: Run `../docker-build.sh -a` and `../docker-build.sh -l` to build
     the pre-requisite containers.
+
 0. Copy your text files to `text-files`. These will then be
    automatically copied into the Docker container, to the
    directory `text/input-files`.
