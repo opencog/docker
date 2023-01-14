@@ -1,5 +1,5 @@
-AtomSpace and OpenCog Docker Containers
----------------------------------------
+OpenCog Docker Containers
+-------------------------
 This directory contains docker configurations for some of OpenCog's
 projects.  Below are instructions on how to get started with using
 docker to deploy production servers, as well as for development.
@@ -11,13 +11,12 @@ Some of the notable containers include:
 * `opencog/opencog-dev` -- All supported OpenCog components.
 
 All of the containers above are "empty", in that they contain no data,
-and thus, they don't "do anything".
-
-Containers that "actually do something" include:
+and thus, they don't "do anything".  Containers that "actually do
+something" include:
 * `opencog/lang-pairs` -- Tabulate and visualize word pairs from
-                          blocks of  text.
+                          text corpora.
 
-# Table of Contents
+## Table of Contents
 1. [Common Initial Setup](#common-initial-setup)
    1. [Linux and UNIX-like Systems](#linux-and-unix-like-systems)
    2. [Windows](#windows)
@@ -40,20 +39,20 @@ your OS, regardles of which project you are working on.
 
 2. Pull images that are used for opencog development by running
    `./docker-build.sh -a`
-2. Build images using `./docker-build.sh [OPTIONS]`.
+3. Build images using `./docker-build.sh [OPTIONS]`.
     * For langauge learning work, use the `-l` option.
-<!-- ==============================
-    * For opencog development use `-bctp` option
-    * For NLP related work use `-r` option
-    * For opencog-to-minecraft use `-bcte` option
-=================================== -->
     * If you want to update your images add `-u` option. For example,
       for opencog development, use `-ctu` options. Unless there are
       some system dependency changes, you don't have to update
       `opeoncog/opencog-deps` image. (???)
     * To list the available options, use `-h`
+<!-- ==============================
+    * For opencog development use `-bctp` option
+    * For NLP related work use `-r` option
+    * For opencog-to-minecraft use `-bcte` option
+=================================== -->
 
-3. The following is required only if you want to use `docker-compose`
+4. The following is required only if you want to use `docker-compose`
    setup that is described below. You only need to do this once, or
    repeat it when updating.
 
@@ -61,7 +60,7 @@ your OS, regardles of which project you are working on.
    sudo pip install -U docker-compose
    ```
 
-4. Run docker using whichever setup you are accustomed to. If you want
+5. Run docker using whichever setup you are accustomed to. If you want
    to use `docker-compose`, follow the steps below, as per your type
    of development.  The `docker-compose` setup enables you to persist
    changes you make on the opencog repos, from within the container,
@@ -77,25 +76,25 @@ your OS, regardles of which project you are working on.
 
 3. Pull images that are used for opencog development by running
    `./docker-build.sh -a`
-3. Build images using `./docker-build.sh [OPTIONS]`
-<!-- ==============================
-    * For opencog development use `-bctp` option
-    * For NLP related work add `-r` option
-=================================== -->
+4. Build images using `./docker-build.sh [OPTIONS]`
     * If you want to update your images add `-u` option. For example,
       for opencog development, use `-ctu` options. Unless there are
       some system dependency changes, you don't have to update
       `opeoncog/opencog-deps` image. (???)
     * To list the available options, use `-h`
+<!-- ==============================
+    * For opencog development use `-bctp` option
+    * For NLP related work add `-r` option
+=================================== -->
 
-4. In the script `windows-run.sh` found in the same directory as this README,
+5. In the script `windows-run.sh` found in the same directory as this README,
    Replace `$HOME/path/to/` in the export command to the appropriate absolute
    path on your windows machine. __Note that you don't have to clone each
    repository or add all the paths__, just those you need. Since you will be
    using the MINGW environment that was setup by the first step, use UNIX path
    naming format.
 
-5. Run `./windows-run.sh`.
+6. Run `./windows-run.sh`.
 
 ## Running Production Servers
 Several different server containers are provided. The most important of
@@ -106,6 +105,9 @@ these are:
 * The development container, which contains everything, including
   development tools, and most (but not all!) of the experimental
   repos, and some of the deprecated repos that are still in use.
+
+<!-- ==============================
+Why the heck would anyone want to run a naked cogserver????
 
 ### Running the CogServer
 
@@ -125,6 +127,7 @@ these are:
       rlwrap telnet localhost 17001
 ```
 5. Follow the conventional cogserver instructions for more.
+=================================== -->
 
 ## Steps for OpenCog development
 __For UNIX-like systems only, if you choose to use docker-compose__
