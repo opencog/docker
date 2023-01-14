@@ -4,7 +4,7 @@ A container that can be used to count and visualize word-pairs.
 
 Steps:
 
-0: Run `../docker-build.sh -a` and `../docker-build.sh -l` to build
+0. Run `../docker-build.sh -a` and `../docker-build.sh -l` to build
     the pre-requisite containers.
 
 0. Copy your text files to `text-files`. These will then be
@@ -14,7 +14,7 @@ Steps:
 ```
         docker build -t opencog/lang-pairs .
 ```
-    To force a rebuild:
+   To force a rebuild:
 ```
         docker build --no-cache -t opencog/lang-pairs .
 ```
