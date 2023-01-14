@@ -46,18 +46,31 @@ F. Go to the `cogsrv` tab, and perform batch MI calculations
 
 G. The word-pair dataset can now be browsed with a simple web browser.
    Go to the `cntl` tab and run `sudo service apache2 start`
-H. Go to the `cogsrv` tab, load the broswer navigation support:
+H. Go to the `cogsrv` tab, load the browser navigation support:
 ```
 (load "/home/opencog/src/cogprotolab/run-word-pairs/scm/navigate.scm")
+(define pair-stars asa)
+(define pair-freq (add-pair-freq-api pair-stars))
+(define (pair-score EDGE) (pair-freq 'pair-fmi EDGE))
+(define pair-nav
+	(make-nav pair-stars 'right-duals 'left-duals pair-score 10))
 ```
-I. On your local machine, connect to the webserver, using the port 8080
+
+I. Verify that the above is not insane. The following should work:
+```
+(pair-freq 'left-wild-fmi (Word "the"))
+(pair-nav 'forward (Word "the"))
+(pair-nav 'edge-score (Word "the") (Word "door"))
+```
+
+J. On your local machine, connect to the webserver, using the port 8080
    specified on `docker create` line above:
 ```
-http://localhost:8080
+http://localhost:8080/
 ```
    or
 ```
-http://172.17.0.1:8080
+http://172.17.0.1:8080/
 ```
    where `172.17.0.1` is the Docker container IP address; will vary,
    in general.
