@@ -10,8 +10,8 @@ Some of the notable containers include:
 
 # Table of Contents
 1. [Common Initial Setup](#common-initial-setup)
-  1. [Linux and UNIX-like Systems](#linux-and-unix-like-systems)
-  2. [Windows](#windows)
+   1. [Linux and UNIX-like Systems](#linux-and-unix-like-systems)
+   2. [Windows](#windows)
 2. [Running Production Servers](#running-production-servers)
 3. [Steps for OpenCog development](#steps-for-opencog-development)
 <!--
