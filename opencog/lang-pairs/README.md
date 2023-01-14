@@ -7,10 +7,11 @@ Steps:
 0. Run `../docker-build.sh -a` and `../docker-build.sh -l` to build
     the pre-requisite containers.
 
-0. Copy your text files to `text-files`. These will then be
+1. Copy your text files to `text-files`. These will then be
    automatically copied into the Docker container, to the
-   directory `text/input-files`.
-1. First time, say:
+   directory `text/input-files`. (You can skip this step; files can
+   also be added after the container has been created; see below.
+2. First time, say:
 ```
         docker build -t opencog/lang-pairs .
 ```
@@ -18,16 +19,28 @@ Steps:
 ```
         docker build --no-cache -t opencog/lang-pairs .
 ```
-2. `docker create --name pair-counter -p 8080:80 -p 17002:17002 -it opencog/lang-pairs`
+3. `docker create --name pair-counter -p 8080:80 -p 17002:17002 -it opencog/lang-pairs`
    Note: the `-p` flag is `external_port:internal_port`. The first flag
    exposes the internal webserver on `localhost:8080` and the second
    flag exposes the cogserver.
-3. `docker start -i pair-counter`
-4. `cd experiments/run-1`
-5. Review the config files; change as desired.
-6. `. 0-pipeline.sh`  # i.e. source the contents of this config file.
-7. `run/run-tmux.sh`  # Set up multiple byobu terminals.
-8. Review the language-learning project README's and follow those ...
+4. `docker start -i pair-counter`
+5. `cd experiments/run-1`
+6. Review the config files; change if desired. The defaults are fine
+   for an initial run. a Later on, you can copy them to
+   `experiments/run-2`, `experiments/run-3` and so on, for modified
+   extended runs.
+7. `. 0-pipeline.sh`  # i.e. source the contents of this config file.
+8. `run/run-tmux.sh`  # Set up multiple byobu terminals.
+9. Files can be copied in and out of the container using the
+   `docker container cp` command. For example, to place more text
+   into the input queue:
+```
+docker container cp some-book.txt pair-counter:/home/opencog/text/input-pages
+```
+   See the [docker container docs](https://docs.docker.com/engine/reference/commandline/container/)
+   for more info.
+10. Review the [language-learning project](https://github.com/opencog/learn)
+   README's and follow instructions there ...
 
 Here's a simplified digest, just enough to get the basics for word-pairs
 running:

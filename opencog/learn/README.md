@@ -14,3 +14,9 @@ There are several ways to build:
 
 To get fresh containers after github sources have changed, you will
 need to add the `--no-cache` flag to the `docker build` command.
+
+## Running
+
+You can start the bare container by saying `./run.sh` in this directory.
+However, it might be more interesting to try the word-pair-counting
+experiment in the `../lang-pairs` directory.
