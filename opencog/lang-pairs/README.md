@@ -63,6 +63,9 @@ E. Go to the `telnet` tab, and wait until the telnet stats clear ...
    This may take hours or days, depending on the dataset.
    Basically, the system is busy chewing on the data files, and the
    stats report remains busy until that work is done.
+   Each file in `~/text/input-pages` is moved to ~/text/pair-counted`
+   after it has been submited. Thus, you can track progress by comparing
+   `find ~/text/input-pages/ |wc` to `find ~/text/pair-counted/ |wc`.
 
 F. Go to the `cogsrv` tab, and perform batch MI calculations.
    This may take minutes or hours, depending on the dataset.
