@@ -40,7 +40,8 @@ printf "Usage: ./%s [OPTIONS]
        opencog/opencog-dev:cli
     -m Builds opencog/moses image.
 
-    -u This option signals all image builds to not use cache.
+    -u Ignore the docker image cache when building. This will cause the
+       container(s) to be built from scratch.
     -h This help message.
 
 Deprecated (Obsolete):
@@ -130,6 +131,9 @@ pull_dev_images() {
 # -----------------------------------------------------------------------------
 # Main Execution
 if [ $# -eq 0 ] ; then NO_ARGS=true ; fi
+
+# In case the user runs this script from some other location...
+cd $(dirname $0)
 
 while getopts "abcehjlmprstu" flag ; do
     case $flag in
