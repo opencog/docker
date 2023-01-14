@@ -13,7 +13,7 @@ Steps:
 ```
         docker build --no-cache -t opencog/lang-pairs .
 ```
-2. `docker create --name pair-counter -p 17001:17001 -it opencog/lang-pairs`
+2. `docker create --name pair-counter -p 8080:80 -p 17002:17002 -it opencog/lang-pairs`
    Note: the -p flag is external_port:internal_port
 3. `docker start -i pair-counter`
 4. `cd experiments/run-1`
@@ -29,4 +29,23 @@ B. Go to the `telnet` tab, and run `rlwrap telnet localhost 17001`
    Then run `top`  in the cogserver shell, to see the stats.
 C. Go to the `submit` tab, and run `run/2-word-pairs/pair-submit.sh`
 D. Wait until the telnet stats clear ...
-E.
+   This may take hours or days, depending on the dataset.
+E. Go to the `cogsrv` tab, and poke around in the AtomSpace
+```
+(cog-report-counts)
+```
+F. Go to the `cogsrv` tab, and perform batch MI calculations
+   This may take minutes or hours, depending on the dataset.
+```
+(define ala (make-any-link-api))
+(define aca (add-count-api ala))
+(define asa (add-pair-stars aca))
+(batch-all-pair-mi asa)
+(print-matrix-summary-report asa)
+```
+
+G. The word-pair dataset can now be browsed with a simple web browser.
+   Load the broswer naviation support:
+```
+(load "/home/opencog/src/cogprotolab/run-word-pairs/scm/navigate.scm")
+```
