@@ -6,12 +6,13 @@ FROM opencog/atomspace
 # Install everythign learn-related.
 RUN  /tmp/octool -z && ccache -C
 
-# Compile the scheme files now. octool did not do this.
+USER opencog
+WORKDIR /home/opencog
+
+# Compile the scheme files as the user.
 RUN guile -c "(use-modules (opencog nlp))"
 RUN guile -c "(use-modules (opencog learn))"
 
-USER opencog
-WORKDIR /home/opencog
 CMD /bin/bash
 
 ONBUILD USER root
