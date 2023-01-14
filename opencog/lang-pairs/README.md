@@ -19,15 +19,18 @@ Steps:
         docker build --no-cache -t opencog/lang-pairs .
 ```
 2. `docker create --name pair-counter -p 8080:80 -p 17002:17002 -it opencog/lang-pairs`
-   Note: the -p flag is external_port:internal_port
+   Note: the `-p` flag is `external_port:internal_port`. The first flag
+   exposes the internal webserver on `localhost:8080` and the second
+   flag exposes the cogserver.
 3. `docker start -i pair-counter`
 4. `cd experiments/run-1`
 5. Review the config files; change as desired.
 6. `. 0-pipeline.sh`  # i.e. source the contents of this config file.
 7. `run/run-tmux.sh`  # Set up multiple byobu terminals.
-8. Review the project README's and follow those ...
+8. Review the language-learning project README's and follow those ...
 
-For example:
+Here's a simplified digest, just enough to get the basics for word-pairs
+running:
 
 A. Go to the `cogsrv` tab, and run `run/2-word-pairs/run-cogserver.sh`
 
@@ -37,15 +40,20 @@ B. Go to the `telnet` tab, and run `rlwrap telnet localhost 17002`
 
 C. Go to the `submit` tab, and run `run/2-word-pairs/pair-submit.sh`
 
-D. Wait until the telnet stats clear ...
-   This may take hours or days, depending on the dataset.
-
-E. Go to the `cogsrv` tab, and poke around in the AtomSpace
+D. Go to the `cogsrv` tab, and poke around in the AtomSpace, as
+   desired. It will take a while for processing to complete. So,
+   for example, as you wait, you can look at the Atoms piling up:
 ```
 (cog-report-counts)
 ```
-F. Go to the `cogsrv` tab, and perform batch MI calculations
+E. Go to the `telnet` tab, and wait until the telnet stats clear ...
+   This may take hours or days, depending on the dataset.
+   Basically, the system is busy chewing on the data files, and the
+   stats report remains busy until that work is done.
+
+F. Go to the `cogsrv` tab, and perform batch MI calculations.
    This may take minutes or hours, depending on the dataset.
+   It is best not to start these until counting is done.
 ```
 (define ala (make-any-link-api))
 (define aca (add-count-api ala))
@@ -54,7 +62,8 @@ F. Go to the `cogsrv` tab, and perform batch MI calculations
 (print-matrix-summary-report asa)
 ```
 
-G. The word-pair dataset can now be browsed with a simple web browser.
+G. That's it! The word-pair dataset is now complete.  It can now be
+   browsed with a web browser.
    Go to the `cntl` tab and run `sudo service apache2 start`
 
 H. Go to the `cogsrv` tab, load the browser navigation support:
@@ -67,7 +76,8 @@ H. Go to the `cogsrv` tab, load the browser navigation support:
 	(make-nav pair-stars 'right-duals 'left-duals pair-score 10))
 ```
 
-I. Verify that the above is not insane. The following should work:
+I. Verify that the above is not insane. The following should print
+   plausible results:
 ```
 (pair-freq 'left-wild-fmi (Word "the"))
 (pair-nav 'forward (Word "the"))
@@ -85,3 +95,5 @@ http://172.17.0.1:8080/
 ```
    where `172.17.0.1` is the Docker container IP address; will vary,
    in general.
+
+----
