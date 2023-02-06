@@ -24,21 +24,21 @@ jobs:
           password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
 
       - name: Build and push opencog-deps to docker hub
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@v4
         with:
           context: opencog/base
           tags: ${{ secrets.DOCKER_NAMESPACE }}/opencog-deps:latest
           push: true
 
       - name: Build and push cogutil to docker hub
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@v4
         with:
           context: opencog/cogutil
           tags: ${{ secrets.DOCKER_NAMESPACE }}/cogutil:latest
           push: true
 
       - name: Build and push atomspace to docker hub
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@v4
         with:
           context: opencog/atomspace
           tags: ${{ secrets.DOCKER_NAMESPACE }}/atomspace:latest
@@ -60,7 +60,7 @@ jobs:
           password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
 
       - name: Build and push to docker hub
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@v4
         with:
           context: opencog/${{ github.job }}
           tags: ${{ secrets.DOCKER_NAMESPACE }}/${{ github.job }}:latest
@@ -82,7 +82,7 @@ jobs:
           password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
 
       - name: Build and push to docker hub
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@v4
         with:
           context: opencog/${{ github.job }}
           tags: ${{ secrets.DOCKER_NAMESPACE }}/${{ github.job }}:latest
@@ -105,7 +105,7 @@ jobs:
           password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
 
       - name: Build and push to docker hub
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@v4
         with:
           context: opencog/tools/cli
           tags: |
@@ -130,7 +130,7 @@ jobs:
           password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
 
       - name: Build and push to docker hub
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@v4
         with:
           context: opencog/${{ github.job }}
           tags: ${{ secrets.DOCKER_NAMESPACE }}/${{ github.job }}:latest
@@ -152,7 +152,7 @@ jobs:
           password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
 
       - name: Build and push to docker hub
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@v4
         with:
           context: opencog/${{ github.job }}
           tags: ${{ secrets.DOCKER_NAMESPACE }}/${{ github.job }}:latest
