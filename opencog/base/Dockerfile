@@ -5,7 +5,8 @@
 # 1. docker build --no-cache -t opencog/opencog-deps .
 # 2. docker run --rm -it opencog/opencog-deps
 
-ARG VERSION=20.04
+# Ubuntu 22.04.1 LTS (Jammy Jellyfish)
+ARG VERSION=22.04
 FROM ubuntu:${VERSION}
 
 ENV DEBIAN_FRONTEND=noninteractive
