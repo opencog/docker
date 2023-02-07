@@ -23,15 +23,14 @@ RUN apt-get -y install apt-transport-https software-properties-common sudo \
 
 # Install ocpkg. Bump the date to get the latest ocpkg installed;
 # Otherwise, this docker build will be cached with an old octool.
-ENV LAST_OCPKG_UPDATE 2023-02-07
+ENV LAST_OCPKG_UPDATE 2023-02-07.4
 ADD https://raw.githubusercontent.com/opencog/ocpkg/master/ocpkg \
     /tmp/octool
 RUN chmod 755 /tmp/octool;  sync;
 
-# Run octool in multiple steps, instead of one big gulp. This
-# make debugging install failures easier.
+# Run octool in multiple steps, instead of one big gulp.
+# This makes debugging install failures easier.
 RUN /tmp/octool -rdv
-RUN /tmp/octool -pv
 RUN /tmp/octool -v -l default
 
 # Environment Variables
