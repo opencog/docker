@@ -43,8 +43,8 @@ your OS, regardles of which project you are working on.
     * For langauge learning work, use the `-l` option.
     * If you want to update your images add `-u` option. For example,
       for opencog development, use `-ctu` options. Unless there are
-      some system dependency changes, you don't have to update
-      `opeoncog/opencog-deps` image. (???)
+      some base OS changes, or changes to ocpkg/octool, you don't have
+      to update `opencog/opencog-deps` image.
     * To list the available options, use `-h`
 <!-- ==============================
     * For opencog development use `-bctp` option
@@ -79,8 +79,8 @@ your OS, regardles of which project you are working on.
 4. Build images using `./docker-build.sh [OPTIONS]`
     * If you want to update your images add `-u` option. For example,
       for opencog development, use `-ctu` options. Unless there are
-      some system dependency changes, you don't have to update
-      `opeoncog/opencog-deps` image. (???)
+      some base OS changes, or changes to ocpkg/octool, you don't have
+      to update `opencog/opencog-deps` image.
     * To list the available options, use `-h`
 <!-- ==============================
     * For opencog development use `-bctp` option

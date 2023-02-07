@@ -10,13 +10,19 @@ FROM ubuntu:${VERSION}
 
 ENV DEBIAN_FRONTEND=noninteractive
 
+# Bump this date, in order to force the apt-update to run again.
+# Otherwise, it will use the cached Docker container, which might
+# be stale or be missing secruity updates.
+ENV LAST_OS_UPDATE 2023-02-07
 RUN apt-get update && apt-get -y upgrade
 
 # Install apt utilities
 RUN apt-get -y install apt-transport-https software-properties-common sudo \
       wget tzdata apt-utils
 
-# Install repositories and dependencies
+# Install ocpkg. Bump the date to get the latest ocpkg installed;
+# Otherwise, this docker build will be cached with an old octool.
+ENV LAST_OCPKG_UPDATE 2023-02-07
 ADD https://raw.githubusercontent.com/opencog/ocpkg/master/ocpkg \
     /tmp/octool
 RUN chmod 755 /tmp/octool;  sync; /tmp/octool -rdpv -l default
