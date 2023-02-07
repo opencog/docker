@@ -26,10 +26,16 @@ RUN apt-get -y install apt-transport-https software-properties-common sudo \
 ENV LAST_OCPKG_UPDATE 2023-02-07
 ADD https://raw.githubusercontent.com/opencog/ocpkg/master/ocpkg \
     /tmp/octool
-RUN chmod 755 /tmp/octool;  sync; /tmp/octool -rdpv -l default
+RUN chmod 755 /tmp/octool;  sync;
+
+# Run octool in multiple steps, instead of one big gulp. This
+# make debugging install failures easier.
+RUN /tmp/octool -rdv
+RUN /tmp/octool -pv
+RUN /tmp/octool -v -l default
 
 # Environment Variables
-## Set Locale
+## Set Locale -- Link Grammar expects this.
 RUN locale-gen en_US.UTF-8
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
