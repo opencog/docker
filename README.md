@@ -45,11 +45,14 @@ These no longer work, due to bitrot; the "good stuff", the last
 attempt to get everything working, is in the [noetic](noetic) folder.
 
 ## Dockerfiles for OpenCog
-Opencog system dockerfiles can be found in the opencog and buildbot
-directories.  See [opencog's README](opencog/README.md) and
-[buildbot's README](buildbot/README.md).
+Opencog system dockerfiles can be found in the [opencog](opencog)
+directory. Up-to-date, current pre-built versions of these Docker
+containers can be downloaded from dockerhub. Simply go to the
+[opencog](opencog) directory, and run the `docker-build.sh` shell
+script. `docker-build.sh -h` for help, and `docker-build.sh -a`
+to download everything.
 
-### Docker image structure:
+### Docker image dependency structure:
 
     ├─opencog/opencog-deps
       ├─opencog/cogutil
