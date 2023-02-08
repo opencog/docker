@@ -1,6 +1,7 @@
 # ROS Hydro release
 
 Older ROS Hydro packages.
+Include full container for the Zeno robot.
 
 ### Docker image structure:
 
