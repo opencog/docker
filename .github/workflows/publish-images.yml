@@ -9,7 +9,7 @@ on:
 
 jobs:
   base-images:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
       - name: Checkout current repo
         uses: actions/checkout@v3
@@ -45,7 +45,8 @@ jobs:
           push: true
 
   atomspace:
-    runs-on: ubuntu-20.04
+    needs: base-images
+    runs-on: ubuntu-22.04
     steps:
       - name: Checkout current repo
         uses: actions/checkout@v3
@@ -67,7 +68,8 @@ jobs:
           push: true
 
   learn:
-    runs-on: ubuntu-20.04
+    needs: atomspace
+    runs-on: ubuntu-22.04
     steps:
       - name: Checkout current repo
         uses: actions/checkout@v3
@@ -89,8 +91,8 @@ jobs:
           push: true
 
   opencog-dev:
-    needs: base-images
-    runs-on: ubuntu-20.04
+    needs: atomspace
+    runs-on: ubuntu-22.04
     steps:
       - name: Checkout current repo
         uses: actions/checkout@v3
@@ -115,7 +117,7 @@ jobs:
 
   moses:
     needs: base-images
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
       - name: Checkout current repo
         uses: actions/checkout@v3
