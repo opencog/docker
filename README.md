@@ -25,9 +25,10 @@ around in the MineCraft world.
 
 ## Dockerfiles for Robot Operating System (ROS)
 Dockerfiles for demoing and working with various different robot heads
-and bodies, mostly those from Hanson Robotics. Several of the heads are
-modeled with blender, and so can be usefully worked with and controlled
-even without a physical robot.
+and bodies, mostly those from
+[Hanson Robotics](https://www.hansonrobotics.com/). Several of the
+heads are modeled with blender, and so can be usefully worked with
+and controlled even without a physical robot.
 
 Sadly, the Eva demo has bitrotted. There have been some valiant efforts
 to bring Eva back to life, to be found in the [noetic](noetic) folder,
