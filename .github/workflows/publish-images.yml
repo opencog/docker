@@ -4,7 +4,7 @@ on:
   push:
     branches: master
   schedule:
-    - cron: "0 0 * * *"
+    - cron: "37 2 * * 6"  # Run 2:37 AM Saturday night. `man 5 crontab`
   workflow_dispatch:
 
 jobs:
