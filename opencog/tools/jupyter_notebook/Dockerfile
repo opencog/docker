@@ -3,10 +3,9 @@
 # Build from opencog-dev:cli as it has all packages it needs.
 FROM opencog/opencog-dev:cli
 
-RUN apt-get update --fix-missing && apt-get install -y wget bzip2 ca-certificates \
+RUN apt-get update --fix-missing && apt-get install -y bzip2 \
     libglib2.0-0 libxext6 libsm6 libxrender1 \
-    git mercurial subversion \
-    curl python3-pip
+    mercurial subversion python3-pip
 
 # To install jupyter notebook alongside with kernel on default python3 for later usage
 # torando must be at this specific version from https://github.com/jupyter/notebook/issues/3407
