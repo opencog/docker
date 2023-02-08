@@ -19,6 +19,11 @@ of surprise and happiness.
 
 ![Eva Splash 1](indigo/Eva-1-small.png) ![Eva Splash 2](indigo/Eva-2-small.png) ![Eva Splash 3](indigo/Eva-3-small.png)
 
+Sadly, the Eva demo has bitrotted. There have been some valiant efforts
+to bring Eva back to life, but they failed. The primary roadblock is
+that Eva requires an older version of blender, version 2.79, which dates
+back to 2016. Perhaps a blender expert could port Eva to a newer version.
+
 Another particularly interesting container is that for the OpenCog to
 MineCraft bridge, which allows OpenCog to operate an avatar running
 around in the MineCraft world.
