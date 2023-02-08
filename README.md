@@ -37,8 +37,8 @@ an older version of [blender](https://www.blender.org/), version 2.79,
 which dates back to 2016. Perhaps a blender expert could port Eva to
 a newer version.
 
-The ROS dockerfiles are contained in the [hydro](hydro), [indigo](indigo),
-[jenkins](jenkins) and [noetic](noetic) directories. Eva came in
+The ROS dockerfiles are contained in the [hydro](hydro),
+[indigo](indigo), [noetic](noetic) directories. Eva came in
 two forms: a basic animation and social interaction demo, in the
 [indigo/eva-owyl](indigo/eva-owyl) folder, and a full-featured
 system in the [indigo/eva-opencig](indigo/eva-opencog) folder.
