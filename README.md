@@ -38,8 +38,8 @@ README's in those directories for more info.
 
 ## Dockerfiles for OpenCog
 Opencog system dockerfiles can be found in the opencog and buildbot
-directories.  See [opencog's README.MD](opencog/README.md)
-and [buildbot's README.md](buildbot/README.md).
+directories.  See [opencog's README](opencog/README.md) and
+[buildbot's README](buildbot/README.md).
 
 The Dockerfiles in the directories `opencog/tools/distcc`,
 `opencog/embodiment` and `opencog/cogserver` are not detailed because
@@ -47,40 +47,48 @@ they are not in active use.
 
 ### Docker image structure:
 
-    ├─opencog/opencog-deps:utopic
+    ├─opencog/opencog-deps:jammy
     ├─opencog/opencog-deps:latest
       ├─buildbot_* (Where * = atomspace, cogutil, opencog, moses)
       ├─opencog/cogutil:latest
         ├─opencog/opencog-dev:cli (for a dev environment)
         ├─opencog/opencog-dev:ide
-        ├─opencog/moses
+        ├─opencog/atomspace
+        ├─opencog/learn
+        ├─opencog/lang-pairs
 
 ### Organizational Notes:
 Dockerhub's copies of opencog dockerfiles are here:
 https://hub.docker.com/search?q=opencog
 
-* `opencog/opencog-deps:latest`: Ubuntu 20.04 based image with all
-   OpenCog's dependencies installed. This forms the base of
-   `opencog/cogutil`.
+* `opencog/opencog-deps:latest`: Ubuntu 22.04 based image with all
+   OpenCog's dependencies installed. This does not need to be rebuilt,
+   except to pick up the latest in version of the base OS and OS security
+   patches. This is the base image for `opencog/cogutil`.
 
 * `buildbot_*`: Is used for buildbot found [here](buildbot.opencog.org:8010)
 
-* `opencog/cogutil`: It is the base image for `opencog/opencog-dev:cli`,
-   `opencog/opencog-dev:ide` and `opencog/moses` images. It installs cogutil
-   over `opencog/opencog-deps` image. The main reason for having this is to
-   speed up rebuilds as one doesn't ave to rebuild the `opencog-deps` image,
-   unless there are dependency changes, and rebuilding this image will suffice
-   for updating the dependent images.
+* `opencog/cogutil`: This depends on the `opencog/opencog-deps:latest`
+  image. It installs the base cogutil tools; these are shared by
+  several other opencog repos. This is the base image for the
+  `opencog/atomspace` image.  Dependent images will rebuild if this
+   image is updated.
 
-* `opencog/opencog-dev:cli`: Mainly for running/developing through a shared
-   filesystem between host and container.
+* `opencog/atomspace`: This depends on the `opencog/cogutil:latest`
+  image. It provides the AtomSpace, RocksDB, the Cogserver, and the
+  network CogStorageNode, allowing complex AtomSpace networks to
+  be built.
 
-* `opencog/opencog-dev:ide`: To be used for developing using ides. QtCreator
-   is installed.
+* `opencog/learn`: This depends on the `opencog/atomspace:latest`
+  image. It provides the basic development environment for the
+  language learning project.
 
-* `opencog/moses`: It has moses and R installed. R is installed for those
-   who want to use the R binding for moses. The binding is not yet
-   included but can be found [here](https://github.com/mjsduncan/Rmoses).
+* `opencog/opencog-dev:cli`: This depends on the
+  `opencog/atomspace:latest` image. It installs all supported opencog
+  repos and tools, including `as-moses`.
+
+* `opencog/opencog-dev:ide`: To be used for developing using IDEs.
+   QtCreator is installed.
 
 ## Usage
 * To run the demos and other containers, docker must be installed.
@@ -88,9 +96,9 @@ https://hub.docker.com/search?q=opencog
   The [Giving non-root access](https://docs.docker.com/installation/ubuntulinux/#giving-non-root-access)
   section on the page explains how to avoid having to use `sudo` all the time.
 
-* The docker-build.sh file in opencog directory is used for building
-  some of the images. Run `./docker-build.sh -h` for viewing available
-  options.
+* The `docker-build.sh` file in [opencog](opencog) directory can be used
+  to build the containers mentioned above. There are also many more.
+  Run `./docker-build.sh -h` for usage instructions.
 
-* To use docker-compose follow the instruction in the README file in the
-  opencog directory.
+* To use `docker-compose`, follow the instructions in the
+  [README](opencog/README.md) file in the [opencog directory](opencog).
