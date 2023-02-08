@@ -4,7 +4,7 @@
 # 1. docker build --no-cache -t opencog/cogutil
 # 2. docker run --rm -it opencog/cogutil
 
-FROM opencog/opencog-deps
+FROM opencog/opencog-deps:latest
 
 # Install cogutil
 RUN  /tmp/octool -c && ccache -C

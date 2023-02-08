@@ -13,7 +13,7 @@
 #
 # Check http://wiki.opencog.org/w/Building_OpenCog on how to use IDEs
 
-FROM opencog/cogutil
+FROM opencog/cogutil:latest
 
 # Install core atomspace.
 RUN  /tmp/octool -a && ccache -C

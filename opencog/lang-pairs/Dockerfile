@@ -1,7 +1,7 @@
 #
 # Container with word-pair-counting demo.
 #
-FROM opencog/learn
+FROM opencog/learn:latest
 
 # Install a webserver for the visualizer
 RUN apt-get -y install apache2 php

@@ -11,7 +11,7 @@
 # 6. make -j$(nproc)
 # Check http://wiki.opencog.org/w/Building_OpenCog on how to use IDEs
 
-FROM opencog/atomspace
+FROM opencog/atomspace:latest
 
 # Download data and install opencog.
 RUN  /tmp/octool -ow && ccache -C

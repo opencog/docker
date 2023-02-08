@@ -1,7 +1,7 @@
 #
 # Container with core learning repos. No data.
 #
-FROM opencog/atomspace
+FROM opencog/atomspace:latest
 
 # Install everythign learn-related.
 RUN  /tmp/octool -z && ccache -C
