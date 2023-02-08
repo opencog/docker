@@ -1,3 +1,5 @@
+[![publish](https://github.com/opencog/docker/actions/workflows/publish-images.yml/badge.svg)](https://github.com/opencog/docker/actions)
+
 # OpenCog Docker library
 This repository contains various docker images for demoing and using
 various parts of the OpenCog project. Using the docker images here is
