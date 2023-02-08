@@ -29,7 +29,7 @@ Steps:
    for an initial run. a Later on, you can copy them to
    `experiments/run-2`, `experiments/run-3` and so on, for modified
    extended runs.
-7. `source 0-pipeline.sh`  # load environment variables from config file.
+7. `source 0-pipeline.sh`  # Load environment variables from config file.
 8. `run/run-tmux.sh`       # Set up multiple byobu terminals.
 9. Files can be copied in and out of the container using the
    `docker container cp` command. For example, to place more text
