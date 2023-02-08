@@ -18,14 +18,20 @@ ENV LAST_OS_UPDATE 2023-02-07
 RUN apt-get update && apt-get -y upgrade
 
 # Install apt utilities
-RUN apt-get -y install apt-transport-https software-properties-common sudo \
-      wget tzdata apt-utils
+RUN apt-get -y install apt-transport-https software-properties-common \
+      sudo wget tzdata apt-utils
 
 # Install ocpkg. Bump the date to get the latest ocpkg installed;
 # Otherwise, this docker build will be cached with an old octool.
-ENV LAST_OCPKG_UPDATE 2023-02-07.5
-ADD https://raw.githubusercontent.com/opencog/ocpkg/master/ocpkg \
-    /tmp/octool
+ENV LAST_OCPKG_UPDATE 2023-02-07
+
+# The OCPKG_URL can be overridden by specifying
+# docker build --build-arg OCPKG_URL=https://some.where.else.com/ockpg
+ARG GITHUB_NAME="opencog"
+ENV GITHUB_NAME ${GITHUB_NAME}
+ARG OCPKG_URL=https://raw.githubusercontent.com/${GITHUB_NAME}/ocpkg/master/ocpkg
+RUN echo OCPKG_URL=$OCPKG_URL
+ADD $OCPKG_URL /tmp/octool
 RUN chmod 755 /tmp/octool;  sync;
 
 # Run octool in multiple steps, instead of one big gulp.
@@ -58,7 +64,7 @@ COPY /scripts/ /home/opencog
 RUN sudo chown -R opencog:opencog .guile .gdbinit
 
 # Disable Haskell; its unused, unloved.
-# ARG INSTALL_HASKELL="yes"
+ARG INSTALL_HASKELL="no"
 RUN if [ x${INSTALL_HASKELL} = "xyes" ]; then /tmp/octool -s; fi
 
 # For images built on this
