@@ -53,6 +53,15 @@ containers can be downloaded from dockerhub. Simply go to the
 script. `docker-build.sh -h` for help, and `docker-build.sh -a`
 to download everything.
 
+### OpenCog demo
+The [lang-pairs](opencog/lang-pairs) container hosts a stand-alone
+word-pair visualization demo. If you have some files containing
+text, ideally more than a few thousand words and less than a few
+million, then this demo can process the files and extract the
+word-pair mutual information. This can then be viewed by aiming
+a web browser at the docker container. Just follow the directions
+in the README.
+
 ### Docker image dependency structure:
 
     ├─opencog/opencog-deps

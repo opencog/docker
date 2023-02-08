@@ -31,7 +31,7 @@ Minecraft is obsolete.
 
 ## Common Initial Setup
 The following sub-sections describe the steps required to configure docker on
-your OS, regardles of which project you are working on.
+your OS, regardless of which project you are working on.
 
 ### Linux and UNIX-like Systems
 1. Follow the instructions [here](https://docs.docker.com/engine/installation/)
@@ -40,14 +40,14 @@ your OS, regardles of which project you are working on.
 2. Pull images that are used for opencog development by running
    `./docker-build.sh -a`
 3. Build images using `./docker-build.sh [OPTIONS]`.
-    * For langauge learning work, use the `-l` option.
+    * For language learning work, use the `-l` option.
     * If you want to update your images add `-u` option. For example,
       for opencog development, use `-ctu` options. Unless there are
       some base OS changes, or changes to ocpkg/octool, you don't have
       to update `opencog/opencog-deps` image.
     * To list the available options, use `-h`
 <!-- ==============================
-    * For opencog development use `-bctp` option
+    * For opencog development use `-bct` option
     * For NLP related work use `-r` option
     * For opencog-to-minecraft use `-bcte` option
 =================================== -->
@@ -57,7 +57,7 @@ your OS, regardles of which project you are working on.
    repeat it when updating.
 
    ```
-   sudo pip install -U docker-compose
+   sudo apt install docker-compose
    ```
 
 5. Run docker using whichever setup you are accustomed to. If you want
@@ -83,7 +83,7 @@ your OS, regardles of which project you are working on.
       to update `opencog/opencog-deps` image.
     * To list the available options, use `-h`
 <!-- ==============================
-    * For opencog development use `-bctp` option
+    * For opencog development use `-bct` option
     * For NLP related work add `-r` option
 =================================== -->
 
@@ -105,29 +105,6 @@ these are:
 * The development container, which contains everything, including
   development tools, and most (but not all!) of the experimental
   repos, and some of the deprecated repos that are still in use.
-
-<!-- ==============================
-Why the heck would anyone want to run a naked cogserver????
-
-### Running the CogServer
-
-1. Build the container:
-```
-      cd cogserver
-      docker build --no-cache -t opencog/cogserver .
-```
-2. Run the container, exposing port 17001 to the external world:
-```
-      docker run -p 17001:17001 -it opencog/cogserver
-```
-3. Wait until this is printed: `Listening on port 17001`
-
-4. Connect into the cogserver:
-```
-      rlwrap telnet localhost 17001
-```
-5. Follow the conventional cogserver instructions for more.
-=================================== -->
 
 ## Steps for OpenCog development
 __For UNIX-like systems only, if you choose to use docker-compose__
@@ -177,6 +154,12 @@ __For UNIX-like systems only, if you choose to use docker-compose__
 
 7. Exit container
 
+## Steps for RelEx development
+RelEx is deprecated/obsolete. It builds and works just fine, and is
+perfectly usable. However, it is no longer maintained, and is not
+recommended for any future development.  See the (commented out)
+instructions in this README for details.
+
 <!-- =============================================
 RelEx is deprecated/obsolete.
 
@@ -205,6 +188,12 @@ __For UNIX like systems only, and if you choose to use docker-compose__
 =============================================== -->
 
 ## Steps for running jupyter kernels with opencog
+For some reason, the Jupyter container no longer builds. There is some
+bug with setting up the python environment. If you know how to use
+python, please fix this (these) config bugs (and remove this error
+message when done.)
+
+
 1. Build the image which has python and guile kernels installed with the following command.
     ```
     ./docker-build -j
@@ -222,6 +211,11 @@ This would build/pull necessary docker images.
     docker-compose -f opencog-jupyter.yml run --service-ports notes
     ```
 4. Go to `0.0.0.0:8888/tree/notebooks` to interact with your notebooks.
+
+## Steps for opencog-to-minecraft development
+The minecraft code is currently bit-rotted, and will not build.
+See the (commented out) instructions in this README for details.
+
 <!-- ==============================
 ## Steps for opencog-to-minecraft development
 __For UNIX like systems only, and if you choose to use docker-compose__
@@ -253,8 +247,14 @@ __For UNIX like systems only, and if you choose to use docker-compose__
 5. Except PYTHONPATH setting step, which isn't needed because it is already
    configured inside the container, follow the steps described
    [here](https://github.com/opencog/opencog-to-minecraft#steps-to-start-the-bot)
+=================================== -->
 
-## Steps for opencog perception developments
+## Steps for opencog perception development
+The perception code is currently bit-rotted, and will not build.
+See the (commented out) instructions in this README for details.
+
+<!-- ==============================
+## Steps for opencog perception development
 __WIP and only for use with systems with gpus, for now__
 
 1. Install nvidia docker plugin by following instruction
@@ -289,8 +289,3 @@ __WIP and only for use with systems with gpus, for now__
    developing
 
 2. Add more images to github workflow for automated publishing
-
-3. Make `docker-build.sh` and Dockerfiles independent of the github and
-   docker namespaces
-
-4. Use debian packages to minimize size of images and faster builds
