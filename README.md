@@ -19,11 +19,6 @@ of surprise and happiness.
 
 ![Eva Splash 1](indigo/Eva-1-small.png) ![Eva Splash 2](indigo/Eva-2-small.png) ![Eva Splash 3](indigo/Eva-3-small.png)
 
-Sadly, the Eva demo has bitrotted. There have been some valiant efforts
-to bring Eva back to life, but they failed. The primary roadblock is
-that Eva requires an older version of blender, version 2.79, which dates
-back to 2016. Perhaps a blender expert could port Eva to a newer version.
-
 Another particularly interesting container is that for the OpenCog to
 MineCraft bridge, which allows OpenCog to operate an avatar running
 around in the MineCraft world.
@@ -34,33 +29,36 @@ and bodies, mostly those from Hanson Robotics. Several of the heads are
 modeled with blender, and so can be usefully worked with and controlled
 even without a physical robot.
 
-These files are contained in the `hydro` and [indigo](indigo)
-directories. Eva comes in two forms: a basic animation and social
-interaction demo, in the [indigo/eva-owyl](indigo/eva-owyl) folder,
-and a full-featured system (under heavy development, and probably broken)
-in the [indigo/eva-opencog](indigo/eva-opencog) folder.  See the
-README's in those directories for more info.
+Sadly, the Eva demo has bitrotted. There have been some valiant efforts
+to bring Eva back to life, to be found in the [noetic](noetic) folder,
+but they stand incomplete. The primary roadblock is that Eva requires
+an older version of [blender](https://www.blender.org/), version 2.79,
+which dates back to 2016. Perhaps a blender expert could port Eva to
+a newer version.
+
+The ROS dockerfiles are contained in the [hydro](hydro), [indigo](indigo),
+[jenkins](jenkins) and [noetic](noetic) directories. Eva came in
+two forms: a basic animation and social interaction demo, in the
+[indigo/eva-owyl](indigo/eva-owyl) folder, and a full-featured
+system in the [indigo/eva-opencig](indigo/eva-opencog) folder.
+These no longer work, due to bitrot; the "good stuff", the last
+attempt to get everything working, is in the [noetic](noetic) folder.
 
 ## Dockerfiles for OpenCog
 Opencog system dockerfiles can be found in the opencog and buildbot
 directories.  See [opencog's README](opencog/README.md) and
 [buildbot's README](buildbot/README.md).
 
-The Dockerfiles in the directories `opencog/tools/distcc`,
-`opencog/embodiment` and `opencog/cogserver` are not detailed because
-they are not in active use.
-
 ### Docker image structure:
 
-    ├─opencog/opencog-deps:jammy
-    ├─opencog/opencog-deps:latest
-      ├─buildbot_* (Where * = atomspace, cogutil, opencog, moses)
-      ├─opencog/cogutil:latest
-        ├─opencog/opencog-dev:cli (for a dev environment)
-        ├─opencog/opencog-dev:ide
+    ├─opencog/opencog-deps
+      ├─opencog/cogutil
         ├─opencog/atomspace
-        ├─opencog/learn
-        ├─opencog/lang-pairs
+          ├─opencog/learn
+            ├─opencog/lang-pairs
+          ├─opencog/opencog-dev:cli (for a dev environment)
+            ├─opencog/opencog-dev:ide
+            ├─opencog/opencog-jupyter
 
 ### Organizational Notes:
 Dockerhub's copies of opencog dockerfiles are here:
@@ -70,8 +68,6 @@ https://hub.docker.com/search?q=opencog
    OpenCog's dependencies installed. This does not need to be rebuilt,
    except to pick up the latest in version of the base OS and OS security
    patches. This is the base image for `opencog/cogutil`.
-
-* `buildbot_*`: Is used for buildbot found [here](buildbot.opencog.org:8010)
 
 * `opencog/cogutil`: This depends on the `opencog/opencog-deps:latest`
   image. It installs the base cogutil tools; these are shared by
@@ -94,6 +90,8 @@ https://hub.docker.com/search?q=opencog
 
 * `opencog/opencog-dev:ide`: To be used for developing using IDEs.
    QtCreator is installed.
+
+* `opencog/opencog-jupyter`: Above, plus a Jupyter notebook.
 
 ## Usage
 * To run the demos and other containers, docker must be installed.
