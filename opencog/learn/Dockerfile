@@ -3,7 +3,7 @@
 #
 FROM opencog/atomspace:latest
 
-# Install everythign learn-related.
+# Install everything learn-related.
 RUN  /tmp/octool -z && ccache -C
 
 USER opencog

@@ -1,38 +1,18 @@
-lang-pairs
-----------
-This is a demo container that can process text, count co-occurring
-word-pairs and then visualize them via a simple web-based visualizer.
-It demos the most basic stages of the
+lang-pairs-auto
+---------------
+This container fully automates the process of counting word-pairs.
+It implements the first stage of the
 [language learning](https://github.com/opencog/learn/) pipeline.
 
-This samples nearby word-pairs from the input text, and counts how
-often they are seen. These counts are recorded in the AtomSpace, and
-written to a persistent database: the RocksB `StorageNode`. This
-database can be reopened at a later time, without having to redo
-counting.
+A full explanation and demo can be found in the
+[lang-pairs](../lang-pairs/README.md) directory.
 
-Given observed frequencies of word-pairs, the mutual information
-between them can be calculated. See Wikipedia,
-[pointwise mutual information](https://en.wikipedia.org/wiki/Pointwise_mutual_information).
-After counting, batch scripts compute this (see instructions below).
-After these are computed, an Apache webserver is started inside this
-container. Using a web browser to access it will bring up a simple
-word-pair visualizer.
+This container will take half-a-day or several days (or longer) to run,
+depending on the quantity of input text.  It will need 4 to 24GB of RAM,
+depending on the text.
 
-The demo can take half-a-day or a day to run, depending on how much
-text you give it.  It will need 4 to 12GB of RAM, again, depending on
-the text.
-
-This demos only the very first step of a much longer and more complicated
-learning system. That system aims to extract syntactic and semantic
-structure from arbitrary data (not just text). Docker demos of these
-later stages will be set up "any day now" (This is a sarcastic expression
-meaning "probably not soon". The learning system is a work in progress,
-and is unstable.)
-
-This demo must be run "manually"; it illustrates the basic steps. A
-fully-automated version can be found in the lang-pairs-auto directory.
-
+This container is a pre-requisite building block for subsequent stages
+of the learning system.
 
 Steps:
 
@@ -47,18 +27,18 @@ Steps:
    see below.
 2. The first time, say:
 ```
-        docker build -t opencog/lang-pairs .
+        docker build -t opencog/lang-pairs-auto .
 ```
    To force a rebuild:
 ```
-        docker build --no-cache -t opencog/lang-pairs .
+        docker build --no-cache -t opencog/lang-pairs-auto .
 ```
 3. Next,
-   `docker create --name pair-counter -p 8080:80 -p 17002:17002 -it opencog/lang-pairs`
+   `docker create --name pair-auto -p 8080:80 -p 17002:17002 -it opencog/lang-pairs-auto`
    Note: the `-p` flag is `external_port:internal_port`. The first flag
    exposes the internal webserver on `localhost:8080` and the second
    flag exposes the cogserver.
-4. Start the container: `docker start -i pair-counter`
+4. Start the container: `docker start -i pair-auto`
    This will drop you into a shell prompt inside the container.
 5. `cd experiments/run-1`
 6. Review the config files; change if desired. The defaults are fine
