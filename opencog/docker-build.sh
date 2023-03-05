@@ -6,8 +6,7 @@
 # 2. If your user is not a member of the docker group you can add it by running
 #    sudo adduser $USER docker . On restart you would be able to run docker and
 #    this script without root privilege.
-# 3. This works for docker version >= 1.5.0
-# 4. If run without -u option it will not rebuild all the images unless the base
+# 3. If run without -u option it will not rebuild all the images unless the base
 #    ubuntu image is updated.
 
 # Exit on error
@@ -29,14 +28,8 @@ while getopts "abcehjlmprstu" flag; do
     a) PULL_DEV_IMAGES=true ;;
     b) BUILD_OPENCOG_BASE_IMAGE=true ;;
     c) BUILD_COGUTIL_IMAGE=true ;;
-    e) BUILD_EMBODIMENT_IMAGE=true ;;
-    j) BUILD_JUPYTER_IMAGE=true ;;
     l) BUILD_LEARN_IMAGE=true ;;
-    m) BUILD__MOSES_IMAGE=true ;;
-    p) BUILD__POSTGRES_IMAGE=true ;;
-    r) BUILD_RELEX_IMAGE=true ;;
     s) BUILD_ATOMSPACE_IMAGE=true ;;
-    t) BUILD_TOOL_IMAGE=true ;;
     u) CACHE_OPTION=--no-cache ;;
     h) SHOW_USAGE=true ;;
     \?)
@@ -71,20 +64,9 @@ usage() {
     -s Builds ${DOCKER_NAME}/atomspace image.
     -l Builds ${DOCKER_NAME}/learn image.
 
-    -t Builds ${DOCKER_NAME}/opencog-dev image. It contains all supported
-       opencog components.
-    -j Builds ${DOCKER_NAME}/opencog-jupyter image. It adds a jupyter
-       notebook to ${DOCKER_NAME}/opencog-dev:cli
-
     -u Ignore the docker image cache when building. This will cause the
        container(s) to be built from scratch.
     -h This help message.
-
-Deprecated (Obsolete):
-    -e Builds ${DOCKER_NAME}/minecraft image.
-    -m Builds ${DOCKER_NAME}/moses image.
-    -p Builds ${DOCKER_NAME}/postgres image.
-    -r Builds ${DOCKER_NAME}/relex image.
 
   DOCKER_NAME: The name of the Docker user account to be used for this build (default 'opencog').
   GITHUB_NAME: The name of the GitHub user account to be used for this build (default 'opencog') \n" "$SELF_NAME"
@@ -101,7 +83,7 @@ if ! command -v docker &> /dev/null
 then
     echo "Error: docker could not be found!"
     echo "You can fix this on Debian/Ubuntu by saying:"
-    echo "$ sudo apt install docker.io docker-compose"
+    echo "$ sudo apt install docker.io"
     exit
 fi
 
@@ -169,23 +151,6 @@ check_atomspace() {
 }
 
 # -----------------------------------------------------------------------------
-## Build opencog/opencog-dev image.
-build_dev_cli() {
-    check_cogutil
-    echo "---- Starting build of ${DOCKER_NAME}/opencog-dev ----"
-    GITHUB_OPTION="--build-arg GITHUB_NAME=$GITHUB_NAME"
-    docker build $CACHE_OPTION $GITHUB_OPTION -t ${DOCKER_NAME}/opencog-dev tools/cli
-    echo "---- Finished build of ${DOCKER_NAME}/opencog-dev ----"
-}
-
-## If the opencog/opencog-dev image hasn't been built yet then build it.
-check_dev_cli() {
-    if [ -z "$(docker images ${DOCKER_NAME}/opencog-dev | grep -i opencog-dev)" ]; then
-        build_dev_cli
-    fi
-}
-
-# -----------------------------------------------------------------------------
 ## Pull all images needed for development from hub.docker.com/u/opencog/
 pull_dev_images() {
     echo "---- Starting pull of opencog development images ----"
@@ -193,7 +158,6 @@ pull_dev_images() {
     docker pull ${DOCKER_NAME}/cogutil
     docker pull ${DOCKER_NAME}/atomspace
     docker pull ${DOCKER_NAME}/learn
-    docker pull ${DOCKER_NAME}/opencog-dev:cli
     echo "---- Finished pull of opencog development images ----"
 }
 
@@ -221,54 +185,6 @@ if [ $BUILD_LEARN_IMAGE ] ; then
     echo "---- Starting build of ${DOCKER_NAME}/learn ----"
     docker build $CACHE_OPTION -t ${DOCKER_NAME}/learn learn
     echo "---- Finished build of ${DOCKER_NAME}/learn ----"
-fi
-
-if [ $BUILD_TOOL_IMAGE ]; then
-    build_dev_cli
-fi
-
-if [ $BUILD_EMBODIMENT_IMAGE ]; then
-    check_dev_cli
-    echo "---- Starting build of ${DOCKER_NAME}/minecraft ----"
-    docker build $CACHE_OPTION -t ${DOCKER_NAME}/minecraft:0.1.0 minecraft
-    echo "---- Finished build of ${DOCKER_NAME}/minecraft ----"
-fi
-
-if [ $BUILD__MOSES_IMAGE ]; then
-    check_cogutil
-    echo "---- Starting build of ${DOCKER_NAME}/moses ----"
-    docker build $CACHE_OPTION -t ${DOCKER_NAME}/moses moses
-    echo "---- Finished build of ${DOCKER_NAME}/moses ----"
-fi
-
-if [ $BUILD__POSTGRES_IMAGE ]; then
-    echo "---- Starting build of ${DOCKER_NAME}/postgres ----"
-    ATOM_SQL_OPTION=""
-    if [ ! -z "$ATOM_SQL_URL" ]; then
-        ATOM_SQL_OPTION="--build-arg ATOM_SQL_URL=$ATOM_SQL_URL"
-    fi
-    docker build $CACHE_OPTION $ATOM_SQL_OPTION -t ${DOCKER_NAME}/postgres postgres
-    echo "---- Finished build of ${DOCKER_NAME}/postgres ----"
-fi
-
-if [ $BUILD_RELEX_IMAGE ]; then
-    echo "---- Starting build of ${DOCKER_NAME}/relex ----"
-    RELEX_OPTIONS=""
-    if [ ! -z "$RELEX_REPO" ]; then
-        RELEX_OPTIONS="--build-arg RELEX_REPO=$RELEX_REPO"
-    fi
-    if [ ! -z "$RELEX_BRANCH" ]; then
-        RELEX_OPTIONS="$RELEX_OPTIONS --build-arg RELEX_BRANCH=$RELEX_BRANCH"
-    fi
-    docker build $CACHE_OPTION $RELEX_OPTIONS -t ${DOCKER_NAME}/relex relex
-    echo "---- Finished build of ${DOCKER_NAME}/relex ----"
-fi
-
-if [ $BUILD_JUPYTER_IMAGE ]; then
-    check_dev_cli
-    echo "---- Starting build of ${DOCKER_NAME}/opencog-jupyter ----"
-    docker build $CACHE_OPTION -t ${DOCKER_NAME}/opencog-jupyter tools/jupyter_notebook
-    echo "---- Finished build of ${DOCKER_NAME}/opencog-jupyter ----"
 fi
 
 if [ $UNKNOWN_FLAGS ] ; then usage; exit 1 ; fi
