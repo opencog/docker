@@ -53,6 +53,12 @@ containers can be downloaded from dockerhub. Simply go to the
 script. `docker-build.sh -h` for help, and `docker-build.sh -a`
 to download everything.
 
+### Obsolete demos
+If you have been sent here, and cannot find what you were told about,
+look in the [archive](archive) directory. It contains copies of all of
+the unsupported, abandond and obsolete projects that were once a part of
+OpenCog.
+
 ### OpenCog demo
 The [lang-pairs](opencog/lang-pairs) container hosts a stand-alone
 word-pair visualization demo. If you have some files containing
@@ -69,9 +75,7 @@ in the README.
         ├─opencog/atomspace
           ├─opencog/learn
             ├─opencog/lang-pairs
-          ├─opencog/opencog-dev:cli (for a dev environment)
-            ├─opencog/opencog-dev:ide
-            ├─opencog/opencog-jupyter
+            ├─opencog/lang-pairs-auto
 
 ### Organizational Notes:
 Dockerhub's copies of opencog dockerfiles are here:
@@ -86,7 +90,7 @@ https://hub.docker.com/search?q=opencog
   image. It installs the base cogutil tools; these are shared by
   several other opencog repos. This is the base image for the
   `opencog/atomspace` image.  Dependent images will rebuild if this
-   image is updated.
+  image is updated.
 
 * `opencog/atomspace`: This depends on the `opencog/cogutil:latest`
   image. It provides the AtomSpace, RocksDB, the Cogserver, and the
@@ -97,15 +101,6 @@ https://hub.docker.com/search?q=opencog
   image. It provides the basic development environment for the
   language learning project.
 
-* `opencog/opencog-dev:cli`: This depends on the
-  `opencog/atomspace:latest` image. It installs all supported opencog
-  repos and tools, including `as-moses`.
-
-* `opencog/opencog-dev:ide`: To be used for developing using IDEs.
-   QtCreator is installed.
-
-* `opencog/opencog-jupyter`: Above, plus a Jupyter notebook.
-
 ## Usage
 * To run the demos and other containers, docker must be installed.
   Instructions can be found [here](https://docs.docker.com/installation/).
@@ -115,6 +110,3 @@ https://hub.docker.com/search?q=opencog
 * The `docker-build.sh` file in [opencog](opencog) directory can be used
   to build the containers mentioned above. There are also many more.
   Run `./docker-build.sh -h` for usage instructions.
-
-* To use `docker-compose`, follow the instructions in the
-  [README](opencog/README.md) file in the [opencog directory](opencog).

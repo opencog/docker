@@ -9,6 +9,15 @@ Some of the notable containers include:
 * `opencog/cogserver` -- An empty CogServer container.
 * `opencog/opencog-dev` -- All supported OpenCog components.
 
+* `opencog/opencog-dev:cli`: This depends on the
+  `opencog/atomspace:latest` image. It installs all supported opencog
+  repos and tools, including `as-moses`.
+
+* `opencog/opencog-dev:ide`: To be used for developing using IDEs.
+   QtCreator is installed.
+
+* `opencog/opencog-jupyter`: Above, plus a Jupyter notebook.
+
 All of the containers above are "empty", in that they contain no data,
 and thus, they don't "do anything".
 
