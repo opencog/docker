@@ -4,6 +4,7 @@
 FROM opencog/learn:latest
 
 # Install a webserver for the visualizer
+RUN apt-get -y update && apt-get -y upgrade
 RUN apt-get -y install apache2 php
 
 USER opencog
@@ -20,7 +21,6 @@ RUN sudo cp -pr src/cogprotolab/vis-word-pairs/* /var/www/html/
 # Copy user text files into the container.
 COPY --chown=opencog:opencog text-pages/* text/input-pages/
 RUN rm text/input-pages/README.md
-
 
 CMD /bin/bash
 
