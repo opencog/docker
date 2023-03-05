@@ -7,14 +7,10 @@ Some of the notable containers include:
 
 * `opencog/atomspace` -- Core AtomSpace only.
 * `opencog/cogserver` -- An empty CogServer container.
-* `opencog/learn` -- Learning subsystem.
 * `opencog/opencog-dev` -- All supported OpenCog components.
 
 All of the containers above are "empty", in that they contain no data,
-and thus, they don't "do anything".  Containers that "actually do
-something" include:
-* `opencog/lang-pairs` -- Tabulate and visualize word pairs from
-                          text corpora.
+and thus, they don't "do anything".
 
 ## Table of Contents
 1. [Common Initial Setup](#common-initial-setup)
@@ -22,12 +18,10 @@ something" include:
    2. [Windows](#windows)
 2. [Running Production Servers](#running-production-servers)
 3. [Steps for OpenCog development](#steps-for-opencog-development)
-<!-- ==============================
-RelEx is deprecated/obsolete.
 4. [Steps for RelEx development](#steps-for-relex-development)
-Minecraft is obsolete.
+RelEx is deprecated/obsolete.
 5. [Steps for opencog-to-minecraft development](#steps-for-opencog-to-minecraft-development)
-=================================== -->
+Minecraft is obsolete.
 
 ## Common Initial Setup
 The following sub-sections describe the steps required to configure docker on
@@ -46,11 +40,9 @@ your OS, regardless of which project you are working on.
       some base OS changes, or changes to ocpkg/octool, you don't have
       to update `opencog/opencog-deps` image.
     * To list the available options, use `-h`
-<!-- ==============================
     * For opencog development use `-bct` option
     * For NLP related work use `-r` option
     * For opencog-to-minecraft use `-bcte` option
-=================================== -->
 
 4. The following is required only if you want to use `docker-compose`
    setup that is described below. You only need to do this once, or
@@ -82,10 +74,8 @@ your OS, regardless of which project you are working on.
       some base OS changes, or changes to ocpkg/octool, you don't have
       to update `opencog/opencog-deps` image.
     * To list the available options, use `-h`
-<!-- ==============================
     * For opencog development use `-bct` option
     * For NLP related work add `-r` option
-=================================== -->
 
 5. In the script `windows-run.sh` found in the same directory as this README,
    Replace `$HOME/path/to/` in the export command to the appropriate absolute
@@ -160,7 +150,6 @@ perfectly usable. However, it is no longer maintained, and is not
 recommended for any future development.  See the (commented out)
 instructions in this README for details.
 
-<!-- =============================================
 RelEx is deprecated/obsolete.
 
 6. For configuring RelEx in the cogserver run
@@ -185,14 +174,11 @@ __For UNIX like systems only, and if you choose to use docker-compose__
   * If you don't want to map ports to host run
      `docker-compose -f relex.yml run relex`
 
-=============================================== -->
-
 ## Steps for running jupyter kernels with opencog
 For some reason, the Jupyter container no longer builds. There is some
 bug with setting up the python environment. If you know how to use
 python, please fix this (these) config bugs (and remove this error
 message when done.)
-
 
 1. Build the image which has python and guile kernels installed with the following command.
     ```
@@ -216,7 +202,6 @@ This would build/pull necessary docker images.
 The minecraft code is currently bit-rotted, and will not build.
 See the (commented out) instructions in this README for details.
 
-<!-- ==============================
 ## Steps for opencog-to-minecraft development
 __For UNIX like systems only, and if you choose to use docker-compose__
 
@@ -247,13 +232,11 @@ __For UNIX like systems only, and if you choose to use docker-compose__
 5. Except PYTHONPATH setting step, which isn't needed because it is already
    configured inside the container, follow the steps described
    [here](https://github.com/opencog/opencog-to-minecraft#steps-to-start-the-bot)
-=================================== -->
 
 ## Steps for opencog perception development
 The perception code is currently bit-rotted, and will not build.
 See the (commented out) instructions in this README for details.
 
-<!-- ==============================
 ## Steps for opencog perception development
 __WIP and only for use with systems with gpus, for now__
 
@@ -265,7 +248,6 @@ __WIP and only for use with systems with gpus, for now__
 
 3. For usage of the built image see
    [here](https://github.com/NVIDIA/nvidia-docker/wiki/nvidia-docker).
-=================================== -->
 
 ## Docker Cheat Sheet
 * `docker images`
