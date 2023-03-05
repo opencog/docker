@@ -34,10 +34,9 @@ Steps:
         docker build --no-cache -t opencog/lang-pairs-auto .
 ```
 3. Next,
-   `docker create --name pair-auto -p 8080:80 -p 17002:17002 -it opencog/lang-pairs-auto`
-   Note: the `-p` flag is `external_port:internal_port`. The first flag
-   exposes the internal webserver on `localhost:8080` and the second
-   flag exposes the cogserver.
+   `docker create --name pair-auto -p 17002:17002 -it opencog/lang-pairs-auto`
+   Note: the `-p` flag is `external_port:internal_port`. The `-p` flag
+   exposes the cogserver.
 4. Start the container: `docker start -i pair-auto`
    This will drop you into a shell prompt inside the container.
 5. `cd experiments/run-1`

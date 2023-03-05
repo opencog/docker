@@ -20,3 +20,8 @@ need to add the `--no-cache` flag to the `docker build` command.
 You can start the bare container by saying `./run.sh` in this directory.
 However, it might be more interesting to try the word-pair-counting
 experiment in the `../lang-pairs` directory.
+
+If you do run this container, then the first thing you'll want to do
+after starting it is to run the `setup-for-experiments.sh` shell script.
+This will initialize a reasonable working environment for doing learning
+experiments.
