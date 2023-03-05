@@ -7,8 +7,9 @@ Some of the notable containers include:
 
 * `opencog/atomspace`  -- Core AtomSpace only.
 * `opencog/learn`      -- Learning subsystem.
-* `opencog/lang-pairs` -- Tabulate and visualize word pairs from
-                          text corpora.
+* `opencog/lang-pairs-demo` -- Tabulate and visualize word pairs from
+                               text corpora.
+* `opencog/lang-pairs-auto` -- Fully-automated pair counting.
 
 Older, obsolete containers can be found in the [archive](../archive)
 directory. If someone sent you here, and you can't find what you were
