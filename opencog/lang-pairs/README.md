@@ -191,6 +191,14 @@ docker container cp some-book.txt pair-counter:/home/opencog/text/input-pages
    docker image. You will need to save the database of results, in the
    `data/word_pairs.rdb` directory. Copy it out of the container:
 ```
-docker container cp pair-counter:/home/opencog/data/word_pairs.rdb /your/favorite/place/word_pairs.rdb
+docker container cp pair-counter:/home/opencog/data/word_pairs.rdb /your/favorite/place/for/data/
 ```
+8. (Optional) During counting, the input text corpus was copied, file by
+   file, to `text/pair-counted`, as each file was submitted for
+   counting. These will be needed for the next stage, and you can
+   minimize confusion by just saving this, as well.
+```
+docker container cp pair-counter:/home/opencog/text/pair-counted /your/favorite/place/for/text/
+```
+
 ----

@@ -28,6 +28,24 @@ Setup needed for both the manual demo, and the full-automated runs.
    Note that this is a different port, from the pair-counting port;
    thus, you can run both at the same time.
 
+4. Start the container: `docker start -i mst-counter`
+   This will drop you into a shell prompt inside the container.
+
+5. From outside of the container, copy the word-pair database into the
+   container. The default config files expect it at `data/mpg_parse.rdb`
+   Thus:
+```
+docker container cp word_pairs.rdb mst-counter:/home/opencog/data/mpg_parse.rdb
+```
+
+6. From outside of the container, copy the the text corpus into the
+   container. The default config files expect it at `text/pair-counted`.
+   Note that this is the place where the input corpus was moved to,
+   during pair-counting, so if you just grab that, it will all work.
+```
+docker container cp text mst-counter:/home/opencog/text
+```
+
 
 Manual processing
 -----------------
@@ -35,6 +53,8 @@ TBD.
 
 Fully automated
 ---------------
-TBD.
+Most of the above has been condensed into a single script.  This can be
+run; it exits when done.
+
 
 ------
