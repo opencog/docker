@@ -58,9 +58,6 @@ usage() {
     -a Pull all images needed for development from hub.docker.com/u/${DOCKER_NAME}/
     -b Build ${DOCKER_NAME}/opencog-deps image. This provides all dependencies
        and development tools used by ${DOCKER_NAME}.
-    -c Builds ${DOCKER_NAME}/cogutil image. This is the base image for all
-       other ${DOCKER_NAME} images.
-
     -s Builds ${DOCKER_NAME}/atomspace image.
     -l Builds ${DOCKER_NAME}/learn image.
 
