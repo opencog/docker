@@ -9,6 +9,6 @@
 mkdir text && mkdir text/input-pages
 mkdir data
 mkdir experiments && mkdir experiments/run-1
-cp --preserve=mode,time‐stamps -r /usr/local/share/opencog/learn/run-config/*.sh experiments/run-1
-cp --preserve=mode,time‐stamps -r /usr/local/share/opencog/learn/run-common experiments/run-common
-cp --preserve=mode,time‐stamps -r /usr/local/share/opencog/learn/run experiments/run-1
+cp --preserve=mode,timestamps -r /usr/local/share/opencog/learn/run-config/*.sh experiments/run-1
+cp --preserve=mode,timestamps -r /usr/local/share/opencog/learn/run-common experiments/run-common
+cp --preserve=mode,timestamps -r /usr/local/share/opencog/learn/run experiments/run-1
