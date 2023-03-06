@@ -1,5 +1,5 @@
 #
-# Container with word-pair-counting demo.
+# Container for word-pair counting; both demo and fully-automated.
 #
 FROM opencog/learn:latest
 
