@@ -26,12 +26,20 @@ The following sub-sections describe the steps required to configure docker on
 your OS, regardless of which project you are working on.
 
 ### Linux and UNIX-like Systems
-1. Follow the instructions [here](https://docs.docker.com/engine/installation/)
-   for setting up docker.
+1. Install docker. On Debian/Ubuntu, `apt install docker.io`. Be sure to
+   ad your userid to the `/etc/group` file, like so:
+   `sudo usermod -aG docker $USER`. Log out and log back in, so that
+   this new membership can become active.
 
-2. Pull images that are used for opencog development by running
+2. Alternately, follow the
+   [docker.com instructions](https://docs.docker.com/engine/installation/)
+   for setting up docker. They will want you to create an account. But
+   this is not needed. If you do create an account, be sure to say
+   `sudo docker login` or
+
+3. Pull images that are used for opencog development by running
    `./docker-build.sh -a`
-3. Build images using `./docker-build.sh [OPTIONS]`.
+4. Build images using `./docker-build.sh [OPTIONS]`.
     * For language learning work, use the `-l` option.
     * If you want to update your images add `-u` option. For example,
       for opencog development, use `-ctu` options. Unless there are
