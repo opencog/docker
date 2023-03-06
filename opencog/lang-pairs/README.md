@@ -28,10 +28,11 @@ again, depending on the text.
 
 This demos only the very first step of a much longer and more complicated
 learning system. That system aims to extract syntactic and semantic
-structure from arbitrary data (not just text). Docker demos of these
-later stages will be set up "any day now" (This is a sarcastic expression
-meaning "probably not soon". The learning system is a work in progress,
-and is unstable.)
+structure from arbitrary data (not just text). The second step can be
+found in the [`lang-mst`](../lang-mst) directory.  Docker demos for
+later stages will be set up "any day now" (The expression "any day now"
+is a sarcastic remark, popular in Texas, meaning "not soon".
+The learning system is a work in progress, and is unstable.)
 
 A beginning user should run the demo "manually" the first time, in order
 to get familiar with the basic steps. Instructions for a fully automated
@@ -187,7 +188,9 @@ docker container cp some-book.txt pair-counter:/home/opencog/text/input-pages
    that, you'll have the folow the last part of the manual instructions
    above.
 7. The next step is MST counting; this is handled in the `lang-mst`
-   docker image. You will need the database of results, in the
-   `data/word_pairs.rdb` directory.
-
+   docker image. You will need to save the database of results, in the
+   `data/word_pairs.rdb` directory. Copy it out of the container:
+```
+docker container cp pair-counter:/home/opencog/data/word_pairs.rdb /your/favorite/place/word_pairs.rdb
+```
 ----
