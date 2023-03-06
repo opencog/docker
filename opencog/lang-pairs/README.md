@@ -52,7 +52,18 @@ Basic Setup
    `docker create --name pair-counter -p 8080:80 -p 17002:17002 -it opencog/lang-pairs`
    Note: the `-p` flag is `external_port:internal_port`. The first flag
    exposes the internal webserver on `localhost:8080` and the second
-   flag exposes the cogserver.
+   flag exposes the CogServer to the outside world.
+
+4. Copy your input text files into the container, using the
+   `docker container cp` command. The default configuration expects
+   these files in the `text/input-pages` directory.  For example:
+```
+docker container cp some-book.txt pair-counter:/home/opencog/text/input-pages
+```
+   You can place multiple files into arbitrary subdirectories; all
+   files and subdirectories will be explored during counting.
+   For more info about docker copy, see the
+   [docker container docs](https://docs.docker.com/engine/reference/commandline/container/).
 
 Configuration
 -------------
@@ -68,17 +79,7 @@ and scripting system.
    extended runs.
 4. `source 0-pipeline.sh`  # Load environment variables from config file.
 5. `run/run-tmux.sh`       # Set up multiple byobu terminals.
-6. From outside of the container, copy your input text files into the
-   container, using the `docker container cp` command. Input text should
-   be copied into the into the `pair-counter:/home/opencog/text/input-pages`
-   directory. For example:
-```
-docker container cp some-book.txt pair-counter:/home/opencog/text/input-pages
-```
-   See the [docker container docs](https://docs.docker.com/engine/reference/commandline/container/)
-   for more info.
-
-7. Review the [language-learning project](https://github.com/opencog/learn)
+6. Review the [language-learning project](https://github.com/opencog/learn)
    README's and follow instructions there ...
 
 OK, so those instructions are overwhelming. The next section provides
@@ -156,49 +157,48 @@ http://172.17.0.1:8080/
    where `172.17.0.1` is the Docker container IP address; will vary,
    in general.
 
-Automated Counting
-------------------
-Most of the above has been condensed into a single script.  This can be
-run; it exits when done.
+Semi-automated Counting
+-----------------------
+Most of the above has been condensed into a single script.
 
 1. Start the container: `docker start -i pair-counter`
    This will drop you into a shell prompt inside the container.
-
-2. From outside of the container, copy your input text files into the
-   container, using the `docker container cp` command. Input text should
-   be copied into the into the `pair-counter:/home/opencog/text/input-pages`
-   directory.  For example:
-```
-docker container cp some-book.txt pair-counter:/home/opencog/text/input-pages
-```
-   See the [docker container docs](https://docs.docker.com/engine/reference/commandline/container/)
-   for more info.
-3. Review the config files; change if desired. The defaults are fine.
-4. Run the `/home/opencog/count-pairs.sh` shell script. This will start
+2. (Optional) Review the config files; change if desired. The defaults
+   are fine.
+3. Run the `/home/opencog/count-pairs.sh` shell script. This will start
    the same tmux/byobu system as the manual instructions above, except
    that this time, all the various servers will be started
    automatically. Progress can be monitored as described above.
-5. The shutdown is currently NOT automated. This allows you to review
+4. The shutdown is currently NOT automated. This allows you to review
    results, before shutting everything down.  If satisfied, close the
    `tmux` session with
 ```
    tmux kill-session
 ```
-6. The word-pair visualizer setup is *not* automated. If you also want
+5. The word-pair visualizer setup is *not* automated. If you also want
    that, you'll have the folow the last part of the manual instructions
    above.
-7. The next step is MST counting; this is handled in the `lang-mst`
+6. The next step is MST counting; this is handled in the `lang-mst`
    docker image. You will need to save the database of results, in the
    `data/word_pairs.rdb` directory. Copy it out of the container:
 ```
 docker container cp pair-counter:/home/opencog/data/word_pairs.rdb /your/favorite/place/for/data/
 ```
-8. (Optional) During counting, the input text corpus was copied, file by
+   This copy can be done before or after shutting down the container.
+
+7. (Optional) During counting, the input text corpus was copied, file by
    file, to `text/pair-counted`, as each file was submitted for
    counting. These will be needed for the next stage, and you can
    minimize confusion by just saving this, as well.
 ```
 docker container cp pair-counter:/home/opencog/text/pair-counted /your/favorite/place/for/text/
 ```
+
+Fully-automated Counting
+------------------------
+This can be fully automated. It assumes everything above is configured
+and is working.
+
+1. Run ...
 
 ----
