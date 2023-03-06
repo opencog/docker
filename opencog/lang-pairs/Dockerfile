@@ -3,10 +3,6 @@
 #
 FROM opencog/learn:latest
 
-# Install a webserver for the visualizer
-RUN apt-get -y update && apt-get -y upgrade
-RUN apt-get -y install apache2 php
-
 USER opencog
 WORKDIR /home/opencog
 
