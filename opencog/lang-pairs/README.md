@@ -1,13 +1,16 @@
 lang-pairs
 ----------
-This is a demo container that can process text, count co-occurring
-word-pairs and then visualize them via a simple web-based visualizer.
-It demos the most basic stages of the
-[language learning](https://github.com/opencog/learn/) pipeline.
+This container provides a basic demo, together with a fully automated
+script, for counting of word-pairs in text. It consist of three parts:
 
-This samples nearby word-pairs from the input text, and counts how
-often they are seen. These counts are recorded in the AtomSpace, and
-written to a persistent database: the RocksB `StorageNode`. This
+* A tutorial demonstrating word-pair counting using the
+  [language learning](https://github.com/opencog/learn/) pipeline.
+* A script that fully automates the processing of text for pair-counting.
+* A simple web-based visualizer for the resulting dataset.
+
+Nearby word-pairs are sampled from input text, and a count is maintained
+for how often they are seen. These counts are recorded in the AtomSpace,
+and written to a persistent database: the RocksB `StorageNode`. This
 database can be reopened at a later time, without having to redo
 counting.
 
@@ -19,9 +22,9 @@ After these are computed, an Apache webserver is started inside this
 container. Using a web browser to access it will bring up a simple
 word-pair visualizer.
 
-The demo can take half-a-day or a day to run, depending on how much
-text you give it.  It will need 4 to 12GB of RAM, again, depending on
-the text.
+The demo can take half-a-day or several days (or longer) to run,
+depending on the quantity of input text.  It will need 4 to 12GB of RAM,
+again, depending on the text.
 
 This demos only the very first step of a much longer and more complicated
 learning system. That system aims to extract syntactic and semantic
@@ -30,56 +33,60 @@ later stages will be set up "any day now" (This is a sarcastic expression
 meaning "probably not soon". The learning system is a work in progress,
 and is unstable.)
 
-This demo must be run "manually"; it illustrates the basic steps. A
-fully-automated version can be found in the lang-pairs-auto directory.
+A beginning user should run the demo "manually" the first time, in order
+to get familiar with the basic steps. Instructions for a fully automated
+script are at the very end of this file.
 
-
-Steps:
-
+Basic Setup
+-----------
 0. Install docker, if you have not already done so:
    `sudo apt install docker.io`
-00. Run `../docker-build.sh -a` and `../docker-build.sh -l` to build
+1. Run `../docker-build.sh -a` and `../docker-build.sh -l` to build
    the pre-requisite containers.
-1. Copy your text files to the `text-files` directory, right here.
-   These text files will then be automatically copied into the Docker
-   container, to the directory `text/input-files`. You can skip this
-   step; files can also be added after the container has been created;
-   see below.
-2. The first time, say:
+2. Create this Docker image:
 ```
         docker build -t opencog/lang-pairs .
 ```
-   To force a rebuild:
-```
-        docker build --no-cache -t opencog/lang-pairs .
-```
-3. Next,
+3. Create a container (an instance of the image):
    `docker create --name pair-counter -p 8080:80 -p 17002:17002 -it opencog/lang-pairs`
    Note: the `-p` flag is `external_port:internal_port`. The first flag
    exposes the internal webserver on `localhost:8080` and the second
    flag exposes the cogserver.
-4. Start the container: `docker start -i pair-counter`
+
+Configuration
+-------------
+Get familiar with the general outlines of the configuration files
+and scripting system.
+
+1. Start the container: `docker start -i pair-counter`
    This will drop you into a shell prompt inside the container.
-5. `cd experiments/run-1`
-6. Review the config files; change if desired. The defaults are fine
+2. `cd experiments/run-1`
+3. Review the config files; change if desired. The defaults are fine
    for an initial run. a Later on, you can copy them to
    `experiments/run-2`, `experiments/run-3` and so on, for modified
    extended runs.
-7. `source 0-pipeline.sh`  # Load environment variables from config file.
-8. `run/run-tmux.sh`       # Set up multiple byobu terminals.
-9. Files can be copied in and out of the container using the
-   `docker container cp` command. For example, to place more text
-   into the input queue:
+4. `source 0-pipeline.sh`  # Load environment variables from config file.
+5. `run/run-tmux.sh`       # Set up multiple byobu terminals.
+6. From outside of the container, copy your input text files into the
+   container, using the `docker container cp` command. Input text should
+   be copied into the into the `pair-counter:/home/opencog/text/input-pages`
+   directory. For example:
 ```
 docker container cp some-book.txt pair-counter:/home/opencog/text/input-pages
 ```
    See the [docker container docs](https://docs.docker.com/engine/reference/commandline/container/)
    for more info.
-10. Review the [language-learning project](https://github.com/opencog/learn)
+
+7. Review the [language-learning project](https://github.com/opencog/learn)
    README's and follow instructions there ...
 
-OK, so those instructions are overwheling. Here's a simplified digest,
-just enough to get the basics for word-pairs running:
+OK, so those instructions are overwhelming. The next section provides
+a simplified digest, just enough to get the basics for word-pairs
+running.
+
+Manual Counting
+---------------
+First-time users should follow these instructions.
 
 A. Go to the `cogsrv` tab, and run `run/2-word-pairs/run-cogserver.sh`
 
@@ -147,5 +154,30 @@ http://172.17.0.1:8080/
 ```
    where `172.17.0.1` is the Docker container IP address; will vary,
    in general.
+
+Automated Counting
+------------------
+Most of the above has been condensed into a single script.  This can be
+run; it exits when done.
+
+1. Start the container: `docker start -i pair-counter`
+   This will drop you into a shell prompt inside the container.
+
+2. From outside of the container, copy your input text files into the
+   container, using the `docker container cp` command. Input text should
+   be copied into the into the `pair-counter:/home/opencog/text/input-pages`
+   directory.  For example:
+```
+docker container cp some-book.txt pair-counter:/home/opencog/text/input-pages
+```
+   See the [docker container docs](https://docs.docker.com/engine/reference/commandline/container/)
+   for more info.
+3. Review the config files; change if desired. The defaults are fine.
+4. Run the `/home/opencog/count-pairs.sh` shell script. This will start
+   the same tmux/byobu system as the manual instructions above, except
+   that this time, all the various servers will be started
+   automatically. Progress can be monitored as described above.
+5. The web-server setup is *not* automated. If you also want that,
+   you'll have the folow the last part of the manual instructions above.
 
 ----
