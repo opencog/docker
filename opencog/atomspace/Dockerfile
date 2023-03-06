@@ -14,17 +14,19 @@
 
 FROM opencog/opencog-deps:latest
 
-# Install cogutil
-RUN  /tmp/octool -c && ccache -C
-
-# Install core AtomSpace.
-RUN  /tmp/octool -a && ccache -C
-
 # Basic tools that allow this image to be minimally usable.
 RUN apt-get -y install telnet netcat-openbsd tmux byobu
 
 # Some extra stuff, for visualization
 RUN apt-get -y install apache2 php
+
+# Install cogutil
+ENV LAST_COGUTIL_UPDATE 2023-03-05
+RUN  /tmp/octool -c && ccache -C
+
+# Install core AtomSpace.
+ENV LAST_ATOMSPACE_UPDATE 2023-03-05
+RUN  /tmp/octool -a && ccache -C
 
 USER opencog
 WORKDIR /home/opencog
