@@ -1,11 +1,14 @@
-OpenCog Docker Containers
--------------------------
-This directory contains docker configurations for some of OpenCog's
-projects.  Below are instructions on how to get started with using
-docker to deploy production servers, as well as for development.
+Obsolete OpenCog Docker Images
+------------------------------
+This directory contains all of the unmaintained, abandoned and
+obsolete docker configurations for some of OpenCog's older projects.
+The instructions below are a snapshot of the instructions, as they
+used to be, circa 2015, and so may feel anachronistic. The goal was
+to explain... *How to get started with using docker to deploy
+production servers, as well as for development.* ... and so on.
+
 Some of the notable containers include:
 
-* `opencog/atomspace` -- Core AtomSpace only.
 * `opencog/cogserver` -- An empty CogServer container.
 * `opencog/opencog-dev` -- All supported OpenCog components.
 
