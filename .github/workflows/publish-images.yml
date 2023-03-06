@@ -30,13 +30,6 @@ jobs:
           tags: ${{ secrets.DOCKER_NAMESPACE }}/opencog-deps:latest
           push: true
 
-      - name: Build and push cogutil to docker hub
-        uses: docker/build-push-action@v4
-        with:
-          context: opencog/cogutil
-          tags: ${{ secrets.DOCKER_NAMESPACE }}/cogutil:latest
-          push: true
-
       - name: Build and push atomspace to docker hub
         uses: docker/build-push-action@v4
         with:

@@ -1,6 +1,6 @@
 #
 # Container with just the core AtomSpace framework installed.
-# This does include the cogserver, atomspce-rocks and atomspace-cog.
+# This includes the cogserver, atomspce-rocks and atomspace-cog.
 # It does NOT include nlp, unify, ure, pln or opencog.
 #
 # Steps:
@@ -11,11 +11,13 @@
 #       -it opencog/atomspace
 # 3. docker start -i atomspace
 #
-# Check http://wiki.opencog.org/w/Building_OpenCog on how to use IDEs
 
-FROM opencog/cogutil:latest
+FROM opencog/opencog-deps:latest
 
-# Install core atomspace.
+# Install cogutil
+RUN  /tmp/octool -c && ccache -C
+
+# Install core AtomSpace.
 RUN  /tmp/octool -a && ccache -C
 
 # Basic tools that allow this image to be minimally usable.
