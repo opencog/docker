@@ -177,7 +177,17 @@ docker container cp some-book.txt pair-counter:/home/opencog/text/input-pages
    the same tmux/byobu system as the manual instructions above, except
    that this time, all the various servers will be started
    automatically. Progress can be monitored as described above.
-5. The web-server setup is *not* automated. If you also want that,
-   you'll have the folow the last part of the manual instructions above.
+5. The shutdown is currently NOT automated. This allows you to review
+   results, before shutting everything down.  If satisfied, close the
+   `tmux` session with
+```
+   tmux kill-session
+```
+6. The word-pair visualizer setup is *not* automated. If you also want
+   that, you'll have the folow the last part of the manual instructions
+   above.
+7. The next step is MST counting; this is handled in the `lang-mst`
+   docker image. You will need the database of results, in the
+   `data/word_pairs.rdb` directory.
 
 ----
