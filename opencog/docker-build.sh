@@ -1,13 +1,14 @@
 #!/bin/bash
 #
 # Notes:
-# 1. Build's all the images for development. You can also pull the images from
-#    docker registry, but they are a bit bulky.
-# 2. If your user is not a member of the docker group you can add it by running
-#    sudo adduser $USER docker . On restart you would be able to run docker and
+# 1. Build's all the images for development. You can also pull the
+#    images from docker registry, but they are a bit bulky.
+# 2. If your user is not a member of the docker group you can add it
+#    by running `sudo adduser $USER docker`. Log out and log back in
+#    to get this change. After this is done, you will be able to run
 #    this script without root privilege.
-# 3. If run without -u option it will not rebuild all the images unless the base
-#    ubuntu image is updated.
+# 3. If run without `-u` option, images will not be rebuilt, unless
+#    the base ubuntu image is updated.
 
 # Exit on error
 set -e
@@ -27,7 +28,6 @@ while getopts "abcehjlmprstu" flag; do
     case $flag in
     a) PULL_DEV_IMAGES=true ;;
     b) BUILD_OPENCOG_BASE_IMAGE=true ;;
-    c) BUILD_COGUTIL_IMAGE=true ;;
     l) BUILD_LEARN_IMAGE=true ;;
     s) BUILD_ATOMSPACE_IMAGE=true ;;
     u) CACHE_OPTION=--no-cache ;;
@@ -108,31 +108,9 @@ check_opencog_deps() {
 }
 
 # -----------------------------------------------------------------------------
-## Build opencog/cogutil image.
-build_cogutil() {
-    check_opencog_deps
-    echo "---- Starting build of ${DOCKER_NAME}/cogutil ----"
-    OCPKG_OPTION=""
-    if [ ! -z "$OCPKG_URL" ]; then
-        OCPKG_OPTION="--build-arg OCPKG_URL=$OCPKG_URL"
-    fi
-    GITHUB_OPTION="--build-arg GITHUB_NAME=$GITHUB_NAME"
-    docker build $CACHE_OPTION $OCPKG_OPTION $GITHUB_OPTION -t ${DOCKER_NAME}/cogutil cogutil
-    echo "---- Finished build of ${DOCKER_NAME}/cogutil ----"
-
-}
-
-## If the opencog/cogutil image hasn't been built yet then build it.
-check_cogutil() {
-    if [ -z "$(docker images ${DOCKER_NAME}/cogutil | grep -i cogutil)" ]; then
-        build_cogutil
-    fi
-}
-
-# -----------------------------------------------------------------------------
 ## Build opencog/atomspace image.
 build_atomspace() {
-    check_cogutil
+    check_opencog_deps
     echo "---- Starting build of ${DOCKER_NAME}/atomspace ----"
     OCPKG_OPTION=""
     if [ ! -z "$OCPKG_URL" ]; then
@@ -155,7 +133,6 @@ check_atomspace() {
 pull_dev_images() {
     echo "---- Starting pull of opencog development images ----"
     docker pull ${DOCKER_NAME}/opencog-deps
-    docker pull ${DOCKER_NAME}/cogutil
     docker pull ${DOCKER_NAME}/atomspace
     docker pull ${DOCKER_NAME}/learn
     echo "---- Finished pull of opencog development images ----"
@@ -171,10 +148,6 @@ fi
 
 if [ $BUILD_OPENCOG_BASE_IMAGE ]; then
     build_opencog_deps
-fi
-
-if [ $BUILD_COGUTIL_IMAGE ]; then
-    build_cogutil
 fi
 
 if [ $BUILD_ATOMSPACE_IMAGE ]; then
