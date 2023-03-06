@@ -9,10 +9,6 @@
 mkdir text && mkdir text/input-pages
 mkdir data
 mkdir experiments && mkdir experiments/run-1
-cp -r /usr/local/share/opencog/learn/run-config/*.sh experiments/run-1
-cp -r /usr/local/share/opencog/learn/run-common experiments/run-common
-chmod ugo+x experiments/run-common/*.sh
-chmod ugo+x experiments/run-common/*.pl
-cp -r /usr/local/share/opencog/learn/run experiments/run-1
-chmod ugo+x experiments/run-1/run/*.sh
-chmod ugo+x experiments/run-1/run/*/*.sh
+cp --preserve=mode,time‐stamps -r /usr/local/share/opencog/learn/run-config/*.sh experiments/run-1
+cp --preserve=mode,time‐stamps -r /usr/local/share/opencog/learn/run-common experiments/run-common
+cp --preserve=mode,time‐stamps -r /usr/local/share/opencog/learn/run experiments/run-1
