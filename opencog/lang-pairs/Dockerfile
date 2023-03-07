@@ -16,7 +16,6 @@ RUN ./setup-for-experiments.sh
 
 # Copy in the fully-automated pair-counter.
 COPY --chown=opencog:opencog /scripts/ .
-RUN chmod ugo+x ./count-pairs.sh
 
 CMD /bin/bash
 

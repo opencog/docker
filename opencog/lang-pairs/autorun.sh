@@ -3,8 +3,6 @@
 # Fully-automated word-pair counting. Assumes the text corpus is located
 # in the text directory.
 #
-# TODO:
-# * check if container exists already and/or is running already.
 # -----------------
 
 PAIR_CONTAINER=pair-counter-auto
@@ -15,8 +13,20 @@ if [[ -z "$(ls $TEXT_SOURCE)" ]]; then
 	exit 1
 fi
 
-#
-# This will fail ugly, if the container already exists.
+# Get rid of earlier instances. Hope they didn't have much in them!
+TAINER=`docker ps |grep $PAIR_CONTAINER |cut -f1 -d" "`
+if test x"$TAINER" != x; then
+   echo "Stopping leftover container $PAIR_CONTAINER"
+   docker stop -t 1 $TAINER
+fi
+
+TAINER=`docker ps -a |grep $PAIR_CONTAINER |cut -f1 -d" "`
+if test x"$TAINER" != x; then
+   echo "Removing old container $PAIR_CONTAINER"
+   docker rm $TAINER
+fi
+
+# Start fresh
 echo "Creating container $PAIR_CONTAINER"
 docker create --name $PAIR_CONTAINER -it opencog/lang-pairs
 docker container cp $TEXT_SOURCE $PAIR_CONTAINER:/home/opencog
