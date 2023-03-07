@@ -6,10 +6,11 @@
 # -----------------
 
 PAIR_CONTAINER=pair-counter-auto
-TEXT_SOURCE=text
+TEXT_DIR=text
+DATA_DIR=data
 
-if [[ -z "$(ls $TEXT_SOURCE)" ]]; then
-	echo "Error: You forgot to put an input corpus into the $TEXT_SOURCE directory!"
+if [[ -z "$(ls $TEXT_DIR)" ]]; then
+	echo "Error: You forgot to put an input corpus into the $TEXT_DIR directory!"
 	exit 1
 fi
 
@@ -29,7 +30,7 @@ fi
 # Start fresh
 echo "Creating container $PAIR_CONTAINER"
 docker create --name $PAIR_CONTAINER -it opencog/lang-pairs
-docker container cp $TEXT_SOURCE $PAIR_CONTAINER:/home/opencog/text/input-pages
+docker container cp $TEXT_DIR $PAIR_CONTAINER:/home/opencog/text/input-pages
 
 echo "Starting container $PAIR_CONTAINER"
 docker start $PAIR_CONTAINER
@@ -47,3 +48,6 @@ echo "and then prowl around in tmux with F3 and F4"
 docker exec $PAIR_CONTAINER /home/opencog/count-pairs-done.sh
 
 echo "Done pair counting in container $PAIR_CONTAINER"
+
+echo "Copying word-pairs dataset to $DATA_DIR"
+docker container cp $PAIR_CONTAINER:/home/opencog/data $DATA_DIR
