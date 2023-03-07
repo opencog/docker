@@ -6,9 +6,13 @@
 # Docker setup.
 # -----------------
 
-# Everything we need has been copied into run-1.
-# Leave it as is, for the user to experiment in.
-# Do the actual work in run-3.
+# Fix up ownership of the data files
+sudo chown -R opencog:opencog text
+sudo chown -R opencog:opencog data
+
+# Everything we need has already been set up in run-1.
+# Leave it as-is, in case the user wants to experiment there.
+# Do the actual MST counting in run-3.
 # Avoid confusion by removing the config for earlier and later stages.
 cd ~/experiments/
 cp -pr run-1 run-3
