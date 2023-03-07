@@ -23,7 +23,7 @@ source 3-mpg-conf.sh
 cd run
 rm -rf 2-word-pairs 4-gram-class
 
-# Run the the pair-counting pipeline in the byobu.
+# Run the MST counting pipeline in byobu.
 cd 3-mst-parsing
 ./run-all-mst.sh
 

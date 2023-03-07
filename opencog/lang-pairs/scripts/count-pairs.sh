@@ -23,7 +23,7 @@ source 2-pair-conf.sh
 cd run
 rm -rf 3-mst-parsing 4-gram-class
 
-# Run the the pair-counting pipeline in the byobu.
+# Run the pair-counting pipeline in byobu.
 cd 2-word-pairs
 ./run-all.sh
 

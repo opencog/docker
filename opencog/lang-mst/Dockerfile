@@ -11,7 +11,6 @@ RUN ./setup-for-experiments.sh
 
 # Copy in the fully-automated MST scripts.
 COPY --chown=opencog:opencog /scripts/ .
-RUN chmod ugo+x ./count-mst.sh
 
 CMD /bin/bash
 
