@@ -20,6 +20,8 @@ if [[ -z "$(ls $DATA_DIR)" ]]; then
 	exit 1
 fi
 
+date
+
 # Get rid of earlier instances. Hope they didn't have much in them!
 TAINER=`docker ps |grep $MST_CONTAINER |cut -f1 -d" "`
 if test x"$TAINER" != x; then
@@ -61,3 +63,4 @@ echo "Copying MST dataset to $DATA_DIR"
 docker container cp $MST_CONTAINER:/home/opencog/data $DATA_DIR
 docker container cp $MST_CONTAINER:/home/opencog/text $TEXT_DIR
 echo "Done!"
+date

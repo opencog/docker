@@ -15,6 +15,8 @@ if [[ -z "$(ls $INPUT_DIR)" ]]; then
 	exit 1
 fi
 
+date
+
 # Get rid of earlier instances. Hope they didn't have much in them!
 TAINER=`docker ps |grep $PAIR_CONTAINER |cut -f1 -d" "`
 if test x"$TAINER" != x; then
@@ -54,3 +56,4 @@ echo "Copying word-pairs dataset to $DATA_DIR"
 docker container cp $PAIR_CONTAINER:/home/opencog/text $TEXT_DIR
 docker container cp $PAIR_CONTAINER:/home/opencog/data $DATA_DIR
 echo "Done!"
+date
