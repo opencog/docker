@@ -83,7 +83,30 @@ rm -rf 2-word-pairs 4-gram-class
 cd 3-mst-parsing
 ```
 
-TBD.
+2. Start up a byobu/tmux session, just as before, for the word-pairs:
+```
+./run-mst-shells.sh
+```
+
+3. Use F3 and F4 to bounce between byobu/tmux panels. Navigate to the
+   `cogserv` panel. Note that it is loading the word-pair dataset. This
+   may take a while -- 5-10 minutes, half-an-hour or longer, depending on
+   the dataset.
+
+4. Navigate to the `telnet` panel. Explore. Run `top` in the telnet
+   session, to see what the CogServer is doing. It will be idle.
+
+5. Navigate to the `submit` panel, and run `./mst-submit.sh`. This will
+   start passing the text files into the system. Thier processing will
+   stall, however, until the word-pairs are fully loaded.  You can watch
+   them in the `telnet` panel.
+
+6. You can toggle to the `cogserv` and print some basic progress stats
+   by saying `(monitor-parse-rate "hello world")` and `(cog-report-counts)`
+
+7. After it finishes... blah bla blah.
+
+Finish this ... TBD.
 
 Fully automated
 ---------------
