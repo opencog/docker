@@ -33,7 +33,7 @@ docker container cp $TEXT_SOURCE $PAIR_CONTAINER:/home/opencog/text/input-pages
 
 echo "Starting container $PAIR_CONTAINER"
 docker start $PAIR_CONTAINER
-docker exec -d $PAIR_CONTAINER chown -R opencog:opencog /home/opencog/text
+docker exec -u 0 $PAIR_CONTAINER chown -R opencog:opencog /home/opencog/text
 docker exec -d $PAIR_CONTAINER /home/opencog/count-pairs.sh
 sleep 10
 
