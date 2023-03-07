@@ -29,7 +29,7 @@ fi
 # Start fresh
 echo "Creating container $PAIR_CONTAINER"
 docker create --name $PAIR_CONTAINER -it opencog/lang-pairs
-docker container cp $TEXT_SOURCE $PAIR_CONTAINER:/home/opencog
+docker container cp $TEXT_SOURCE/* $PAIR_CONTAINER:/home/opencog/text/input-pages
 
 echo "Starting container $PAIR_CONTAINER"
 docker start $PAIR_CONTAINER
