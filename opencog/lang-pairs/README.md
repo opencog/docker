@@ -201,7 +201,7 @@ Fully-automated Counting
 This can be fully automated. It assumes everything above is configured
 and is working.
 
-1. Place a copy of the input text corpus in the `text` directory.
+1. Place a copy of the input text corpus in the `input-pages` directory.
 2. Run `autorun.sh`
 3. Wait until done.
 

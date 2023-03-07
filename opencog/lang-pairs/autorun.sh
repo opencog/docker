@@ -6,6 +6,7 @@
 # -----------------
 
 PAIR_CONTAINER=pair-counter-auto
+INPUT_DIR=input-pages
 TEXT_DIR=text
 DATA_DIR=data
 
@@ -30,7 +31,7 @@ fi
 # Start fresh
 echo "Creating container $PAIR_CONTAINER"
 docker create --name $PAIR_CONTAINER -it opencog/lang-pairs
-docker container cp $TEXT_DIR $PAIR_CONTAINER:/home/opencog/text/input-pages
+docker container cp $INPUT_DIR $PAIR_CONTAINER:/home/opencog/text/
 
 echo "Starting container $PAIR_CONTAINER"
 docker start $PAIR_CONTAINER
@@ -50,4 +51,6 @@ docker exec $PAIR_CONTAINER /home/opencog/count-pairs-done.sh
 echo "Done pair counting in container $PAIR_CONTAINER"
 
 echo "Copying word-pairs dataset to $DATA_DIR"
+docker container cp $PAIR_CONTAINER:/home/opencog/text $TEXT_DIR
 docker container cp $PAIR_CONTAINER:/home/opencog/data $DATA_DIR
+echo "Done!"
