@@ -61,6 +61,7 @@ relevant directory, and follow the instructions there.
 * `docker rmi <image-hex>`
 * `docker ps -a`
 * `docker rm <image-name>`
+* `docker create --cap-add=SYS_PTRACE --security-opt seccomp=unconfined -it opencog/foo`
 
 ## Notes
 1. Both `tmux` and `byobu` are installed, so you can use either for

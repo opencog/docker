@@ -11,40 +11,6 @@ The individual docker files specify exactly what is needed to run a
 system or demo.  Using these is as simple as saying `./build.sh` and
 then `./run.sh`.
 
-The most sophisticated demo is Eva, an animated female head, capable
-of seeing you (via a webcam), talking to you (via a chatbot), and
-engaging you (and your guests) in social interaction.  She will
-make eye contact, and express her pleasure with smiles and looks
-of surprise and happiness.
-
-![Eva Splash 1](indigo/Eva-1-small.png) ![Eva Splash 2](indigo/Eva-2-small.png) ![Eva Splash 3](indigo/Eva-3-small.png)
-
-Another particularly interesting container is that for the OpenCog to
-MineCraft bridge, which allows OpenCog to operate an avatar running
-around in the MineCraft world.
-
-## Dockerfiles for Robot Operating System (ROS)
-Dockerfiles for demoing and working with various different robot heads
-and bodies, mostly those from
-[Hanson Robotics](https://www.hansonrobotics.com/). Several of the
-heads are modeled with blender, and so can be usefully worked with
-and controlled even without a physical robot.
-
-Sadly, the Eva demo has bitrotted. There have been some valiant efforts
-to bring Eva back to life, to be found in the [noetic](noetic) folder,
-but they stand incomplete. The primary roadblock is that Eva requires
-an older version of [blender](https://www.blender.org/), version 2.79,
-which dates back to 2016. Perhaps a blender expert could port Eva to
-a newer version.
-
-The ROS dockerfiles are contained in the [hydro](hydro),
-[indigo](indigo), [noetic](noetic) directories. Eva came in
-two forms: a basic animation and social interaction demo, in the
-[indigo/eva-owyl](indigo/eva-owyl) folder, and a full-featured
-system in the [indigo/eva-opencig](indigo/eva-opencog) folder.
-These no longer work, due to bitrot; the "good stuff", the last
-attempt to get everything working, is in the [noetic](noetic) folder.
-
 ## Dockerfiles for OpenCog
 Opencog system dockerfiles can be found in the [opencog](opencog)
 directory. Up-to-date, current pre-built versions of these Docker
@@ -55,9 +21,7 @@ to download everything.
 
 ### Obsolete demos
 If you have been sent here, and cannot find what you were told about,
-look in the [archive](archive) directory. It contains copies of all of
-the unsupported, abandond and obsolete projects that were once a part of
-OpenCog.
+look in the master branch of this git repo.
 
 ### OpenCog demo
 The [lang-pairs](opencog/lang-pairs) container hosts a stand-alone
@@ -75,7 +39,7 @@ in the README.
         ├─opencog/atomspace
           ├─opencog/learn
             ├─opencog/lang-pairs
-            ├─opencog/lang-pairs-auto
+            ├─opencog/lang-mst
 
 ### Organizational Notes:
 Dockerhub's copies of opencog dockerfiles are here:
@@ -85,12 +49,6 @@ https://hub.docker.com/search?q=opencog
    OpenCog's dependencies installed. This does not need to be rebuilt,
    except to pick up the latest in version of the base OS and OS security
    patches. This is the base image for `opencog/cogutil`.
-
-* `opencog/cogutil`: This depends on the `opencog/opencog-deps:latest`
-  image. It installs the base cogutil tools; these are shared by
-  several other opencog repos. This is the base image for the
-  `opencog/atomspace` image.  Dependent images will rebuild if this
-  image is updated.
 
 * `opencog/atomspace`: This depends on the `opencog/cogutil:latest`
   image. It provides the AtomSpace, RocksDB, the Cogserver, and the
