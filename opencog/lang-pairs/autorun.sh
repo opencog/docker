@@ -10,8 +10,8 @@ INPUT_DIR=input-pages
 TEXT_DIR=text
 DATA_DIR=data
 
-if [[ -z "$(ls $TEXT_DIR)" ]]; then
-	echo "Error: You forgot to put an input corpus into the $TEXT_DIR directory!"
+if [[ -z "$(ls $INPUT_DIR)" ]]; then
+	echo "Error: You forgot to put an input corpus into the $INPUT_DIR directory!"
 	exit 1
 fi
 
