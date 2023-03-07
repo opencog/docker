@@ -14,6 +14,9 @@
 
 FROM opencog/opencog-deps:latest
 
+# The apt installs below will fail, unless we are at the latest.
+RUN apt-get -y update; apt-get -y upgrade
+
 # Basic tools that allow this image to be minimally usable.
 RUN apt-get -y install telnet netcat-openbsd tmux byobu
 
