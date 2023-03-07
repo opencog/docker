@@ -133,6 +133,18 @@ The above has been condensed into a single script, `./autorun.sh`.
 It will start the docker container, move datasets into place, perform
 the processing, and halt the container when done.
 
+It expects the following:
+* A directory `data/mpg_parse.rdb` containing the pairs dataset. Get
+  this by copying `../lang-pairs/data/word_pairs.rdb` from the previous
+  pair-counting container.
+
+* A directory `text/pair-counted` containing the text corpus to process.
+  Get this by copying `../lang-pairs/text` into the current directory.
+
+Upon successful completion, it updates both the `text` and the `data`
+directories. The resulting `data/mpg_parse.rdb` will contain the MST
+disjuncts and marginals.
+
 It assumes that everything has been correctly configured. If it crashes,
 hangs, or if you're just antsy and need to see what's going on inside
 the container, just run
