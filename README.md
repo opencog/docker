@@ -71,11 +71,10 @@ in the README.
 ### Docker image dependency structure:
 
     ├─opencog/opencog-deps
-      ├─opencog/cogutil
-        ├─opencog/atomspace
-          ├─opencog/learn
-            ├─opencog/lang-pairs
-            ├─opencog/lang-pairs-auto
+      ├─opencog/atomspace
+        ├─opencog/learn
+          ├─opencog/lang-pairs
+          ├─opencog/lang-mst
 
 ### Organizational Notes:
 Dockerhub's copies of opencog dockerfiles are here:
@@ -83,16 +82,10 @@ https://hub.docker.com/search?q=opencog
 
 * `opencog/opencog-deps:latest`: Ubuntu 22.04 based image with all
    OpenCog's dependencies installed. This does not need to be rebuilt,
-   except to pick up the latest in version of the base OS and OS security
-   patches. This is the base image for `opencog/cogutil`.
+   except to pick up the latest version of the base OS and OS security
+   patches. This is the base image for `opencog/atomspace`.
 
-* `opencog/cogutil`: This depends on the `opencog/opencog-deps:latest`
-  image. It installs the base cogutil tools; these are shared by
-  several other opencog repos. This is the base image for the
-  `opencog/atomspace` image.  Dependent images will rebuild if this
-  image is updated.
-
-* `opencog/atomspace`: This depends on the `opencog/cogutil:latest`
+* `opencog/atomspace`: This depends on the `opencog/opencog-deps:latest`
   image. It provides the AtomSpace, RocksDB, the Cogserver, and the
   network CogStorageNode, allowing complex AtomSpace networks to
   be built.
@@ -108,5 +101,5 @@ https://hub.docker.com/search?q=opencog
   section on the page explains how to avoid having to use `sudo` all the time.
 
 * The `docker-build.sh` file in [opencog](opencog) directory can be used
-  to build the containers mentioned above. There are also many more.
-  Run `./docker-build.sh -h` for usage instructions.
+  to build the containers mentioned above.  Run `./docker-build.sh -h`
+  for usage instructions.
