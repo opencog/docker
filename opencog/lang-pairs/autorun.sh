@@ -37,4 +37,12 @@ docker exec -d $PAIR_CONTAINER /home/opencog/count-pairs.sh
 sleep 10
 
 echo "Waiting for pair counting to finish in container $PAIR_CONTAINER"
+echo "Caution: this may take hours, days or weeks!"
+echo "If you're nervous and can't stand the wait, try this:"
+echo "   docker exec -it $PAIR_CONTAINER /bin/bash"
+echo "   tmux attach"
+echo "and then prowl around in tmux with F3 and F4"
+
 docker exec $PAIR_CONTAINER /home/opencog/count-pairs-done.sh
+
+echo "Done pair counting in container $PAIR_CONTAINER"
