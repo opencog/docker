@@ -29,10 +29,11 @@ fi
 # Start fresh
 echo "Creating container $PAIR_CONTAINER"
 docker create --name $PAIR_CONTAINER -it opencog/lang-pairs
-docker container cp $TEXT_SOURCE/* $PAIR_CONTAINER:/home/opencog/text/input-pages
+docker container cp $TEXT_SOURCE $PAIR_CONTAINER:/home/opencog/text/input-pages
 
 echo "Starting container $PAIR_CONTAINER"
 docker start $PAIR_CONTAINER
+docker exec -d $PAIR_CONTAINER chown -R opencog:opencog /home/opencog/text
 docker exec -d $PAIR_CONTAINER /home/opencog/count-pairs.sh
 sleep 10
 

@@ -72,14 +72,16 @@ and scripting system.
 
 1. Start the container: `docker start -i pair-counter`
    This will drop you into a shell prompt inside the container.
-2. `cd experiments/run-1`
-3. Review the config files; change if desired. The defaults are fine
+2. Change ownership of the input text files. Run
+   `chown -R opencog:opencog text` ***IMPORTANT! Don't forget to do this!***
+3. `cd experiments/run-1`
+4. Review the config files; change if desired. The defaults are fine
    for an initial run. a Later on, you can copy them to
    `experiments/run-2`, `experiments/run-3` and so on, for modified
    extended runs.
-4. `source 0-pipeline.sh`  # Load environment variables from config file.
-5. `run/run-tmux.sh`       # Set up multiple byobu terminals.
-6. Review the [language-learning project](https://github.com/opencog/learn)
+5. `source 0-pipeline.sh`  # Load environment variables from config file.
+6. `run/run-tmux.sh`       # Set up multiple byobu terminals.
+7. Review the [language-learning project](https://github.com/opencog/learn)
    README's and follow instructions there ...
 
 OK, so those instructions are overwhelming. The next section provides
