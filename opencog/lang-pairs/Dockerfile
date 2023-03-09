@@ -16,7 +16,7 @@ RUN ./setup-for-experiments.sh
 
 # Copy in the fully-automated pair-counter.
 COPY --chown=opencog:opencog /scripts/ .
-COPY --chown=opencog:opencog /demo-dict-pair/ /demo-dict-pair/
+COPY --chown=opencog:opencog /demo-dict-pair/ demo-dict-pair
 
 CMD /bin/bash
 
