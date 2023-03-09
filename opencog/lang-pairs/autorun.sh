@@ -1,12 +1,16 @@
 #! /bin/bash
 #
-# autoupdate.sh
+# autorun.sh
 #
-# Perform additional word-pair counting in an existing container. Useful
-# for splitting up large word-pair counting runs into several stages.
-# Similar to `autostart.sh`, except that this does NOT create a new
-# container; it re-uses the existing one. Other than that, its fully
-# automated. Expect to find a text corpus in the `text` directory.
+# Fully-automated word-pair counting.  Creates a new container, if none
+# exists. Copies text data into it, performs pair-counting, computes
+# marginals, and copies out the resulting dataset.
+#
+# Expects to find a text corpus in the `input-pages` directory.
+#
+# If used with the `-u` flag, then an existing container will be updated
+# with additional counting. Useful for splitting up large word-pair
+# counting runs into several stages.
 #
 # -----------------
 
@@ -28,9 +32,9 @@ if test x"$TAINER" != x; then
    echo "Container $PAIR_CONTAINER is already running!"
 	echo "Running containers cannot be updated."
 	echo "To stop the existing container, do this:"
-   echo "    docker stop -t 1 $TAINER"
+   echo "    docker stop -t 1 $PAIR_CONTAINER"
 	echo "If you want a fresh container, then you must also do this:"
-   echo "    docker rm $TAINER"
+   echo "    docker rm $PAIR_CONTAINER"
 	exit 1
 fi
 
@@ -46,7 +50,7 @@ else
 	echo "If you want to update it with additional pair data,"
 	echo "then run this script with the -u flag."
 	echo "If you want to start fresh, then remove it, like so:"
-   echo "    docker rm $TAINER"
+   echo "    docker rm $PAIR_CONTAINER"
 	exit 1
 fi
 
