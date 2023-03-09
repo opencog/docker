@@ -1,0 +1,96 @@
+%
+% Configuration file for an Atomspace-based dictionary. It will use
+% word-pair data in the AtomSpace to perform MST/MPG parsing. If
+% word pairs are missing to complete a parse, then random word-pairs
+% will be used to fill in.
+%
+% All config values can be left as-is; nothing here needs tweaking.
+%
+% No StorageNode is used; the config here assumes that we will be
+% working within an AtomSpace where everything needed has already
+% been loaded. The Link Parser works great with dynamically loaded
+% atoms; i.e. it will pull them from Storage if Storage is given.
+% What is missing/incomplete is on-the-fly computation of MI.
+%
+% See the `demo-atomese/storage.dict` file in the main Link Grammar
+% distribution for detailed documentation.
+
+% -----------------------
+% Boilerplate: The dictionary is for English, the English locale
+% should be used, and a version number.
+
+#define dictionary-lang           en;
+#define dictionary-locale         en_US.UTF-8;
+#define dictionary-version-number 5.12.2;
+
+% Use the copy, because the cogserver is using the other one.
+#define storage-node "(RocksStorageNode "rocks:///home/opencog/data/word-pairs-copy.rdb")";
+
+% -----------------------
+% Disable use sections (disjuncts).
+#define enable-sections 0;
+
+% -----------------------
+% Pair config.
+%
+% Create expressions that consist entirely of word-pair relationships.
+% Default of up to four connectors.
+#define pair-disjuncts 4;
+
+% Location where MI values are stored.
+#define pair-predicate "(BondNode "ANY")";
+#define pair-key "(Predicate "*-Mutual Info Key-*")";
+#define pair-index 1;
+
+% For small dictionaries, and MI or zero or more is needed, as
+% otherwise there are just not enough pairs, and the ANY link starts
+% getting uses. For larger dictionaries, an MI of 4 or larger makes
+% sense.
+#define pair-cutoff 0.0;
+
+% If there's no MI, just reject it.
+#define pair-default -10;
+
+% Map the MI interval [0,4] to [1,0]. Thus, any MI of more than 4
+% gets a negative cost and encourages loop formation. Links with an
+% MI of less than 4 will get used, to "plug the hole", if there's
+% nothing better.
+#define pair-scale -0.25;
+#define pair-offset 1.0;
+
+% Keep in mind that the parser ranks parses from lowest to highest cost.
+% If word-pair links have a negative cost, the parser is incentivized to
+% add as many of these as possible, while still resulting in a planar
+% graph with many loops. Viz, "Maximal Planar Graphs" (MPG). Conversely,
+% if word-pair links have a positive cost, Minimal Spanning Trees (MST)
+% will be created (minimizing the total cost.)
+
+% A disjunct can consist of 4 pairs. Each pair can have a cost of at
+% most 1.0. So we have to accept a max disjunct cost of at least 4.
+#define max-disjunct-cost 4.5;
+
+% Supplement the above with additional connectors of type "ANY".
+% This has no effect, if `pair-disjuncts` is set to zero.
+#define pair-with-any 1;
+
+% Default cost for `ANY` link types. The `ANY` link type is meant to
+% provide a desperate, last-chance opportunity to link to a word that
+% does not appear in any disjuncts or word-pairs.  Thus, its given some
+% high cost, so that it is not used when other links are available.
+%
+% Setting it to 1.6 allows two of them to be used to form a disjjunct.
+% If three are used, then this gets past the max-disjunct-cost.
+#define any-default 1.6;
+
+% Create expressions that consist entirely of "ANY" link-types.
+#define any-disjuncts 0;
+
+% Enble the automatic generation of <UNKNOWN-WORD>. It will be
+% automatically added to the dictionary, with multi-ANY connectors
+% on it. The ANY connectors will be used, irresepctive of the other
+% `any` setting above.
+#define enable-unknown-word 1;
+
+% -----------------------
+% Bogus entry. Cannot be empty.
+foo: UNITS+;
