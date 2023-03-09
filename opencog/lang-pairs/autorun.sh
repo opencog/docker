@@ -15,6 +15,8 @@ INPUT_DIR=input-pages
 TEXT_DIR=text
 DATA_DIR=data
 
+UPDATE=$1
+
 if [[ -z "$(ls $INPUT_DIR)" ]]; then
 	echo "Error: You forgot to put an input corpus into the $INPUT_DIR directory!"
 	exit 1
@@ -27,6 +29,8 @@ if test x"$TAINER" != x; then
 	echo "Running containers cannot be updated."
 	echo "To stop the existing container, do this:"
    echo "    docker stop -t 1 $TAINER"
+	echo "If you want a fresh container, then you must also do this:"
+   echo "    docker rm $TAINER"
 	exit 1
 fi
 
@@ -35,6 +39,21 @@ if test x"$TAINER" == x; then
 	# Start Fresh
 	echo "Creating container $PAIR_CONTAINER"
 	docker create --name $PAIR_CONTAINER -it opencog/lang-pairs
+elif test x"$UPDATE" == x-u; then
+	echo "Re-using existing container $PAIR_CONTAINER"
+else
+   echo "The container $PAIR_CONTAINER already exists!"
+	echo "If you want to update it with additional pair data,"
+	echo "then run this script with the -u flag."
+	echo "If you want to start fresh, then remove it, like so:"
+   echo "    docker rm $TAINER"
+	exit 1
+fi
+
+# Avoid trashing current work.
+TAINER=`docker ps |grep $PAIR_CONTAINER |cut -f1 -d" "`
+if test x"$TAINER" != x; then
+   echo "Container $PAIR_CONTAINER is already running!"
 fi
 
 date
