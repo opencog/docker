@@ -14,11 +14,12 @@
 #
 # -----------------
 
-PAIR_CONTAINER=pair-counter-auto
+# INPUT_DIR must match `run-config/2-pair-conf.sh`
 INPUT_DIR=input-pages
 TEXT_DIR=text
 DATA_DIR=data
 
+PAIR_CONTAINER=pair-counter-auto
 UPDATE=$1
 
 if [[ -z "$(ls $INPUT_DIR)" ]]; then
@@ -61,7 +62,11 @@ if test x"$TAINER" != x; then
 fi
 
 date
-docker container cp $INPUT_DIR/. $PAIR_CONTAINER:/home/opencog/text/
+
+# Copy $INPUT_DIR as a whole. Note that `run-config/2-pair-conf.sh`
+# expect input located at `input-pages` and `run-config/0-pipeline.sh`
+# sets the basedir to `/home/opencog/text/`
+docker container cp $INPUT_DIR $PAIR_CONTAINER:/home/opencog/text/
 
 echo "Starting container $PAIR_CONTAINER"
 docker start $PAIR_CONTAINER
