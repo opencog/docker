@@ -27,6 +27,9 @@ source 3-mpg-conf.sh
 cd run
 rm -rf 2-word-pairs 4-gram-class
 
+# Remove semaphore, just in case.
+rm -f /tmp/mst-marginals-done
+
 # Run the MST counting pipeline in byobu.
 cd 3-mst-parsing
 ./run-all-mst.sh

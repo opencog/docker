@@ -104,14 +104,60 @@ cd 3-mst-parsing
 6. You can toggle to the `cogserv` and print some basic progress stats
    by saying `(monitor-parse-rate "hello world")` and `(cog-report-counts)`
 
-7. After it finishes... blah bla blah.
+7. Processing will continue for hours or days. Processing is done when
+   the all of the telnet connections have closed, and the guile process
+   goes idle. Manually exit guile.
 
-Finish this ... TBD.
+8. Run `./compute-mst-marginals.sh` (in the `cogserv` panel, after
+   exiting guile.) This computes marginal entropies and MI values,
+   needed for the next stage of processing.
+
+Semi-automated
+--------------
+Some notes about the automation process.
+
+* Processing of texts is held off until all word-pairs are loaded. This
+  is done with "gates" -- a mutex, called `mst-gate` is created. It is
+  locked during word-pair loading, and unlocked when done. The text
+  observers are blocked, waiting for this mutex.
+
+* When the submission of texts for counting has ended, the submit script
+  calls `(finish-mst-submit)`.  This can be re-defined to do anything,
+  when called. By default its a no-op. The fully-automated scripts define
+  it so that the CogServer exits.
+
+* When marginals compution finishes, the `/tmp/mst-marginals-done` file
+  is touched. Docker uses this to self-halt the container that's running.
+  Yes, this is a non-unique tag, if not running in docker, and it needs
+  fixing.
+
 
 Fully automated
 ---------------
-Most of the above has been condensed into a single script.  This can be
-run; it exits when done.
+The above has been condensed into a single script, `./autorun.sh`.
+It will start the docker container, move datasets into place, perform
+the processing, and halt the container when done.
 
+It expects the following:
+* A directory `data/mpg_parse.rdb` containing the pairs dataset. Get
+  this by copying `../lang-pairs/data/word_pairs.rdb` from the previous
+  pair-counting container.
+
+* A directory `text/pair-counted` containing the text corpus to process.
+  Get this by copying `../lang-pairs/text` into the current directory.
+
+Upon successful completion, it updates both the `text` and the `data`
+directories. The resulting `data/mpg_parse.rdb` will contain the MST
+disjuncts and marginals.
+
+It assumes that everything has been correctly configured. If it crashes,
+hangs, or if you're just antsy and need to see what's going on inside
+the container, just run
+```
+docker exec -it mst-counter-auto /bin/bash"
+tmux attach
+```
+This will attach to the byobu/tmux session; the panel layout is
+identical to the manual-mode described above.
 
 ------

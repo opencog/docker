@@ -23,6 +23,9 @@ source 2-pair-conf.sh
 cd run
 rm -rf 3-mst-parsing 4-gram-class
 
+# Remove semphore, just in case.
+rm -f /tmp/pair-marginals-done
+
 # Run the pair-counting pipeline in byobu.
 cd 2-word-pairs
 ./run-all.sh

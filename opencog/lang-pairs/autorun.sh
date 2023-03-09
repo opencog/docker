@@ -1,7 +1,12 @@
 #! /bin/bash
 #
-# Fully-automated word-pair counting. Assumes the text corpus is located
-# in the text directory.
+# autoupdate.sh
+#
+# Perform additional word-pair counting in an existing container. Useful
+# for splitting up large word-pair counting runs into several stages.
+# Similar to `autostart.sh`, except that this does NOT create a new
+# container; it re-uses the existing one. Other than that, its fully
+# automated. Expect to find a text corpus in the `text` directory.
 #
 # -----------------
 
@@ -10,29 +15,48 @@ INPUT_DIR=input-pages
 TEXT_DIR=text
 DATA_DIR=data
 
+UPDATE=$1
+
 if [[ -z "$(ls $INPUT_DIR)" ]]; then
 	echo "Error: You forgot to put an input corpus into the $INPUT_DIR directory!"
 	exit 1
 fi
 
-date
-
-# Get rid of earlier instances. Hope they didn't have much in them!
+# Avoid trashing current work.
 TAINER=`docker ps |grep $PAIR_CONTAINER |cut -f1 -d" "`
 if test x"$TAINER" != x; then
-   echo "Stopping leftover container $PAIR_CONTAINER"
-   docker stop -t 1 $TAINER
+   echo "Container $PAIR_CONTAINER is already running!"
+	echo "Running containers cannot be updated."
+	echo "To stop the existing container, do this:"
+   echo "    docker stop -t 1 $TAINER"
+	echo "If you want a fresh container, then you must also do this:"
+   echo "    docker rm $TAINER"
+	exit 1
 fi
 
 TAINER=`docker ps -a |grep $PAIR_CONTAINER |cut -f1 -d" "`
-if test x"$TAINER" != x; then
-   echo "Removing old container $PAIR_CONTAINER"
-   docker rm $TAINER
+if test x"$TAINER" == x; then
+	# Start Fresh
+	echo "Creating container $PAIR_CONTAINER"
+	docker create --name $PAIR_CONTAINER -it opencog/lang-pairs
+elif test x"$UPDATE" == x-u; then
+	echo "Re-using existing container $PAIR_CONTAINER"
+else
+   echo "The container $PAIR_CONTAINER already exists!"
+	echo "If you want to update it with additional pair data,"
+	echo "then run this script with the -u flag."
+	echo "If you want to start fresh, then remove it, like so:"
+   echo "    docker rm $TAINER"
+	exit 1
 fi
 
-# Start fresh
-echo "Creating container $PAIR_CONTAINER"
-docker create --name $PAIR_CONTAINER -it opencog/lang-pairs
+# Avoid trashing current work.
+TAINER=`docker ps |grep $PAIR_CONTAINER |cut -f1 -d" "`
+if test x"$TAINER" != x; then
+   echo "Container $PAIR_CONTAINER is already running!"
+fi
+
+date
 docker container cp $INPUT_DIR $PAIR_CONTAINER:/home/opencog/text/
 
 echo "Starting container $PAIR_CONTAINER"

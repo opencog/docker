@@ -126,10 +126,18 @@ F. Go to the `cogsrv` tab, and perform batch MI calculations.
 ```
 
 G. That's it! The word-pair dataset is now complete.  It can now be
-   browsed with a web browser.
-   Go to the `cntl` tab and run `sudo service apache2 start`
+   browsed in two different ways: with a web browser, looking at the
+   pairs directly, or with the Link Grammar parser, which will use
+   it to create MST parses.
 
-H. Go to the `cogsrv` tab, load the browser navigation support:
+Web Demo
+--------
+The web demo allows the word-pair dataset to be browsed "directly",
+using a web graph visualization package.
+
+1. Go to the `cntl` tab and run `sudo service apache2 start`
+
+2. Go to the `cogsrv` tab, load the browser navigation support:
 ```
 (load "/home/opencog/src/cogprotolab/run-word-pairs/scm/navigate.scm")
 (define pair-stars asa)
@@ -139,7 +147,7 @@ H. Go to the `cogsrv` tab, load the browser navigation support:
 	(make-nav pair-stars 'right-duals 'left-duals pair-score 10))
 ```
 
-I. Verify that the above is not insane. The following should print
+3. Verify that the above is not insane. The following should print
    plausible results:
 ```
 (pair-freq 'left-wild-fmi (Word "the"))
@@ -147,7 +155,7 @@ I. Verify that the above is not insane. The following should print
 (pair-nav 'edge-score (Word "the") (Word "door"))
 ```
 
-J. On your local machine, connect to the webserver, using the port 8080
+4. On your local machine, connect to the webserver, using the port 8080
    specified on `docker create` line above:
 ```
 http://localhost:8080/
@@ -158,6 +166,36 @@ http://172.17.0.1:8080/
 ```
    where `172.17.0.1` is the Docker container IP address; will vary,
    in general.
+
+Link Parser Demo
+----------------
+The word-pair database can be used by the Link Grammar parser to create
+Minimum Spanning Tree (MST) parses. These are parses where the links
+between words correspond to word-pairs that have appeared in the database.
+The parsing is done so as to minimize the total cost; equivalently, to
+maximize the total MI of all word-pairs used in the parse. (By design,
+the LG parser always minimizes costs; thus, the LG dictionary config file
+maps MI values to minus costs.)
+
+1. The RocksDB database can only be used by one user at a time, and so,
+   because the CogServer is already using the database, a copy must be
+   made. Go to the `spare` tab, and
+```
+cd ~/data
+cp -pr word-pairs.rdb word-pairs-copy.rdb
+```
+
+2. Start the Link grammar parser, using the demo dictionary proivded.
+   This dictionary hard-codes the `word-pairs-copy.rdb` file location
+   in it.
+```
+link-parser demo-dict-pair
+```
+
+3. Type in any sentence you wish. If the words appear in the dataset,
+   the sentence will parse. The parse is only as accurate as MST parses
+   can be: in general, they are "OK", but not great.
+
 
 Semi-automated Counting
 -----------------------
@@ -178,11 +216,11 @@ Most of the above has been condensed into a single script.
    tmux kill-session
 ```
 5. The word-pair visualizer setup is *not* automated. If you also want
-   that, you'll have the folow the last part of the manual instructions
+   that, you'll have the follow the last part of the manual instructions
    above.
 6. The next step is MST counting; this is handled in the `lang-mst`
    docker image. You will need to save the database of results, in the
-   `data/word_pairs.rdb` directory. Copy it out of the container:
+   `data/word-pairs.rdb` directory. Copy it out of the container:
 ```
 docker container cp pair-counter:/home/opencog/data/word_pairs.rdb /your/favorite/place/for/data/
 ```
@@ -204,5 +242,9 @@ and is working.
 1. Place a copy of the input text corpus in the `input-pages` directory.
 2. Run `autorun.sh`
 3. Wait until done.
+
+To process additional text in an existing container, place the new text
+into the `input-pages` directory, and run `autorun.sh -u`. Be sure to
+remove the earlier text, as otherwise it will be reprocessed a second time.
 
 ----

@@ -6,7 +6,7 @@
 #
 # -----------------
 
-MST_CONTAINER=mst--counter-auto
+MST_CONTAINER=mst-counter-auto
 TEXT_DIR=text
 DATA_DIR=data
 
@@ -37,7 +37,7 @@ fi
 
 # Start fresh
 echo "Creating container $MST_CONTAINER"
-docker create --name $MST_CONTAINER -it opencog/lang-pairs
+docker create --name $MST_CONTAINER -it opencog/lang-mst
 docker container cp $TEXT_DIR $MST_CONTAINER:/home/opencog/
 docker container cp $DATA_DIR $MST_CONTAINER:/home/opencog/
 

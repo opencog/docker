@@ -1,8 +1,8 @@
 #! /bin/bash
 #
-# count-pairs-done.sh
+# count-mst-done.sh
 #
-# Wait until pair-counting and marginals computation is done,
+# Wait until MST counting and marginals computation is done,
 # and then stop the docker container.
 #
 # -----------
@@ -10,7 +10,7 @@
 sleep 60
 
 # Wait for evidence that marginals have been computed.
-while [[ ! -f /tmp/pair-marginals-done ]] ; do
+while [[ ! -f /tmp/mst-marginals-done ]] ; do
 	sleep 60
 done
 
