@@ -61,7 +61,7 @@ if test x"$TAINER" != x; then
 fi
 
 date
-docker container cp $INPUT_DIR $PAIR_CONTAINER:/home/opencog/text/
+docker container cp $INPUT_DIR/. $PAIR_CONTAINER:/home/opencog/text/
 
 echo "Starting container $PAIR_CONTAINER"
 docker start $PAIR_CONTAINER
@@ -81,7 +81,7 @@ docker exec $PAIR_CONTAINER /home/opencog/count-pairs-done.sh
 echo "Done pair counting in container $PAIR_CONTAINER"
 
 echo "Copying word-pairs dataset to $DATA_DIR"
-docker container cp $PAIR_CONTAINER:/home/opencog/text $TEXT_DIR
-docker container cp $PAIR_CONTAINER:/home/opencog/data $DATA_DIR
+docker container cp $PAIR_CONTAINER:/home/opencog/text/. $TEXT_DIR
+docker container cp $PAIR_CONTAINER:/home/opencog/data/. $DATA_DIR
 echo "Done!"
 date

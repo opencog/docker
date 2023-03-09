@@ -52,7 +52,7 @@ if test x"$TAINER" == x; then
 	# Start Fresh
 	echo "Creating container $MST_CONTAINER"
 	docker create --name $MST_CONTAINER -it opencog/lang-mst
-	docker container cp $DATA_DIR $MST_CONTAINER:/home/opencog/
+	docker container cp $DATA_DIR/. $MST_CONTAINER:/home/opencog/data
 
 elif test x"$UPDATE" == x-u; then
 	echo "Re-using existing container $MST_CONTAINER"
@@ -66,7 +66,7 @@ else
 fi
 
 date
-docker container cp $TEXT_DIR $MST_CONTAINER:/home/opencog/
+docker container cp $TEXT_DIR/. $MST_CONTAINER:/home/opencog/text
 
 echo "Starting container $MST_CONTAINER"
 docker start $MST_CONTAINER
@@ -87,7 +87,7 @@ docker exec $MST_CONTAINER /home/opencog/count-mst-done.sh
 echo "Done MST counting in container $MST_CONTAINER"
 
 echo "Copying MST dataset to $DATA_DIR"
-docker container cp $MST_CONTAINER:/home/opencog/data $DATA_DIR
-docker container cp $MST_CONTAINER:/home/opencog/text $TEXT_DIR
+docker container cp $MST_CONTAINER:/home/opencog/data/. $DATA_DIR
+docker container cp $MST_CONTAINER:/home/opencog/text/. $TEXT_DIR
 echo "Done!"
 date
