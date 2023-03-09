@@ -133,7 +133,7 @@ G. That's it! The word-pair dataset is now complete.  It can now be
 Web Demo
 --------
 The web demo allows the word-pair dataset to be browsed "directly",
-usig a web graph visualization package.
+using a web graph visualization package.
 
 1. Go to the `cntl` tab and run `sudo service apache2 start`
 
@@ -216,7 +216,7 @@ Most of the above has been condensed into a single script.
    tmux kill-session
 ```
 5. The word-pair visualizer setup is *not* automated. If you also want
-   that, you'll have the folow the last part of the manual instructions
+   that, you'll have the follow the last part of the manual instructions
    above.
 6. The next step is MST counting; this is handled in the `lang-mst`
    docker image. You will need to save the database of results, in the
@@ -242,5 +242,9 @@ and is working.
 1. Place a copy of the input text corpus in the `input-pages` directory.
 2. Run `autorun.sh`
 3. Wait until done.
+
+To process additional text in an existing container, place the new text
+into the `input-pages` directory, and run `autorun.sh -u`. Be sure to
+remove the earlier text, as otherwise it will be reprocessed a second time.
 
 ----
