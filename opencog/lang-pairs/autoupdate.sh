@@ -1,7 +1,12 @@
 #! /bin/bash
 #
-# Fully-automated word-pair counting. Assumes the text corpus is located
-# in the text directory.
+# autoupdate.sh
+#
+# Perform additional word-pair counting in an existing container. Useful
+# for splitting up large word-pair counting runs into several stages.
+# Similar to `autostart.sh`, except that this does NOT create a new
+# container; it re-uses the existing one. Other than that, its fully
+# automated. Expect to find a text corpus in the `text` directory.
 #
 # -----------------
 
@@ -15,24 +20,24 @@ if [[ -z "$(ls $INPUT_DIR)" ]]; then
 	exit 1
 fi
 
-date
-
-# Get rid of earlier instances. Hope they didn't have much in them!
+# Avoid trashing current work.
 TAINER=`docker ps |grep $PAIR_CONTAINER |cut -f1 -d" "`
 if test x"$TAINER" != x; then
-   echo "Stopping leftover container $PAIR_CONTAINER"
-   docker stop -t 1 $TAINER
+   echo "Container $PAIR_CONTAINER is already running!"
+	echo "Running containers cannot be updated."
+	echo "To stop the existing container, do this:"
+   echo "    docker stop -t 1 $TAINER"
+	exit 1
 fi
 
 TAINER=`docker ps -a |grep $PAIR_CONTAINER |cut -f1 -d" "`
-if test x"$TAINER" != x; then
-   echo "Removing old container $PAIR_CONTAINER"
-   docker rm $TAINER
+if test x"$TAINER" == x; then
+	# Start Fresh
+	echo "Creating container $PAIR_CONTAINER"
+	docker create --name $PAIR_CONTAINER -it opencog/lang-pairs
 fi
 
-# Start fresh
-echo "Creating container $PAIR_CONTAINER"
-docker create --name $PAIR_CONTAINER -it opencog/lang-pairs
+date
 docker container cp $INPUT_DIR $PAIR_CONTAINER:/home/opencog/text/
 
 echo "Starting container $PAIR_CONTAINER"
