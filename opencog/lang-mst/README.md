@@ -128,7 +128,7 @@ cd ~/data
 cp -pr mpg-parse.rdb mpg-parse-copy.rdb
 ```
 
-2. Start the Link grammar parser, using the demo dictionary provided.
+2. Start the Link Grammar parser, using the demo dictionary provided.
    This dictionary hard-codes the `mpg-parse-copy.rdb` file location
    in it.
 ```
@@ -138,6 +138,13 @@ link-parser demo-dict-mpg
 3. Type in any sentence you wish. If the words appear in the dataset,
    and there are appropriate disjuncts on them, then the sentence will
    parse.
+
+The parser will be slow to startup, asportions of the database are
+loaded, including expressions for the `LEFT-WALL`, of which there will
+typically be millions. This size of this set is reduced only by
+clustering, done in a later stage. One a lookup is done, the results
+are cached, so later access should be faster. The first-time lookup
+of words during parsing is likewise slow; subsequent access is cached.
 
 
 Semi-automated
