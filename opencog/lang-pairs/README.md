@@ -185,7 +185,7 @@ cd ~/data
 cp -pr word-pairs.rdb word-pairs-copy.rdb
 ```
 
-2. Start the Link grammar parser, using the demo dictionary proivded.
+2. Start the Link grammar parser, using the demo dictionary provided.
    This dictionary hard-codes the `word-pairs-copy.rdb` file location
    in it.
 ```

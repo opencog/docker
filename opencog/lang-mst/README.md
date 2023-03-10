@@ -112,6 +112,34 @@ cd 3-mst-parsing
    exiting guile.) This computes marginal entropies and MI values,
    needed for the next stage of processing.
 
+
+Link Parser Demo
+----------------
+The resulting disjunct database can be used by the Link Grammar parser,
+as an "ordinary" dictionary, i.e. one containing per-word expressions.
+The only unusual aspect is that word categories are not used; all
+connectors are to specific words.
+
+1. The RocksDB database can only be used by one user at a time, and so,
+   because the CogServer is already using the database, a copy must be
+   made. Go to the `spare` tab, and
+```
+cd ~/data
+cp -pr mpg-parse.rdb mpg-parse-copy.rdb
+```
+
+2. Start the Link grammar parser, using the demo dictionary provided.
+   This dictionary hard-codes the `mpg-parse-copy.rdb` file location
+   in it.
+```
+link-parser demo-dict-mpg
+```
+
+3. Type in any sentence you wish. If the words appear in the dataset,
+   and there are appropriate disjuncts on them, then the sentence will
+   parse.
+
+
 Semi-automated
 --------------
 Some notes about the automation process.

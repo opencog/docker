@@ -32,6 +32,42 @@
 #define extra-pairs 0;
 #define extra-any 0;
 
+% Location where disjunct costs are stored. The cost will be obtained
+% from the floating point value located at the `cost-key` Value on the
+% Sections. It's assumed that this is a FloatValue, which is a vector;
+% the index specifies the location in this vector.
+#define cost-key "(Predicate "*-Mutual Info Key cover-section")";
+#define cost-index 1;
+
+% If the value at the key+index above is less than this cutoff,
+% the Section will not be added to the local dictionary.
+% In this example, the raw cost is the MI, and MI of less than
+% 4 will be rejected.
+#define cost-cutoff 4.0;
+
+% Sections with a missing cost will be assigned this default. To
+% ignore sections with a missing cost, set it to some value less
+% than `cost-cutoff`.
+#define cost-default 4.01;
+
+% The cost used by LG will be a linear rescaling of the raw data above.
+% The rescaling is y=mx+b where m==`cost-scale` and b==`cost-offset`
+% and x== the value fished out of the vector above.
+%
+% The scale factor is negative, so as to flip the sign on the costs.
+% In the demo dictionary, the costs are provided by the MI, which is
+% "better", the more positive it is.  The LG costs, however, are
+% "better" when they are smaller (less positive). Thus, a sign-flip
+% is called for.
+#define cost-scale -0.25;
+#define cost-offset 3.0;
+
+% Disjuncts with a cost larger than this will not be used during
+% parsing. This can be over-ridden with the !cost-max parser option.
+% This applies both to the available disjuncts, and the ones created
+% dynamically, from pairs.
+#define max-disjunct-cost 3.0;
+
 % -----------------------
 % Pair config.
 %
@@ -78,6 +114,12 @@
 
 % Disable supplementation of pairs with "ANY" links.
 #define pair-with-any 0;
+
+% Default cost for `ANY` link types. The `ANY` link type is meant to
+% provide a desperate, last-chance opportunity to link to a word that
+% does not appear in any disjuncts or word-pairs.  Thus, its given some
+% high cost, so that it is not used when other links are available.
+#define any-default 2.6;
 
 % Disable expressions that consist entirely of "ANY" link-types.
 #define any-disjuncts 0;
