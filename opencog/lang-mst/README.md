@@ -132,7 +132,7 @@ cp -pr mpg-parse.rdb mpg-parse-copy.rdb
    This dictionary hard-codes the `mpg-parse-copy.rdb` file location
    in it.
 ```
-link-parser demo-dict-mpg
+link-parser demo-dict-mpg -verbosity=3
 ```
 
 3. Type in any sentence you wish. If the words appear in the dataset,
