@@ -25,14 +25,23 @@
 #define storage-node "(RocksStorageNode "rocks:///home/opencog/data/mpg-parse-copy.rdb")";
 
 % -----------------------
-% Enable use sections (disjuncts).
+% Enable use of sections (disjuncts).
 #define enable-sections 1;
+
+% Disable extra pairs for just right now.
+#define extra-pairs 0;
+#define extra-any 0;
 
 % -----------------------
 % Pair config.
 %
-% Create expressions that consist entirely of word-pair relationships.
-% Default of up to four connectors.
+% We do NOT want to create disjuncts consisting purely of word-pairs,
+% so this is disabled. However, existing disjuncts can be decorated
+% with extra connectors, derived from word-pairs, and so we do need
+% the config information on how to access these, and how to map them
+% into Link Grammar.
+%
+% Disable use of word-pairs.
 #define pair-disjuncts 0;
 
 % Location where MI values are stored.
@@ -67,20 +76,10 @@
 % most 1.0. So we have to accept a max disjunct cost of at least 4.
 #define max-disjunct-cost 4.5;
 
-% Supplement the above with additional connectors of type "ANY".
-% This has no effect, if `pair-disjuncts` is set to zero.
-#define pair-with-any 1;
+% Disable supplementation of pairs with "ANY" links.
+#define pair-with-any 0;
 
-% Default cost for `ANY` link types. The `ANY` link type is meant to
-% provide a desperate, last-chance opportunity to link to a word that
-% does not appear in any disjuncts or word-pairs.  Thus, its given some
-% high cost, so that it is not used when other links are available.
-%
-% Setting it to 1.6 allows two of them to be used to form a disjjunct.
-% If three are used, then this gets past the max-disjunct-cost.
-#define any-default 1.6;
-
-% Create expressions that consist entirely of "ANY" link-types.
+% Disable expressions that consist entirely of "ANY" link-types.
 #define any-disjuncts 0;
 
 % Enble the automatic generation of <UNKNOWN-WORD>. It will be
