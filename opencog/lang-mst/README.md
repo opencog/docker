@@ -29,11 +29,11 @@ Setup needed for both the manual demo, and the full-automated runs.
    thus, you can run both at the same time.
 
 4. Copy the word-pair database into the container. The default config
-   files expect it at `data/mpg_parse.rdb`. The `lang-pairs` docker
-   scripts previously dropped off the pairs DB at `data/word_pairs.rdb`.
+   files expect it at `data/mpg-parse.rdb`. The `lang-pairs` docker
+   scripts previously dropped off the pairs DB at `data/word-pairs.rdb`.
    Thus:
 ```
-    docker container cp data/word_pairs.rdb mst-counter:/home/opencog/data/mpg_parse.rdb
+    docker container cp data/word-pairs.rdb mst-counter:/home/opencog/data/mpg-parse.rdb
 ```
 
 5. Copy the the text corpus into the container. The default config
@@ -139,15 +139,15 @@ It will start the docker container, move datasets into place, perform
 the processing, and halt the container when done.
 
 It expects the following:
-* A directory `data/mpg_parse.rdb` containing the pairs dataset. Get
-  this by copying `../lang-pairs/data/word_pairs.rdb` from the previous
+* A directory `data/mpg-parse.rdb` containing the pairs dataset. Get
+  this by copying `../lang-pairs/data/word-pairs.rdb` from the previous
   pair-counting container.
 
 * A directory `text/pair-counted` containing the text corpus to process.
   Get this by copying `../lang-pairs/text` into the current directory.
 
 Upon successful completion, it updates both the `text` and the `data`
-directories. The resulting `data/mpg_parse.rdb` will contain the MST
+directories. The resulting `data/mpg-parse.rdb` will contain the MST
 disjuncts and marginals.
 
 It assumes that everything has been correctly configured. If it crashes,
