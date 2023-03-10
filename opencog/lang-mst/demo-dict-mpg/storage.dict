@@ -1,10 +1,11 @@
 %
-% demo-dict-pair -- Demo dictionary for MST/MPG parsing.
+% demo-dict-mpg -- Demo dictionary for disjunct parsing
 %
 % Configuration file for an Atomspace-based dictionary. It will use
-% word-pair data in the AtomSpace to perform MST/MPG parsing. If
-% word pairs are missing to complete a parse, then random word-pairs
-% will be used to fill in.
+% disjunct data in the AtomSpace to perform (conventional) parsing.
+% If appropriate disjuncts cannot be found in the dictionary, (that is,
+% if a complete parse is not possible), then word-pairs will be used
+% to supplement the disjuncts.
 %
 % All config values can be left as-is; nothing here needs tweaking.
 %
@@ -21,18 +22,18 @@
 
 % Use a copy of the database; we assume the CogServer is running and
 % is using the "main" version.
-#define storage-node "(RocksStorageNode "rocks:///home/opencog/data/word-pairs-copy.rdb")";
+#define storage-node "(RocksStorageNode "rocks:///home/opencog/data/mpg-parse-copy.rdb")";
 
 % -----------------------
-% Disable use of sections (disjuncts).
-#define enable-sections 0;
+% Enable use sections (disjuncts).
+#define enable-sections 1;
 
 % -----------------------
 % Pair config.
 %
 % Create expressions that consist entirely of word-pair relationships.
 % Default of up to four connectors.
-#define pair-disjuncts 4;
+#define pair-disjuncts 0;
 
 % Location where MI values are stored.
 #define pair-predicate "(BondNode "ANY")";
