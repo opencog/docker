@@ -28,7 +28,7 @@ ENV LAST_COGUTIL_UPDATE 2023-03-05
 RUN  /tmp/octool -c && ccache -C
 
 # Install core AtomSpace.
-ENV LAST_ATOMSPACE_UPDATE 2023-03-09
+ENV LAST_ATOMSPACE_UPDATE 2023-03-11
 RUN  /tmp/octool -a && ccache -C
 
 USER opencog
