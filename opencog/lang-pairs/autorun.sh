@@ -58,7 +58,7 @@ fi
 date
 
 # Copy $INPUT_DIR as a whole. Note that `run-config/2-pair-conf.sh`
-# expect input located at `input-pages` and `run-config/0-pipeline.sh`
+# expects input located at `input-pages` and `run-config/0-pipeline.sh`
 # sets the basedir to `/home/opencog/text/`
 docker container cp $INPUT_DIR $PAIR_CONTAINER:/home/opencog/text/
 
