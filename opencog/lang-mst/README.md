@@ -60,7 +60,7 @@ Manual processing consists mostly of setting up an environment, and
 then launching the MST counting scripts, and then monitoring progress.
 Short instructions:
 
-1. Set up the environment. Just cut-n-pste the below:
+1. Set up the environment. Just cut-n-paste the below:
 ```
 # Everything we need has already been set up in run-1.
 # Leave it as-is, in case you want to experiment there.
@@ -97,7 +97,7 @@ cd 3-mst-parsing
    session, to see what the CogServer is doing. It will be idle.
 
 5. Navigate to the `submit` panel, and run `./mst-submit.sh`. This will
-   start passing the text files into the system. Thier processing will
+   start passing the text files into the system. Their processing will
    stall, however, until the word-pairs are fully loaded.  You can watch
    them in the `telnet` panel.
 
@@ -177,9 +177,17 @@ It expects the following:
 * A directory `data/mpg-parse.rdb` containing the pairs dataset. Get
   this by copying `../lang-pairs/data/word-pairs.rdb` from the previous
   pair-counting container.
+```
+    cp -pr ../lang-pairs/data/word-pairs.rdb data/mpg-parse.rdb
+```
 
 * A directory `text/pair-counted` containing the text corpus to process.
   Get this by copying `../lang-pairs/text` into the current directory.
+```
+    cp -pr ../lang-pairs/text .
+```
+
+That's it: the two copies above, then `./autorun.sh`
 
 Upon successful completion, it updates both the `text` and the `data`
 directories. The resulting `data/mpg-parse.rdb` will contain the MST
