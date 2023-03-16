@@ -30,12 +30,12 @@ fi
 # Avoid trashing current work.
 TAINER=`docker ps |grep $PAIR_CONTAINER |cut -f1 -d" "`
 if test x"$TAINER" != x; then
-   echo "Container $PAIR_CONTAINER is already running!"
+	echo "Container $PAIR_CONTAINER is already running!"
 	echo "Running containers cannot be updated."
 	echo "To stop the existing container, do this:"
-   echo "    docker stop -t 1 $PAIR_CONTAINER"
+	echo "    docker stop -t 1 $PAIR_CONTAINER"
 	echo "If you want a fresh container, then you must also do this:"
-   echo "    docker rm $PAIR_CONTAINER"
+	echo "    docker rm $PAIR_CONTAINER"
 	exit 1
 fi
 
@@ -47,24 +47,18 @@ if test x"$TAINER" == x; then
 elif test x"$UPDATE" == x-u; then
 	echo "Re-using existing container $PAIR_CONTAINER"
 else
-   echo "The container $PAIR_CONTAINER already exists!"
+	echo "The container $PAIR_CONTAINER already exists!"
 	echo "If you want to update it with additional pair data,"
 	echo "then run this script with the -u flag."
 	echo "If you want to start fresh, then remove it, like so:"
-   echo "    docker rm $PAIR_CONTAINER"
+	echo "    docker rm $PAIR_CONTAINER"
 	exit 1
-fi
-
-# Avoid trashing current work.
-TAINER=`docker ps |grep $PAIR_CONTAINER |cut -f1 -d" "`
-if test x"$TAINER" != x; then
-   echo "Container $PAIR_CONTAINER is already running!"
 fi
 
 date
 
 # Copy $INPUT_DIR as a whole. Note that `run-config/2-pair-conf.sh`
-# expect input located at `input-pages` and `run-config/0-pipeline.sh`
+# expects input located at `input-pages` and `run-config/0-pipeline.sh`
 # sets the basedir to `/home/opencog/text/`
 docker container cp $INPUT_DIR $PAIR_CONTAINER:/home/opencog/text/
 

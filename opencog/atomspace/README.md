@@ -7,11 +7,14 @@ CogStorageNode. It does *not* include nlp, unify, ure or pln.
 
 ## Building
 
-Run the `build.sh` file in this directory.  You need to have built
-the base CogUtil image (in the `../cogutil` directory) first.
+The container is build by the script in the directory below:
+`../docker-build.sh -s`.
 
 ## Testing
 You can verify that the core AtomSpace is working:
+
+* Run the container with `./run.sh`. This will put you into a prompt
+  in the container.
 
 * Start `guile` at the bash prompt, and say
 ```
@@ -21,14 +24,14 @@ You can verify that the core AtomSpace is working:
 
 * The CogServer can be started also. To verify this, start either
   byobu or tmux, and open a few terminal shells (F2 on byobu, or
-  `ctrl-b c` on tmux.) Then, in one of the windows, start guile
+  `ctrl-b c` on tmux.) Then, in one of the panels, start guile
   and say
 ```
 (use-modules (opencog) (opencog cogserver))
 (start-cogserver)
 (Concept "foobar" (stv 0.5 0.8))
 ```
-Then toggle to another byobu/tmux window (f3/f4 to move left/right
+Then toggle to another byobu/tmux panel (F3/F4 to move left/right
 in byobu, or `ctrl-b p`/`ctrl-b n` to move left/right in tmux)
 ```
 rlwrap telnet localhost 17001

@@ -29,11 +29,11 @@ Setup needed for both the manual demo, and the full-automated runs.
    thus, you can run both at the same time.
 
 4. Copy the word-pair database into the container. The default config
-   files expect it at `data/mpg_parse.rdb`. The `lang-pairs` docker
-   scripts previously dropped off the pairs DB at `data/word_pairs.rdb`.
+   files expect it at `data/mpg-parse.rdb`. The `lang-pairs` docker
+   scripts previously dropped off the pairs DB at `data/word-pairs.rdb`.
    Thus:
 ```
-    docker container cp data/word_pairs.rdb mst-counter:/home/opencog/data/mpg_parse.rdb
+    docker container cp data/word-pairs.rdb mst-counter:/home/opencog/data/mpg-parse.rdb
 ```
 
 5. Copy the the text corpus into the container. The default config
@@ -112,6 +112,41 @@ cd 3-mst-parsing
    exiting guile.) This computes marginal entropies and MI values,
    needed for the next stage of processing.
 
+
+Link Parser Demo
+----------------
+The resulting disjunct database can be used by the Link Grammar parser,
+as an "ordinary" dictionary, i.e. one containing per-word expressions.
+The only unusual aspect is that word categories are not used; all
+connectors are to specific words.
+
+1. The RocksDB database can only be used by one user at a time, and so,
+   because the CogServer is already using the database, a copy must be
+   made. Go to the `spare` tab, and
+```
+cd ~/data
+cp -pr mpg-parse.rdb mpg-parse-copy.rdb
+```
+
+2. Start the Link Grammar parser, using the demo dictionary provided.
+   This dictionary hard-codes the `mpg-parse-copy.rdb` file location
+   in it.
+```
+link-parser demo-dict-mpg -verbosity=3
+```
+
+3. Type in any sentence you wish. If the words appear in the dataset,
+   and there are appropriate disjuncts on them, then the sentence will
+   parse.
+
+The parser will be slow to startup, asportions of the database are
+loaded, including expressions for the `LEFT-WALL`, of which there will
+typically be millions. This size of this set is reduced only by
+clustering, done in a later stage. One a lookup is done, the results
+are cached, so later access should be faster. The first-time lookup
+of words during parsing is likewise slow; subsequent access is cached.
+
+
 Semi-automated
 --------------
 Some notes about the automation process.
@@ -139,15 +174,15 @@ It will start the docker container, move datasets into place, perform
 the processing, and halt the container when done.
 
 It expects the following:
-* A directory `data/mpg_parse.rdb` containing the pairs dataset. Get
-  this by copying `../lang-pairs/data/word_pairs.rdb` from the previous
+* A directory `data/mpg-parse.rdb` containing the pairs dataset. Get
+  this by copying `../lang-pairs/data/word-pairs.rdb` from the previous
   pair-counting container.
 
 * A directory `text/pair-counted` containing the text corpus to process.
   Get this by copying `../lang-pairs/text` into the current directory.
 
 Upon successful completion, it updates both the `text` and the `data`
-directories. The resulting `data/mpg_parse.rdb` will contain the MST
+directories. The resulting `data/mpg-parse.rdb` will contain the MST
 disjuncts and marginals.
 
 It assumes that everything has been correctly configured. If it crashes,

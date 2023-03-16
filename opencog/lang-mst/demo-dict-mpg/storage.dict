@@ -1,10 +1,11 @@
 %
-% demo-dict-pair -- Demo dictionary for MST/MPG parsing.
+% demo-dict-mpg -- Demo dictionary for disjunct parsing
 %
 % Configuration file for an Atomspace-based dictionary. It will use
-% word-pair data in the AtomSpace to perform MST/MPG parsing. If
-% word pairs are missing to complete a parse, then random word-pairs
-% will be used to fill in.
+% disjunct data in the AtomSpace to perform (conventional) parsing.
+% If appropriate disjuncts cannot be found in the dictionary, (that is,
+% if a complete parse is not possible), then word-pairs will be used
+% to supplement the disjuncts.
 %
 % All config values can be left as-is; nothing here needs tweaking.
 %
@@ -21,18 +22,63 @@
 
 % Use a copy of the database; we assume the CogServer is running and
 % is using the "main" version.
-#define storage-node "(RocksStorageNode "rocks:///home/opencog/data/word-pairs-copy.rdb")";
+#define storage-node "(RocksStorageNode "rocks:///home/opencog/data/mpg-parse-copy.rdb")";
 
 % -----------------------
-% Disable use of sections (disjuncts).
-#define enable-sections 0;
+% Enable use of sections (disjuncts).
+#define enable-sections 1;
+
+% Disable extra pairs for just right now.
+#define extra-pairs 0;
+#define extra-any 0;
+
+% Location where disjunct costs are stored. The cost will be obtained
+% from the floating point value located at the `cost-key` Value on the
+% Sections. It's assumed that this is a FloatValue, which is a vector;
+% the index specifies the location in this vector.
+#define cost-key "(Predicate "*-Mutual Info Key cover-section")";
+#define cost-index 1;
+
+% If the value at the key+index above is less than this cutoff,
+% the Section will not be added to the local dictionary.
+% In this example, the raw cost is the MI, and MI of less than
+% 4 will be rejected.
+#define cost-cutoff 4.0;
+
+% Sections with a missing cost will be assigned this default. To
+% ignore sections with a missing cost, set it to some value less
+% than `cost-cutoff`.
+#define cost-default 4.01;
+
+% The cost used by LG will be a linear rescaling of the raw data above.
+% The rescaling is y=mx+b where m==`cost-scale` and b==`cost-offset`
+% and x== the value fished out of the vector above.
+%
+% The scale factor is negative, so as to flip the sign on the costs.
+% In the demo dictionary, the costs are provided by the MI, which is
+% "better", the more positive it is.  The LG costs, however, are
+% "better" when they are smaller (less positive). Thus, a sign-flip
+% is called for.
+#define cost-scale -0.25;
+#define cost-offset 3.0;
+
+% Disjuncts with a cost larger than this will not be used during
+% parsing. This can be over-ridden with the !cost-max parser option.
+% This applies both to the available disjuncts, and the ones created
+% dynamically, from pairs.
+#define max-disjunct-cost 3.0;
 
 % -----------------------
 % Pair config.
 %
-% Create expressions that consist entirely of word-pair relationships.
-% Default of up to four connectors.
-#define pair-disjuncts 4;
+% We do NOT want to create disjuncts consisting purely of word-pairs,
+% so this is disabled. However, existing disjuncts can be decorated
+% with extra connectors, derived from word-pairs, and so we do need
+% the config information on how to access these, and how to map them
+% into Link Grammar.
+%
+% Disable use of word-pairs.
+#define pair-disjuncts 0;
 
 % Location where MI values are stored.
 #define pair-predicate "(BondNode "ANY")";
@@ -66,20 +112,16 @@
 % most 1.0. So we have to accept a max disjunct cost of at least 4.
 #define max-disjunct-cost 4.5;
 
-% Supplement the above with additional connectors of type "ANY".
-% This has no effect, if `pair-disjuncts` is set to zero.
-#define pair-with-any 1;
+% Disable supplementation of pairs with "ANY" links.
+#define pair-with-any 0;
 
 % Default cost for `ANY` link types. The `ANY` link type is meant to
 % provide a desperate, last-chance opportunity to link to a word that
 % does not appear in any disjuncts or word-pairs.  Thus, its given some
 % high cost, so that it is not used when other links are available.
-%
-% Setting it to 1.6 allows two of them to be used to form a disjjunct.
-% If three are used, then this gets past the max-disjunct-cost.
-#define any-default 1.6;
+#define any-default 2.6;
 
-% Create expressions that consist entirely of "ANY" link-types.
+% Disable expressions that consist entirely of "ANY" link-types.
 #define any-disjuncts 0;
 
 % Enble the automatic generation of <UNKNOWN-WORD>. It will be
