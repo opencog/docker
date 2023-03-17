@@ -28,9 +28,10 @@
 % Enable use of sections (disjuncts).
 #define enable-sections 1;
 
-% Disable extra pairs for just right now.
-#define extra-pairs 0;
-#define extra-any 0;
+% If there are no appropriate sections, then allow pairs to fill in for
+% missing connectors.  We allow up to 2.
+#define extra-pairs 2;
+#define extra-any 1;
 
 % Location where disjunct costs are stored. The cost will be obtained
 % from the floating point value located at the `cost-key` Value on the
@@ -66,7 +67,11 @@
 % parsing. This can be over-ridden with the !cost-max parser option.
 % This applies both to the available disjuncts, and the ones created
 % dynamically, from pairs.
-#define max-disjunct-cost 3.0;
+%
+% A disjunct can be supplemented with N=`extra-pairs` pairs. Each pair
+% can have a cost of at most 1.0. So it's reasonable to accept a max
+% disjunct cost of 3+2=5
+#define max-disjunct-cost 5.0;
 
 % -----------------------
 % Pair config.
@@ -107,10 +112,6 @@
 % graph with many loops. Viz, "Maximal Planar Graphs" (MPG). Conversely,
 % if word-pair links have a positive cost, Minimal Spanning Trees (MST)
 % will be created (minimizing the total cost.)
-
-% A disjunct can consist of 4 pairs. Each pair can have a cost of at
-% most 1.0. So we have to accept a max disjunct cost of at least 4.
-#define max-disjunct-cost 4.5;
 
 % Disable supplementation of pairs with "ANY" links.
 #define pair-with-any 0;
