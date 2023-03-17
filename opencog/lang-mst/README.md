@@ -197,7 +197,7 @@ It assumes that everything has been correctly configured. If it crashes,
 hangs, or if you're just antsy and need to see what's going on inside
 the container, just run
 ```
-docker exec -it mst-counter-auto /bin/bash"
+docker exec -it mst-counter-auto /bin/bash
 tmux attach
 ```
 This will attach to the byobu/tmux session; the panel layout is

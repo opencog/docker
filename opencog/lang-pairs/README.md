@@ -197,6 +197,15 @@ link-parser demo-dict-pair
    can be: in general, they are "OK", but not great.
 
 
+Development Tips
+----------------
+After pair-counting is completed, the easiest way to restart the
+CogServer is to invoke `run-common/cogserver-mst.scm`. This loads
+all word-pairs into the AtomSpace, and then provides a guile prompt
+to poke around in (It does NOT do any MST processing beyond loading
+the pairs.)
+
+
 Semi-automated Counting
 -----------------------
 Most of the above has been condensed into a single script.
