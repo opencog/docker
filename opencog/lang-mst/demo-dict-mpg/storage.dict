@@ -28,8 +28,9 @@
 % Enable use of sections (disjuncts).
 #define enable-sections 1;
 
-% If there are no appropriate sections, then allow pairs to fill in for
-% missing connectors.  We allow up to 2.
+% Decorate sections with extra pairs, to fill in for missing connectors.
+% Allow up to 2. Decorate sections with extra ANY connectors, as well.
+% High costs will make these unlikely to be used in parses.
 #define extra-pairs 2;
 #define extra-any 1;
 
@@ -76,27 +77,26 @@
 % -----------------------
 % Pair config.
 %
-% We do NOT want to create disjuncts consisting purely of word-pairs,
-% so this is disabled. However, existing disjuncts can be decorated
-% with extra connectors, derived from word-pairs, and so we do need
-% the config information on how to access these, and how to map them
-% into Link Grammar.
+% Novel sentences containining rarely-seen words might not be parsable,
+% even when the sections on them are decorated with extra connectors.
+% In this case, fall back to MST-style parsing, and create disjuncts
+% consisting of connectors obtained entirely from word-pairs.
 %
-% Disable use of word-pairs.
-#define pair-disjuncts 0;
+% Allow disjuncts with up to two word-pair connectors.
+#define pair-disjuncts 2;
 
-% Location where MI values are stored.
+% Location where pair MI values are stored.
 #define pair-predicate "(BondNode "ANY")";
 #define pair-key "(Predicate "*-Mutual Info Key-*")";
 #define pair-index 1;
 
-% For small dictionaries, and MI or zero or more is needed, as
+% For small dictionaries, an MI of zero or more should be allowed, as
 % otherwise there are just not enough pairs, and the ANY link starts
-% getting uses. For larger dictionaries, an MI of 4 or larger makes
+% getting used. For larger dictionaries, an MI of 4 or larger makes
 % sense.
 #define pair-cutoff 0.0;
 
-% If there's no MI, just reject it.
+% If there's no MI, just reject it. (Negative MI's are bad.)
 #define pair-default -10;
 
 % Map the MI interval [0,4] to [1,0]. Thus, any MI of more than 4
@@ -113,17 +113,17 @@
 % if word-pair links have a positive cost, Minimal Spanning Trees (MST)
 % will be created (minimizing the total cost.)
 
-% Disable supplementation of pairs with "ANY" links.
-#define pair-with-any 0;
+% Enable supplementation of pure pair-only disjuncts with "ANY" links.
+#define pair-with-any 1;
 
 % Default cost for `ANY` link types. The `ANY` link type is meant to
 % provide a desperate, last-chance opportunity to link to a word that
-% does not appear in any disjuncts or word-pairs.  Thus, its given some
+% cannot otherwise link with disjuncts or word-pairs.  It is given a
 % high cost, so that it is not used when other links are available.
 #define any-default 2.6;
 
-% Disable expressions that consist entirely of "ANY" link-types.
-#define any-disjuncts 0;
+% Enable expressions that consist entirely of "ANY" link-types.
+#define any-disjuncts 1;
 
 % Enble the automatic generation of <UNKNOWN-WORD>. It will be
 % automatically added to the dictionary, with multi-ANY connectors
