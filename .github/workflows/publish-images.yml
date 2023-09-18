@@ -24,14 +24,14 @@ jobs:
           password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
 
       - name: Build and push opencog-deps to docker hub
-        uses: docker/build-push-action@v4
+        uses: docker/build-push-action@v5
         with:
           context: opencog/base
           tags: ${{ secrets.DOCKER_NAMESPACE }}/opencog-deps:latest
           push: true
 
       - name: Build and push atomspace to docker hub
-        uses: docker/build-push-action@v4
+        uses: docker/build-push-action@v5
         with:
           context: opencog/atomspace
           tags: ${{ secrets.DOCKER_NAMESPACE }}/atomspace:latest
@@ -54,7 +54,7 @@ jobs:
           password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
 
       - name: Build and push to docker hub
-        uses: docker/build-push-action@v4
+        uses: docker/build-push-action@v5
         with:
           context: opencog/${{ github.job }}
           tags: ${{ secrets.DOCKER_NAMESPACE }}/${{ github.job }}:latest
@@ -77,7 +77,7 @@ jobs:
           password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
 
       - name: Build and push to docker hub
-        uses: docker/build-push-action@v4
+        uses: docker/build-push-action@v5
         with:
           context: opencog/${{ github.job }}
           tags: ${{ secrets.DOCKER_NAMESPACE }}/${{ github.job }}:latest
@@ -103,7 +103,7 @@ jobs:
 #          password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
 #
 #      - name: Build and push to docker hub
-#        uses: docker/build-push-action@v4
+#        uses: docker/build-push-action@v5
 #        with:
 #          context: archive/tools/cli
 #          tags: |
@@ -130,7 +130,7 @@ jobs:
 #          password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
 #
 #      - name: Build and push to docker hub
-#        uses: docker/build-push-action@v4
+#        uses: docker/build-push-action@v5
 #        with:
 #          context: archive/${{ github.job }}
 #          tags: ${{ secrets.DOCKER_NAMESPACE }}/${{ github.job }}:latest
@@ -152,7 +152,7 @@ jobs:
 #          password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
 #
 #      - name: Build and push to docker hub
-#        uses: docker/build-push-action@v4
+#        uses: docker/build-push-action@v5
 #        with:
 #          context: archive/${{ github.job }}
 #          tags: ${{ secrets.DOCKER_NAMESPACE }}/${{ github.job }}:latest
