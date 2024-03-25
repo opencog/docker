@@ -74,7 +74,7 @@ and scripting system.
    This will drop you into a shell prompt inside the container.
 2. Change ownership of the input text files. Run
    `chown -R opencog:opencog text` ***IMPORTANT! Don't forget to do this!***
-3. `cd experiments/run-1`
+3. `cd ~/experiments/run-1`
 4. Review the config files; change if desired. The defaults are fine
    for an initial run. a Later on, you can copy them to
    `experiments/run-2`, `experiments/run-3` and so on, for modified
