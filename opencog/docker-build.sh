@@ -19,6 +19,7 @@ CACHE_OPTION=""
 
 ## This file/symlinks name
 SELF_NAME=$(basename $0)
+DIR_NAME=$(dirname $0)
 
 # -----------------------------------------------------------------------------
 # Main Execution
@@ -153,7 +154,7 @@ fi
 
 if [ $BUILD_LEARN_IMAGE ] ; then
     echo "---- Starting build of ${DOCKER_NAME}/learn ----"
-    docker build $CACHE_OPTION -t ${DOCKER_NAME}/learn learn
+    docker build $CACHE_OPTION -t ${DOCKER_NAME}/learn ${DIR_NAME}/learn
     echo "---- Finished build of ${DOCKER_NAME}/learn ----"
 fi
 
