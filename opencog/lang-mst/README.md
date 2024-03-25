@@ -139,10 +139,10 @@ link-parser demo-dict-mpg -verbosity=3
    and there are appropriate disjuncts on them, then the sentence will
    parse.
 
-The parser will be slow to startup, asportions of the database are
+The parser will be slow to startup, as portions of the database are
 loaded, including expressions for the `LEFT-WALL`, of which there will
 typically be millions. This size of this set is reduced only by
-clustering, done in a later stage. One a lookup is done, the results
+clustering, done in a later stage. Once a lookup is done, the results
 are cached, so later access should be faster. The first-time lookup
 of words during parsing is likewise slow; subsequent access is cached.
 
