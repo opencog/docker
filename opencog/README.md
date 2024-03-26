@@ -60,8 +60,10 @@ relevant directory, and follow the instructions there.
 * `docker images`
 * `docker rmi <image-hex>`
 * `docker ps -a`
-* `docker rm <image-name>`
+* `docker create --name foo -it opencog/atomspace`
 * `docker start -i <container-name>`
+* `docker stop <container-name>`
+* `docker rm <container-name>`
 
 ## Notes
 1. Both `tmux` and `byobu` are installed, so you can use either for
