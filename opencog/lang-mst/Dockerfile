@@ -12,6 +12,9 @@ RUN ./setup-for-experiments.sh
 # Copy in the fully-automated MST scripts.
 COPY --chown=opencog:opencog /scripts/ .
 
+# Copy in the demo Link Grammar dictionary.
+COPY --chown=opencog:opencog /demo-dict-mpg/ .
+
 CMD /bin/bash
 
 ONBUILD USER root
