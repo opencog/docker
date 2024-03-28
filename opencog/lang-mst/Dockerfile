@@ -13,7 +13,7 @@ RUN ./setup-for-experiments.sh
 COPY --chown=opencog:opencog /scripts/ .
 
 # Copy in the demo Link Grammar dictionary.
-COPY --chown=opencog:opencog /demo-dict-mpg/ .
+COPY --chown=opencog:opencog /demo-dict-mpg/ demo-dict-mpg
 
 CMD /bin/bash
 
