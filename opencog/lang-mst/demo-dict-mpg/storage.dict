@@ -18,11 +18,14 @@
 
 #define dictionary-lang           en;
 #define dictionary-locale         en_US.UTF-8;
-#define dictionary-version-number 5.12.2;
+#define dictionary-version-number 5.12.4;
 
 % Use a copy of the database; we assume the CogServer is running and
 % is using the "main" version.
 #define storage-node "(RocksStorageNode "rocks:///home/opencog/data/mpg-parse-copy.rdb")";
+
+% Alternative: access the CogServer from outside the container:
+% #define storage-node "(CogStorageNode "cog://localhost:17003")";
 
 % -----------------------
 % Enable use of sections (disjuncts).
@@ -73,6 +76,13 @@
 % can have a cost of at most 1.0. So it's reasonable to accept a max
 % disjunct cost of 3+2=5
 #define max-disjunct-cost 5.0;
+
+% No more than this many disjuncts will be created for a word. If the
+% dictionary encodes for more than these, then disjuncts will be
+% selected randomly, to not exceed this limit. The selection is applied
+% after the above cost-max limit, and after some pre-pruning that avoids
+% the selection of disjuncts that cannot possibly be used.
+#define max-disjuncts 75000
 
 % -----------------------
 % Pair config.
