@@ -60,6 +60,8 @@ Manual processing consists mostly of setting up an environment, and
 then launching the MST counting scripts, and then monitoring progress.
 Short instructions:
 
+0. If you haven't already done so, then: `docker start -i mst-counter`.
+
 1. Set up the environment. Just cut-n-paste the below:
 ```
 # Everything we need has already been set up in run-1.
