@@ -93,7 +93,7 @@
 % selected randomly, to not exceed this limit. The selection is applied
 % after the above cost-max limit, and after some pre-pruning that avoids
 % the selection of disjuncts that cannot possibly be used.
-#define max-disjuncts 75000
+#define max-disjuncts 75000;
 
 % -----------------------
 % Bogus entry. Cannot be empty.
