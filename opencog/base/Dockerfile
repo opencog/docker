@@ -37,6 +37,8 @@ RUN chmod 755 /tmp/octool;  sync;
 # Run octool in multiple steps, instead of one big gulp.
 # This makes debugging install failures easier.
 RUN /tmp/octool -rdv
+
+# -l default is the latest Link Grammar release tarball.
 RUN /tmp/octool -v -l default
 
 # Environment Variables

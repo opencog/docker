@@ -27,8 +27,13 @@ RUN apt-get -y install apache2 php
 ENV LAST_COGUTIL_UPDATE 2023-03-05
 RUN  /tmp/octool -c && ccache -C
 
+# Update Link Grammar. This avoids having to rebuild the opencog/deps
+# This installs the latest release tarball, and NOT github master.
+ENV LAST_ATOMSPACE_UPDATE 2024-03-28
+RUN  /tmp/octool -l default && ccache -C
+
 # Install core AtomSpace.
-ENV LAST_ATOMSPACE_UPDATE 2023-03-14
+ENV LAST_ATOMSPACE_UPDATE 2023-04-06
 RUN  /tmp/octool -a && ccache -C
 
 USER opencog
