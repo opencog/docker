@@ -76,7 +76,7 @@ and scripting system.
    `chown -R opencog:opencog text` ***IMPORTANT! Don't forget to do this!***
 3. `cd ~/experiments/run-1`
 4. Review the config files; change if desired. The defaults are fine
-   for an initial run. a Later on, you can copy them to
+   for an initial run. Later on, you can copy them to
    `experiments/run-2`, `experiments/run-3` and so on, for modified
    extended runs.
 5. `source 0-pipeline.sh`  # Load environment variables from config file.
@@ -113,6 +113,8 @@ E. Go to the `telnet` tab, and wait until the telnet stats clear ...
    Each file in `~/text/input-pages` is moved to ~/text/pair-counted`
    after it has been submitted. Thus, you can track progress by comparing
    `find ~/text/input-pages/ |wc` to `find ~/text/pair-counted/ |wc`.
+
+XXX below is auto done already??
 
 F. Go to the `cogsrv` tab, and perform batch MI calculations.
    This may take minutes or hours, depending on the dataset.

@@ -7,11 +7,11 @@ CogStorageNode. It does *not* include nlp, unify, ure or pln.
 
 ## Building
 
-The container is build by the script in the directory below:
+The container is built by the script in the directory below:
 `../docker-build.sh -s`.
 
 ## Testing
-You can verify that the core AtomSpace is working:
+Optional. To verify that the core AtomSpace is working:
 
 * Run the container with `./run.sh`. This will put you into a prompt
   in the container.
