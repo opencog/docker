@@ -1,3 +1,10 @@
+# Disabled, April 2024
+# Both this and publish-images.yml build the same docker containers.
+# We don't need to do this twice. Since that one also publishes the
+# containers to dockerhub, disable this script by renaming it to
+# `ci.xxx-yml-xxx` and hopefully that is enough to do the trick.
+# Keep this here, for now, "just in case". -- Linas April 2024
+
 name: CI
 
 on:
