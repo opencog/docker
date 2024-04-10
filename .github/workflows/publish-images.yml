@@ -16,6 +16,11 @@ on:
   workflow_dispatch:
 
 jobs:
+
+  # The job is called "base-images".
+  # The Dockerfile is located in the directory opencog/base
+  #     -- this is the "context"
+  # The name of the docker image is opencog/opencog-deps:latest
   base-images:
     runs-on: ubuntu-22.04
     steps:
@@ -38,13 +43,7 @@ jobs:
           tags: ${{ secrets.DOCKER_NAMESPACE }}/opencog-deps:latest
           push: true
 
-      - name: Build and push atomspace to docker hub
-        uses: docker/build-push-action@v5
-        with:
-          context: opencog/atomspace
-          tags: ${{ secrets.DOCKER_NAMESPACE }}/atomspace:latest
-          push: true
-
+  # Needs is the name of the job, above.
   atomspace:
     needs: base-images
     runs-on: ubuntu-22.04
@@ -91,10 +90,8 @@ jobs:
           tags: ${{ secrets.DOCKER_NAMESPACE }}/${{ github.job }}:latest
           push: true
 
-# TODO: publish an as-moses image.
-
-# Obsolete. Stop publishing this.
-#  opencog-dev:
+# TODO: Create dockerfile & publish an as-moses image.
+#  as-moses:
 #    needs: atomspace
 #    runs-on: ubuntu-22.04
 #    steps:
@@ -113,55 +110,7 @@ jobs:
 #      - name: Build and push to docker hub
 #        uses: docker/build-push-action@v5
 #        with:
-#          context: archive/tools/cli
-#          tags: |
-#            ${{ secrets.DOCKER_NAMESPACE }}/${{ github.job }}:cli
-#            ${{ secrets.DOCKER_NAMESPACE }}/${{ github.job }}:latest
-#          push: true
-#
-# moses has been replaced by as-moses, in the opencog-dev package.
-# relex is just plain-old obsolete.
-#  moses:
-#    needs: base-images
-#    runs-on: ubuntu-22.04
-#    steps:
-#      - name: Checkout current repo
-#        uses: actions/checkout@v4
-#
-#      - name: Set up Docker Buildx
-#        uses: docker/setup-buildx-action@v3
-#
-#      - name: Login to DockerHub
-#        uses: docker/login-action@v3
-#        with:
-#          username: ${{ secrets.DOCKER_USERNAME }}
-#          password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
-#
-#      - name: Build and push to docker hub
-#        uses: docker/build-push-action@v5
-#        with:
-#          context: archive/${{ github.job }}
-#          tags: ${{ secrets.DOCKER_NAMESPACE }}/${{ github.job }}:latest
-#          push: true
-#
-#  relex:
-#    runs-on: ubuntu-20.04
-#    steps:
-#      - name: Checkout current repo
-#        uses: actions/checkout@v4
-#
-#      - name: Set up Docker Buildx
-#        uses: docker/setup-buildx-action@v3
-#
-#      - name: Login to DockerHub
-#        uses: docker/login-action@v3
-#        with:
-#          username: ${{ secrets.DOCKER_USERNAME }}
-#          password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
-#
-#      - name: Build and push to docker hub
-#        uses: docker/build-push-action@v5
-#        with:
+# XXX wrong context, fixme.
 #          context: archive/${{ github.job }}
 #          tags: ${{ secrets.DOCKER_NAMESPACE }}/${{ github.job }}:latest
 #          push: true
