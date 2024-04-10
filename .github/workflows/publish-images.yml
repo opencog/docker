@@ -1,8 +1,16 @@
 name: Publish images
 
 on:
+  pull_request:
+    branches: [ "master" ]
+    paths:
+      - "opencog/**"
+      - ".github/workflows/**"
   push:
-    branches: master
+    branches: [ "master" ]
+    paths:
+      - "opencog/**"
+      - ".github/workflows/**"
   schedule:
     - cron: "37 2 * * 6"  # Run 2:37 AM Saturday night. `man 5 crontab`
   workflow_dispatch:
