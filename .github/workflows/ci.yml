@@ -17,4 +17,4 @@ jobs:
 
       - name: Build all opencog images
         working-directory: opencog
-        run: ./docker-build.sh -bcslt
+        run: ./docker-build.sh -bsl
