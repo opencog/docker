@@ -64,6 +64,8 @@ relevant directory, and follow the instructions there.
 * `docker start -i <container-name>`
 * `docker stop <container-name>`
 * `docker rm <container-name>`
+* `docker container cp <some-file> <container>:<path>
+* `docker attach <container-name>`
 
 ## Notes
 1. Both `tmux` and `byobu` are installed, so you can use either for
