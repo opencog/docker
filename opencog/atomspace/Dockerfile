@@ -29,11 +29,11 @@ RUN  /tmp/octool -c && ccache -C
 
 # Update Link Grammar. This avoids having to rebuild the opencog/deps
 # This installs the latest release tarball, and NOT github master.
-ENV LAST_LINK_GRAMMAR_UPDATE 2024-03-28
+ENV LAST_LINK_GRAMMAR_UPDATE 2024-05-02
 RUN  /tmp/octool -l default && ccache -C
 
 # Install core AtomSpace.
-ENV LAST_ATOMSPACE_UPDATE 2024-04-09
+ENV LAST_ATOMSPACE_UPDATE 2024-05-02
 RUN  /tmp/octool -a && ccache -C
 
 USER opencog
