@@ -20,8 +20,11 @@
 #define dictionary-version-number 5.12.4;
 
 % Use a copy of the database; we assume the CogServer is running and
-% is using the "main" version.
-#define storage-node "(RocksStorageNode "rocks:///home/opencog/data/word-pairs-copy.rdb")";
+% is using the "main" version. Use MonoStorage instead of RocksSotrage,
+% its simpler, maybe faster. If this throws "Unsupported DB version '2'"
+% then comment this out, and use Rocks below.
+#define storage-node "(MonoStorage "monospace:///home/opencog/data/word-pairs-copy.rdb")";
+% #define storage-node "(RocksStorage "rocks:///home/opencog/data/word-pairs-copy.rdb")";
 
 % -----------------------
 % Disable use of sections (disjuncts).
