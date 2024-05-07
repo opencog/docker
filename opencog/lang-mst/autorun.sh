@@ -81,6 +81,7 @@ echo "If you're nervous and can't stand the wait, try this:"
 echo "   docker exec -it $MST_CONTAINER /bin/bash"
 echo "   tmux attach"
 echo "and then prowl around in tmux with F3 and F4"
+echo "This script will not exit until all processing is done."
 
 docker exec $MST_CONTAINER /home/opencog/count-mst-done.sh
 
