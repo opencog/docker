@@ -18,7 +18,7 @@ FROM opencog/opencog-deps:latest
 RUN apt-get -y update; apt-get -y upgrade
 
 # Basic tools that allow this image to be minimally usable.
-RUN apt-get -y install telnet netcat-openbsd tmux byobu
+RUN apt-get -y install telnet netcat-openbsd tmux byobu time
 
 # Some extra stuff, for visualization
 RUN apt-get -y install apache2 php
