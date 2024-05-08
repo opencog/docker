@@ -18,13 +18,16 @@ FROM opencog/opencog-deps:latest
 RUN apt-get -y update; apt-get -y upgrade
 
 # Basic tools that allow this image to be minimally usable.
-RUN apt-get -y install telnet netcat-openbsd tmux byobu time
+RUN apt-get -y install telnet netcat-openbsd tmux byobu
 
-# Some extra stuff, for visualization
+# Basic minimal debug tools.
+RUN apt-get -y install gdb time
+
+# Webserver is needed for visualization.
 RUN apt-get -y install apache2 php
 
 # Install cogutil
-ENV LAST_COGUTIL_UPDATE 2023-03-05
+ENV LAST_COGUTIL_UPDATE 2024-05-08
 RUN  /tmp/octool -c && ccache -C
 
 # Update Link Grammar. This avoids having to rebuild the opencog/deps
@@ -33,7 +36,7 @@ ENV LAST_LINK_GRAMMAR_UPDATE 2024-05-02
 RUN  /tmp/octool -l default && ccache -C
 
 # Install core AtomSpace.
-ENV LAST_ATOMSPACE_UPDATE 2024-05-02
+ENV LAST_ATOMSPACE_UPDATE 2024-05-08
 RUN  /tmp/octool -a && ccache -C
 
 USER opencog
