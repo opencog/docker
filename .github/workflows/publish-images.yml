@@ -37,7 +37,7 @@ jobs:
           password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
 
       - name: Build and push opencog-deps to docker hub
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           context: opencog/base
           tags: ${{ secrets.DOCKER_NAMESPACE }}/opencog-deps:latest
@@ -61,7 +61,7 @@ jobs:
           password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
 
       - name: Build and push to docker hub
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           context: opencog/${{ github.job }}
           tags: ${{ secrets.DOCKER_NAMESPACE }}/${{ github.job }}:latest
@@ -84,7 +84,7 @@ jobs:
           password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
 
       - name: Build and push to docker hub
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           context: opencog/${{ github.job }}
           tags: ${{ secrets.DOCKER_NAMESPACE }}/${{ github.job }}:latest
@@ -108,7 +108,7 @@ jobs:
 #          password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
 #
 #      - name: Build and push to docker hub
-#        uses: docker/build-push-action@v5
+#        uses: docker/build-push-action@v6
 #        with:
 # XXX wrong context, fixme.
 #          context: archive/${{ github.job }}
