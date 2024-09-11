@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # Notes:
-# 1. Build's all the images for development. You can also pull the
+# 1. Builds all the images for development. You can also pull the
 #    images from docker registry, but they are a bit bulky.
 # 2. If your user is not a member of the docker group you can add it
 #    by running `sudo adduser $USER docker`. Log out and log back in
