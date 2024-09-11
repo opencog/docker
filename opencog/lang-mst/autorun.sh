@@ -11,7 +11,7 @@
 # marginals, and copies out the resulting dataset.
 #
 # Expects to find a text corpus in the `input-pages/pair-counted` directory.
-# Expects a databse with word-pair marginals in `data/mst-parse.rdb`
+# Expects a database with word-pair marginals in `data/mst-parse.rdb`
 #
 # If used with the `-u` flag, then an existing container will be updated
 # with additional counting. Useful for splitting up large counting runs

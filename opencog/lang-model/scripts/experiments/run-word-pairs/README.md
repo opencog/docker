@@ -21,7 +21,7 @@ to get these datasets.
 * r13-one-sim200.rdb -- 8.2GB to load word-pairs, word-disjunct
    pairs and similarities.
 
-* r13-all-in-one.rdb -- trimed, modified copy of `r14-sim200.rdb`
+* r13-all-in-one.rdb -- trimmed, modified copy of `r14-sim200.rdb`
      It has the following stuff:
      -- Word pairs, from long ago.  These are trimmed to remove all
         word-pairs with MI of 1.1 or less, leaving 3.9M pairs.

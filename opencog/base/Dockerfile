@@ -13,7 +13,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 # Bump this date, in order to force the apt-update to run again.
 # Otherwise, it will use the cached Docker container, which might
-# be stale or be missing secruity updates.
+# be stale or be missing security updates.
 ENV LAST_OS_UPDATE 2023-02-07
 RUN apt-get update && apt-get -y upgrade
 
@@ -60,7 +60,7 @@ USER opencog
 WORKDIR /home/opencog
 
 # Setup config files
-## Dont't mount host volumes to opencog's home directory inside the
+## Don't mount host volumes to opencog's home directory inside the
 ## container, if you do you will not find the contents copied below
 COPY /scripts/ /home/opencog
 RUN sudo chown -R opencog:opencog .guile .gdbinit

@@ -87,7 +87,7 @@
 % -----------------------
 % Pair config.
 %
-% Novel sentences containining rarely-seen words might not be parsable,
+% Novel sentences containing rarely-seen words might not be parsable,
 % even when the sections on them are decorated with extra connectors.
 % In this case, fall back to MST-style parsing, and create disjuncts
 % consisting of connectors obtained entirely from word-pairs.
@@ -135,7 +135,7 @@
 % Enable expressions that consist entirely of "ANY" link-types.
 #define any-disjuncts 1;
 
-% Enble the automatic generation of <UNKNOWN-WORD>. It will be
+% Enable the automatic generation of <UNKNOWN-WORD>. It will be
 % automatically added to the dictionary, with multi-ANY connectors
 % on it. The ANY connectors will be used, irresepctive of the other
 % `any` setting above.

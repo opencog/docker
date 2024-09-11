@@ -1,7 +1,7 @@
 opencog/learn
 -------------
 This docker image contains all of the tools needed for the "learn"
-subystem, including the nlp subsystem.
+subsystem, including the nlp subsystem.
 
 ## Building
 

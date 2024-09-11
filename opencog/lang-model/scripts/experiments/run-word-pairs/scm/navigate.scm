@@ -2,7 +2,7 @@
 ; navigate.scm
 ;
 ; Quick-n-dirty wrapper for getting word-pair similarity.
-; Assumes that there are matrix objets and loaded data
+; Assumes that there are matrix objects and loaded data
 ; as descrbied in README.md
 ;
 
@@ -14,8 +14,8 @@
 ; So, given a vertex, the left-stars are a list of all edges
 ; pointing at the vertex.  The right-stars are all the edges
 ; pointing away from the vertex.  The left-duals are all the
-; vertexes that have edges pointing at the target. The right-duals
-; are all the vertexes that have edges pointing away from the target.
+; vertices that have edges pointing at the target. The right-duals
+; are all the vertices that have edges pointing away from the target.
 ;
 ; The MI is the mutual information of an edge. Get it by saying
 ; `(pair-freq 'pair-fmi edge-atom)`
@@ -39,13 +39,13 @@
 				(STARS-OBJ 'get-pair OTHER-VERTEX TARGET-VERTEX)))
 
 		; Define a compare function that compares two
-		; vertexes... assuming both have the target-vertex
+		; vertices... assuming both have the target-vertex
 		; in common.
 		(define (compare-fun VTX-A VTX-B)
 			(> (SCORE-EDGE (get-edge VTX-A))
 			   (SCORE-EDGE (get-edge VTX-B))))
 
-		; Get the list of all vertexes that are joined
+		; Get the list of all vertices that are joined
 		; by some edge to the target vertex.
 		(define tail-verts
 			(if FWD

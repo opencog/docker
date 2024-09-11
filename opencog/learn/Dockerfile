@@ -13,7 +13,7 @@ WORKDIR /home/opencog
 RUN guile -c "(use-modules (opencog nlp))"
 RUN guile -c "(use-modules (opencog learn))"
 
-# Place a basic recommended configurtion where the user can find it.
+# Place a basic recommended configuration where the user can find it.
 COPY /scripts/ /home/opencog
 RUN sudo chown -R opencog:opencog setup-for-experiments.sh
 RUN chmod ugo+x setup-for-experiments.sh
