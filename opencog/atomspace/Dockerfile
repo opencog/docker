@@ -54,10 +54,10 @@ RUN sudo chown -R opencog:opencog .[a-z]*
 # So hack around this by forcing a compile.
 RUN guile -c "(use-modules (opencog))"
 RUN guile -c "(use-modules (opencog cogserver))"
-RUN guile -c "(use-modules (opencog matrix))"
 RUN guile -c "(use-modules (opencog persist))"
 RUN guile -c "(use-modules (opencog persist-cog))"
 RUN guile -c "(use-modules (opencog persist-rocks))"
+# RUN guile -c "(use-modules (opencog persist-pgres))"
 
 CMD /bin/bash
 
