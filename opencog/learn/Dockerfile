@@ -10,6 +10,7 @@ USER opencog
 WORKDIR /home/opencog
 
 # Compile the scheme files as the user.
+RUN guile -c "(use-modules (opencog matrix))"
 RUN guile -c "(use-modules (opencog nlp))"
 RUN guile -c "(use-modules (opencog learn))"
 
