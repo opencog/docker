@@ -36,7 +36,7 @@ ENV LAST_LINK_GRAMMAR_UPDATE 2024-05-02
 RUN  /tmp/octool -l default && ccache -C
 
 # Install core AtomSpace.
-ENV LAST_ATOMSPACE_UPDATE 2025-04-01
+ENV LAST_ATOMSPACE_UPDATE 2025-04-02
 RUN  /tmp/octool -a && ccache -C
 
 USER opencog
