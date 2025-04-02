@@ -27,7 +27,7 @@ RUN apt-get -y install gdb time
 RUN apt-get -y install apache2 php
 
 # Install cogutil
-ENV LAST_COGUTIL_UPDATE 2024-05-08
+ENV LAST_COGUTIL_UPDATE 2025-04-01a
 RUN  /tmp/octool -c && ccache -C
 
 # Update Link Grammar. This avoids having to rebuild the opencog/deps
@@ -36,7 +36,7 @@ ENV LAST_LINK_GRAMMAR_UPDATE 2024-05-02
 RUN  /tmp/octool -l default && ccache -C
 
 # Install core AtomSpace.
-ENV LAST_ATOMSPACE_UPDATE 2024-05-08
+ENV LAST_ATOMSPACE_UPDATE 2025-04-01
 RUN  /tmp/octool -a && ccache -C
 
 USER opencog

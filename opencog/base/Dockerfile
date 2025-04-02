@@ -5,8 +5,8 @@
 # 1. docker build --no-cache -t opencog/opencog-deps .
 # 2. docker run --rm -it opencog/opencog-deps
 
-# Ubuntu 22.04.1 LTS (Jammy Jellyfish)
-ARG VERSION=22.04
+# Ubuntu 24.04 LTS (Noble Numbat)
+ARG VERSION=24.04
 FROM ubuntu:${VERSION}
 
 ENV DEBIAN_FRONTEND=noninteractive
@@ -14,7 +14,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 # Bump this date, in order to force the apt-update to run again.
 # Otherwise, it will use the cached Docker container, which might
 # be stale or be missing security updates.
-ENV LAST_OS_UPDATE 2023-02-07
+ENV LAST_OS_UPDATE 2025-01-30
 RUN apt-get update && apt-get -y upgrade
 
 # Install apt utilities
@@ -23,7 +23,7 @@ RUN apt-get -y install apt-transport-https software-properties-common \
 
 # Install ocpkg. Bump the date to get the latest ocpkg installed;
 # Otherwise, this docker build will be cached with an old octool.
-ENV LAST_OCPKG_UPDATE 2025-01-24
+ENV LAST_OCPKG_UPDATE 2025-04-01
 
 # The OCPKG_URL can be overridden by specifying
 # docker build --build-arg OCPKG_URL=https://some.where.else.com/ockpg
