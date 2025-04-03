@@ -21,6 +21,11 @@ RUN apt-get update && apt-get -y upgrade
 RUN apt-get -y install apt-transport-https software-properties-common \
       sudo wget tzdata apt-utils
 
+# This container is used by circle-ci unit tests, and they seem to
+# be happier when ssh is installed. Seems this is NOT installed by
+# ocpkg, so we do it here.
+RUN apt-get -y install openssh-client
+
 # Install ocpkg. Bump the date to get the latest ocpkg installed;
 # Otherwise, this docker build will be cached with an old octool.
 ENV LAST_OCPKG_UPDATE 2025-04-01
