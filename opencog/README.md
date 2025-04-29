@@ -24,8 +24,9 @@ told about, then it is probably in the archive.
    this is not needed. If you do create an account, be sure to say
    `sudo docker login` or
 
-3. Pull images that are used for opencog development by running
-   `./docker-build.sh -a`
+3. (Caution: dockerhub images apprea to be out-of-date, and its not
+   clear how to fix this. So please do NOT do this step.)
+   Pull opencog images from dockerhub by running `./docker-build.sh -a`
 
 4. The above pull should have downloaded the latest images. These
    are rebuilt weekly, and thus should be up-to-date, more or less.
