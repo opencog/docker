@@ -24,7 +24,7 @@ told about, then it is probably in the archive.
    this is not needed. If you do create an account, be sure to say
    `sudo docker login` or
 
-3. (Caution: dockerhub images apprea to be out-of-date, and its not
+3. (Caution: dockerhub images appear to be out-of-date, and its not
    clear how to fix this. So please do NOT do this step.)
    Pull opencog images from dockerhub by running `./docker-build.sh -a`
 
@@ -39,7 +39,7 @@ List the current set of docker images with the command `docker images`.
 The most notable include:
 
 * `opencog/opencog-deps` -- A base operating system image, with
-  most required depdencies installed.
+  most required dependencies installed.
 
 * `opencog/atomspace` -- An image containing the core AtomSpace.
   The AtomSpace is needed by all other subsystems.
