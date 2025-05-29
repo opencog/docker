@@ -3,10 +3,11 @@ OpenCog Docker Containers
 This directory contains docker configurations for some of OpenCog's
 projects.  Some of the notable images include:
 
-* `opencog/atomspace`  -- Core AtomSpace only.
-* `opencog/learn`      -- Learning subsystem.
-* `opencog/lang-pairs` -- Tabulate and visualize word pairs from
-                          text corpora.
+* `opencog/atomspace`    -- Core AtomSpace only.
+* `opencog/atomspace-py` -- AtomSpace plus many Python tools.
+* `opencog/learn`        -- Learning subsystem.
+* `opencog/lang-pairs`   -- Tabulate and visualize word pairs from
+                            text corpora.
 
 Older, obsolete images can be found in the [archive](../archive)
 directory. If someone sent you here, and you can't find what you were
@@ -43,6 +44,9 @@ The most notable include:
 
 * `opencog/atomspace` -- An image containing the core AtomSpace.
   The AtomSpace is needed by all other subsystems.
+
+* `opencog/atomspace-py` -- The AtomSpace, plus a large collection of
+  Python tools commonly used for machine learning and DL/NN work.
 
 * `opencog/learn` -- An image containing the language-learning
   subproject.

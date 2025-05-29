@@ -30,6 +30,7 @@ while getopts "abcehjlmprstu" flag; do
     a) PULL_DEV_IMAGES=true ;;
     b) BUILD_OPENCOG_BASE_IMAGE=true ;;
     l) BUILD_LEARN_IMAGE=true ;;
+    p) BUILD_ATOMSPACE_PYTHON_IMAGE=true ;;
     s) BUILD_ATOMSPACE_IMAGE=true ;;
     u) CACHE_OPTION=--no-cache ;;
     h) SHOW_USAGE=true ;;
@@ -60,6 +61,7 @@ usage() {
     -b Build ${DOCKER_NAME}/opencog-deps image. This provides all dependencies
        and development tools used by ${DOCKER_NAME}.
     -s Builds ${DOCKER_NAME}/atomspace image.
+    -p Builds ${DOCKER_NAME}/atomspace-py image.
     -l Builds ${DOCKER_NAME}/learn image.
 
     -u Ignore the docker image cache when building. This will cause the
@@ -150,6 +152,12 @@ fi
 
 if [ $BUILD_ATOMSPACE_IMAGE ]; then
     build_atomspace
+fi
+
+if [ $BUILD_ATOMSPACE_PYTHON_IMAGE ]; then
+    echo "---- Starting build of ${DOCKER_NAME}/atomspace-py ----"
+    docker build $CACHE_OPTION -t ${DOCKER_NAME}/atomspace-py ${DIR_NAME}/atomspace-py
+    echo "---- Finished build of ${DOCKER_NAME}/atomspace-py ----"
 fi
 
 if [ $BUILD_LEARN_IMAGE ] ; then

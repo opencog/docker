@@ -27,7 +27,7 @@ RUN apt-get -y install gdb time
 RUN apt-get -y install apache2 php
 
 # Install cogutil
-ENV LAST_COGUTIL_UPDATE 2025-04-02
+ENV LAST_COGUTIL_UPDATE 2025-05-29
 RUN  /tmp/octool -c && ccache -C
 
 # Update Link Grammar. This avoids having to rebuild the opencog/deps
