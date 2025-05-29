@@ -28,7 +28,7 @@ RUN apt-get -y install openssh-client
 
 # Install ocpkg. Bump the date to get the latest ocpkg installed;
 # Otherwise, this docker build will be cached with an old octool.
-ENV LAST_OCPKG_UPDATE 2025-04-01
+ENV LAST_OCPKG_UPDATE 2025-05-29
 
 # The OCPKG_URL can be overridden by specifying
 # docker build --build-arg OCPKG_URL=https://some.where.else.com/ockpg
