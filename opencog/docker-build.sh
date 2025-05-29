@@ -58,10 +58,12 @@ usage() {
 
   OPTIONS:
     -a Pull all images needed for development from hub.docker.com/u/${DOCKER_NAME}/
-    -b Build ${DOCKER_NAME}/opencog-deps image. This provides all dependencies
+    -b Build ${DOCKER_NAME}/opencog-deps image. Provides all dependencies
        and development tools used by ${DOCKER_NAME}.
-    -s Builds ${DOCKER_NAME}/atomspace image.
-    -p Builds ${DOCKER_NAME}/atomspace-py image.
+    -s Builds ${DOCKER_NAME}/atomspace image. Builds all core AtomSpace
+       packages.
+    -p Builds ${DOCKER_NAME}/atomspace-py image. Adds many additional
+       Python packages commonly used in machine learning and DL/NN.
     -l Builds ${DOCKER_NAME}/learn image.
 
     -u Ignore the docker image cache when building. This will cause the
