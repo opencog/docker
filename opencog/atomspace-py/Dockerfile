@@ -3,6 +3,8 @@
 #
 FROM opencog/atomspace:latest
 
+# First, install Debian-manaaged packages, invlucing pipx for venv.
+RUN apt-get -y install python3-pip pipx
 
 USER opencog
 WORKDIR /home/opencog
