@@ -54,7 +54,7 @@ RUN sudo chown -R opencog:opencog .[a-z]*
 # is older than that on
 #    /usr/local/share/guile/site/3.0/opencog.scm
 # So hack around this by forcing a compile.
-RUN guile -c "(use-modules (opencog) (opencog cogserver) (opencog persist) (opencog persist-cog) (opencog persist-rocks))"
+RUN guile -c "(use-modules (opencog) (opencog exec) (opencog cogserver) (opencog persist) (opencog persist-cog) (opencog persist-rocks))"
 
 # RUN guile -c "(use-modules (opencog persist-pgres))"
 
