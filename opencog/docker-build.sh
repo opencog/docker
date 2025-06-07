@@ -14,7 +14,7 @@
 set -e
 
 # Environment Variables
-## Use's cache by default unless the -u options is passed
+## Use cache by default unless the -u options is passed
 CACHE_OPTION=""
 
 ## This file/symlinks name

@@ -2,7 +2,7 @@
 # Container with AtomSpace plus Anthropic Claude
 #
 # Usage:
-# 1. docker build --no-cache -t opencog/atomspace-claude .
+# 1. docker build -t opencog/atomspace-claude .
 # 2. docker create --name atomclaude  -it opencog/atomspace-claude
 # 3. docker start -i atomclaude
 #

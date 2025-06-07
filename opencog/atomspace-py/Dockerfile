@@ -2,7 +2,7 @@
 # Container with AtomSpace plus extra python and node.js stuff.
 #
 # Usage:
-# 1. docker build --no-cache -t opencog/atomspace-py .
+# 1. docker build -t opencog/atomspace-py .
 # 2. docker create --name atompy  -it opencog/atomspace-py
 # 3. docker start -i atompy
 #
