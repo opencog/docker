@@ -19,6 +19,12 @@ RUN apt-get -y install npm
 USER opencog
 WORKDIR /home/opencog
 
+# Set up NPM repos so that they install as the user.
+RUN mkdir -p ~/.npm-global
+RUN npm config set prefix ~/.npm-global
+RUN echo 'export PATH=~/.npm-global/bin:$PATH' >> ~/.bashrc
+ENV PATH=~/.npm-global/bin:$PATH
+
 # Create python gaol located at a popular location
 RUN python3 -m venv .venv
 
