@@ -62,8 +62,9 @@ usage() {
        and development tools used by ${DOCKER_NAME}.
     -s Builds ${DOCKER_NAME}/atomspace image. Builds all core AtomSpace
        packages.
-    -p Builds ${DOCKER_NAME}/atomspace-py image. Adds many additional
-       Python packages commonly used in machine learning and DL/NN.
+    -p Builds ${DOCKER_NAME}/atomspace-py image. Adds additional
+       node.js and Python packages commonly used in machine learning
+       and DL/NN.
     -l Builds ${DOCKER_NAME}/learn image.
 
     -u Ignore the docker image cache when building. This will cause the

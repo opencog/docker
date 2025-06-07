@@ -1,10 +1,19 @@
 #
-# Container with AtomSpace plus lots of extra python stuff.
+# Container with AtomSpace plus extra python and node.js stuff.
+#
+# Usage:
+# 1. docker build --no-cache -t opencog/atomspace-py .
+# 2. docker create --name atompy  -it opencog/atomspace-py
+# 3. docker start -i atompy
+#
 #
 FROM opencog/atomspace:latest
 
-# First, install Debian-managed packages.
+# Install Debian-managed packages to get base python abilities.
 RUN apt-get -y install python3-pip python3-venv
+
+# Install Debian-managed packages to get base node.js abilities.
+RUN apt-get -y install npm
 
 # Everything else happens as the user.
 USER opencog
