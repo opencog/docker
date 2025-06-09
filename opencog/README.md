@@ -78,3 +78,7 @@ relevant directory, and follow the instructions there.
 
 ## TODO
 1. Add more images to github workflow for automated publishing
+
+## Bonus
+There are some "bonus" containers, which might be useful:
+* `claude-code` -- Container with Anthropic's Claude Code installed.

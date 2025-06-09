@@ -1,10 +1,10 @@
 #
-# Container with AtomSpace plus Anthropic Claude
+# Container with AtomSpace plus Anthropic Claude Code
 #
 # Usage:
-# 1. docker build -t opencog/atomspace-claude .
-# 2. docker create --name atomclaw  -it opencog/atomspace-claude
-# 3. docker start -i atomclaw
+# 1. docker build -t opencog/claude-code .
+# 2. docker create --name aclaw  -it opencog/claude-code
+# 3. docker start -i aclaw
 #
 FROM opencog/atomspace-py:latest
 
