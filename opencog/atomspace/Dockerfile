@@ -23,7 +23,7 @@ RUN apt-get -y update; apt-get -y upgrade
 #  * Debug tools (gdb)
 #  * Webserver (apache2, php)
 RUN apt-get -y install \
-	net-tools iputils-ping telnet netcat-openbsd \
+	net-tools iputils-ping telnet netcat-openbsd traceroute iptraf \
 	tmux byobu \
 	gdb time \
 	apache2 php

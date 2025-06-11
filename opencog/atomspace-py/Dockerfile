@@ -31,6 +31,9 @@ RUN python3 -m venv .venv
 # Use uv as a replacement for pipx, poetry, pyenv, virtualenv, twine.
 RUN .venv/bin/pip install uv
 
+# Model Context Protocol MCP python sdk
+RUN .venv/bin/pip install mcp
+
 CMD /bin/bash
 
 ONBUILD USER root
