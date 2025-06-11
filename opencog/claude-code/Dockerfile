@@ -15,6 +15,9 @@ WORKDIR /home/opencog
 # Install Anthropic Claude Code
 RUN npm install -g @anthropic-ai/claude-code
 
+# The OAuth token needs to be refreshed from time to time.
+RUN curl -O https://raw.githubusercontent.com/RavenStorm-bit/claude-token-refresh/main/claude_token_refresh.py && chmod +x claude_token_refresh.py
+
 CMD /bin/bash
 
 ONBUILD USER root

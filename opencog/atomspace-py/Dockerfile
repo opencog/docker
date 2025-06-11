@@ -26,10 +26,14 @@ RUN echo 'export PATH=~/.npm-global/bin:$PATH' >> ~/.bashrc
 ENV PATH=~/.npm-global/bin:$PATH
 
 # Create python gaol located at a popular location
+# Activate manually wih `source ~/.venv/bin/activate`
 RUN python3 -m venv .venv
 
 # Use uv as a replacement for pipx, poetry, pyenv, virtualenv, twine.
 RUN .venv/bin/pip install uv
+
+# Other misc stuff
+RUN .venv/bin/pip install requests
 
 # Model Context Protocol MCP python sdk
 RUN .venv/bin/pip install mcp

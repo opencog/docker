@@ -97,8 +97,9 @@ https://hub.docker.com/search?q=opencog
 ## Usage
 * To run the demos and other containers, docker must be installed.
   Instructions can be found [here](https://docs.docker.com/installation/).
-  The [Giving non-root access](https://docs.docker.com/installation/ubuntulinux/#giving-non-root-access)
-  section on the page explains how to avoid having to use `sudo` all the time.
+  The "[Giving non-root access](https://docs.docker.com/installation/ubuntulinux/#giving-non-root-access)"
+  section of the docker docs explains how to avoid having to use `sudo`
+  all the time.
 
 * The `docker-build.sh` file in [opencog](opencog) directory can be used
   to build the containers mentioned above.  Run `./docker-build.sh -h`
