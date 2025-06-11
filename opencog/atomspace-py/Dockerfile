@@ -34,6 +34,9 @@ RUN .venv/bin/pip install uv
 # Model Context Protocol MCP python sdk
 RUN .venv/bin/pip install mcp
 
+# Opencog installed itself here; we want it available in the venv.
+ENV PYTHONPATH=/usr/local/lib/python3.12/dist-packages:$PYTHONPATH
+
 CMD /bin/bash
 
 ONBUILD USER root
