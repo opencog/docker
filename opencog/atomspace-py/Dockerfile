@@ -10,7 +10,7 @@
 FROM opencog/atomspace:latest
 
 # Install Debian-managed packages to get base python abilities.
-RUN apt-get update && apt-get -y upgrade
+RUN apt-get -y update && apt-get -y upgrade
 RUN apt-get -y install python3-pip python3-venv
 
 # Install Debian-managed packages to get base node.js abilities.
