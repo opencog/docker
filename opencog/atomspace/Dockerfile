@@ -17,7 +17,7 @@ FROM opencog/opencog-deps:latest
 # The apt installs below will fail, unless we are at the latest.
 # Bump the date, if there are DNS failures!
 ENV LAST_APT_UPDATE 2025-08-08
-RUN apt-get -y update; apt-get -y upgrade
+RUN apt-get -y update; apt-get -y upgrade; apt-get -y autoremove
 
 # Basic tools that allow this image to be minimally usable.
 #  * Networking tools (ping, ifconfig, telnet, netcat)
