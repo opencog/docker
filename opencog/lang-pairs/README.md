@@ -49,10 +49,11 @@ Basic Setup
         docker build -t opencog/lang-pairs .
 ```
 3. Create a container (an instance of the image):
-   `docker create --name pair-counter -p 8080:80 -p 17002:17002 -it opencog/lang-pairs`
+   `docker create --name pair-counter -p 8080:80 -p 17002:17002 -p 18082:18082 -it opencog/lang-pairs`
    Note: the `-p` flag is `external_port:internal_port`. The first flag
    exposes the internal webserver on `localhost:8080` and the second
-   flag exposes the CogServer to the outside world.
+   flag exposes the CogServer to the outside world. The third exposes
+   the CogServer WebSockets port; usefule for visualization.
 
 4. Copy your input text files into the container, using the
    `docker container cp` command. The default configuration expects
@@ -73,7 +74,7 @@ and scripting system.
 1. Start the container: `docker start -i pair-counter`
    This will drop you into a shell prompt inside the container.
 2. Change ownership of the input text files. Run
-   `chown -R opencog:opencog text` ***IMPORTANT! Don't forget to do this!***
+   `sudo chown -R opencog:opencog text` ***IMPORTANT! Don't forget to do this!***
 3. `cd ~/experiments/run-1`
 4. Review the config files; change if desired. The defaults are fine
    for an initial run. Later on, you can copy them to
