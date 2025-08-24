@@ -22,12 +22,12 @@ RUN apt-get -y update; apt-get -y upgrade; apt-get -y autoremove
 # Basic tools that allow this image to be minimally usable.
 #  * Networking tools (ping, ifconfig, telnet, netcat)
 #  * Terminal sharing tools (tmux, byobu)
-#  * Debug tools (gdb)
+#  * Debug tools (gdb, xxd)
 #  * Webserver (apache2, php)
 RUN apt-get -y install \
 	net-tools iputils-ping telnet netcat-openbsd traceroute iptraf \
 	tmux byobu \
-	gdb time \
+	gdb time xxd \
 	apache2 php
 
 # Install cogutil
