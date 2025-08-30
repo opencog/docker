@@ -31,7 +31,7 @@ RUN apt-get -y install \
 	apache2 php
 
 # Install cogutil
-ENV LAST_COGUTIL_UPDATE 2025-08-25
+ENV LAST_COGUTIL_UPDATE 2025-08-30
 RUN  /tmp/octool -c && ccache -C
 
 # Update Link Grammar. This avoids having to rebuild the opencog/deps
