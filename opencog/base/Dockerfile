@@ -62,6 +62,9 @@ ENV PATH /usr/lib/ccache:$PATH
 RUN adduser --disabled-password --gecos "OpenCog Developer" opencog
 RUN adduser opencog sudo
 RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+
+# video provides access o any GPU's on this device.
+RUN usermod -a -G video opencog
 USER opencog
 WORKDIR /home/opencog
 
