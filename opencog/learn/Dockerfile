@@ -6,6 +6,12 @@ FROM opencog/atomspace:latest
 # Install everything learn-related.
 RUN  /tmp/octool -z && ccache -C
 
+# Uncomment to instal GPU stuff
+# RUN  /tmp/octool -u && ccache -C
+
+# uncomment to install vision stuff
+# RUN  /tmp/octool -n && ccache -C
+
 USER opencog
 WORKDIR /home/opencog
 
