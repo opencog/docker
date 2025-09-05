@@ -25,7 +25,8 @@ RUN apt-get -y update; apt-get -y upgrade; apt-get -y autoremove
 #  * Debug tools (gdb, xxd)
 #  * Webserver (apache2, php)
 RUN apt-get -y install \
-	net-tools iputils-ping telnet netcat-openbsd traceroute iptraf \
+	net-tools iputils-ping netcat-openbsd traceroute iptraf \
+	rlwrap telnet \
 	tmux byobu \
 	gdb time xxd \
 	apache2 php
