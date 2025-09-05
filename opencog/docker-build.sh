@@ -119,7 +119,9 @@ build_atomspace() {
     if [ ! -z "$OCPKG_URL" ]; then
         OCPKG_OPTION="--build-arg OCPKG_URL=$OCPKG_URL"
     fi
-    GITHUB_OPTION="--build-arg GITHUB_NAME=$GITHUB_NAME"
+
+    # GITHUB_NAME is not actually used in the dockerfile...
+    # GITHUB_OPTION="--build-arg GITHUB_NAME=$GITHUB_NAME"
     docker build $CACHE_OPTION $OCPKG_OPTION $GITHUB_OPTION -t ${DOCKER_NAME}/atomspace atomspace
     echo "---- Finished build of ${DOCKER_NAME}/atomspace ----"
 }
