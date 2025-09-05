@@ -14,7 +14,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 # Bump this date, in order to force the apt-update to run again.
 # Otherwise, it will use the cached Docker container, which might
 # be stale or be missing security updates.
-ENV LAST_OS_UPDATE 2025-01-30
+ENV LAST_OS_UPDATE=2025-01-30
 RUN apt-get update && apt-get -y upgrade
 
 # Install apt utilities
@@ -29,12 +29,12 @@ RUN apt-get -y install openssh-client
 # Install ocpkg. Bump the date to get the latest ocpkg installed;
 # Otherwise, this docker build will be cached with an old octool.
 # And with old versions of those packages that octool installs.
-ENV LAST_OCPKG_UPDATE 2025-09-04
+ENV LAST_OCPKG_UPDATE=2025-09-04
 
 # The OCPKG_URL can be overridden by specifying
 # docker build --build-arg OCPKG_URL=https://some.where.else.com/ockpg
 ARG GITHUB_NAME="opencog"
-ENV GITHUB_NAME ${GITHUB_NAME}
+ENV GITHUB_NAME=${GITHUB_NAME}
 ARG OCPKG_URL=https://raw.githubusercontent.com/${GITHUB_NAME}/ocpkg/master/ocpkg
 RUN echo OCPKG_URL=$OCPKG_URL
 ADD $OCPKG_URL /tmp/octool
@@ -50,12 +50,12 @@ RUN /tmp/octool -v -l default
 # Environment Variables
 ## Set Locale -- Link Grammar expects this.
 RUN locale-gen en_US.UTF-8
-ENV LANG en_US.UTF-8
-ENV LANGUAGE en_US:en
-ENV LC_ALL en_US.UTF-8
+ENV LANG=en_US.UTF-8
+ENV LANGUAGE=en_US:en
+ENV LC_ALL=en_US.UTF-8
 
 ## For using ccache
-ENV PATH /usr/lib/ccache:$PATH
+ENV PATH=/usr/lib/ccache:$PATH
 
 # TODO: Remove this user and replace with usage of `-u` flag during runtime.
 # Create and switch user. The user is privileged with no password required

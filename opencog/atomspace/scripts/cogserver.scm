@@ -37,7 +37,7 @@
 
 (repl-default-prompt-set! cog-prompt)
 
-; Some additional envoronment-variable stuffs.
+; Some additional environment-variable stuffs.
 (define env-port (getenv "PORT"))
 (if (not env-port)
 	(set! env-port 17001)

@@ -16,7 +16,7 @@ FROM opencog/opencog-deps:latest
 
 # The apt installs below will fail, unless we are at the latest.
 # Bump the date, if there are DNS failures!
-ENV LAST_APT_UPDATE 2025-08-08
+ENV LAST_APT_UPDATE=2025-08-08
 RUN apt-get -y update; apt-get -y upgrade; apt-get -y autoremove
 
 # Basic tools that allow this image to be minimally usable.
@@ -32,16 +32,16 @@ RUN apt-get -y install \
 	apache2 php
 
 # Install cogutil
-ENV LAST_COGUTIL_UPDATE 2025-09-03
+ENV LAST_COGUTIL_UPDATE=2025-09-03
 RUN  /tmp/octool -c && ccache -C
 
 # Update Link Grammar. This avoids having to rebuild the opencog/deps
 # This installs the latest release tarball, and NOT github master.
-ENV LAST_LINK_GRAMMAR_UPDATE 2024-05-02
+ENV LAST_LINK_GRAMMAR_UPDATE=2024-05-02
 RUN  /tmp/octool -l default && ccache -C
 
 # Install core AtomSpace.
-ENV LAST_ATOMSPACE_UPDATE 2025-09-03
+ENV LAST_ATOMSPACE_UPDATE=2025-09-03
 RUN  /tmp/octool -a && ccache -C
 
 USER opencog
