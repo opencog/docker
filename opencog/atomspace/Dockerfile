@@ -22,17 +22,17 @@ RUN apt-get -y update; apt-get -y upgrade; apt-get -y autoremove
 # Basic tools that allow this image to be minimally usable.
 #  * Networking tools (ping, ifconfig, telnet, netcat)
 #  * Terminal sharing tools (tmux, byobu)
-#  * Debug tools (gdb, xxd)
+#  * Debug tools (gdb, xxd, jq)
 #  * Webserver (apache2, php)
 RUN apt-get -y install \
 	net-tools iputils-ping netcat-openbsd traceroute iptraf \
 	rlwrap telnet \
 	tmux byobu \
-	gdb time xxd \
+	gdb time xxd jq \
 	apache2 php
 
 # Install cogutil
-ENV LAST_COGUTIL_UPDATE=2025-09-03
+ENV LAST_COGUTIL_UPDATE=2025-09-06
 RUN  /tmp/octool -c && ccache -C
 
 # Update Link Grammar.
