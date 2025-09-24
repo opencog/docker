@@ -26,12 +26,15 @@ RUN apt-get -y update; apt-get -y upgrade; apt-get -y autoremove
 #  * Webserver (apache2, php)
 #
 # Oddly, the xxd package is sometimes missing; use --ignore-missing.
+# The || true is needed to prevent docker from dying when xxd is not
+# found.
 RUN apt-get -y --ignore-missing install \
 	net-tools iputils-ping netcat-openbsd traceroute iptraf \
 	rlwrap telnet \
 	tmux byobu \
 	gdb time xxd jq \
-	apache2 php
+	apache2 php \
+	|| true
 
 # Install cogutil
 ENV LAST_COGUTIL_UPDATE=2025-09-06
