@@ -24,7 +24,9 @@ RUN apt-get -y update; apt-get -y upgrade; apt-get -y autoremove
 #  * Terminal sharing tools (tmux, byobu)
 #  * Debug tools (gdb, xxd, jq)
 #  * Webserver (apache2, php)
-RUN apt-get -y install \
+#
+# Oddly, the xxd package is sometimes missing; use --ignore-missing.
+RUN apt-get -y --ignore-missing install \
 	net-tools iputils-ping netcat-openbsd traceroute iptraf \
 	rlwrap telnet \
 	tmux byobu \
