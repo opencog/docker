@@ -20,8 +20,8 @@ RUN guile -c "(use-modules (opencog matrix) (opencog nlp) (opencog learn))"
 
 # Place a basic recommended configuration where the user can find it.
 COPY /scripts/ /home/opencog
-RUN chmod ugo+x setup-for-experiments.sh && \
-	sudo chown -R opencog:opencog setup-for-experiments.sh
+RUN sudo chown -R opencog:opencog setup-for-experiments.sh && \
+	chmod ugo+x setup-for-experiments.sh
 
 CMD /bin/bash
 
