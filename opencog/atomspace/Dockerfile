@@ -29,6 +29,7 @@ RUN apt-get -y update; apt-get -y upgrade; apt-get -y autoremove
 # The || true is needed to prevent docker from dying when xxd is not
 # found.
 RUN apt-get -y --ignore-missing install \
+	lsof \
 	net-tools iputils-ping netcat-openbsd traceroute iptraf \
 	rlwrap telnet \
 	tmux byobu \
