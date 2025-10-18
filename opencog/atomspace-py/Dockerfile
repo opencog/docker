@@ -8,6 +8,13 @@
 #
 #
 FROM opencog/atomspace:latest
+# FROM opencog/atomspace:ubuntu-20.04
+# FROM opencog/atomspace:ubuntu-22.04
+# FROM opencog/atomspace:ubuntu-24.04
+# FROM opencog/atomspace:ubuntu-25.10
+# FROM opencog/atomspace:debian-bullseye
+# FROM opencog/atomspace:debian-bookworm
+# FROM opencog/atomspace:debian-trixie
 
 # Install Debian-managed packages to get base python abilities.
 RUN apt-get -y update && apt-get -y upgrade && apt-get -y autoremove
@@ -37,7 +44,10 @@ RUN .venv/bin/pip install uv
 RUN .venv/bin/pip install requests
 
 # Model Context Protocol MCP python sdk
-RUN .venv/bin/pip install mcp
+# This SDK is not available on older OS'es, so just || true so that
+# the Docker build does not fail. Of course, its a silent failure, but
+# who cares. No one will be using it.
+RUN .venv/bin/pip install mcp || true
 
 # Opencog installed itself here; we want it available in the venv.
 ENV PYTHONPATH=/usr/local/lib/python3.12/dist-packages:$PYTHONPATH

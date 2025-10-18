@@ -2,6 +2,13 @@
 # Container with core learning repos. No data.
 #
 FROM opencog/atomspace:latest
+# FROM opencog/atomspace:ubuntu-20.04
+# FROM opencog/atomspace:ubuntu-22.04
+# FROM opencog/atomspace:ubuntu-24.04
+# FROM opencog/atomspace:ubuntu-25.10
+# FROM opencog/atomspace:debian-bullseye
+# FROM opencog/atomspace:debian-bookworm
+# FROM opencog/atomspace:debian-trixie
 
 # Install everything learn-related.
 RUN  /tmp/octool -z && ccache -C

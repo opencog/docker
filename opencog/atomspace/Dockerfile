@@ -13,6 +13,13 @@
 #
 
 FROM opencog/opencog-deps:latest
+# FROM opencog/opencog-deps:ubuntu-20.04
+# FROM opencog/opencog-deps:ubuntu-22.04
+# FROM opencog/opencog-deps:ubuntu-24.04
+# FROM opencog/opencog-deps:ubuntu-25.10
+# FROM opencog/opencog-deps:debian-bullseye
+# FROM opencog/opencog-deps:debian-bookworm
+# FROM opencog/opencog-deps:debian-trixie
 
 # The apt installs below will fail, unless we are at the latest.
 # Bump the date, if there are DNS failures!
@@ -46,7 +53,7 @@ ENV LAST_LINK_GRAMMAR_UPDATE=2024-05-02
 RUN  /tmp/octool -v -l default && ccache -C
 
 # Install core AtomSpace.
-ENV LAST_ATOMSPACE_UPDATE=2025-10-12
+ENV LAST_ATOMSPACE_UPDATE=2025-10-16
 RUN  /tmp/octool -a && ccache -C
 
 USER opencog
