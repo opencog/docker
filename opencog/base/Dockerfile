@@ -36,8 +36,8 @@ RUN apt-get -y install openssh-client
 
 # Install ocpkg. Bump the date to get the latest ocpkg installed;
 # Otherwise, this docker build will be cached with an old octool.
-# And with old versions of those packages that octool installs.
-ENV LAST_OCPKG_UPDATE=2025-10-17
+# And with the old versions of those packages that octool installs.
+ENV LAST_OCPKG_UPDATE=2025-10-23
 
 # The OCPKG_URL can be overridden by specifying
 # docker build --build-arg OCPKG_URL=https://some.where.else.com/ockpg
@@ -48,19 +48,24 @@ RUN echo OCPKG_URL=$OCPKG_URL
 ADD $OCPKG_URL /tmp/octool
 RUN chmod 755 /tmp/octool;  sync;
 
-# Run octool in multiple steps, instead of one big gulp.
-# This makes debugging install failures easier.
+# octool -r Add software repositories
+#        -d Install base/system build dependencies
+#        -v Verbose output for 'apt-get' commands
 RUN /tmp/octool -rdv
 
 # Environment Variables
+
+## For using ccache
+ENV PATH=/usr/lib/ccache:$PATH
+
 ## Set Locale -- Link Grammar expects this.
 RUN locale-gen en_US.UTF-8
 ENV LANG=en_US.UTF-8
 ENV LANGUAGE=en_US:en
 ENV LC_ALL=en_US.UTF-8
 
-## For using ccache
-ENV PATH=/usr/lib/ccache:$PATH
+# octool -l Install Link Grammar release tarball
+RUN /tmp/octool -l
 
 # TODO: Remove this user and replace with usage of `-u` flag during runtime.
 # Create and switch user. The user is privileged with no password required
@@ -68,7 +73,7 @@ RUN adduser --disabled-password --gecos "OpenCog Developer" opencog
 RUN adduser opencog sudo
 RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
-# video provides access o any GPU's on this device.
+# video provides access to any GPU's on this device.
 RUN usermod -a -G video opencog
 USER opencog
 WORKDIR /home/opencog
@@ -78,10 +83,6 @@ WORKDIR /home/opencog
 ## container, if you do you will not find the contents copied below
 COPY /scripts/ /home/opencog
 RUN sudo chown -R opencog:opencog .guile .gdbinit
-
-# Disable Haskell; its unused, unloved.
-ARG INSTALL_HASKELL="no"
-RUN if [ x${INSTALL_HASKELL} = "xyes" ]; then /tmp/octool -s; fi
 
 # For images built on this
 ONBUILD USER root
