@@ -48,11 +48,6 @@ RUN apt-get -y --ignore-missing install \
 ENV LAST_COGUTIL_UPDATE=2025-09-06
 RUN  /tmp/octool -c && ccache -C
 
-# Update Link Grammar.
-# This installs the latest release tarball, and NOT github master.
-ENV LAST_LINK_GRAMMAR_UPDATE=2024-05-02
-RUN  /tmp/octool -v -l default && ccache -C
-
 # Install core AtomSpace.
 ENV LAST_ATOMSPACE_UPDATE=2025-10-16
 RUN  /tmp/octool -a && ccache -C

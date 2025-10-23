@@ -65,7 +65,7 @@ ENV LANGUAGE=en_US:en
 ENV LC_ALL=en_US.UTF-8
 
 # octool -l Install Link Grammar release tarball
-RUN /tmp/octool -l
+RUN /tmp/octool -v -l default
 
 # TODO: Remove this user and replace with usage of `-u` flag during runtime.
 # Create and switch user. The user is privileged with no password required
