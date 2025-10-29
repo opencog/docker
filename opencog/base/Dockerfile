@@ -65,6 +65,7 @@ ENV LANGUAGE=en_US:en
 ENV LC_ALL=en_US.UTF-8
 
 # octool -l Install Link Grammar release tarball
+ENV LAST_LG_UPDATE=2025-10-28
 RUN /tmp/octool -v -l default
 
 # TODO: Remove this user and replace with usage of `-u` flag during runtime.
