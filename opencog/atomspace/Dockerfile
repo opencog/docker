@@ -45,11 +45,11 @@ RUN apt-get -y --ignore-missing install \
 	|| true
 
 # Install cogutil
-ENV LAST_COGUTIL_UPDATE=2025-09-06
+ENV LAST_COGUTIL_UPDATE=2025-11-17
 RUN  /tmp/octool -c && ccache -C
 
 # Install core AtomSpace.
-ENV LAST_ATOMSPACE_UPDATE=2025-10-16
+ENV LAST_ATOMSPACE_UPDATE=2025-11-19
 RUN  /tmp/octool -a && ccache -C
 
 USER opencog
@@ -68,6 +68,13 @@ RUN sudo chown -R opencog:opencog .[a-z]*
 RUN guile -c "(use-modules (opencog) (opencog exec) (opencog cogserver) (opencog persist) (opencog persist-cog) (opencog persist-rocks))"
 
 # RUN guile -c "(use-modules (opencog persist-pgres))"
+
+# Docker EXPOSE says "we listen on these ports". Which is not quite
+# true, because the default cogserver publishes on these ports. But
+# it is considered to be "best practices" to announce this to the world.
+EXPOSE 17001
+EXPOSE 18080
+EXPOSE 18888
 
 CMD /bin/bash
 
