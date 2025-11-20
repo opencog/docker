@@ -55,6 +55,9 @@ if [[ -z $BASE_OS ]]; then
     # BASE_OS=debian:trixie     # August 2025
     # BASE_OS=latest            # When pulling from dockerhub.io
 fi
+BASE_OS=${BASE_OS//-/:}
+OS_VERSION=${BASE_OS//:/-}
+
 DOCKER_NAME=$2
 if [[ -z $DOCKER_NAME ]]; then
     DOCKER_NAME="opencog"
@@ -70,14 +73,14 @@ usage() {
 
   OPTIONS:
     -a Pull all images needed for development from hub.docker.com/u/${DOCKER_NAME}/
-    -b Build ${DOCKER_NAME}/opencog-deps:${BASE_OS} image. Provides
+    -b Build ${DOCKER_NAME}/opencog-deps:${OS_VERSION} image. Provides
        all dependencies and development tools used by ${DOCKER_NAME}.
-    -s Builds ${DOCKER_NAME}/atomspace:${BASE_OS} image. Builds all
+    -s Builds ${DOCKER_NAME}/atomspace:${OS_VERSION} image. Builds all
        core AtomSpace packages.
-    -p Builds ${DOCKER_NAME}/atomspace-py:${BASE_OS} image. Adds
+    -p Builds ${DOCKER_NAME}/atomspace-py:${OS_VERSION} image. Adds
        additional node.js and Python packages commonly used in machine
        learning and DL/NN.
-    -l Builds ${DOCKER_NAME}/learn:${BASE_OS} image.
+    -l Builds ${DOCKER_NAME}/learn:${OS_VERSION} image.
 
     -u Ignore the docker image cache when building. This will cause the
        container(s) to be built from scratch.
@@ -110,6 +113,7 @@ if [ ! -z "$OCPKG_URL" ]; then
     OCPKG_OPTION="--build-arg OCPKG_URL=$OCPKG_URL"
 fi
 BASE_OS_OPTION="--build-arg BASE_OS=$BASE_OS"
+OS_VERSION_OPTION="--build-arg OS_VERSION=$OS_VERSION"
 GITHUB_OPTION="--build-arg GITHUB_NAME=$GITHUB_NAME"
 
 BUILD_OPTIONS="$CACHE_OPTION $BASE_OS_OPTION $OCPKG_OPTION $GITHUB_OPTION"
@@ -117,9 +121,9 @@ BUILD_OPTIONS="$CACHE_OPTION $BASE_OS_OPTION $OCPKG_OPTION $GITHUB_OPTION"
 # -----------------------------------------------------------------------------
 ## Build opencog/opencog-deps image.
 build_opencog_deps() {
-    echo "---- Starting build of ${DOCKER_NAME}/opencog-deps:${BASE_OS} ----"
-    docker build $BUILD_OPTIONS -t ${DOCKER_NAME}/opencog-deps:${BASE_OS} base
-    echo "---- Finished build of ${DOCKER_NAME}/opencog-deps:${BASE_OS} ----"
+    echo "---- Starting build of ${DOCKER_NAME}/opencog-deps:${OS_VERSION} ----"
+    docker build $BUILD_OPTIONS -t ${DOCKER_NAME}/opencog-deps:${OS_VERSION} base
+    echo "---- Finished build of ${DOCKER_NAME}/opencog-deps:${OS_VERSION} ----"
 }
 
 ## If the opencog/opencog-deps image hasn't been built yet then build it.
@@ -133,9 +137,9 @@ check_opencog_deps() {
 ## Build opencog/atomspace image.
 build_atomspace() {
     check_opencog_deps
-    echo "---- Starting build of ${DOCKER_NAME}/atomspace:${BASE_OS} ----"
-    docker build $BUILD_OPTIONS -t ${DOCKER_NAME}/atomspace:${BASE_OS} atomspace
-    echo "---- Finished build of ${DOCKER_NAME}/atomspace:${BASE_OS} ----"
+    echo "---- Starting build of ${DOCKER_NAME}/atomspace:${OS_VERSION} ----"
+    docker build $BUILD_OPTIONS -t ${DOCKER_NAME}/atomspace:${OS_VERSION} atomspace
+    echo "---- Finished build of ${DOCKER_NAME}/atomspace:${OS_VERSION} ----"
 }
 
 ## If the opencog/atomspace image hasn't been built yet then build it.
@@ -172,15 +176,15 @@ if [ $BUILD_ATOMSPACE_IMAGE ]; then
 fi
 
 if [ $BUILD_ATOMSPACE_PYTHON_IMAGE ]; then
-    echo "---- Starting build of ${DOCKER_NAME}/atomspace-py:${BASE_OS} ----"
-    docker build $BUILD_OPTIONS -t ${DOCKER_NAME}/atomspace-py:${BASE_OS} ${DIR_NAME}/atomspace-py
-    echo "---- Finished build of ${DOCKER_NAME}/atomspace-py:${BASE_OS} ----"
+    echo "---- Starting build of ${DOCKER_NAME}/atomspace-py:${OS_VERSION} ----"
+    docker build $BUILD_OPTIONS -t ${DOCKER_NAME}/atomspace-py:${OS_VERSION} ${DIR_NAME}/atomspace-py
+    echo "---- Finished build of ${DOCKER_NAME}/atomspace-py:${OS_VERSION} ----"
 fi
 
 if [ $BUILD_LEARN_IMAGE ] ; then
-    echo "---- Starting build of ${DOCKER_NAME}/learn:${BASE_OS} ----"
-    docker build $BUILD_OPTIONS -t ${DOCKER_NAME}/learn:${BASE_OS} ${DIR_NAME}/learn
-    echo "---- Finished build of ${DOCKER_NAME}/learn:${BASE_OS} ----"
+    echo "---- Starting build of ${DOCKER_NAME}/learn:${OS_VERSION} ----"
+    docker build $BUILD_OPTIONS -t ${DOCKER_NAME}/learn:${OS_VERSION} ${DIR_NAME}/learn
+    echo "---- Finished build of ${DOCKER_NAME}/learn:${OS_VERSION} ----"
 fi
 
 if [ $UNKNOWN_FLAGS ] ; then usage; exit 1 ; fi

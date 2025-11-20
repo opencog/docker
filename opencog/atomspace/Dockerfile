@@ -12,8 +12,8 @@
 # 3. docker start -i atomspace
 #
 
-ARG BASE_OS=latest
-ARG BASE_IMAGE=opencog/opencog-deps:${BASE_OS}
+ARG OS_VERSION=latest
+ARG BASE_IMAGE=opencog/opencog-deps:${OS_VERSION}
 FROM ${BASE_IMAGE}
 
 # The apt installs below will fail, unless we are at the latest.
@@ -44,7 +44,7 @@ ENV LAST_COGUTIL_UPDATE=2025-11-17
 RUN  /tmp/octool -c && ccache -C
 
 # Install core AtomSpace.
-ENV LAST_ATOMSPACE_UPDATE=2025-11-19
+ENV LAST_ATOMSPACE_UPDATE=2025-11-20
 RUN  /tmp/octool -a && ccache -C
 
 USER opencog

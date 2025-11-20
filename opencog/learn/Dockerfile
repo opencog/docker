@@ -1,8 +1,8 @@
 #
 # Container with core learning repos. No data.
 #
-ARG BASE_OS=latest
-ARG BASE_IMAGE=opencog/atomspace:${BASE_OS}
+ARG OS_VERSION=latest
+ARG BASE_IMAGE=opencog/atomspace:${OS_VERSION}
 FROM ${BASE_IMAGE}
 
 # Install everything learn-related.

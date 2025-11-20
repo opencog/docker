@@ -7,8 +7,8 @@
 # 3. docker start -i atompy
 #
 #
-ARG BASE_OS=latest
-ARG BASE_IMAGE=opencog/atomspace:${BASE_OS}
+ARG OS_VERSION=latest
+ARG BASE_IMAGE=opencog/atomspace:${OS_VERSION}
 FROM ${BASE_IMAGE}
 
 # Install Debian-managed packages to get base python abilities.

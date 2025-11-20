@@ -14,7 +14,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 # Bump this date, in order to force the apt-update to run again.
 # Otherwise, it will use the cached Docker container, which might
 # be stale or be missing security updates.
-ENV LAST_OS_UPDATE=2025-01-30
+ENV LAST_OS_UPDATE=2025-11-20
 RUN apt-get update && apt-get -y upgrade
 
 # Install apt utilities
