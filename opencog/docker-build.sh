@@ -112,7 +112,7 @@ fi
 BASE_OS_OPTION="--build-arg BASE_OS=$BASE_OS"
 GITHUB_OPTION="--build-arg GITHUB_NAME=$GITHUB_NAME"
 
-BUILD_OPTIONS= $CACHE_OPTION $BASE_OS_OPTION $OCPKG_OPTION $GITHUB_OPTION
+BUILD_OPTIONS="$CACHE_OPTION $BASE_OS_OPTION $OCPKG_OPTION $GITHUB_OPTION"
 
 # -----------------------------------------------------------------------------
 ## Build opencog/opencog-deps image.
