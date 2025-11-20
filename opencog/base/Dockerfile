@@ -6,13 +6,7 @@
 # 2. docker run --rm -it opencog/opencog-deps
 
 # Default to Ubuntu 24.04 LTS (Noble Numbat)
-# ARG BASE_OS=ubuntu:20.04
-# ARG BASE_OS=ubuntu:22.04
 ARG BASE_OS=ubuntu:24.04
-# ARG BASE_OS=ubuntu:25.10
-# ARG BASE_OS=debian:bullseye   # August 2021
-# ARG BASE_OS=debian:bookworm   # June 2023
-# ARG BASE_OS=debian:trixie     # August 2025
 FROM ${BASE_OS}
 
 ENV DEBIAN_FRONTEND=noninteractive

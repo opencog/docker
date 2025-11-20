@@ -12,14 +12,9 @@
 # 3. docker start -i atomspace
 #
 
-FROM opencog/opencog-deps:latest
-# FROM opencog/opencog-deps:ubuntu-20.04
-# FROM opencog/opencog-deps:ubuntu-22.04
-# FROM opencog/opencog-deps:ubuntu-24.04
-# FROM opencog/opencog-deps:ubuntu-25.10
-# FROM opencog/opencog-deps:debian-bullseye
-# FROM opencog/opencog-deps:debian-bookworm
-# FROM opencog/opencog-deps:debian-trixie
+ARG BASE_OS=latest
+ARG BASE_IMAGE=opencog/opencog-deps:${BASE_OS}
+FROM ${BASE_IMAGE}
 
 # The apt installs below will fail, unless we are at the latest.
 # Bump the date, if there are DNS failures!

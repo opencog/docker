@@ -7,14 +7,9 @@
 # 3. docker start -i atompy
 #
 #
-FROM opencog/atomspace:latest
-# FROM opencog/atomspace:ubuntu-20.04
-# FROM opencog/atomspace:ubuntu-22.04
-# FROM opencog/atomspace:ubuntu-24.04
-# FROM opencog/atomspace:ubuntu-25.10
-# FROM opencog/atomspace:debian-bullseye
-# FROM opencog/atomspace:debian-bookworm
-# FROM opencog/atomspace:debian-trixie
+ARG BASE_OS=latest
+ARG BASE_IMAGE=opencog/atomspace:${BASE_OS}
+FROM ${BASE_IMAGE}
 
 # Install Debian-managed packages to get base python abilities.
 RUN apt-get -y update && apt-get -y upgrade && apt-get -y autoremove

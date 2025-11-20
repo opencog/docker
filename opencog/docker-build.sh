@@ -43,29 +43,41 @@ while getopts "abcehjlmprstu" flag; do
 done
 
 shift "$(($OPTIND - 1))"
-DOCKER_NAME=$1
+BASE_OS=$1
+if [[ -z $BASE_OS ]]; then
+    # Default to Ubuntu 24.04 LTS (Noble Numbat)
+    # BASE_OS=ubuntu:20.04
+    # BASE_OS=ubuntu:22.04
+    BASE_OS=ubuntu:24.04      # (Noble Numbat)
+    # BASE_OS=ubuntu:25.10
+    # BASE_OS=debian:bullseye   # August 2021
+    # BASE_OS=debian:bookworm   # June 2023
+    # BASE_OS=debian:trixie     # August 2025
+    # BASE_OS=latest            # When pulling from dockerhub.io
+fi
+DOCKER_NAME=$2
 if [[ -z $DOCKER_NAME ]]; then
     DOCKER_NAME="opencog"
 fi
-GITHUB_NAME=$2
+GITHUB_NAME=$3
 if [[ -z $GITHUB_NAME ]]; then
     GITHUB_NAME="opencog"
 fi
 
 # Functions
 usage() {
-    printf "Usage: ./%s [OPTIONS] [DOCKER_NAME] [GITHUB_NAME]
+    printf "Usage: ./%s [OPTIONS] [BASE_OS] [DOCKER_NAME] [GITHUB_NAME]
 
   OPTIONS:
     -a Pull all images needed for development from hub.docker.com/u/${DOCKER_NAME}/
-    -b Build ${DOCKER_NAME}/opencog-deps image. Provides all dependencies
-       and development tools used by ${DOCKER_NAME}.
-    -s Builds ${DOCKER_NAME}/atomspace image. Builds all core AtomSpace
-       packages.
-    -p Builds ${DOCKER_NAME}/atomspace-py image. Adds additional
-       node.js and Python packages commonly used in machine learning
-       and DL/NN.
-    -l Builds ${DOCKER_NAME}/learn image.
+    -b Build ${DOCKER_NAME}/opencog-deps:${BASE_OS} image. Provides
+       all dependencies and development tools used by ${DOCKER_NAME}.
+    -s Builds ${DOCKER_NAME}/atomspace:${BASE_OS} image. Builds all
+       core AtomSpace packages.
+    -p Builds ${DOCKER_NAME}/atomspace-py:${BASE_OS} image. Adds
+       additional node.js and Python packages commonly used in machine
+       learning and DL/NN.
+    -l Builds ${DOCKER_NAME}/learn:${BASE_OS} image.
 
     -u Ignore the docker image cache when building. This will cause the
        container(s) to be built from scratch.
@@ -91,16 +103,23 @@ then
 fi
 
 # -----------------------------------------------------------------------------
+## Shared docker build options
+
+OCPKG_OPTION=""
+if [ ! -z "$OCPKG_URL" ]; then
+    OCPKG_OPTION="--build-arg OCPKG_URL=$OCPKG_URL"
+fi
+BASE_OS_OPTION="--build-arg BASE_OS=$BASE_OS"
+GITHUB_OPTION="--build-arg GITHUB_NAME=$GITHUB_NAME"
+
+BUILD_OPTIONS= $CACHE_OPTION $BASE_OS_OPTION $OCPKG_OPTION $GITHUB_OPTION
+
+# -----------------------------------------------------------------------------
 ## Build opencog/opencog-deps image.
 build_opencog_deps() {
-    echo "---- Starting build of ${DOCKER_NAME}/opencog-deps ----"
-    OCPKG_OPTION=""
-    if [ ! -z "$OCPKG_URL" ]; then
-        OCPKG_OPTION="--build-arg OCPKG_URL=$OCPKG_URL"
-    fi
-    GITHUB_OPTION="--build-arg GITHUB_NAME=$GITHUB_NAME"
-    docker build $CACHE_OPTION $OCPKG_OPTION $GITHUB_OPTION -t ${DOCKER_NAME}/opencog-deps base
-    echo "---- Finished build of ${DOCKER_NAME}/opencog-deps ----"
+    echo "---- Starting build of ${DOCKER_NAME}/opencog-deps:${BASE_OS} ----"
+    docker build $BUILD_OPTIONS -t ${DOCKER_NAME}/opencog-deps:${BASE_OS} base
+    echo "---- Finished build of ${DOCKER_NAME}/opencog-deps:${BASE_OS} ----"
 }
 
 ## If the opencog/opencog-deps image hasn't been built yet then build it.
@@ -114,16 +133,9 @@ check_opencog_deps() {
 ## Build opencog/atomspace image.
 build_atomspace() {
     check_opencog_deps
-    echo "---- Starting build of ${DOCKER_NAME}/atomspace ----"
-    OCPKG_OPTION=""
-    if [ ! -z "$OCPKG_URL" ]; then
-        OCPKG_OPTION="--build-arg OCPKG_URL=$OCPKG_URL"
-    fi
-
-    # GITHUB_NAME is not actually used in the dockerfile...
-    # GITHUB_OPTION="--build-arg GITHUB_NAME=$GITHUB_NAME"
-    docker build $CACHE_OPTION $OCPKG_OPTION $GITHUB_OPTION -t ${DOCKER_NAME}/atomspace atomspace
-    echo "---- Finished build of ${DOCKER_NAME}/atomspace ----"
+    echo "---- Starting build of ${DOCKER_NAME}/atomspace:${BASE_OS} ----"
+    docker build $BUILD_OPTIONS -t ${DOCKER_NAME}/atomspace:${BASE_OS} atomspace
+    echo "---- Finished build of ${DOCKER_NAME}/atomspace:${BASE_OS} ----"
 }
 
 ## If the opencog/atomspace image hasn't been built yet then build it.
@@ -160,15 +172,15 @@ if [ $BUILD_ATOMSPACE_IMAGE ]; then
 fi
 
 if [ $BUILD_ATOMSPACE_PYTHON_IMAGE ]; then
-    echo "---- Starting build of ${DOCKER_NAME}/atomspace-py ----"
-    docker build $CACHE_OPTION -t ${DOCKER_NAME}/atomspace-py ${DIR_NAME}/atomspace-py
-    echo "---- Finished build of ${DOCKER_NAME}/atomspace-py ----"
+    echo "---- Starting build of ${DOCKER_NAME}/atomspace-py:${BASE_OS} ----"
+    docker build $BUILD_OPTIONS -t ${DOCKER_NAME}/atomspace-py:${BASE_OS} ${DIR_NAME}/atomspace-py
+    echo "---- Finished build of ${DOCKER_NAME}/atomspace-py:${BASE_OS} ----"
 fi
 
 if [ $BUILD_LEARN_IMAGE ] ; then
-    echo "---- Starting build of ${DOCKER_NAME}/learn ----"
-    docker build $CACHE_OPTION -t ${DOCKER_NAME}/learn ${DIR_NAME}/learn
-    echo "---- Finished build of ${DOCKER_NAME}/learn ----"
+    echo "---- Starting build of ${DOCKER_NAME}/learn:${BASE_OS} ----"
+    docker build $BUILD_OPTIONS -t ${DOCKER_NAME}/learn:${BASE_OS} ${DIR_NAME}/learn
+    echo "---- Finished build of ${DOCKER_NAME}/learn:${BASE_OS} ----"
 fi
 
 if [ $UNKNOWN_FLAGS ] ; then usage; exit 1 ; fi
