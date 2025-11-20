@@ -43,20 +43,24 @@ while getopts "abcehjlmprstu" flag; do
 done
 
 shift "$(($OPTIND - 1))"
+
 BASE_OS=$1
 if [[ -z $BASE_OS ]]; then
     # Default to Ubuntu 24.04 LTS (Noble Numbat)
-    # BASE_OS=ubuntu:20.04
-    # BASE_OS=ubuntu:22.04
-    BASE_OS=ubuntu:24.04      # (Noble Numbat)
-    # BASE_OS=ubuntu:25.10
+    # BASE_OS=ubuntu:20.04      # Focal Fossa
+    # BASE_OS=ubuntu:22.04      # Jammy Jellyfish
+    BASE_OS=ubuntu:24.04      # Noble Numbat
+    # BASE_OS=ubuntu:25.10      # Questing Quokka
     # BASE_OS=debian:bullseye   # August 2021
     # BASE_OS=debian:bookworm   # June 2023
     # BASE_OS=debian:trixie     # August 2025
-    # BASE_OS=latest            # When pulling from dockerhub.io
 fi
-BASE_OS=${BASE_OS//-/:}
-OS_VERSION=${BASE_OS//:/-}
+BASE_OS=${BASE_OS//-/:}         # Convert dashes to colons
+OS_VERSION=${BASE_OS//:/-}      # Convert colons to dashes
+
+if [[ -z $1 ]]; then            # If net specified, its "latest"
+    OS_VERSION=latest           # For dockerhub.io downloads
+fi
 
 DOCKER_NAME=$2
 if [[ -z $DOCKER_NAME ]]; then
