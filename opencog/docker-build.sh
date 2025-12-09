@@ -171,6 +171,7 @@ pull_dev_images() {
     echo "---- Starting pull of opencog development images ----"
     docker pull ${DOCKER_NAME}/opencog-deps
     docker pull ${DOCKER_NAME}/atomspace
+    docker pull ${DOCKER_NAME}/atomspace-py
     docker pull ${DOCKER_NAME}/learn
     echo "---- Finished pull of opencog development images ----"
 }
