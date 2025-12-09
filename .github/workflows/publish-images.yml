@@ -61,51 +61,18 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      - name: Debug - where did you go
-        run: |
-          echo "=== Hello how are you ==="
-          docker version
-          docker buildx version
-          ls -la opencog/${{ github.job }}/
-
       - name: Login to DockerHub
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
 
-      - name: Debug - are were there yet?
-        run: |
-          echo "=== How did you know? ==="
-          docker version
-          docker buildx version
-          ls -la opencog/${{ github.job }}/
-
       - name: Build and push to docker hub
-        # Comment out and try to debug what the heck
-        #uses: docker/build-push-action@v6
-        #with:
-        #  context: opencog/${{ github.job }}
-        #  tags: ${{ secrets.DOCKER_NAMESPACE }}/${{ github.job }}:latest
-        #  push: true
-        run: |
-          docker buildx build \
-            --progress=plain \
-            --push \
-            --tag ${{ secrets.DOCKER_NAMESPACE }}/${{ github.job }}:latest \
-            opencog/${{ github.job }} | tee build.log
-
-      - name: Show last 200 lines of build log
-        if: always()
-        run: tail -200 build.log
-
-      - name: Debug - its the end
-        run: |
-          echo "=== I was looking for a good time ==="
-          docker version
-          docker buildx version
-          ls -la opencog/${{ github.job }}/
-
+        uses: docker/build-push-action@v6
+        with:
+          context: opencog/${{ github.job }}
+          tags: ${{ secrets.DOCKER_NAMESPACE }}/${{ github.job }}:latest
+          push: true
 
   atomspace-py:
     needs: atomspace
