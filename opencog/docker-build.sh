@@ -75,20 +75,19 @@ usage() {
     printf "Usage: ./%s [OPTIONS] [BASE_OS] [DOCKER_NAME] [GITHUB_NAME]
 
   OPTIONS:
-    -a Pull 'latest' images needed for development from
-       hub.docker.com/u/${DOCKER_NAME}/
-       These are currently based on Ubuntu 24.04 LTS
-    -b Build ${DOCKER_NAME}/opencog-deps:${OS_VERSION} image. Provides
-       all dependencies and development tools used by ${DOCKER_NAME}.
-    -s Builds ${DOCKER_NAME}/atomspace:${OS_VERSION} image. Builds all
-       core AtomSpace packages.
-    -p Builds ${DOCKER_NAME}/atomspace-py:${OS_VERSION} image. Adds
-       additional node.js and Python packages commonly used in machine
-       learning and DL/NN.
-    -l Builds ${DOCKER_NAME}/learn:${OS_VERSION} image.
+    -a Pull the 'latest' images from hub.docker.com/u/${DOCKER_NAME}/
+       These are currently based on ${BASE_OS}
+    -b Build the ${DOCKER_NAME}/opencog-deps image. Provides all
+       dependencies and development tools used by ${DOCKER_NAME}.
+    -s Build the ${DOCKER_NAME}/atomspace image. Builds all core
+       AtomSpace packages.
+    -p Build the ${DOCKER_NAME}/atomspace-py image. Installs
+       additional node.js and Python packages commonly
+       used in machine learning and DL/NN.
+    -l Build the ${DOCKER_NAME}/learn image.
 
-    -u Ignore the docker image cache when building. This will cause
-       the container(s) to be built from scratch.
+    -u Ignore the docker image cache when building. This will
+       cause the container(s) to be built from scratch.
     -h This help message.
 
   BASE_OS: The following have been recently tested:
@@ -98,7 +97,7 @@ usage() {
     ubuntu:25.10      # aka Questing Quokka
     debian:bookworm   # Released June 2023
     debian:trixie     # Released August 2025
-    latest (or unspecified/blank) defaults to Ubuntu 24.04 LTS
+    latest (or unspecified/blank) defaults to ${BASE_OS}
 
     Since gcc-11 or later is needed, debian:bullseye (Aug 2021) won't work.
 
@@ -113,12 +112,17 @@ fi
 
 # -----------------------------------------------------------------------------
 # Sanity check
+
+if [ $UNKNOWN_FLAGS ] ; then usage; exit 1 ; fi
+if [ $NO_ARGS ] ; then usage ; fi
+
 if ! command -v docker &> /dev/null
 then
+    echo ""
     echo "Error: docker could not be found!"
     echo "You can fix this on Debian/Ubuntu by saying:"
     echo "$ sudo apt install docker.io"
-    exit
+    exit 1
 fi
 
 # -----------------------------------------------------------------------------
@@ -204,5 +208,4 @@ if [ $BUILD_LEARN_IMAGE ] ; then
     echo "---- Finished build of ${DOCKER_NAME}/learn:${OS_VERSION} ----"
 fi
 
-if [ $UNKNOWN_FLAGS ] ; then usage; exit 1 ; fi
-if [ $NO_ARGS ] ; then usage ; fi
+# -----------------------------------------------------------------------------
