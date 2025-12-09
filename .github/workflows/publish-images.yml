@@ -70,14 +70,13 @@ jobs:
       - name: This is the droid you are looking for!
         if: always()
         run: |
-          echo "### Advice to the lovelorn :rocket:" >> $GITHUB_STEP_SUMMARY
-          echo "If the last step failed, then click on the gear icon" >> $GITHUB_STEP_SUMMARY
-          echo "and then click 'View raw logs'" >> $GITHUB_STEP_SUMMARY
+          echo "### Advice to the Lovelorn :rocket:" >> $GITHUB_STEP_SUMMARY
+          echo "If the last step failed, then click on the gear icon and then click 'View raw logs'" >> $GITHUB_STEP_SUMMARY
 
       - name: Testing! Testing! 1,2,3.
         run: |
-          echo "check check"
-          echo "yo duude yo wrong" >&2
+          echo "::notice title=Your-name-here::check check"
+
 
   atomspace-py:
     needs: atomspace
