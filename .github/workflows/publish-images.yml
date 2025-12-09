@@ -71,11 +71,13 @@ jobs:
         if: always()
         run: |
           echo "### Advice to the Lovelorn :rocket:" >> $GITHUB_STEP_SUMMARY
-          echo "If the last step failed, then click on the gear icon and then click 'View raw logs'" >> $GITHUB_STEP_SUMMARY
+          echo "If the build failed, click on the job, then click on the gear icon and then click 'View raw logs'." >> $GITHUB_STEP_SUMMARY
 
-      - name: Testing! Testing! 1,2,3.
-        run: |
-          echo "::notice title=Your-name-here::check check"
+      # This places a message at the top of the job page, but you have
+      # to click through to see the message, so it seems useless...
+      # - name: Testing! Testing! 1,2,3.
+      #   run: |
+      #     echo "::notice title=Your-name-here::check check"
 
 
   atomspace-py:
