@@ -66,6 +66,12 @@ jobs:
           context: opencog/${{ github.job }}
           tags: ${{ secrets.DOCKER_NAMESPACE }}/${{ github.job }}:latest
           push: true
+          # The lines below add debug info because octool -a is failing
+          # (added by Linas Dec 2025)
+          no-cache: true
+          outputs: type=docker  # Forces full output
+          build-args: |
+            BUILDKIT_PROGRESS=plain  # Shows all output
 
   atomspace-py:
     needs: atomspace
