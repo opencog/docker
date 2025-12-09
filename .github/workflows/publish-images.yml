@@ -61,15 +61,18 @@ jobs:
           password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
 
       - name: Build and push to docker hub
-        uses: docker/build-push-action@v6
-        with:
-          context: opencog/${{ github.job }}
-          tags: ${{ secrets.DOCKER_NAMESPACE }}/${{ github.job }}:latest
-          push: true
-        # The lines below add debug info because octool -a is failing
-        # (added by Linas Dec 2025)
-        env:
-          BUILDKIT_PROGRESS: plain  # Shows all output
+        # Comment out and try to debug what the heck
+        #uses: docker/build-push-action@v6
+        #with:
+        #  context: opencog/${{ github.job }}
+        #  tags: ${{ secrets.DOCKER_NAMESPACE }}/${{ github.job }}:latest
+        #  push: true
+        run: |
+          docker buildx build \
+            --progress=plain \
+            --push \
+            --tag ${{ secrets.DOCKER_NAMESPACE }}/${{ github.job }}:latest \
+            opencog/${{ github.job }}
 
   atomspace-py:
     needs: atomspace
