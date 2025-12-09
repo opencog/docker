@@ -51,7 +51,6 @@ if [[ -z $BASE_OS ]]; then
     # BASE_OS=ubuntu:22.04      # Jammy Jellyfish
     BASE_OS=ubuntu:24.04      # Noble Numbat
     # BASE_OS=ubuntu:25.10      # Questing Quokka
-    # BASE_OS=debian:bullseye   # August 2021
     # BASE_OS=debian:bookworm   # June 2023
     # BASE_OS=debian:trixie     # August 2025
 fi
@@ -76,7 +75,8 @@ usage() {
     printf "Usage: ./%s [OPTIONS] [BASE_OS] [DOCKER_NAME] [GITHUB_NAME]
 
   OPTIONS:
-    -a Pull all images needed for development from hub.docker.com/u/${DOCKER_NAME}/
+    -a Pull all images needed for development from
+       hub.docker.com/u/${DOCKER_NAME}/
     -b Build ${DOCKER_NAME}/opencog-deps:${OS_VERSION} image. Provides
        all dependencies and development tools used by ${DOCKER_NAME}.
     -s Builds ${DOCKER_NAME}/atomspace:${OS_VERSION} image. Builds all
@@ -86,12 +86,23 @@ usage() {
        learning and DL/NN.
     -l Builds ${DOCKER_NAME}/learn:${OS_VERSION} image.
 
-    -u Ignore the docker image cache when building. This will cause the
-       container(s) to be built from scratch.
+    -u Ignore the docker image cache when building. This will cause
+       the container(s) to be built from scratch.
     -h This help message.
 
-  DOCKER_NAME: The name of the Docker user account to be used for this build (default 'opencog').
-  GITHUB_NAME: The name of the GitHub user account to be used for this build (default 'opencog') \n" "$SELF_NAME"
+  BASE_OS: The following have been recently tested:
+    ubuntu:20.04      # aka Focal Fossa
+    ubuntu:22.04      # aka Jammy Jellyfish
+    ubuntu:24.04      # aka Noble Numbat
+    ubuntu:25.10      # aka Questing Quokka
+    debian:bookworm   # Released June 2023
+    debian:trixie     # Released August 2025
+    latest (or unspecified/blank) defaults to Ubuntu 24.04 LTS
+
+    Since gcc-11 or later is needed, debian:bullseye (Aug 2021) won't work.
+
+  DOCKER_NAME: The Docker account to use (default 'opencog').
+  GITHUB_NAME: The GitHub account to use (default 'opencog') \n" "$SELF_NAME"
 }
 
 if [ $SHOW_USAGE ]; then
