@@ -75,8 +75,9 @@ usage() {
     printf "Usage: ./%s [OPTIONS] [BASE_OS] [DOCKER_NAME] [GITHUB_NAME]
 
   OPTIONS:
-    -a Pull all images needed for development from
+    -a Pull 'latest' images needed for development from
        hub.docker.com/u/${DOCKER_NAME}/
+       These are currently based on Ubuntu 24.04 LTS
     -b Build ${DOCKER_NAME}/opencog-deps:${OS_VERSION} image. Provides
        all dependencies and development tools used by ${DOCKER_NAME}.
     -s Builds ${DOCKER_NAME}/atomspace:${OS_VERSION} image. Builds all
