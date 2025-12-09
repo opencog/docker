@@ -48,13 +48,6 @@ jobs:
     needs: base-images
     runs-on: ubuntu-24.04
     steps:
-      - name: Debug - test basic output
-        run: |
-          echo "=== Testing basic output ==="
-          docker version
-          docker buildx version
-          ls -la opencog/${{ github.job }}/
-
       - name: Checkout current repo
         uses: actions/checkout@v6
 

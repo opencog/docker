@@ -45,7 +45,7 @@ RUN  /tmp/octool -c && ccache -C
 
 # Install core AtomSpace.
 ENV LAST_ATOMSPACE_UPDATE=2025-11-20
-RUN  /tmp/octool -a && ccache -C
+RUN  set -x && /tmp/octool -a && ccache -C
 
 USER opencog
 WORKDIR /home/opencog
