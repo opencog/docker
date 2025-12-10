@@ -40,7 +40,7 @@ RUN apt-get -y --ignore-missing install \
 	|| true
 
 # Install cogutil
-ENV LAST_COGUTIL_UPDATE=2025-11-17
+ENV LAST_COGUTIL_UPDATE=2025-12-10
 RUN  /tmp/octool -c && ccache -C
 
 # Install core AtomSpace.
