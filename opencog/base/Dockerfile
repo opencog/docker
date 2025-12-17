@@ -14,7 +14,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 # Bump this date, in order to force the apt-update to run again.
 # Otherwise, it will use the cached Docker container, which might
 # be stale or be missing security updates.
-ENV LAST_OS_UPDATE=2025-11-20
+ENV LAST_OS_UPDATE=2025-12-16
 RUN apt-get update && apt-get -y upgrade
 
 # Install apt utilities
@@ -31,7 +31,7 @@ RUN apt-get -y install openssh-client
 # Install ocpkg. Bump the date to get the latest ocpkg installed;
 # Otherwise, this docker build will be cached with an old octool.
 # And with the old versions of those packages that octool installs.
-ENV LAST_OCPKG_UPDATE=2025-12-14
+ENV LAST_OCPKG_UPDATE=2025-12-16
 
 # The OCPKG_URL can be overridden by specifying
 # docker build --build-arg OCPKG_URL=https://some.where.else.com/ockpg
@@ -48,19 +48,7 @@ RUN chmod 755 /tmp/octool;  sync;
 RUN /tmp/octool -rdv
 
 # Environment Variables
-
-## For using ccache
 ENV PATH=/usr/lib/ccache:$PATH
-
-## Set Locale -- Link Grammar expects this.
-RUN locale-gen en_US.UTF-8
-ENV LANG=en_US.UTF-8
-ENV LANGUAGE=en_US:en
-ENV LC_ALL=en_US.UTF-8
-
-# octool -l Install Link Grammar release tarball
-ENV LAST_LG_UPDATE=2025-10-28
-RUN /tmp/octool -v -l default
 
 # TODO: Remove this user and replace with usage of `-u` flag during runtime.
 # Create and switch user. The user is privileged with no password required
