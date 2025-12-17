@@ -50,6 +50,18 @@ RUN /tmp/octool -rdv
 # Environment Variables
 ENV PATH=/usr/lib/ccache:$PATH
 
+## Set Locale -- Link Grammar expects this.
+RUN locale-gen en_US.UTF-8
+ENV LANG=en_US.UTF-8
+ENV LANGUAGE=en_US:en
+ENV LC_ALL=en_US.UTF-8
+
+# octool -l -- Install Link Grammar release tarball
+# This is required for circleci-testing of the atomspace.
+# The build of lg-atomese breaks without this.
+ENV LAST_LG_UPDATE=2025-10-28
+RUN /tmp/octool -v -l default
+
 # TODO: Remove this user and replace with usage of `-u` flag during runtime.
 # Create and switch user. The user is privileged with no password required
 RUN adduser --disabled-password --gecos "OpenCog Developer" opencog
