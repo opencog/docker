@@ -36,7 +36,7 @@ RUN python3 -m venv .venv
 RUN .venv/bin/pip install uv
 
 # Other misc stuff
-RUN .venv/bin/pip install requests
+RUN .venv/bin/pip install requests websockets
 
 # Model Context Protocol MCP python sdk
 # This SDK is not available on older OS'es, so just || true so that
