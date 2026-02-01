@@ -3,31 +3,51 @@ Base AtomSpace container
 
 The container here includes a copy of the core AtomSpace framework,
 including the AtomSpace, the CogServer, the RocksStorageNode and the
-CogStorageNode. It does *not* include nlp, unify, ure or pln.
+CogStorageNode. It does *not* include the nlp or learn subsystems.
 
-## Building
+# Building an Image
+The container can bebuilt by the script in the directory below:
+`../docker-build.sh -s`. Alternately, like this:
 
-The container is built by the script in the directory below:
-`../docker-build.sh -s`.
-
-## Testing
-Optional. To verify that the core AtomSpace is working:
-
-* Run the container with `./run.sh`. This will put you into a prompt
-  in the container.
-
-* Start `guile` at the bash prompt, and say
 ```
-(use-modules (opencog))
-(TriggerLink
-	(SetValueLink
-		(Concept "foobar") (Predicate "my key") (Number 2 3 4)))
+docker build --no-cache -t opencog/atomspace .
+```
+The build will take 5-20 minutes, depending on your connection.
+
+## Creating a Container
+After the image is built, a container needs to be defined.
+This can be done as follows:
+```
+docker create --name my-container \
+    -p 17001:17001 -p 18080:18080 -p 18081:18081 \
+    -v /ABSOLUTE/PATH/TO/YOUR/WORKING/DIRECTORY/On/Your/PC/:/opencog \
+    -w /opencog \
+    -it opencog/atomspace
 ```
 
-* The CogServer can be started also. To verify this, start either
-  byobu or tmux, and open a few terminal shells (F2 on byobu, or
-  `ctrl-b c` on tmux.) Then, in one of the panels, start guile
-  and say
+The port number mappings above expose the default `CogServerNode`
+port numbers from the container. Port 17001 is the telnet port,
+port 18080 is the web port, and port 18081 is an auxilliary port
+used by the `atomspace-viz` package to provide visualization services.
+
+The working-directory mapping is optional, but concenient.
+
+## Running a Container
+The container can be started with
+```
+docker start -i my-container
+```
+or more simpliy by the provided `./run.sh` script.  This will put you
+at a bash prompt in the container.
+
+Since one prompt is not really enough to do any serious work, start
+either `byobu` or `tmux`, and open a few terminal shells (F2 on `byobu`,
+or `ctrl-b c` on tmux.) The shell script `run-tmux.sh` is provided for
+your convenience; it will start five panels.
+
+The provided `start.scm` script will load multiple AtomSpace modules
+and start a CogServer at the default ports. Althernately, you can do
+this by hand.  In one of the panels, start `guile` and say
 ```
 (use-modules (opencog) (opencog cogserver))
 (TriggerLink
@@ -36,7 +56,7 @@ Optional. To verify that the core AtomSpace is working:
 (start-cogserver)
 ```
 Then toggle to another byobu/tmux panel (F3/F4 to move left/right
-in byobu, or `ctrl-b p`/`ctrl-b n` to move left/right in tmux)
+in `byobu`, or `ctrl-b p`/`ctrl-b n` to move left/right in `tmux`)
 ```
 rlwrap telnet localhost 17001
 scm

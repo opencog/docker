@@ -1,16 +1,21 @@
 #
 # Container with just the core AtomSpace framework installed.
-# This includes the cogserver, atomspce-rocks and atomspace-cog.
-# It does NOT include nlp, unify, ure, pln or opencog.
+# This includes the cogserver, atomspace-rocks and atomspace-cog.
+# It does NOT include nlp or learn.
+#
+# The port number mappings below expose the default CogServerNode
+# port numbers from the container. Port 17001 is the telnet port,
+# port 18080 is the web port, and port 18081 is an auxilliary port
+# used by the atomspace-viz package to provide visualization services.
 #
 # Steps:
 # 1. docker build --no-cache -t opencog/atomspace .
-# 2. docker create --name atomspace
+# 2. docker create --name my-container
 #       -p 17001:17001 -p 18080:18080 -p 18081:18081
 #       -v /ABSOLUTE/PATH/TO/YOUR/WORKING/DIRECTORY/On/Your/PC/:/opencog
 #       -w /opencog
 #       -it opencog/atomspace
-# 3. docker start -i atomspace
+# 3. docker start -i my-container
 #
 
 ARG OS_VERSION=latest
@@ -70,6 +75,7 @@ RUN guile -c "(use-modules (opencog) (opencog exec) (opencog cogserver) (opencog
 # it is considered to be "best practices" to announce this to the world.
 EXPOSE 17001
 EXPOSE 18080
+EXPOSE 18081
 EXPOSE 18888
 
 CMD /bin/bash
