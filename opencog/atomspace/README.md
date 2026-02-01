@@ -19,7 +19,9 @@ Optional. To verify that the core AtomSpace is working:
 * Start `guile` at the bash prompt, and say
 ```
 (use-modules (opencog))
-(Concept "foobar" (stv 0.5 0.8))
+(TriggerLink
+	(SetValueLink
+		(Concept "foobar") (Predicate "my key") (Number 2 3 4)))
 ```
 
 * The CogServer can be started also. To verify this, start either
@@ -28,15 +30,19 @@ Optional. To verify that the core AtomSpace is working:
   and say
 ```
 (use-modules (opencog) (opencog cogserver))
+(TriggerLink
+	(SetValueLink
+		(Concept "foobar") (Predicate "my key") (Number 2 3 4)))
 (start-cogserver)
-(Concept "foobar" (stv 0.5 0.8))
 ```
 Then toggle to another byobu/tmux panel (F3/F4 to move left/right
 in byobu, or `ctrl-b p`/`ctrl-b n` to move left/right in tmux)
 ```
 rlwrap telnet localhost 17001
 scm
-(cog-node 'ConceptNode "foobar")
+(TriggerLink
+	(ValueOfLink
+		(Concept "foobar") (Predicate "my key")))
 ```
-The above should display `(ConceptNode "foobar" (stv 0.5 0.8))`.
+The above should display `(Number 2 3 4)`.
 Of course!
