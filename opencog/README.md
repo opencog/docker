@@ -22,18 +22,17 @@ told about, then it is probably in the archive.
 2. Alternately, follow the
    [docker.com instructions](https://docs.docker.com/engine/installation/)
    for setting up docker. They will want you to create an account. But
-   this is not needed. If you do create an account, be sure to say
-   `sudo docker login` or
+   this is not needed. If you do create an account, your probably need
+   to say `sudo docker login`.
 
-3. (Caution: dockerhub images appear to be out-of-date, and its not
-   clear how to fix this. So please do NOT do this step.)
-   Pull opencog images from dockerhub by running `./docker-build.sh -a`
+3. Pull opencog images from dockerhub by running `./docker-build.sh -a`
+   These images are automatically rebuilt fairly regularly, and should
+   provide reasonably fresh, working code.
 
-4. The above pull should have downloaded the latest images. These
-   are rebuilt weekly, and thus should be up-to-date, more or less.
-   If not, and the absolute very latest is needed, then the docker
-   images can be rebuilt. Use `./docker-build.sh -h` to get a list
-   of available options.
+4. If the absolute latest is needed, then the docker images can be built
+   locally on your machine. The build takes from 20 minutes to an hour,
+   depending on your machine and network speeds.
+   Use `./docker-build.sh -h` to get a list of available options.
 
 ## Overview
 List the current set of docker images with the command `docker images`.
@@ -51,7 +50,7 @@ The most notable include:
 * `opencog/learn` -- An image containing the language-learning
   subproject.
 
-The above three images "don't actually do anything"; they just provide
+The above four images don't actually "do anything"; they just provide
 baseline software installs.
 
 Actual demos, which "do actual stuff", are listed below. These need to
@@ -76,8 +75,12 @@ relevant directory, and follow the instructions there.
 1. Both `tmux` and `byobu` are installed, so you can use either for
    multiple windows/panes.
 
-## TODO
-1. Add more images to github workflow for automated publishing
+## Maintainer Notes
+The docker images are built and published every Saturday night, using
+a github workflow. However, I think (not sure) that those images are
+cached, and thus will contain old code, if the datestamps in the
+Dockerfiles aren't bumped. Not sure just right now. The default is
+building against Ubuntu 24.04.
 
 ## Bonus
 There are some "bonus" containers, which might be useful:
