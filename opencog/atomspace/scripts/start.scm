@@ -1,21 +1,21 @@
-#! /usr/bin/env -S guile -l ./cogserver.scm --
+#! /usr/bin/env -S guile -l ./start.scm --
 !#
 ;
-; cogserver.scm
+; start.scm
 ;
-; Load assorted modules and start the cogserver. Start this by saying
-; `./cogserver.scm` at the shell prompt. It will start the cogserver,
-; and place you at a guile scheme prompt. The cogserver will stop when
-; you exit.
+; Load assorted AtomSpace modules and start the CogServerNode. Do this
+; by saying `./start.scm` at the shell prompt. It will start one
+; copy of a CogServerNode, and then place you at a guile scheme prompt.
+; The CogServer will stop when you exit.
 ;
-; This file is here as an example!  Edit this as you wish, and add
-; whatever modules or configuration that you want.
+; This is an example!  Edit this as you wish, and add whatever modules
+; configuration that you want.
 ;
 ; Configurable parameters are pulled from the shell environment.
 ;
 (use-modules (system repl common))
 (use-modules (opencog) (opencog logger))
-(use-modules (opencog persist))
+(use-modules (opencog persist) (opencog persist-rocks) (opencog persist-cog)
 (use-modules (opencog cogserver))
 (use-modules (srfi srfi-1))
 
