@@ -8,7 +8,7 @@ FROM ${BASE_IMAGE}
 # Install everything learn-related.
 RUN  /tmp/octool -z && ccache -C
 
-# Uncomment to instal GPU stuff
+# Uncomment to install GPU stuff
 # RUN  /tmp/octool -u && ccache -C
 
 # uncomment to install vision stuff
@@ -25,6 +25,8 @@ COPY /scripts/ /home/opencog
 RUN sudo chown -R opencog:opencog setup-for-experiments.sh && \
 	chmod ugo+x setup-for-experiments.sh
 
-CMD /bin/bash
+# Run tini as PID1 and bash as PID2. tini will manage signals, etc.
+ENTRYPOINT ["/usr/bin/tini", "--"]
+CMD ["/bin/bash"]
 
 ONBUILD USER root

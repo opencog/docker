@@ -20,25 +20,29 @@ This can be done as follows:
 ```
 docker create --name my-container \
     -p 17001:17001 -p 18080:18080 -p 18081:18081 \
-    -v /ABSOLUTE/PATH/TO/YOUR/WORKING/DIRECTORY/On/Your/PC/:/opencog \
-    -w /opencog \
-    -it opencog/atomspace
+    -v /PATH/TO/YOUR/WORKING/DIRECTORY/On/Your/PC/:/my-workdir \
+    -w /my-workdir \
+    -it opencog/atomspace:latest
 ```
 
 The port number mappings above expose the default `CogServerNode`
 port numbers from the container. Port 17001 is the telnet port,
-port 18080 is the web port, and port 18081 is an auxilliary port
+port 18080 is the web port, and port 18081 is an auxiliary port
 used by the `atomspace-viz` package to provide visualization services.
 
-The working-directory mapping is optional, but concenient.
+The (optional) `-v` flag mounts an external working directory into
+the container. The `-w` flag sets it as the default home directory.
+
+Replacing `:latest` with some other tag (e.g. `debian-trixie` or
+`ubuntu-20.04`) will create a container for the corresponding image.
 
 ## Running a Container
 The container can be started with
 ```
 docker start -i my-container
 ```
-or more simpliy by the provided `./run.sh` script.  This will put you
-at a bash prompt in the container.
+or by the provided `./run.sh` script.  This will put you at a bash
+prompt in the container.
 
 Since one prompt is not really enough to do any serious work, start
 either `byobu` or `tmux`, and open a few terminal shells (F2 on `byobu`,

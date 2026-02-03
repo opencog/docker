@@ -29,7 +29,7 @@ RUN echo 'export PATH=~/.npm-global/bin:$PATH' >> ~/.bashrc
 ENV PATH=~/.npm-global/bin:$PATH
 
 # Create python gaol located at a popular location
-# Activate manually wih `source ~/.venv/bin/activate`
+# Activate manually with `source ~/.venv/bin/activate`
 RUN python3 -m venv .venv
 
 # Use uv as a replacement for pipx, poetry, pyenv, virtualenv, twine.
@@ -47,6 +47,8 @@ RUN .venv/bin/pip install mcp || true
 # Opencog installed itself here; we want it available in the venv.
 ENV PYTHONPATH=/usr/local/lib/python3.12/dist-packages:$PYTHONPATH
 
-CMD /bin/bash
+# Run tini as PID1 for proper reaping of zombies and signal handling.
+ENTRYPOINT ["/usr/bin/tini", "--"]
+CMD ["/bin/bash"]
 
 ONBUILD USER root

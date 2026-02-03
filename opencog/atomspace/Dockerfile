@@ -5,16 +5,22 @@
 #
 # The port number mappings below expose the default CogServerNode
 # port numbers from the container. Port 17001 is the telnet port,
-# port 18080 is the web port, and port 18081 is an auxilliary port
+# port 18080 is the web port, and port 18081 is an auxiliary port
 # used by the atomspace-viz package to provide visualization services.
+#
+# The (optional) -v flag mounts an external working directory into
+# the container. The -w flag sets it as the default home directory.
+#
+# Replacing :latest with some other tag (e.g. debian-trixie or
+# ubuntu-20.04) will create a container for the corresponding image.
 #
 # Steps:
 # 1. docker build --no-cache -t opencog/atomspace .
 # 2. docker create --name my-container
 #       -p 17001:17001 -p 18080:18080 -p 18081:18081
-#       -v /ABSOLUTE/PATH/TO/YOUR/WORKING/DIRECTORY/On/Your/PC/:/opencog
-#       -w /opencog
-#       -it opencog/atomspace
+#       -v /PATH/TO/YOUR/WORKING/DIRECTORY/On/Your/PC/:/my-workdir
+#       -w /my-workdir
+#       -it opencog/atomspace:latest
 # 3. docker start -i my-container
 #
 
@@ -66,7 +72,7 @@ RUN sudo chown -R opencog:opencog .[a-z]*
 # is older than that on
 #    /usr/local/share/guile/site/3.0/opencog.scm
 # So hack around this by forcing a compile.
-RUN guile -c "(use-modules (opencog) (opencog exec) (opencog cogserver) (opencog persist) (opencog persist-cog) (opencog persist-rocks))"
+RUN guile -c "(use-modules (opencog) (opencog persist) (opencog persist-cog) (opencog persist-rocks) (opencog cogserver) (opencog sensory))"
 
 # RUN guile -c "(use-modules (opencog persist-pgres))"
 
@@ -78,6 +84,10 @@ EXPOSE 18080
 EXPOSE 18081
 EXPOSE 18888
 
-CMD /bin/bash
+# Running tini as PID1 allows proper handling of signals (e.g. during
+# container shutdown), avoids zombie procs, and allows multiple
+# services. (e.g. cogserver could be started as a service...)
+ENTRYPOINT ["/usr/bin/tini", "--"]
+CMD ["/bin/bash"]
 
 ONBUILD USER root

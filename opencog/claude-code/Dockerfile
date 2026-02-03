@@ -13,11 +13,14 @@ USER opencog
 WORKDIR /home/opencog
 
 # Install Anthropic Claude Code
-RUN npm install -g @anthropic-ai/claude-code
+# RUN npm install -g @anthropic-ai/claude-code
+RUN curl -fsSL https://claude.ai/install.sh | bash
 
 # The OAuth token needs to be refreshed from time to time.
 RUN curl -O https://raw.githubusercontent.com/RavenStorm-bit/claude-token-refresh/main/claude_token_refresh.py && chmod +x claude_token_refresh.py
 
-CMD /bin/bash
+# Run tini as PID1 and bash as PID2. tini will manage signals, etc.
+ENTRYPOINT ["/usr/bin/tini", "--"]
+CMD ["/bin/bash"]
 
 ONBUILD USER root

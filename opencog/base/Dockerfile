@@ -28,6 +28,11 @@ RUN apt-get -y --ignore-missing install software-properties-common || true
 # ocpkg, so we do it here.
 RUN apt-get -y install openssh-client
 
+# Install tiny init and a supervisor daemon; this idea here is to
+# allow an lxc-like environment for devel, wihtouth using systemd.
+RUN apt-get -y install tini supervisor
+# COPY supervisord.conf /etc/supervisord/conf.d
+
 # Install ocpkg. Bump the date to get the latest ocpkg installed;
 # Otherwise, this docker build will be cached with an old octool.
 # And with the old versions of those packages that octool installs.
