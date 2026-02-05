@@ -20,6 +20,16 @@ COPY --from=ollama /usr/lib/ollama /usr/lib/ollama
 # Set library path for GPU backends
 ENV LD_LIBRARY_PATH=/usr/lib/ollama:$LD_LIBRARY_PATH
 
+# Do everything else as the opencog user.
+USER opencog
+WORKDIR /home/opencog
+
+# Pull model. We're gonna try qwen3 to start.
+RUN ollama serve & \
+    until ollama list > /dev/null 2>&1; do sleep 1; done && \
+    ollama pull qwen3:8b && \
+    kill %1
+
 EXPOSE 11434
 
 # Run tini as PID1 and bash as PID2. tini will manage signals, etc.
