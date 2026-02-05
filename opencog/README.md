@@ -89,5 +89,5 @@ building against Ubuntu 24.04.
 There are some "bonus" containers, which might be useful:
 * `claude-code` -- Image with AtomSpace plus Anthropic's Claude Code.
 * `ollama` -- Image with AtomSpace plus Ollama
-  (Caution: this image will be 11.6 GB in size; this is the sum of
-  the atomspace (1.4 GB), llama (5GB) and qwen3.8b (5GB).
+  (Caution: this image will be 11.8 GB in size; this is the sum of
+  the atomspace (1.4 GB), llama (5GB) and qwen3.8b (5.2GB).

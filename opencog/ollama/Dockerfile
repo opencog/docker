@@ -3,7 +3,7 @@
 #
 # Usage:
 # 1. docker build -t opencog/ollama .
-# 2. docker create --name aol --hostname aol -it opencog/ollama
+# 2. docker create --name aol --hostname aol --gpus all -it opencog/ollama
 # 3. docker start -i aol
 #
 ARG OS_VERSION=latest
