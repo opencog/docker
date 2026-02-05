@@ -26,9 +26,10 @@ WORKDIR /home/opencog
 
 # Pull model. We're gonna try qwen3 to start.
 RUN ollama serve & \
+    PID=$! && \
     until ollama list > /dev/null 2>&1; do sleep 1; done && \
-    ollama pull qwen3:8b && \
-    kill %1
+    ollama pull qwen3:8b ; \
+    kill $PID 2>/dev/null; true
 
 EXPOSE 11434
 
