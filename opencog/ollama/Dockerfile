@@ -14,11 +14,8 @@ FROM ollama/ollama:latest AS ollama
 FROM ${BASE_IMAGE}
 
 # Copy ollama binary and libs
-COPY --from=ollama /bin/ollama /usr/local/bin/ollama
+COPY --from=ollama /bin/ollama /usr/bin/ollama
 COPY --from=ollama /usr/lib/ollama /usr/lib/ollama
-
-# Set library path for GPU backends
-ENV LD_LIBRARY_PATH=/usr/lib/ollama:$LD_LIBRARY_PATH
 
 # Do everything else as the opencog user.
 USER opencog
