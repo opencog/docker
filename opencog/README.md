@@ -64,7 +64,7 @@ relevant directory, and follow the instructions there.
 * `docker images`
 * `docker rmi <image-hex>`
 * `docker ps -a`
-* `docker create --name foo -it opencog/atomspace`
+* `docker create --name foo --hostname bar -it opencog/atomspace`
 * `docker start -i <container-name>`
 * `docker stop <container-name>`
 * `docker rm <container-name>`
@@ -84,4 +84,4 @@ building against Ubuntu 24.04.
 
 ## Bonus
 There are some "bonus" containers, which might be useful:
-* `claude-code` -- Container with Anthropic's Claude Code installed.
+* `claude-code` -- Image with AtomSpace plus Anthropic's Claude Code.

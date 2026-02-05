@@ -3,10 +3,12 @@
 #
 # Usage:
 # 1. docker build -t opencog/claude-code .
-# 2. docker create --name aclaw  -it opencog/claude-code
+# 2. docker create --name aclaw --hostname aclaw -it opencog/claude-code
 # 3. docker start -i aclaw
 #
-FROM opencog/atomspace-py:latest
+ARG OS_VERSION=latest
+ARG BASE_IMAGE=opencog/atomspace-py:${OS_VERSION}
+FROM ${BASE_IMAGE}
 
 # Everything else happens as the user.
 USER opencog
