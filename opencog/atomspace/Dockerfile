@@ -16,7 +16,7 @@
 #
 # Steps:
 # 1. docker build --no-cache -t opencog/atomspace .
-# 2. docker create --name my-container
+# 2. docker create --name my-container --hostname myhost
 #       -p 17001:17001 -p 18080:18080 -p 18081:18081
 #       -v /PATH/TO/YOUR/WORKING/DIRECTORY/On/Your/PC/:/my-workdir
 #       -w /my-workdir

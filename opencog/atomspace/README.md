@@ -18,7 +18,7 @@ The build will take 5-20 minutes, depending on your connection.
 After the image is built, a container needs to be defined.
 This can be done as follows:
 ```
-docker create --name my-container \
+docker create --name my-container --hostname myhost \
     -p 17001:17001 -p 18080:18080 -p 18081:18081 \
     -v /PATH/TO/YOUR/WORKING/DIRECTORY/On/Your/PC/:/my-workdir \
     -w /my-workdir \
