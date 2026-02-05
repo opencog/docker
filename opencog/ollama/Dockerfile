@@ -2,14 +2,15 @@
 # Container with AtomSpace plus Ollama
 #
 # Usage:
-# 1. docker build -t opencog/ollama
+# 1. docker build -t opencog/ollama .
 # 2. docker create --name aol --hostname aol -it opencog/ollama
 # 3. docker start -i aol
 #
+ARG OS_VERSION=latest
+ARG BASE_IMAGE=opencog/atomspace:${OS_VERSION}
+
 FROM ollama/ollama:latest AS ollama
 
-ARG OS_VERSION=latest
-ARG BASE_IMAGE=opencog/atomspace-py:${OS_VERSION}
 FROM ${BASE_IMAGE}
 
 # Copy ollama binary and libs

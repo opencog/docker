@@ -14,10 +14,11 @@ directory. If someone sent you here, and you can't find what you were
 told about, then it is probably in the archive.
 
 ## Docker setup
-1. Install docker. On Debian/Ubuntu, `apt install docker.io`. Be sure to
-   ad your userid to the `/etc/group` file, like so:
-   `sudo usermod -aG docker $USER`. Log out and log back in, so that
-   this new membership can become active.
+1. Install docker. On Debian/Ubuntu, `apt install docker.io`.
+   Be sure to add your userid to the `/etc/group` file, like so:
+   `sudo usermod -aG docker $USER`. Log out and log back in, so
+   that this new membership can become active. You can also say
+   `newgrp docker` at an existing shell prompt..
 
 2. Alternately, follow the
    [docker.com instructions](https://docs.docker.com/engine/installation/)
@@ -27,7 +28,9 @@ told about, then it is probably in the archive.
 
 3. Pull opencog images from dockerhub by running `./docker-build.sh -a`
    These images are automatically rebuilt fairly regularly, and should
-   provide reasonably fresh, working code.
+   provide reasonably fresh, working code. The pull should take no more
+   than a few minutes. The image sizes range from 1.13GB for the
+   `opencog/opencog-deps` image to 1.42GB for the `opencog/learn` image.
 
 4. If the absolute latest is needed, then the docker images can be built
    locally on your machine. The build takes from 20 minutes to an hour,
@@ -86,3 +89,4 @@ building against Ubuntu 24.04.
 There are some "bonus" containers, which might be useful:
 * `claude-code` -- Image with AtomSpace plus Anthropic's Claude Code.
 * `ollama` -- Image with AtomSpace plus Ollama
+  (Caution: this image will be 6.6 GB in size.)
