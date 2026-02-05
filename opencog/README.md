@@ -85,3 +85,4 @@ building against Ubuntu 24.04.
 ## Bonus
 There are some "bonus" containers, which might be useful:
 * `claude-code` -- Image with AtomSpace plus Anthropic's Claude Code.
+* `ollama` -- Image with AtomSpace plus Ollama
