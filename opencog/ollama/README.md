@@ -9,6 +9,8 @@ Run
 docker start -i aol
 ./run-tmux.sh
 ollama sevre &
+ollama list
+ollama run qwen3:8b
 ```
 
 Docker wont start
