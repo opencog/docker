@@ -3,7 +3,10 @@
 #
 # Usage:
 # 1. docker build -t opencog/ollama .
-# 2. docker create --name aol --hostname aol --gpus all -it opencog/ollama
+# 2. docker create --name aol --hostname aol --gpus all \
+#        -p 18082:18082 -p 18083:18083 \
+#        -v /home/linas/foobar:/home/opencog/foobar \
+#        -it opencog/ollama
 # 3. docker start -i aol
 #
 ARG OS_VERSION=latest
@@ -21,6 +24,8 @@ COPY --from=ollama /usr/lib/ollama /usr/lib/ollama
 USER opencog
 WORKDIR /home/opencog
 
+COPY /scripts/ /home/opencog
+
 # Pull model. We're gonna try qwen3 to start.
 RUN ollama serve & \
     PID=$! && \
@@ -29,6 +34,8 @@ RUN ollama serve & \
     kill $PID 2>/dev/null; true
 
 EXPOSE 11434
+EXPOSE 18082
+EXPOSE 18083
 
 # Run tini as PID1 and bash as PID2. tini will manage signals, etc.
 ENTRYPOINT ["/usr/bin/tini", "--"]
