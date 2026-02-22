@@ -3,8 +3,13 @@
 #
 # Usage:
 # 1. docker build -t opencog/claude-code .
-# 2. docker create --name aclaw --hostname aclaw -it opencog/claude-code
+# 2. docker create --name aclaw --hostname aclaw
+#       -p 17001:17001 -p 18080:18080 -p 18081:18081
+#       -v /home/linas/src-aclaw/:/home/opencog/src
+#       -w /home/opencog/
+#       -it opencog/claude-code
 # 3. docker start -i aclaw
+
 #
 ARG OS_VERSION=latest
 # We don't actually need the python stuff, and python is heavyweight.
