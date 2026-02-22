@@ -7,7 +7,9 @@
 # 3. docker start -i aclaw
 #
 ARG OS_VERSION=latest
-ARG BASE_IMAGE=opencog/atomspace-py:${OS_VERSION}
+# We don't actually need the python stuff, and python is heavyweight.
+# ARG BASE_IMAGE=opencog/atomspace-py:${OS_VERSION}
+ARG BASE_IMAGE=opencog/atomspace:${OS_VERSION}
 FROM ${BASE_IMAGE}
 
 # Everything else happens as the user.
