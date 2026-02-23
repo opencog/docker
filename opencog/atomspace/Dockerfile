@@ -34,6 +34,7 @@ ENV LAST_APT_UPDATE=2025-08-08
 RUN apt-get -y update; apt-get -y upgrade; apt-get -y autoremove
 
 # Basic tools that allow this image to be minimally usable.
+#  * general utils (zstd)
 #  * Networking tools (ping, ifconfig, telnet, netcat, socat)
 #  * Terminal sharing tools (tmux, byobu)
 #  * Debug tools (gdb, strace, xxd, jq)
@@ -46,6 +47,7 @@ RUN apt-get -y --ignore-missing install \
 	lsof \
 	net-tools iputils-ping netcat-openbsd traceroute iptraf \
 	rlwrap telnet socat \
+	zstd \
 	tmux byobu \
 	gdb strace time xxd jq \
 	apache2 php \
