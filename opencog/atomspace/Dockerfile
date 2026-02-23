@@ -36,7 +36,7 @@ RUN apt-get -y update; apt-get -y upgrade; apt-get -y autoremove
 # Basic tools that allow this image to be minimally usable.
 #  * Networking tools (ping, ifconfig, telnet, netcat, socat)
 #  * Terminal sharing tools (tmux, byobu)
-#  * Debug tools (gdb, xxd, jq)
+#  * Debug tools (gdb, strace, xxd, jq)
 #  * Webserver (apache2, php)
 #
 # Oddly, the xxd package is sometimes missing; use --ignore-missing.
@@ -47,7 +47,7 @@ RUN apt-get -y --ignore-missing install \
 	net-tools iputils-ping netcat-openbsd traceroute iptraf \
 	rlwrap telnet socat \
 	tmux byobu \
-	gdb time xxd jq \
+	gdb strace time xxd jq \
 	apache2 php \
 	|| true
 
