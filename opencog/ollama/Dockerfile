@@ -26,11 +26,14 @@ WORKDIR /home/opencog
 
 COPY /scripts/ /home/opencog
 
-# Pull model. We're gonna try qwen3 to start.
+# Pull several models.
+#   The `qwen3:8b` model is large (8GB), sophisticated, and needs GPU's.
+#   The `nomic-embed-text` is small (300 MB), good for embeddings.
 RUN ollama serve & \
     PID=$! && \
     until ollama list > /dev/null 2>&1; do sleep 1; done && \
     ollama pull qwen3:8b ; \
+    ollama pull nomic-embed-text ; \
     kill $PID 2>/dev/null; true
 
 EXPOSE 11434
