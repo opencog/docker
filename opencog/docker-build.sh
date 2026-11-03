@@ -49,8 +49,9 @@ if [[ -z $BASE_OS ]]; then
     # Default to Ubuntu 24.04 LTS (Noble Numbat)
     # BASE_OS=ubuntu:20.04      # Focal Fossa
     # BASE_OS=ubuntu:22.04      # Jammy Jellyfish
-    BASE_OS=ubuntu:24.04      # Noble Numbat
+    # BASE_OS=ubuntu:24.04      # Noble Numbat
     # BASE_OS=ubuntu:25.10      # Questing Quokka
+    BASE_OS=ubuntu:26.04      # Resolute Raccoon
     # BASE_OS=debian:bookworm   # June 2023
     # BASE_OS=debian:trixie     # August 2025
 fi
@@ -95,6 +96,7 @@ usage() {
     ubuntu:22.04      # aka Jammy Jellyfish
     ubuntu:24.04      # aka Noble Numbat
     ubuntu:25.10      # aka Questing Quokka
+    ubuntu:26.04      # aka Resolute Raccoon
     debian:bookworm   # Released June 2023
     debian:trixie     # Released August 2025
     latest (or unspecified/blank) defaults to ${BASE_OS}
