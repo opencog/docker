@@ -5,8 +5,8 @@
 # 1. docker build --no-cache -t opencog/opencog-deps .
 # 2. docker run --rm -it opencog/opencog-deps
 
-# Default to Ubuntu 24.04 LTS (Noble Numbat)
-ARG BASE_OS=ubuntu:24.04
+# Default to Ubuntu 26.04 LTS (Resolute Raccoon)
+ARG BASE_OS=ubuntu:26.04
 FROM ${BASE_OS}
 
 ENV DEBIAN_FRONTEND=noninteractive

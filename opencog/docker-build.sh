@@ -46,7 +46,7 @@ shift "$(($OPTIND - 1))"
 
 BASE_OS=$1
 if [[ -z $BASE_OS ]]; then
-    # Default to Ubuntu 24.04 LTS (Noble Numbat)
+    # Default to Ubuntu 26.04 LTS (Resolute Raccoon)
     # BASE_OS=ubuntu:20.04      # Focal Fossa
     # BASE_OS=ubuntu:22.04      # Jammy Jellyfish
     # BASE_OS=ubuntu:24.04      # Noble Numbat
