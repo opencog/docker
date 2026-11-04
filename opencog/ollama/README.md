@@ -10,8 +10,20 @@ docker start -i aol
 ./run-tmux.sh
 ollama serve &
 ollama list
-ollama run qwen3:8b
+ollama run bonsai-2:27b
 ```
+
+Truncated output
+----------------
+The `bonsai-2:27b` model does a lot of thinking; this burns through the
+output token cap in ollama (which defaults to 128). Bump this up.
+Also increase the context window while we are at it. This model supports
+a 262K context window; ollama defaults to something tiny.
+```
+/set parameter num_predict 2048
+/set parameter num_ctx 16384
+```
+
 
 Docker wont start
 -----------------
