@@ -64,7 +64,7 @@ ENV LC_ALL=en_US.UTF-8
 # octool -l -- Install Link Grammar release tarball
 # This is required for circleci-testing of the atomspace.
 # The build of lg-atomese breaks without this.
-ENV LAST_LG_UPDATE=2026-11-03
+ENV LAST_LG_UPDATE=2026-11-04
 RUN /tmp/octool -v -l default
 
 # TODO: Remove this user and replace with usage of `-u` flag during runtime.

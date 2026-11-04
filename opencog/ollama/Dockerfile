@@ -26,13 +26,24 @@ WORKDIR /home/opencog
 
 COPY /scripts/ /home/opencog
 
-# Pull several models.
-#   The `qwen3:8b` model is large (8GB), sophisticated, and needs GPU's.
+# Adjust per your personal setup.
+# View GPU ram with `nvidia-smi`
+#
+# Pull several models. Numbers in paren are the capability scores.
+#
+#   The `ornith-1.5:397b` (62.47) is a 242GB download, 256K ctxt
+#   The `gemma4:31b` (54.39) is a 19GB download, 256K ctxt
+#   The `bonsai-2:27b` (53.95) is a 8.3GB download, 256K ctxt
+#   The `qwen3.6:27b` (48.13) is an 18GB download, 256K ctxt
+#   The `granite4.2:8b` (36.78) is a 5.3GB download, 128K ctxt
+#   The `gemma4:12b` (35.48) is a 7.7GB download, 256K ctxt
+#   The `ornith-1.5:9b` (34.04) is a 6.6GB download, 256K ctxt
 #   The `nomic-embed-text` is small (300 MB), good for embeddings.
+#
 RUN ollama serve & \
     PID=$! && \
     until ollama list > /dev/null 2>&1; do sleep 1; done && \
-    ollama pull qwen3:8b ; \
+    ollama pull bonsai-2:27b ; \
     ollama pull nomic-embed-text ; \
     kill $PID 2>/dev/null; true
 
