@@ -14,7 +14,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 # Bump this date, in order to force the apt-update to run again.
 # Otherwise, it will use the cached Docker container, which might
 # be stale or be missing security updates.
-ENV LAST_OS_UPDATE=2025-12-16
+ENV LAST_OS_UPDATE=2026-11-03
 RUN apt-get update && apt-get -y upgrade
 
 # Install apt utilities
@@ -64,7 +64,7 @@ ENV LC_ALL=en_US.UTF-8
 # octool -l -- Install Link Grammar release tarball
 # This is required for circleci-testing of the atomspace.
 # The build of lg-atomese breaks without this.
-ENV LAST_LG_UPDATE=2025-10-28
+ENV LAST_LG_UPDATE=2026-11-03
 RUN /tmp/octool -v -l default
 
 # TODO: Remove this user and replace with usage of `-u` flag during runtime.
