@@ -13,6 +13,15 @@ ollama list
 ollama run bonsai-2:27b
 ```
 
+For coding:
+```
+curl -fsSL https://opencode.ai/v2/install.sh | bash
+opencode --version
+```
+
+Common issues
+=============
+
 Truncated output
 ----------------
 The `bonsai-2:27b` model does a lot of thinking; this burns through the

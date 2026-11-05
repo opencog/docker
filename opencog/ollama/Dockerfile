@@ -45,19 +45,20 @@ COPY /scripts/ /home/opencog
 #   The `nomic-embed-text` is small (300 MB), good for embeddings.
 #
 # Coding:
-#   deepseek-coder:33b - not usable with only 16GB VRAM
+#   deepseek-coder:33b -- not usable with only 16GB VRAM
 #   deepseek-coder-v2:lite --  11GB VRAM, Mixture of experts
+#        BUT IT HAS NO TOOL CALLS!! and can't be used for coding!
 #   qwen2.5-coder:14b -- Q4_K_M about 9GB VRAM
 #   qwen2.5-coder:7b
 #   codellama:7b
-
+#
 #
 RUN ollama serve & \
     PID=$! && \
     until ollama list > /dev/null 2>&1; do sleep 1; done && \
     ollama pull nomic-embed-text ; \
     ollama pull bonsai-2:27b ; \
-    ollama pull deepseek-coder-v2:lite ; \
+    ollama pull qwen2.5-coder:14b ; \
     kill $PID 2>/dev/null; true
 
 EXPOSE 11434
