@@ -8,8 +8,12 @@
     "ollama": {
       "models": {
         "qwen2.5-coder:14b": {
+          "name": "Qwen 2.5 Coder 14B",
           "capabilities": {
             "tools": true
+          },
+          "options": {
+            "num_ctx": 65536
           }
         }
       }
