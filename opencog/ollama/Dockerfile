@@ -32,6 +32,7 @@ COPY /scripts/ /home/opencog
 #
 # Pull several models. Numbers in paren are the capability scores.
 #
+# General:
 #   The `ornith-1.5:397b` (62.47) is a 242GB download, 256K ctxt
 #   The `gemma4:31b` (54.39) is a 19GB download, 256K ctxt
 #   The `bonsai-2:27b` (53.95) is a 8.3GB download, 256K ctxt
@@ -39,13 +40,24 @@ COPY /scripts/ /home/opencog
 #   The `granite4.2:8b` (36.78) is a 5.3GB download, 128K ctxt
 #   The `gemma4:12b` (35.48) is a 7.7GB download, 256K ctxt
 #   The `ornith-1.5:9b` (34.04) is a 6.6GB download, 256K ctxt
+#
+# Embeddings:
 #   The `nomic-embed-text` is small (300 MB), good for embeddings.
+#
+# Coding:
+#   deepseek-coder:33b - not usable with only 16GB VRAM
+#   deepseek-coder-v2:lite --  11GB VRAM, Mixture of experts
+#   qwen2.5-coder:14b -- Q4_K_M about 9GB VRAM
+#   qwen2.5-coder:7b
+#   codellama:7b
+
 #
 RUN ollama serve & \
     PID=$! && \
     until ollama list > /dev/null 2>&1; do sleep 1; done && \
-    ollama pull bonsai-2:27b ; \
     ollama pull nomic-embed-text ; \
+    ollama pull bonsai-2:27b ; \
+    ollama pull deepseek-coder-v2:lite ; \
     kill $PID 2>/dev/null; true
 
 EXPOSE 11434
