@@ -5,6 +5,7 @@
 # 1. docker build -t opencog/ollama .
 # 2. docker create --name aol --hostname aol --gpus all \
 #        -p 18082:18082 -p 18083:18083 \
+#        -p 11434:11434 -e OLLAMA_HOST=0.0.0.0 \
 #        -v /home/linas/foobar:/home/opencog/foobar \
 #        -it opencog/ollama
 # 3. docker start -i aol
@@ -27,7 +28,7 @@ WORKDIR /home/opencog
 COPY /scripts/ /home/opencog
 
 # Adjust per your personal setup.
-# View GPU ram with `nvidia-smi`
+# View GPU ram with `nvidia-smi` or with `nvtop`
 #
 # Pull several models. Numbers in paren are the capability scores.
 #
