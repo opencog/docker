@@ -15,6 +15,12 @@ on:
     - cron: "37 2 * * 6"  # Run 2:37 AM Saturday night. `man 5 crontab`
   workflow_dispatch:
 
+# Permissions grants access to the private GITHUB_TOKEN
+# which is needed for publishing images to ghcr.io
+permissions:
+  contents: read
+  packages: write
+
 jobs:
 
   # The job is called "base-images".
@@ -36,14 +42,26 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
 
-      - name: Build and push opencog-deps to docker hub
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v4
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push opencog-deps
         uses: docker/build-push-action@v7
         with:
           context: opencog/base
-          tags: ${{ secrets.DOCKER_NAMESPACE }}/opencog-deps:latest
+          tags: |
+            ${{ secrets.DOCKER_NAMESPACE }}/opencog-deps:latest
+            ghcr.io/${{ github.repository_owner }}/yourimage:latest
+
+          labels: |
+            org.opencontainers.image.source=${{ github.server_url }}/${{ github.repository }}
           push: true
 
-  # Needs is the name of the job, above.
+  # "needs:" provides the name of the job, above.
   atomspace:
     needs: base-images
     runs-on: ubuntu-26.04
@@ -60,11 +78,22 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
 
-      - name: Build and push to docker hub
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v4
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push
         uses: docker/build-push-action@v7
         with:
           context: opencog/${{ github.job }}
-          tags: ${{ secrets.DOCKER_NAMESPACE }}/${{ github.job }}:latest
+          tags: |
+            ${{ secrets.DOCKER_NAMESPACE }}/${{ github.job }}:latest
+            ghcr.io/${{ github.repository_owner }}/${{ github.job }}:latest
+          labels: |
+            org.opencontainers.image.source=${{ github.server_url }}/${{ github.repository }}
           push: true
 
       - name: This is the droid you are looking for!
@@ -96,11 +125,22 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
 
-      - name: Build and push to docker hub
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v4
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push
         uses: docker/build-push-action@v7
         with:
           context: opencog/${{ github.job }}
-          tags: ${{ secrets.DOCKER_NAMESPACE }}/${{ github.job }}:latest
+          tags: |
+            ${{ secrets.DOCKER_NAMESPACE }}/${{ github.job }}:latest
+            ghcr.io/${{ github.repository_owner }}/${{ github.job }}:latest
+          labels: |
+            org.opencontainers.image.source=${{ github.server_url }}/${{ github.repository }}
           push: true
 
   learn:
@@ -119,11 +159,22 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
 
-      - name: Build and push to docker hub
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v4
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push
         uses: docker/build-push-action@v7
         with:
           context: opencog/${{ github.job }}
-          tags: ${{ secrets.DOCKER_NAMESPACE }}/${{ github.job }}:latest
+          tags: |
+            ${{ secrets.DOCKER_NAMESPACE }}/${{ github.job }}:latest
+            ghcr.io/${{ github.repository_owner }}/${{ github.job }}:latest
+          labels: |
+            org.opencontainers.image.source=${{ github.server_url }}/${{ github.repository }}
           push: true
 
 # TODO: Create dockerfile & publish an as-moses image.
