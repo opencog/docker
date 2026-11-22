@@ -174,15 +174,19 @@ check_atomspace() {
 # -----------------------------------------------------------------------------
 ## Pull all images needed for development
 # By default, these pull from hub.docker.com/u/opencog/
-# but that is obsolete as of April 2027.
-# So pull from github instead (ghcr.io)
+# But we can also pull from github instead (ghcr.io)
 pull_dev_images() {
     echo "---- Starting pull of opencog development images ----"
     OS_VERSION=latest
-    docker pull ghcr.io/${DOCKER_NAME}/opencog-deps:${OS_VERSION}
-    docker pull ghcr.io/${DOCKER_NAME}/atomspace:${OS_VERSION}
-    docker pull ghcr.io/${DOCKER_NAME}/atomspace-py:${OS_VERSION}
-    docker pull chcr.io/${DOCKER_NAME}/learn:${OS_VERSION}
+    docker pull ${DOCKER_NAME}/opencog-deps:${OS_VERSION}
+    docker pull ${DOCKER_NAME}/atomspace:${OS_VERSION}
+    docker pull ${DOCKER_NAME}/atomspace-py:${OS_VERSION}
+    docker pull ${DOCKER_NAME}/learn:${OS_VERSION}
+
+    # docker pull ghcr.io/${DOCKER_NAME}/opencog-deps:${OS_VERSION}
+    # docker pull ghcr.io/${DOCKER_NAME}/atomspace:${OS_VERSION}
+    # docker pull ghcr.io/${DOCKER_NAME}/atomspace-py:${OS_VERSION}
+    # docker pull ghcr.io/${DOCKER_NAME}/learn:${OS_VERSION}
     echo "---- Finished pull of opencog development images ----"
 }
 
