@@ -1,12 +1,19 @@
 {
   "$schema": "https://opencode.ai/config.json",
   // Lets try qwen by default...
-  "model": "ollama/qwen2.5-coder:14b",
+  // "model": "ollama/qwen2.5-coder:14b",
+  "model": "ollama/gpt-oss:20b",
 
   // Tell opencode that tools are supported.
   "providers": {
     "ollama": {
       "models": {
+        "gpt-oss:20b": {
+          "name": "GPT OSS 20B",
+          "options": {
+            "num_ctx": 32768
+          }
+        },
         "qwen2.5-coder:14b": {
           "name": "Qwen 2.5 Coder 14B",
           "capabilities": {

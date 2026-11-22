@@ -45,11 +45,15 @@ COPY /scripts/ /home/opencog
 #   The `nomic-embed-text` is small (300 MB), good for embeddings.
 #
 # Coding:
+#   gpt-oss:20b -- has a 128K ctxt window
+#   qwen3-coder:30b -- Won't fit into 16GB RAM
+#
 #   deepseek-coder:33b -- not usable with only 16GB VRAM
 #   deepseek-coder-v2:lite --  11GB VRAM, Mixture of experts
 #        BUT IT HAS NO TOOL CALLS!! and can't be used for coding!
 #   qwen2.5-coder:14b -- Q4_K_M about 9GB VRAM
 #   qwen2.5-coder:7b
+#        BUT neither works well with OpenCode. Try an agent-capable model...
 #   codellama:7b
 #
 #
@@ -61,6 +65,10 @@ RUN ollama serve & \
     ollama pull qwen2.5-coder:14b ; \
     kill $PID 2>/dev/null; true
 
+# Set a reasonable default context window
+ENV OLLAMA_CONTEXT_LENGTH=32768
+
+# Expose the ollama port at 11434 and two cogserver ports.
 EXPOSE 11434
 EXPOSE 18082
 EXPOSE 18083
