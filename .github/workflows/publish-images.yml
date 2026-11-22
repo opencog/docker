@@ -49,6 +49,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      # Do NOT push builds from unmerged pull reqs!!
       - name: Build and push opencog-deps
         uses: docker/build-push-action@v7
         with:
@@ -59,7 +60,7 @@ jobs:
 
           labels: |
             org.opencontainers.image.source=${{ github.server_url }}/${{ github.repository }}
-          push: true
+          push: ${{ github.event_name != 'pull_request' }}
 
   # "needs:" provides the name of the job, above.
   atomspace:
@@ -85,6 +86,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      # Do NOT push builds from unmerged pull reqs!!
       - name: Build and push
         uses: docker/build-push-action@v7
         with:
@@ -94,7 +96,7 @@ jobs:
             ghcr.io/${{ github.repository_owner }}/${{ github.job }}:latest
           labels: |
             org.opencontainers.image.source=${{ github.server_url }}/${{ github.repository }}
-          push: true
+          push: ${{ github.event_name != 'pull_request' }}
 
       - name: This is the droid you are looking for!
         if: always()
@@ -132,6 +134,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      # Do NOT push builds from unmerged pull reqs!!
       - name: Build and push
         uses: docker/build-push-action@v7
         with:
@@ -141,7 +144,7 @@ jobs:
             ghcr.io/${{ github.repository_owner }}/${{ github.job }}:latest
           labels: |
             org.opencontainers.image.source=${{ github.server_url }}/${{ github.repository }}
-          push: true
+          push: ${{ github.event_name != 'pull_request' }}
 
   learn:
     needs: atomspace
@@ -166,6 +169,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      # Do NOT push builds from unmerged pull reqs!!
       - name: Build and push
         uses: docker/build-push-action@v7
         with:
@@ -175,7 +179,7 @@ jobs:
             ghcr.io/${{ github.repository_owner }}/${{ github.job }}:latest
           labels: |
             org.opencontainers.image.source=${{ github.server_url }}/${{ github.repository }}
-          push: true
+          push: ${{ github.event_name != 'pull_request' }}
 
 # TODO: Create dockerfile & publish an as-moses image.
 #  as-moses:
