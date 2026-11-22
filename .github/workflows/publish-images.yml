@@ -22,7 +22,7 @@ jobs:
   #     -- this is the "context"
   # The name of the docker image is opencog/opencog-deps:latest
   base-images:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     steps:
       - name: Checkout current repo
         uses: actions/checkout@v6
@@ -46,7 +46,7 @@ jobs:
   # Needs is the name of the job, above.
   atomspace:
     needs: base-images
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     steps:
       - name: Checkout current repo
         uses: actions/checkout@v6
@@ -82,7 +82,7 @@ jobs:
 
   atomspace-py:
     needs: atomspace
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     steps:
       - name: Checkout current repo
         uses: actions/checkout@v6
@@ -105,7 +105,7 @@ jobs:
 
   learn:
     needs: atomspace
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     steps:
       - name: Checkout current repo
         uses: actions/checkout@v6
@@ -129,7 +129,7 @@ jobs:
 # TODO: Create dockerfile & publish an as-moses image.
 #  as-moses:
 #    needs: atomspace
-#    runs-on: ubuntu-24.04
+#    runs-on: ubuntu-26.04
 #    steps:
 #      - name: Checkout current repo
 #        uses: actions/checkout@v6
