@@ -58,8 +58,8 @@ fi
 BASE_OS=${BASE_OS//-/:}         # Convert dashes to colons
 OS_VERSION=${BASE_OS//:/-}      # Convert colons to dashes
 
-if [[ -z $1 ]]; then            # If net specified, its "latest"
-    OS_VERSION=latest           # For dockerhub.io downloads
+if [[ -z $1 ]]; then            # If not specified, its "latest"
+    OS_VERSION=latest           # Use "latest: for ghcr.io downloads
 fi
 
 DOCKER_NAME=$2
@@ -172,13 +172,17 @@ check_atomspace() {
 }
 
 # -----------------------------------------------------------------------------
-## Pull all images needed for development from hub.docker.com/u/opencog/
+## Pull all images needed for development
+# By default, these pull from hub.docker.com/u/opencog/
+# but that is obsolete as of April 2027.
+# So pull from github instead (ghcr.io)
 pull_dev_images() {
     echo "---- Starting pull of opencog development images ----"
-    docker pull ${DOCKER_NAME}/opencog-deps
-    docker pull ${DOCKER_NAME}/atomspace
-    docker pull ${DOCKER_NAME}/atomspace-py
-    docker pull ${DOCKER_NAME}/learn
+    OS_VERSION=latest
+    docker pull ghcr.io/${DOCKER_NAME}/opencog-deps:${OS_VERSION}
+    docker pull ghcr.io/${DOCKER_NAME}/atomspace:${OS_VERSION}
+    docker pull ghcr.io/${DOCKER_NAME}/atomspace-py:${OS_VERSION}
+    docker pull chcr.io/${DOCKER_NAME}/learn:${OS_VERSION}
     echo "---- Finished pull of opencog development images ----"
 }
 
